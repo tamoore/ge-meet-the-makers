@@ -22,6 +22,7 @@ Installation
 
 		sudo npm install gulp -g
 6. Follow these steaps to complete installation
+		
 		npm install
 		
 		bower install
