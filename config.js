@@ -20,7 +20,7 @@ System.config({
     "backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
     "backbone.wreqr": "github:marionettejs/backbone.wreqr@1.3.2",
     "components/handlebars.js": "github:components/handlebars.js@3.0.2",
-    "core-js": "npm:core-js@0.9.3",
+    "core-js": "npm:core-js@0.8.4",
     "handlebars": "github:components/handlebars.js@3.0.2",
     "jquery": "github:components/jquery@2.1.3",
     "marionette": "github:marionettejs/backbone.marionette@2.4.1",
