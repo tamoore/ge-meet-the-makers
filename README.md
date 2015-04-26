@@ -32,7 +32,7 @@ If all the above completes successfully - YAY! and you should be able to fire up
 
 Development Process
 ----
-1. Create a new branch per feature / task / improvement etc.
+1. Create a new branch per feature / task / improvement etc off **develop branch**.
 2. When you are ready for the work / code to be reviewed please push the branch to stash and create a pull request on **develop branch**
 3. Once the pull request has been accept the development branch will update automatically and the outcome will be available [here](http://labs.theguardian.com/meet-the-makers/development/build/)
 
