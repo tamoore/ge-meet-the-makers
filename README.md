@@ -21,13 +21,13 @@ Installation
 5. Requires gulp installed globally
 
 		sudo npm install gulp -g
-6. 		
+6. Follow these steaps to complete installation
 		npm install
-7. 		
+		
 		bower install
-8. 		
+		
 		jspm dl-loader --babel
-9. 		
+		
 		jspm install
 
 If all the above completes successfully - YAY! and you should be able to fire up the development server
