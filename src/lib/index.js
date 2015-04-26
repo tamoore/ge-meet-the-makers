@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 class Application {
 	constructor(){
-		console.log('ready');
+		console.log('ready test');
 	}
 }
 
