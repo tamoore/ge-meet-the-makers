@@ -21,10 +21,14 @@ Installation
 5. Requires gulp installed globally
 
 		sudo npm install gulp -g
-6. 		npm install
-7. 		bower install
-8. 		jspm dl-loader --babel
-9. 		jspm install
+6. 		
+		npm install
+7. 		
+		bower install
+8. 		
+		jspm dl-loader --babel
+9. 		
+		jspm install
 
 If all the above completes successfully - YAY! and you should be able to fire up the development server
 		
@@ -39,7 +43,6 @@ Development Process
 
 Bamboo 
 ---
-
 1. Bamboo build configuration is [here](http://bamboo.labs.theguardian.com:8085/browse/MM)
 
 
