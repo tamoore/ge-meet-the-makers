@@ -24,8 +24,8 @@ function localTime() {
 	var handMinute = document.getElementById('handMinute');
 	
 	// Subtract 90 degrees to account for the start position
-	var rotateHour = ( parseInt(hours) * 30 ) - 90;
 	var rotateMinute = ( parseInt(minutes) * 6 ) - 90;
+	var rotateHour = ( parseInt(hours) * 30 ) + ( parseInt(minutes) / 2 ) - 90;
 
 	handHour.style.webkitTransform = 'rotate('+rotateHour+'deg)';
 	handHour.style.mozTransform    = 'rotate('+rotateHour+'deg)';
@@ -40,12 +40,11 @@ function localTime() {
 	handMinute.style.transform       = 'rotate('+rotateMinute+'deg)';
 
 	// Format minutes with leading zero
-	if ( minutes < 10 ) {
-		minutes = "0" + minutes;
-	}
+	var formatHour = ( hours < 10 ) ? "0" + hours : hours;
+	var formatMinute = ( minutes < 10 ) ? "0" + minutes : minutes;
 
 	// Set clock local time
-	var time = hours + ":" + minutes;
+	var time = formatHour + ":" + formatMinute;
 	clock.innerHTML = time;
 }
 
