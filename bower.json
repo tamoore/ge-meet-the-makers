@@ -1,21 +1,21 @@
 {
-	"name": "ge-meet-the-makers",
-	"version": "0.1.2",
-	"homepage": "https://github.com/toddmoore/interactive-anzac-day",
-	"authors": [
-		"Todd Moore <todd.moore@guardian.co.uk>"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	],
-	"dependencies": {
-	  	"bourbon": "latest",
-	  	"neat": "latest",
-	  	"sass-mq": "latest"
-	}
+  "name": "ge-meet-the-makers",
+  "version": "0.1.2",
+  "homepage": "https://github.com/toddmoore/interactive-anzac-day",
+  "authors": [
+    "Todd Moore <todd.moore@guardian.co.uk>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bourbon": "*",
+    "neat": "latest",
+    "sass-mq": "latest"
+  }
 }
