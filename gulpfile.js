@@ -23,8 +23,7 @@ gulp.task('build', ['styles'], function() {
 		.pipe(shell([
 			'jspm bundle-sfx --minify src/lib/index',
 			'mv ./build.js ./build/ && mv ./build.js.map ./build/',
-			'cp -rf ./src/css ./build && cp -rf ./src/images ./build/images/',
-			'cp -f ./src/boot.js ./build'
+			'cp -rf ./src/css ./build && cp -rf ./src/images ./build/images/'
 		]));
 
 	gulp.src('./src/index.html')

@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" class="svg">
 	<head>
-		<meta charset="utf-8"/>
+		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- build:css -->
-		<link rel="stylesheet" href="css/main.css"/>
+		<link rel="stylesheet" href="css/main.css">
 		<!-- endbuild -->
 		<title>ge-meet-the-makers</title>
 	</head>
 	<body>
 		
+		<header>
+			<h1>Meet The Makers</h1>
+			<nav class="filter">
+				<ol>
+					<li>
+						<button>Space</button>
+					</li>
+					<li>
+						<button>Industry</button>
+					</li>
+					<li>
+						<button>Fuel</button>
+					</li>
+					<li>
+						<button>Energy</button>
+					</li>
+					<li>
+						<button>Transportation</button>
+					</li>
+					<li>
+						<button>Medical</button>
+					</li>
+					<li>
+						<a href="#">Index</a>
+					</li>
+				</ol>
+			</nav>
+		</header>
+
+		<section>
+			<div class="maker-title"><strong>Navigator</strong> <em class="maker-name">Mark Wilson</em></div>
+			<div class="chrono">
+				<div class="chrono-clock">
+					<span class="chrono-clock--hand-hour" id="handHour"></span>
+					<span class="chrono-clock--hand-minute" id="handMinute"></span>
+				</div>
+				<div class="chrono-time" id="localTime"></div>
+			</div>
+			<div class="maker-location"></div>
+		</section>
+
+		<footer>
+			<h2>Brought to you by <span>GE: Innovation Never Sleeps - Meet The Makers</span></h2>
+			<nav class="controls">
+				<ul>
+					<li><a href="#">About this content</a></li>
+					<li><button>Audio</button></li>
+					<li><a href="#" class="icon-facebook">Facebook</a></li>
+					<li><a href="#" class="icon-twitter">Twitter</a></li>
+					<li><a href="#" class="icon-linkedin">LinkedIn</a></li>
+				</ul>
+			</nav>
+			<h3>The Guardian</h3>
+		</footer>
 
 		<!-- build:js -->
 		<script charset="utf-8" src="jspm_packages/system.js"></script>
