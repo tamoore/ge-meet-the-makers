@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="svg">
 	<head>
-		<meta charset="utf-8"/>
+		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- build:css -->
-		<link rel="stylesheet" href="css/main.css"/>
+		<link rel="stylesheet" href="css/main.css">
 		<!-- endbuild -->
 		<title>ge-meet-the-makers</title>
 	</head>
@@ -42,14 +42,17 @@
 		<section>
 			<div class="maker-title"><strong>Navigator</strong> <em class="maker-name">Mark Wilson</em></div>
 			<div class="chrono">
-				<div class="chrono-clock"></div>
-				<div class="chrono-time"></div>
+				<div class="chrono-clock">
+					<span class="chrono-clock--hand-hour" id="handHour"></span>
+					<span class="chrono-clock--hand-minute" id="handMinute"></span>
+				</div>
+				<div class="chrono-time" id="localTime"></div>
 			</div>
 			<div class="maker-location"></div>
 		</section>
 
 		<footer>
-			<h2>Brought to you by <span>GE Innovation Never Sleeps - Meet The Makers</span></h2>
+			<h2>Brought to you by <span>GE: Innovation Never Sleeps - Meet The Makers</span></h2>
 			<nav class="controls">
 				<ul>
 					<li><a href="#">About this content</a></li>
