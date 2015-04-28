@@ -3,67 +3,84 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,700,600,300,800|Open+Sans+Condensed:300,300italic,700">
 		<!-- build:css -->
 		<link rel="stylesheet" href="css/main.css">
 		<!-- endbuild -->
-		<title>ge-meet-the-makers</title>
+		<title>GE Meet the makers</title>
 	</head>
-	<body>
+	<body data-audio="off">
+
+		<div class="bg">
+			<div class="bg-filter"></div>
+		</div>
 		
-		<header>
-			<h1>Meet The Makers</h1>
-			<nav class="filter">
-				<ol>
-					<li>
-						<button>Space</button>
-					</li>
-					<li>
-						<button>Industry</button>
-					</li>
-					<li>
-						<button>Fuel</button>
-					</li>
-					<li>
-						<button>Energy</button>
-					</li>
-					<li>
-						<button>Transportation</button>
-					</li>
-					<li>
-						<button>Medical</button>
-					</li>
-					<li>
-						<a href="#">Index</a>
-					</li>
-				</ol>
-			</nav>
-		</header>
+		<div class="content">
 
-		<section>
-			<div class="maker-title"><strong>Navigator</strong> <em class="maker-name">Mark Wilson</em></div>
-			<div class="chrono">
-				<div class="chrono-clock">
-					<span class="chrono-clock--hand-hour" id="handHour"></span>
-					<span class="chrono-clock--hand-minute" id="handMinute"></span>
+			<header class="masthead">
+				<h1>Meet The<br> Makers</h1>
+				<nav class="filter">
+					<ol>
+						<li>
+							<button>Space</button>
+						</li>
+						<li>
+							<button>Industry</button>
+						</li>
+						<li>
+							<button>Fuel</button>
+						</li>
+						<li>
+							<button>Energy</button>
+						</li>
+						<li>
+							<button>Transportation</button>
+						</li>
+						<li>
+							<button>Medical</button>
+						</li>
+					</ol>
+				</nav>
+				<a href="#" class="btn-index">Index</a>
+			</header>
+
+			<section class="maker-info">
+				<div class="maker-title">
+					<strong>Navigator</strong>
+					<em class="maker-name">Mark Wilson</em>
 				</div>
-				<div class="chrono-time" id="localTime"></div>
-			</div>
-			<div class="maker-location"></div>
-		</section>
+				<div class="chrono">
+					<div class="chrono-clock">
+						<span class="chrono-clock--hand-hour" id="handHour"><i></i></span>
+						<span class="chrono-clock--hand-minute" id="handMinute"><i></i></span>
+					</div>
+					<div class="chrono-time" id="localTime"></div>
+				</div>
+				<div class="maker-location">Perth, Western Australia</div>
+			</section>
 
-		<footer>
-			<h2>Brought to you by <span>GE: Innovation Never Sleeps - Meet The Makers</span></h2>
-			<nav class="controls">
-				<ul>
-					<li><a href="#">About this content</a></li>
-					<li><button>Audio</button></li>
-					<li><a href="#" class="icon-facebook">Facebook</a></li>
-					<li><a href="#" class="icon-twitter">Twitter</a></li>
-					<li><a href="#" class="icon-linkedin">LinkedIn</a></li>
-				</ul>
-			</nav>
-			<h3>The Guardian</h3>
-		</footer>
+			<section class="timeline" data-filter="none">
+
+			</section>
+
+			<footer class="base">
+				<div class="sponsor">
+					<p>Brought to you by</p>
+					<img class="logo-ge" src="images/logo.ge.svg" alt="GE">
+					<p class="tagline">Innovation Never Sleeps <span>Meet The Makers</span></p>
+				</div>
+				<nav class="controls">
+					<ul>
+						<li><a href="#">Audio</a></li>
+						<li><a href="#">Credits</a></li>
+						<li><a href="#">Social</a></li>
+						<li><a href="#">About</a></li>
+					</ul>
+				</nav>
+				<img class="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian">
+			</footer>
+		
+		</div>
 
 		<!-- build:js -->
 		<script charset="utf-8" src="jspm_packages/system.js"></script>

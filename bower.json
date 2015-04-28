@@ -16,6 +16,7 @@
   "dependencies": {
     "bourbon": "*",
     "neat": "latest",
-    "sass-mq": "latest"
+    "sass-mq": "latest",
+    "normalize-scss": "~3.0.3"
   }
 }
