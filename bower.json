@@ -17,6 +17,6 @@
     "bourbon": "*",
     "neat": "latest",
     "sass-mq": "latest",
-    "normalize.scss": "~3.0.2+normalize.3.0.2"
+    "normalize-scss": "~3.0.3"
   }
 }
