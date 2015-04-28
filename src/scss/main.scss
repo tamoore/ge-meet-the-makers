@@ -5,7 +5,7 @@
 @import '_mixins';
 
 html {
-	font: 400 normal 10px/1.2 "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font: 300 normal 10px/1.2 "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	overflow: auto;
 	overflow-y: scroll;
 	text-rendering: optimizeLegibility;
@@ -34,7 +34,9 @@ body {
 	@include flex-align(center);
 	@include flex-justify(flex-start);
 	@include flex-direction(row);
-	padding: 2% 0 0 2%;
+	@include flex-wrap(wrap);
+	
+	padding: 2% 0 6.5rem 2%;
 	position: relative;
 	width: 100%;
 
@@ -57,7 +59,7 @@ body {
 	li {
 		background: url(../images/nav.div.png) 0 0 no-repeat;
 		float: left;
-		padding-left: 60px;
+		padding-left: 10px;
 
 		button {
 			background: transparent;
@@ -65,26 +67,51 @@ body {
 			color: #fff;
 			cursor: pointer;
 			margin: 0;
+			min-height: 3em;
 			outline: none;
-			padding: 0;
+			padding: 0 3em;
 		}
 	}
 
 	a.btn-index {
-		@include align-self(flex-end);
+		@include flex(1 0 0);
+
+		color: #fff;
+		display: block;
+		padding: 0 3em;
 		text-align: right;
+		text-decoration: none;
 	}
 }
 
 // Information about maker, local time and location
 .maker-info {
+	font-size: 26px;
+	font-size: 2.6rem;
 	margin: 0 0 0 2%;
+
+	.maker-title {
+		strong {
+			font-weight: 600;
+		}
+		em {
+			font-style: normal;
+		}
+	}
+
+	.maker-location {
+		margin: .75em 0 0;
+	}
 }
 
 .chrono {
 	@include flexbox();
 	@include flex-align(center);
 	@include flex-justify(flex-start);
+
+	float: left;
+	margin-right: 20px;
+	margin-right: 2rem;
 }
 
 // Local time
@@ -194,6 +221,8 @@ body {
 			list-style: none;
 			margin: 0;
 			padding: 0;
+			position: relative;
+			top: 1em;
 		}
 
 		li {
