@@ -19,6 +19,18 @@ body {
 	padding: 0;
 }
 
+// Assistive text
+.assistive-text {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
 // Dev enviroment test background with filter
 .bg {
 	background: url(../images/bg.test.jpg) 50% 50% no-repeat;
@@ -38,17 +50,13 @@ body {
 
 // Page mast with heading and filter
 .masthead {
-	@include flexbox();
-	@include flex-align(center);
-	@include flex-justify(flex-start);
-	@include flex-direction(row);
-	@include flex-wrap(wrap);
-	
+	display: block;
 	padding: 2% 0 6.5rem 2%;
 	position: relative;
 	width: 100%;
 
 	h1 {
+		float: left;
 		font-size: 24px;
 		font-size: 2.4rem;
 		font-weight: 400;
@@ -69,23 +77,51 @@ body {
 		float: left;
 		padding-left: 10px;
 
-		button {
-			background: transparent;
+		// Filter icons
+		.filter-button--space {
+			background-image: url(../images/icon.space.svg);
+			background-size: auto 3em;
+		}
+		.filter-button--industry {
+			background-image: url(../images/icon.factory.svg);
+			background-size: auto 4em;
+		}
+		.filter-button--fuel {
+			background-image: url(../images/icon.petrol.svg);
+			background-size: auto 4em;
+		}
+		.filter-button--energy {
+			background-image: url(../images/icon.solar.svg);
+			background-size: auto 4.5em;
+		}
+		.filter-button--transport {
+			background-image: url(../images/icon.train.svg);
+			background-size: auto 5em;
+		}
+		.filter-button--medical {
+			background-image: url(../images/icon.healthcare.svg);
+			background-size: auto 3.5em;
+		}
+
+		.filter-button {
+			background-color: transparent;
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
 			border: 0;
 			color: #fff;
 			cursor: pointer;
+			font-size: 8px;
 			margin: 0;
-			min-height: 3em;
+			min-height: 5rem;
 			outline: none;
-			padding: 0 3em;
+			padding: 0 4rem;
 		}
 	}
 
 	a.btn-index {
-		@include flex(1 0 0);
-
 		color: #fff;
 		display: block;
+		float: right;
 		padding: 0 3em;
 		text-align: right;
 		text-decoration: none;
@@ -114,10 +150,6 @@ body {
 }
 
 .chrono {
-	@include flexbox();
-	@include flex-align(center);
-	@include flex-justify(flex-start);
-
 	float: left;
 	margin-right: 20px;
 	margin-right: 2rem;
@@ -125,6 +157,7 @@ body {
 
 // Local time
 .chrono-time {
+	float: left;
 	font-family: Abel, sans-serif;
 	font-size: 108px;
 	font-size: 10.8rem;
@@ -134,9 +167,10 @@ body {
 .chrono-clock {
 	border: 3px solid #fff;
 	border-radius: 100em;
+	float: left;
 	height: 65px;
 	height: 6.5rem;
-	margin: 0 20px 0 0;
+	margin: 3rem 2rem 0 0;
 	position: relative;
 	width: 65px;
 	width: 6.5rem;
@@ -169,23 +203,123 @@ body {
 	}
 }
 
+// Timeline
+
+.timeline {
+	clear: left;
+	width: 100%;
+
+	.timeline-list {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0 4em;
+		width: 768em;
+
+		> li {
+			float: left;
+			margin: 0;
+			min-height: 6em;
+			padding: 0;
+			position: relative;
+			text-align: center;
+			width: 8em;
+
+			// 5 data objects with fixed height to determine height
+			.marker-data {
+				height: 240px;
+				position: relative;
+
+				ul {
+					bottom: 0;
+					left: 0;
+					list-style: none;
+					margin: 0;
+					padding: 0;
+					position: absolute;
+					width: 100%;
+				}
+
+				li {
+					margin: 0;
+					padding: 0;
+				}
+
+				a {
+					color: #fff;
+					display: block;
+					font-family: monospace;
+					font-size: 2.4rem;
+					height: 4.8rem;
+					line-height: 4.8rem;
+					margin: 0 auto;
+					text-align: center;
+					text-decoration: none;
+					width: 4.8rem;
+
+					&::before {
+						content: "\2022";
+					}
+				}
+
+			}
+
+			.marker-tick {
+				background: url(../images/marker.png) 50% 0 no-repeat;
+				background-size: 0 0;
+				display: block;
+				height: 4em;
+
+				&.marker-tick-long {
+					background-size: 1px 3em;
+				}
+
+				&.marker-tick-short {
+					background-size: 1px 1.5em;
+				}
+			}
+
+			.marker-line {
+				background: url(../images/marker.png) 0 0 repeat-x;
+				display: block;
+				height: 6px;
+				width: 100%;
+
+				&.marker-line-start {
+					background: url(../images/marker.png) 50% 0 repeat-x;
+					left: 50%;
+					position: relative;
+					width: 50%;
+				}
+			}
+
+			.marker-label {
+				display: block;
+				font-family: Abel, sans-serif;
+				font-size: 24px;
+				font-size: 2.4rem;
+				line-height: 1;
+				margin: 0 auto;
+				padding: 0;
+				position: relative;
+				text-align: center;
+				width: 100%;
+			}
+
+		}
+	}
+}
+
 // Footer
 
 .base {
-	@include flexbox();
-	@include flex-align(flex-end);
-	@include flex-justify(flex-end);
-	@include flex-wrap(wrap);
-
 	bottom: 0;
-	padding-bottom: 40px;
+	clear: both;
+	padding-bottom: 2%;
 	position: absolute;
 	width: 100%;
 
 	.sponsor {
-		@include align-self(flex-start);
-		@include flex(2 1 auto);
-
+		float: left;
 		margin-left: 2%;
 		min-width: 45em;
 
@@ -224,7 +358,7 @@ body {
 	}
 
 	.controls {
-		@include flexbox();
+		float: right;
 
 		ul {
 			list-style: none;
@@ -262,7 +396,7 @@ body {
 	}
 
 	.logo-guardian {
-		@include flexbox();
+		float: right;
 		height: 2.9em;
 		margin-right: 40px;
 		position: relative;
