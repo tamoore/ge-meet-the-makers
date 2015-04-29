@@ -23,6 +23,7 @@ System.config({
     "core-js": "npm:core-js@0.8.4",
     "handlebars": "github:components/handlebars.js@3.0.2",
     "jquery": "github:components/jquery@2.1.3",
+    "jquery-mousewheel": "npm:jquery-mousewheel@3.1.12",
     "marionette": "github:marionettejs/backbone.marionette@2.4.1",
     "marionettejs/backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
     "marionettejs/backbone.marionette": "github:marionettejs/backbone.marionette@2.4.1",
