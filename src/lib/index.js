@@ -1,4 +1,5 @@
 import $ from 'jquery';
+//import mousewheel from 'jquery-mousewheel';
 
 class Application {
 	constructor(){
@@ -52,4 +53,33 @@ $(function(){
 	new Application();
 	localTime();
 	setInterval( function(){ localTime() }, 10000 );
+
+	window.addEventListener("keyup", function(e){
+
+		if( e.keyCode === 37 ) {
+			e.preventDefault();
+			console.log('scroll left');
+			$( "#timelineList" ).animate({
+				left: "-=10em"
+			}, 250, function() {});
+		}
+
+		if( e.keyCode === 39 ) {
+			e.preventDefault();
+			console.log('scroll right');
+			$( "#timelineList" ).animate({
+				left: "+=10em"
+			}, 250, function() {});
+		}
+	
+	});
+	
+	$('#timelineList').on('mousewheel', function(event) {
+		var delta,
+			deltaX = event.deltaX,
+			deltaY = event.deltaY,
+			factor = event.deltaFactor;
+		console.log(event.deltaX);
+	});
+
 });

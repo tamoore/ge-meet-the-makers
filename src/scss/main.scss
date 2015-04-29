@@ -6,8 +6,6 @@
 
 html {
 	font: 300 normal 10px/1.2 "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	overflow: auto;
-	overflow-y: scroll;
 	text-rendering: optimizeLegibility;
 	text-size-adjust: 100%;
 }
@@ -57,11 +55,11 @@ body {
 
 	h1 {
 		float: left;
-		font-size: 24px;
-		font-size: 2.4rem;
+		font-size: 12px;
+		font-size: 1.2rem;
 		font-weight: 400;
 		line-height: 1.08333333333;
-		margin: 0 50px 0 0;
+		margin: 0 2em 0 0;
 		padding: 0;
 		text-transform: uppercase;
 	}
@@ -75,32 +73,32 @@ body {
 	li {
 		background: url(../images/nav.div.png) 0 0 no-repeat;
 		float: left;
-		padding-left: 10px;
+		padding-left: 1rem;
 
 		// Filter icons
 		.filter-button--space {
 			background-image: url(../images/icon.space.svg);
-			background-size: auto 3em;
+			background-size: auto 1.5em;
 		}
 		.filter-button--industry {
 			background-image: url(../images/icon.factory.svg);
-			background-size: auto 4em;
+			background-size: auto 2em;
 		}
 		.filter-button--fuel {
 			background-image: url(../images/icon.petrol.svg);
-			background-size: auto 4em;
+			background-size: auto 2em;
 		}
 		.filter-button--energy {
 			background-image: url(../images/icon.solar.svg);
-			background-size: auto 4.5em;
+			background-size: auto 2.25em;
 		}
 		.filter-button--transport {
 			background-image: url(../images/icon.train.svg);
-			background-size: auto 5em;
+			background-size: auto 2.5em;
 		}
 		.filter-button--medical {
 			background-image: url(../images/icon.healthcare.svg);
-			background-size: auto 3.5em;
+			background-size: auto 1.75em;
 		}
 
 		.filter-button {
@@ -112,9 +110,9 @@ body {
 			cursor: pointer;
 			font-size: 8px;
 			margin: 0;
-			min-height: 5rem;
+			min-height: 2.5rem;
 			outline: none;
-			padding: 0 4rem;
+			padding: 0 2rem;
 		}
 	}
 
@@ -122,7 +120,8 @@ body {
 		color: #fff;
 		display: block;
 		float: right;
-		padding: 0 3em;
+		margin: 0 2% 0 0;
+		padding: 0 1.5em;
 		text-align: right;
 		text-decoration: none;
 	}
@@ -130,8 +129,8 @@ body {
 
 // Information about maker, local time and location
 .maker-info {
-	font-size: 26px;
-	font-size: 2.6rem;
+	font-size: 13px;
+	font-size: 1.3rem;
 	margin: 0 0 0 2%;
 	position: relative;
 
@@ -151,29 +150,29 @@ body {
 
 .chrono {
 	float: left;
-	margin-right: 20px;
-	margin-right: 2rem;
+	margin-right: 10px;
+	margin-right: 1rem;
 }
 
 // Local time
 .chrono-time {
 	float: left;
 	font-family: Abel, sans-serif;
-	font-size: 108px;
-	font-size: 10.8rem;
+	font-size: 56px;
+	font-size: 5.6rem;
 }
 
 // Clock face
 .chrono-clock {
-	border: 3px solid #fff;
+	border: 2px solid #fff;
 	border-radius: 100em;
 	float: left;
-	height: 65px;
-	height: 6.5rem;
-	margin: 3rem 2rem 0 0;
+	height: 32.5px;
+	height: 3.25rem;
+	margin: 1.5rem 1rem 0 0;
 	position: relative;
-	width: 65px;
-	width: 6.5rem;
+	width: 32.5px;
+	width: 3.25rem;
 
 	.chrono-clock--hand-hour,
 	.chrono-clock--hand-minute {
@@ -207,13 +206,18 @@ body {
 
 .timeline {
 	clear: left;
+	//overflow: scroll;
+	overflow: hidden;
+	padding-bottom: 2em;
 	width: 100%;
 
 	.timeline-list {
+		font-size: 1rem;
 		list-style: none;
 		margin: 0;
 		padding: 0 0 0 4em;
-		width: 768em;
+		position: relative;
+		width: 490em; // ( 5em * 98 )
 
 		> li {
 			float: left;
@@ -222,11 +226,11 @@ body {
 			padding: 0;
 			position: relative;
 			text-align: center;
-			width: 8em;
+			width: 5em;
 
 			// 5 data objects with fixed height to determine height
 			.marker-data {
-				height: 240px;
+				height: 12em;
 				position: relative;
 
 				ul {
@@ -248,13 +252,13 @@ body {
 					color: #fff;
 					display: block;
 					font-family: monospace;
-					font-size: 2.4rem;
-					height: 4.8rem;
-					line-height: 4.8rem;
+					font-size: 1.2rem;
+					height: 2.4rem;
+					line-height: 2.4rem;
 					margin: 0 auto;
 					text-align: center;
 					text-decoration: none;
-					width: 4.8rem;
+					width: 2.4rem;
 
 					&::before {
 						content: "\2022";
@@ -267,21 +271,21 @@ body {
 				background: url(../images/marker.png) 50% 0 no-repeat;
 				background-size: 0 0;
 				display: block;
-				height: 4em;
+				height: 2.5em;
 
 				&.marker-tick-long {
-					background-size: 1px 3em;
+					background-size: 1px 1.5em;
 				}
 
 				&.marker-tick-short {
-					background-size: 1px 1.5em;
+					background-size: 1px .75em;
 				}
 			}
 
 			.marker-line {
 				background: url(../images/marker.png) 0 0 repeat-x;
 				display: block;
-				height: 6px;
+				height: .3rem;
 				width: 100%;
 
 				&.marker-line-start {
@@ -290,13 +294,18 @@ body {
 					position: relative;
 					width: 50%;
 				}
+
+				&.marker-line-end {
+					width: 50%;
+					width: calc(50% + 1px);
+				}
 			}
 
 			.marker-label {
 				display: block;
 				font-family: Abel, sans-serif;
-				font-size: 24px;
-				font-size: 2.4rem;
+				font-size: 12px;
+				font-size: 1.2rem;
 				line-height: 1;
 				margin: 0 auto;
 				padding: 0;
@@ -325,8 +334,8 @@ body {
 
 		p {
 			font-family: "Open Sans", sans-serif;
-			font-size: 18px;
-			font-size: 1.8rem;
+			font-size: 10px;
+			font-size: 1rem;
 			font-weight: 300;
 			display: block;
 			margin: 0 0 .75em;
@@ -336,14 +345,14 @@ body {
 			background: url(../images/logo.ge.svg) 50% 50% no-repeat;
 			background-size: contain;
 			float: left;
-			height: 5em;
-			margin-right: 20px;
-			width: 5em;
+			height: 2.5em;
+			margin-right: 2em;
+			width: 2.5em;
 		}
 
 		.tagline {
-			font-size: 24px;
-			font-size: 2.4rem;
+			font-size: 12px;
+			font-size: 1.2rem;
 			font-weight: 700;
 			line-height: 1;
 			margin: 0;
@@ -387,7 +396,8 @@ body {
 		button {
 			color: #fff;
 			display: inline-block;
-			font-size: 18px;
+			font-size: 10px;
+			font-size: 1rem;
 			font-weight: 300;
 			margin: 0;
 			padding: .5em 2em;
@@ -397,10 +407,10 @@ body {
 
 	.logo-guardian {
 		float: right;
-		height: 2.9em;
-		margin-right: 40px;
+		height: 1.45em;
+		margin-right: 2%;
 		position: relative;
 		top: .5em;
-		width: 16.6em;
+		width: 8.4em;
 	}
 }
