@@ -2,6 +2,7 @@ var gulp = require('gulp'),
 	shell = require('gulp-shell'),
 	watch = require('gulp-watch'),
 	sass = require('gulp-ruby-sass'),
+  postcss = require('gulp-postcss'),
 	$ = require('gulp-load-plugins')(),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload,
@@ -16,18 +17,6 @@ gulp.task('styles', function() {
 	on('end', function(){
 		reload();
 	})
-});
-
-gulp.task('autoprefixer', function () {
-    var postcss      = require('gulp-postcss');
-    var sourcemaps   = require('gulp-sourcemaps');
-    var autoprefixer = require('autoprefixer-core');
-
-    return gulp.src('./src/*.css')
-        .pipe(sourcemaps.init())
-        .pipe(postcss([ autoprefixer({ browsers: ['last 3 version'] }) ]))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./dest'));
 });
 
 gulp.task('build', ['styles'], function() {

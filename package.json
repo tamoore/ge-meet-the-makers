@@ -30,6 +30,7 @@
     "gulp-load-plugins": "^0.10.0",
     "gulp-define-module": "^0.1.1",
     "gulp-handlebars": "^4.0.0",
-    "browser-sync": "^2.6.5"
+    "browser-sync": "^2.6.5",
+    "gulp-postcss": "^5.1.3"
   }
 }
