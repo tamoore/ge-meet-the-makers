@@ -85,4 +85,18 @@ $(function(){
 		console.log(event.deltaX);
 	});
 
+	if (document.getElementById('makerPanels')) {
+		$('.maker-panel').on('click', function(){
+			var $panel = $(this);
+			$('.maker-panel').not($('.maker-panel').eq($('.maker-panel').index(this))).removeClass('show-excerpt');
+			$(this).toggleClass('show-excerpt');
+			
+			$('.maker-bio-excerpt a', $panel).on('click', function(e){
+				e.preventDefault();
+				event.stopPropagation();
+				$panel.addClass('show-article').removeClass('show-excerpt');
+			});
+		});
+	}
+
 });
