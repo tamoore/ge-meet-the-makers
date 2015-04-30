@@ -20,10 +20,12 @@ System.config({
     "backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
     "backbone.wreqr": "github:marionettejs/backbone.wreqr@1.3.2",
     "components/handlebars.js": "github:components/handlebars.js@3.0.2",
-    "core-js": "npm:core-js@0.8.4",
+    "core-js": "npm:core-js@0.9.5",
+    "hammerjs": "npm:hammerjs@2.0.4",
     "handlebars": "github:components/handlebars.js@3.0.2",
     "jquery": "github:components/jquery@2.1.3",
     "jquery-mousewheel": "npm:jquery-mousewheel@3.1.12",
+    "lodash": "npm:lodash@3.7.0",
     "marionette": "github:marionettejs/backbone.marionette@2.4.1",
     "marionettejs/backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
     "marionettejs/backbone.marionette": "github:marionettejs/backbone.marionette@2.4.1",
@@ -44,6 +46,15 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:core-js@0.9.3": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:core-js@0.9.5": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:hammerjs@2.0.4": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:lodash@3.7.0": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     }
   }
