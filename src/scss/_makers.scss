@@ -1,0 +1,109 @@
+// General panel styles
+
+.makers {
+	@include flexbox();
+	@include flex-align(center);
+	@include flex-direction(row);
+	@include flex-wrap(nowrap);
+}
+
+.maker-panel {
+	background-image: url(../images/makers/bg.adam.fletcher.jpg);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	min-height: 100vh;
+	width: 16.66666666666667%;
+	transition: all 500ms ease-in-out;
+
+	// PANEL BACKGROUNDS
+	&.maker-fletcher {
+		background-image: url(../images/makers/bg.adam.fletcher.jpg);
+	}
+
+	&.maker-miner {
+		background-image: url(../images/makers/bg.miner.jpg);
+	}
+
+	&.maker-spaceman {
+		background-image: url(../images/makers/bg.spaceman.jpg);
+	}
+
+	&.maker-winch {
+		background-image: url(../images/makers/bg.winch.jpg);
+	}
+
+	.bg-filter {
+		position: absolute;
+		z-index: 0;
+	}
+
+	header {
+		height: 100vh;
+		padding-top: calc(50vh - 2.5rem);
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+	}
+
+	.maker-industry {
+		display: block;
+		height: 5rem;
+		margin: 0 auto;
+		width: 5rem;
+	}
+
+	.maker-portrait,
+	.maker-title,
+	.maker-name,
+	.maker-bio-excerpt,
+	.maker-bio {
+		display: none;
+	}
+
+	.maker-title {
+		font-family: Open Sans, sans-serif;
+		font-size: 1.6rem;
+		font-weight: 700;
+		line-height: 1;
+		margin: 0;
+		opacity: 0;
+	}
+
+	.maker-name {
+		font-family: Abel, sans-serif;
+		font-size: 3.2rem;
+		line-height: 1;
+		margin: 1.8rem 0 2rem;
+		opacity: 0;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	// HOVER STATE
+	&.show-name,
+	&:hover {
+		width: 50em;
+
+		header {
+			padding-top: calc(50vh - 6rem);
+		}
+
+		.maker-title,
+		.maker-name {
+			display: block;
+			opacity: 1;
+		}
+	}
+
+	// CLICK STATE
+	&.show-excerpt {
+
+	}
+
+	// BIO STATE
+	&.show-article {
+
+	}
+}
