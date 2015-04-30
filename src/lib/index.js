@@ -1,5 +1,4 @@
 import $ from 'jquery';
-//import mousewheel from 'jquery-mousewheel';
 
 class Application {
 	constructor(){
@@ -18,6 +17,7 @@ function localTime() {
 	
 	var offsetHours = parseInt(hours) * 4;
 	var offsetMinutes = Math.round( minutes / 15 );
+
 	clock.setAttribute('data-start', offsetHours + offsetMinutes);
 
 	// Set clock hands
@@ -51,8 +51,11 @@ function localTime() {
 
 $(function(){
 	new Application();
-	localTime();
-	setInterval( function(){ localTime() }, 10000 );
+	
+	if (document.getElementById('localTime')) {
+		localTime();
+		setInterval( function(){ localTime() }, 10000 );
+	}
 
 	window.addEventListener("keyup", function(e){
 

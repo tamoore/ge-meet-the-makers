@@ -36,14 +36,14 @@ body {
 	min-height: 100vh;
 	min-width: 100vw;
 	position: absolute;
+}
 
-	.bg-filter {
-		background-image: url(../images/dots.png), radial-gradient(transparent, black);
-		height: 100%;
-		min-height: 100vh;
-		min-width: 100vw;
-		width: 100%;
-	}
+.bg-filter {
+	background-image: url(../images/dots.png), radial-gradient(transparent, black);
+	height: 100%;
+	min-height: 100vh;
+	min-width: 100vw;
+	width: 100%;
 }
 
 // Page mast with heading and filter
@@ -414,3 +414,5 @@ body {
 		width: 8.4em;
 	}
 }
+
+@import "_makers";
