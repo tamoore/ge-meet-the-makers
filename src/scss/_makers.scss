@@ -7,6 +7,7 @@
 	@include flex-wrap(nowrap);
 
 	overflow: hidden;
+	position: relative;
 }
 
 .maker-panel {
@@ -26,39 +27,25 @@
 		left: -5px;
 		position: absolute;
 		top: -5px;
-		width: calc(100% + 10px);
-	}
+		width: calc(100% + 10px); // Hide the filter artefacts
+		z-index: 0;
 
-	// PANEL BACKGROUNDS
-	&.maker-fletcher .maker-panel-background {
-		background-image: url(../images/makers/bg.adam.fletcher.jpg);
-	}
+		// PANEL BACKGROUNDS
+		&.maker-fletcher {
+			background-image: url(../images/makers/bg.adam.fletcher.jpg);
+		}
 
-	&.maker-miner .maker-panel-background {
-		background-image: url(../images/makers/bg.miner.jpg);
-	}
+		&.maker-miner {
+			background-image: url(../images/makers/bg.miner.jpg);
+		}
 
-	&.maker-spaceman .maker-panel-background {
-		background-image: url(../images/makers/bg.spaceman.jpg);
-	}
+		&.maker-spaceman {
+			background-image: url(../images/makers/bg.spaceman.jpg);
+		}
 
-	&.maker-winch .maker-panel-background {
-		background-image: url(../images/makers/bg.winch.jpg);
-	}
-
-	header {
-		height: 100vh;
-		padding-top: calc(50vh - 1.6rem);
-		overflow: hidden;
-		position: relative;
-		text-align: center;
-	}
-
-	.maker-industry {
-		display: block;
-		height: 3.2rem;
-		margin: 0 auto 2.1rem;
-		width: 3.2rem;
+		&.maker-winch {
+			background-image: url(../images/makers/bg.winch.jpg);
+		}
 	}
 
 	.maker-portrait,
@@ -69,31 +56,52 @@
 		display: none;
 	}
 
-	.maker-title {
-		font-family: Open Sans, sans-serif;
-		font-size: 1.6rem;
-		font-weight: 700;
-		line-height: 1;
-		margin: 0;
+	header {
+		height: 100vh;
+		padding-top: calc(50vh - 1.6rem);
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+		z-index: 1;
+
+		.maker-industry {
+			display: block;
+			height: 3.2rem;
+			margin: 0 auto 2.1rem;
+			width: 3.2rem;
+		}
+
+		.maker-title {
+			font-family: Open Sans, sans-serif;
+			font-size: 1.6rem;
+			font-weight: 700;
+			line-height: 1;
+			margin: 0;
+		}
+
+		.maker-name {
+			font-family: Abel, sans-serif;
+			font-size: 3.2rem;
+			line-height: 1;
+			margin: 1.8rem 0 2rem;
+			text-transform: uppercase;
+			white-space: nowrap;
+		}
+
+		.maker-portrait {
+			height: 7.5rem;
+			margin: 0 auto 1.25rem;
+			width: 7.5rem;
+		}
 	}
 
-	.maker-name {
-		font-family: Abel, sans-serif;
-		font-size: 3.2rem;
-		line-height: 1;
-		margin: 1.8rem 0 2rem;
-		text-transform: uppercase;
-		white-space: nowrap;
+	// HIDE
+	&.maker-panel-hide {
+		display: none;
 	}
 
-	.maker-portrait {
-		height: 7.5rem;
-		margin: 0 auto 1.25rem;
-		width: 7.5rem;
-	}
-
-	// HOVER STATE
-	&.show-name,
+	// HOVER STATE - NAME & TITLE
+	&.maker-panel-preview,
 	&:hover {
 		width: 50em;
 
@@ -107,13 +115,18 @@
 		}
 	}
 
-	// CLICK STATE
-	&.show-excerpt {
-		@extend .show-name;
+	// CLICK STATE - BIO EXCERPT
+	&.maker-panel-excerpt {
+		width: 50em;
 
 		header {
 			height: auto;
 			padding-top: 9rem;
+
+			.maker-title,
+			.maker-name {
+				display: block;
+			}
 		}
 
 		.maker-portrait {
@@ -135,28 +148,31 @@
 
 			a {
 				color: #fff;
+				cursor: pointer;
 				display: block;
 				padding: 3rem;
+				text-decoration: underline;
 			}
 		}
 
 		.maker-panel-background {
-			-webkit-filter: blur(5px);
-			-moz-filter: blur(5px);
-			-o-filter: blur(5px);
-			-ms-filter: blur(5px);
-			filter: blur(5px);
+			@include filter(blur(5px));
 		}
 
 	}
 
-	// BIO STATE
-	&.show-article {
+	// OPEN STATE - BIO FULL
+	&.maker-panel-article {
 		left: 0;
+		overflow: scroll;
 		position: absolute;
 		top: 0;
 		width: 100%;
 		z-index: 2;
+
+		.maker-bio-excerpt {
+			display: none;
+		}
 
 		header {
 			height: auto;
@@ -165,6 +181,7 @@
 			position: fixed;
 			top: 8.5rem;
 			width: 23.5rem;
+			z-index: 3;
 
 			* {
 				display: block;
@@ -173,12 +190,65 @@
 			}
 		}
 
+		.maker-bio {
+			display: block;
+			left: 35rem;
+			position: absolute;
+			width: 48.6rem;
+
+			h1 {
+				font-family: Abel, sans-serif;
+				font-size: 5rem;
+				font-weight: 300;
+				line-height: 1.2;
+				text-transform: uppercase;
+			}
+
+			p {
+				font-size: 2.2rem;
+				line-height: 1.454545;
+			}
+
+			figure {
+				border: 1px solid #b2b2b2;
+				border-width: 1px 0;
+				display: block;
+				margin: 0;
+				padding: 2.1rem 0;
+				width: 100%;
+
+				img {
+					height: auto;
+					width: 100%;
+				}
+
+				figcaption {
+					padding-top: 1.4rem;
+
+					p {
+						color: #b2b2b2;
+						font-size: 1.4rem;
+						line-height: 1.285714;
+						margin: 0;
+						padding: 0;
+					}
+				}
+			}
+		}
+
+		.btn-article-close {
+			cursor: pointer;
+			display: block;
+			font-size: 1.4rem;
+			padding: 1rem;
+			position: fixed;
+			right: 1rem;
+			top: 1rem;
+		}
+
 		.maker-panel-background {
-			-webkit-filter: blur(5px);
-			-moz-filter: blur(5px);
-			-o-filter: blur(5px);
-			-ms-filter: blur(5px);
-			filter: blur(5px);
+			@include filter(blur(5px));
+			position: fixed;
 		}
 	}
 }

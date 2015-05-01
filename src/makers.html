@@ -13,8 +13,9 @@
 
 		<main id="makerPanels" class="makers">
 
-			<section class="maker-panel maker-fletcher"> <!-- CLASSES: show-name show-excerpt show-article -->
-				<div class="maker-panel-background"></div>
+		<!-- PANEL CLASSES: maker-panel-preview, maker-panel-excerpt, maker-panel-article -->
+			<section class="maker-panel maker-panel-article" data-state="init">
+				<div class="maker-panel-background maker-fletcher"></div>
 				
 				<header>
 					<img src="images/makers/profile.png" alt="Maker Name" class="maker-portrait">
@@ -30,6 +31,13 @@
 
 				<article class="maker-bio">
 					<h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+					<figure>
+						<img src="images/bio.holder.jpg" alt="Holder text">
+						<figcaption>
+							<p>Lorem ipsum dolor sit amet, nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+						</figcaption>
+					</figure>
+					<p><strong>Lorem ipsum dolor sit amet, nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation</strong></p>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue. Fusce sollicitudin diam dolor, sit amet accumsan arcu luctus at. Etiam a felis eget purus tincidunt scelerisque. Nullam eu congue nunc. Sed ac venenatis velit. Pellentesque sit amet purus urna. Vestibulum sodales interdum sollicitudin.</p>
 					<p>Morbi tempor enim sit amet feugiat mollis. Proin mollis enim vitae libero faucibus rutrum. Pellentesque in pellentesque nunc. Donec eleifend sodales nisl ac laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae arcu purus. In hac habitasse platea dictumst. Cras sit amet dui scelerisque, ultricies sem in, maximus ex. Maecenas ut feugiat tellus, a consectetur dui. Ut ac hendrerit libero. Praesent eget convallis metus.</p>
 					<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur ultricies auctor nulla eu accumsan. Nunc sollicitudin bibendum malesuada. Quisque ullamcorper dictum nisl, id elementum ex blandit et. Curabitur auctor suscipit nunc. Integer commodo dolor erat, fringilla molestie nunc pretium eu. Nam rhoncus luctus neque, eu suscipit nibh. Nullam tincidunt eleifend erat, id placerat velit convallis id. Morbi molestie leo felis, posuere tempus turpis egestas quis.</p>
@@ -37,10 +45,12 @@
 					<p>Nulla dolor eros, tempus vitae odio at, suscipit iaculis risus. Etiam maximus nunc vel rutrum efficitur. Nunc finibus lacinia ipsum ut blandit. Sed sodales pulvinar ipsum in feugiat. Mauris vel imperdiet enim, eget ultrices sapien. Suspendisse ac odio volutpat, elementum orci quis, sollicitudin nibh. Quisque aliquet risus non est consequat, a posuere purus lobortis. Integer nec dolor ligula.</p>
 				</article>
 
+				<a class="btn-article-close">Close X</a>
+
 			</section>
 
-			<section class="maker-panel maker-winch">
-				<div class="maker-panel-background"></div>
+			<section class="maker-panel" data-state="init">
+				<div class="maker-panel-background maker-winch"></div>
 				
 				<header>
 					<img src="images/makers/profile.png" alt="Maker Name" class="maker-portrait">
@@ -65,8 +75,8 @@
 
 			</section>
 
-			<section class="maker-panel maker-miner">
-				<div class="maker-panel-background"></div>
+			<section class="maker-panel" data-state="init">
+				<div class="maker-panel-background maker-miner"></div>
 				
 				<header>
 					<img src="images/makers/profile.png" alt="Maker Name" class="maker-portrait">
@@ -91,7 +101,7 @@
 
 			</section>
 
-			<section class="maker-panel">
+			<section class="maker-panel" data-state="init">
 				<div class="maker-panel-background"></div>
 				
 				<header>
@@ -117,8 +127,8 @@
 
 			</section>
 
-			<section class="maker-panel maker-spaceman">
-				<div class="maker-panel-background"></div>
+			<section class="maker-panel" data-state="init">
+				<div class="maker-panel-background maker-spaceman"></div>
 				
 				<header>
 					<img src="images/makers/profile.png" alt="Maker Name" class="maker-portrait">
@@ -143,7 +153,7 @@
 
 			</section>
 
-			<section class="maker-panel">
+			<section class="maker-panel" data-state="init">
 				<div class="maker-panel-background"></div>
 				
 				<header>
@@ -176,7 +186,7 @@
 		<script src="config.js"></script>
 		<script>
         	System.import('jquery').then(function() {
-          		System.import('lib/index');
+          		System.import('lib/makers');
         	});
 		</script>
 		<!-- endbuild -->
