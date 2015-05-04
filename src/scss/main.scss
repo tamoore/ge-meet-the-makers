@@ -285,8 +285,8 @@ body {
 
 					&::before {
 						content: "\2022";
-					  	font-size: 2.4rem;
-					  	-webkit-font-smoothing: antialiased;
+						font-size: 2.4rem;
+						-webkit-font-smoothing: antialiased;
 					}
 				}
 
@@ -456,3 +456,4 @@ body {
 }
 
 @import "_makers";
+@import "_circle";

@@ -23,11 +23,11 @@
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
 		background-size: cover;
-		height: calc(100% + 10px);
-		left: -5px;
+		height: 100%;
+		left: 0;
 		position: absolute;
-		top: -5px;
-		width: calc(100% + 10px); // Hide the filter artefacts
+		top: 0;
+		width: 100%;
 		z-index: 0;
 
 		// PANEL BACKGROUNDS
@@ -165,14 +165,10 @@
 	&.maker-panel-article {
 		left: 0;
 		overflow: scroll;
-		position: absolute;
+		position: relative;
 		top: 0;
 		width: 100%;
 		z-index: 2;
-
-		.maker-bio-excerpt {
-			display: none;
-		}
 
 		header {
 			height: auto;
@@ -194,7 +190,7 @@
 			display: block;
 			left: 35rem;
 			position: absolute;
-			width: 48.6rem;
+			width: 58.6rem;
 
 			h1 {
 				font-family: Abel, sans-serif;
@@ -237,12 +233,14 @@
 		}
 
 		.btn-article-close {
+			color: #fff;
 			cursor: pointer;
 			display: block;
 			font-size: 1.4rem;
 			padding: 1rem;
 			position: fixed;
 			right: 1rem;
+			text-decoration: none;
 			top: 1rem;
 		}
 
