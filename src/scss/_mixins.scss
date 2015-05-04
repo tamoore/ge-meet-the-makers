@@ -57,3 +57,11 @@
 	-webkit-align-self: $val;
 	align-self: $val;
 }
+
+@mixin filter($val) {
+	-webkit-filter: $val;
+	-moz-filter: $val;
+	-o-filter: $val;
+	-ms-filter: $val;
+	filter: $val;
+}

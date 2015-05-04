@@ -9,12 +9,23 @@ html {
 	text-rendering: optimizeLegibility;
 	text-size-adjust: 100%;
 }
-
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 body {
 	background: #000;
 	color: #fff;
 	margin: 0;
 	padding: 0;
+    width: 100vw;
+  	height: 100vh;
+  	overflow: hidden;
+
 }
 
 // Assistive text
@@ -39,15 +50,18 @@ body {
 }
 
 .bg-filter {
+	background: transparent;
 	background-image: url(../images/dots.png), radial-gradient(transparent, black);
 	height: 100%;
 	min-height: 100vh;
 	min-width: 100vw;
+	pointer-events: none;
 	width: 100%;
 }
 
 // Page mast with heading and filter
 .masthead {
+
 	display: block;
 	padding: 2% 0 6.5rem 2%;
 	position: relative;
@@ -203,15 +217,24 @@ body {
 }
 
 // Timeline
-
 .timeline {
+
+  	$markerLineBaseLine:  10px;
+	cursor: pointer;
 	clear: left;
 	//overflow: scroll;
-	overflow: hidden;
+	//overflow: hidden;
 	padding-bottom: 2em;
 	width: 100%;
 
+
+  	// centering the timeline roughly
+  	margin-top: 50vh;
+  	position: relative;
+  	top: -160px;
+
 	.timeline-list {
+	  	//@include transition(all .1s cubic-bezier(0.250, 0.250, 0.750, 0.750));
 		font-size: 1rem;
 		list-style: none;
 		margin: 0;
@@ -262,34 +285,49 @@ body {
 
 					&::before {
 						content: "\2022";
+					  	font-size: 2.4rem;
+					  	-webkit-font-smoothing: antialiased;
 					}
 				}
 
 			}
 
 			.marker-tick {
-				background: url(../images/marker.png) 50% 0 no-repeat;
+			  	&:before {
+				  position: absolute;
+				  content: "";
+				  background-color: rgba(255,255,255,.8);
+				  bottom: $markerLineBaseLine;
+				  width: 100%;
+				  height: .5rem;
+
+				  box-shadow: 2px 3px 0px 0px rgba(0, 0, 0, 0.3);
+				}
 				background-size: 0 0;
 				display: block;
 				height: 2.5em;
 
 				&.marker-tick-long {
+				  	&:before {
+					  bottom: $markerLineBaseLine;
+					}
 					background-size: 1px 1.5em;
 				}
 
 				&.marker-tick-short {
+				  	&:before {
+
+					}
 					background-size: 1px .75em;
 				}
 			}
 
 			.marker-line {
-				background: url(../images/marker.png) 0 0 repeat-x;
 				display: block;
 				height: .3rem;
 				width: 100%;
 
-				&.marker-line-start {
-					background: url(../images/marker.png) 50% 0 repeat-x;
+				&.marker-line-start{
 					left: 50%;
 					position: relative;
 					width: 50%;
@@ -304,14 +342,16 @@ body {
 			.marker-label {
 				display: block;
 				font-family: Abel, sans-serif;
-				font-size: 12px;
-				font-size: 1.2rem;
+				font-size: 20px;
+				font-size: 1.6rem;
 				line-height: 1;
 				margin: 0 auto;
 				padding: 0;
-				position: relative;
+				position: absolute;
+			  	bottom: -40px;
 				text-align: center;
 				width: 100%;
+			  	-webkit-font-smoothing: antialiased;
 			}
 
 		}
@@ -409,8 +449,8 @@ body {
 		float: right;
 		height: 1.45em;
 		margin-right: 2%;
-		position: relative;
-		top: .5em;
+	  	top: 1.5rem;
+	  	position: relative;
 		width: 8.4em;
 	}
 }
