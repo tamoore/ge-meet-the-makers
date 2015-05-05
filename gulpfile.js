@@ -27,9 +27,9 @@ gulp.task('build', ['styles'], function() {
 			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/'
 		]));
 
-	gulp.src('./src/index.html')
+	gulp.src('./src/*.html')
 		.pipe(htmlreplace({
-			src: './src/index.html',
+			src: './src/*.html',
 			'js': {
 				src: ['build.js']
 			},
