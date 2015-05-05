@@ -14,13 +14,13 @@ System.config({
 
 System.config({
   "map": {
-    "babel": "npm:babel-core@5.1.13",
-    "babel-runtime": "npm:babel-runtime@5.1.13",
+    "babel": "npm:babel-core@5.2.12",
+    "babel-runtime": "npm:babel-runtime@5.2.12",
     "backbone": "npm:backbone@1.1.2",
     "backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
     "backbone.wreqr": "github:marionettejs/backbone.wreqr@1.3.2",
     "components/handlebars.js": "github:components/handlebars.js@3.0.2",
-    "core-js": "npm:core-js@0.9.5",
+    "core-js": "npm:core-js@0.9.6",
     "hammerjs": "npm:hammerjs@2.0.4",
     "handlebars": "github:components/handlebars.js@3.0.2",
     "jquery": "github:components/jquery@2.1.3",
@@ -49,6 +49,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:core-js@0.9.5": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:core-js@0.9.6": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:hammerjs@2.0.4": {
