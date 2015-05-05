@@ -45,6 +45,7 @@ body {
 	min-height: 100vh;
 	min-width: 100vw;
 	position: absolute;
+  	z-index: -1;
 }
 
 .bg-filter {
@@ -55,7 +56,10 @@ body {
 	min-width: 100vw;
 	pointer-events: none;
 	width: 100%;
+  	position: absolute;
+  	z-index: 0;
 }
+
 
 // Page mast with heading and filter
 .masthead {
@@ -64,6 +68,7 @@ body {
 	padding: 2% 0 6.5rem 2%;
 	position: relative;
 	width: 100%;
+  	z-index: 3;
 
 	h1 {
 		float: left;
@@ -145,7 +150,7 @@ body {
 	font-size: 1.3rem;
 	margin: 0 0 0 2%;
 	position: relative;
-
+	z-index: 3;
 	.maker-title {
 		strong {
 			font-weight: 600;
