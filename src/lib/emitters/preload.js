@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import preloadjs from 'preload';
 import config from "../config";
-import { Base } from './Base'
+import { Base } from './base'
 
 export class Preload extends Base {
     constructor(){

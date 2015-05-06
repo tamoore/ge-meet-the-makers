@@ -1,6 +1,6 @@
 import Hammer from 'hammerjs';
 import config from "../config";
-import { Base } from './Base';
+import { Base } from './base';
 
 let timeline = undefined;
 export class TimelineEmitter extends Base {
