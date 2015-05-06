@@ -65,7 +65,7 @@ body {
 .masthead {
 
 	display: block;
-	padding: 2% 0 6.5rem 2%;
+	padding: 2rem 0 6.5rem 2rem;
 	position: relative;
 	width: 100%;
   	z-index: 3;
@@ -366,13 +366,13 @@ body {
 .base {
 	bottom: 0;
 	clear: both;
-	padding-bottom: 2%;
+	padding-bottom: 2rem;
 	position: absolute;
 	width: 100%;
 
 	.sponsor {
 		float: left;
-		margin-left: 2%;
+		margin-left: 2rem;
 		min-width: 45em;
 
 		p {
@@ -389,7 +389,7 @@ body {
 			background-size: contain;
 			float: left;
 			height: 2.5em;
-			margin-right: 2em;
+			margin-right: 2rem;
 			width: 2.5em;
 		}
 
