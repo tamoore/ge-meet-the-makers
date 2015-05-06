@@ -1,9 +1,10 @@
 import { PreloadFactory } from './emitters/preload';
-
+import lodash from 'lodash';
 import { ClockView } from './views/clock';
 import { TimelineWrapperView } from './views/timeline';
 import { TimelineListView } from './views/timeline';
 import { TimelineStageView } from './views/timeline';
+window._ = lodash;
 
 class Application {
 	constructor(){
