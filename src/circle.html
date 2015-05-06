@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="svg">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,700,600,300,800|Open+Sans+Condensed:300,300italic,700">
+		<!-- build:css -->
+		<link rel="stylesheet" href="css/main.css">
+		<!-- endbuild -->
+		<title>GE Meet the makers</title>
+	</head>
+	<body data-audio="off">
+
+		<div class="bg">
+			<div class="bg-filter"></div>
+		</div>
+		
+		<div class="content">
+
+			<header class="masthead">
+				<h1>Meet The<br> Makers</h1>
+				<nav class="filter">
+					<ol>
+						<li>
+							<button class="filter-button filter-button--space">
+								<span class="assistive-text">Space</span>
+							</button>
+						</li>
+						<li>
+							<button class="filter-button filter-button--industry">
+								<span class="assistive-text">Industry</span>
+							</button>
+						</li>
+						<li>
+							<button class="filter-button filter-button--fuel">
+								<span class="assistive-text">Fuel</span>
+							</button>
+						</li>
+						<li>
+							<button class="filter-button filter-button--energy">
+								<span class="assistive-text">Energy</span>
+							</button>
+						</li>
+						<li>
+							<button class="filter-button filter-button--transport">
+								<span class="assistive-text">Transportation</span>
+							</button>
+						</li>
+						<li>
+							<button class="filter-button filter-button--medical">
+								<span class="assistive-text">Medical</span>
+							</button>
+						</li>
+					</ol>
+				</nav>
+				<a   class="btn-index">Index</a>
+			</header>
+
+			<section class="maker-info">
+				<div class="maker-title">
+					<strong>Navigator</strong>
+					<em class="maker-name">Mark Wilson</em>
+				</div>
+				<div class="chrono">
+					<div class="chrono-clock">
+						<span class="chrono-clock--hand-hour" id="handHour"><i></i></span>
+						<span class="chrono-clock--hand-minute" id="handMinute"><i></i></span>
+					</div>
+					<div class="chrono-time" id="localTime">00:00</div>
+				</div>
+				<div class="maker-location">Perth, Western Australia</div>
+			</section>
+			
+			<section id="timelineCircleWrapper" class="timeline-circle" data-filter="none">
+				<div class="preview-object preview-image" id="imagePreview"><div class="image-filter"></div><img src="images/thumb.png" alt=""></div>
+				<div id="previewBlurb" class="preview-object preview-blurb">
+					<h3 id="previewType" class="preview-type"></h3>
+					<h2 id="previewHeading" class="preview-heading"></h2>
+					<i id="previewIcon" class="preview-icon"></i>
+				</div>
+
+				<div id="timelineInstructions" class="timeline-instructions">
+					<p>Hover over a dot to jump to content</p>
+				</div>
+				
+				<div class="timeline-label timeline-label-12">noon</div>
+				<div class="timeline-label timeline-label-18">18:00</div>
+				<div class="timeline-label timeline-label-0">midnight</div>
+				<div class="timeline-label timeline-label-6">06:00</div>
+				
+				<ol id="timelineList" class="timeline-list">
+					<li class="timeline-marker" data-time="12:00">
+						<div class="marker-data">
+							<ul>
+								<li><a data-industry="transport" data-title="A transport industry video" data-type="video" data-preview="images/thumb2.jpg"><span class="assistive-text">Content title</span></a></li>
+								<li><a data-industry="space" data-title="A spaceman slideshow" data-type="images" data-preview="images/thumb.png"><span class="assistive-text">Content title</span></a></li>
+								<li><a data-industry="energy" data-title="An energy video" data-type="video" data-preview="images/thumb.png"><span class="assistive-text">Content title</span></a></li>
+								<li><a data-industry="medical" data-title="A healthcare video" data-type="video" data-preview="images/thumb.png"><span class="assistive-text"><span class="assistive-text">Content title</span></a></li>
+								<li><a data-industry="fuel" data-title="A video about petrol" data-type="video" data-preview="images/thumb.png"><span class="assistive-text"><span class="assistive-text">Content title</span></a></li>
+								<li><a data-industry="industry" data-title="A manufacturing video" data-type="video" data-preview="images/thumb.png"><span class="assistive-text"><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="13:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="14:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="15:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="16:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="17:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="18:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="19:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="20:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="21:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="22:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="23:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="00:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="01:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="02:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="03:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="04:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="05:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="06:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="07:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="08:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="09:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="10:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="timeline-marker" data-time="11:00">
+						<div class="marker-data">
+							<ul>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+								<li><a><span class="assistive-text">Content title</span></a></li>
+							</ul>
+						</div>
+					</li>
+				</ol>
+			</section>
+
+			<footer class="base">
+				<div class="sponsor">
+					<p>Brought to you by</p>
+					<img class="logo-ge" src="images/logo.ge.svg" alt="GE">
+					<p class="tagline">Innovation Never Sleeps <span>Meet The Makers</span></p>
+				</div>
+				<img class="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian">
+				<nav class="controls">
+					<ul>
+						<li><a>Audio</a></li>
+						<li><a>Credits</a></li>
+						<li><a>Social</a></li>
+						<li><a>About</a></li>
+					</ul>
+				</nav>
+			</footer>
+		
+		</div>
+
+		<!-- build:js -->
+		<script charset="utf-8" src="jspm_packages/system.js"></script>
+		<script src="config.js"></script>
+		<script>
+        	System.import('jquery').then(function() {
+          		System.import('lib/circle');
+        	});
+		</script>
+		<!-- endbuild -->
+
+	</body>
+</html>

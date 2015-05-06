@@ -42,11 +42,10 @@ body {
 
 // Dev enviroment test background with filter
 .bg {
-	background: url(../images/bg.test.jpg) 50% 50% no-repeat;
-	background-size: cover;
 	min-height: 100vh;
 	min-width: 100vw;
 	position: absolute;
+  	z-index: -1;
 }
 
 .bg-filter {
@@ -57,15 +56,19 @@ body {
 	min-width: 100vw;
 	pointer-events: none;
 	width: 100%;
+  	position: absolute;
+  	z-index: 0;
 }
+
 
 // Page mast with heading and filter
 .masthead {
 
 	display: block;
-	padding: 2% 0 6.5rem 2%;
+	padding: 2rem 0 6.5rem 2rem;
 	position: relative;
 	width: 100%;
+  	z-index: 3;
 
 	h1 {
 		float: left;
@@ -147,7 +150,7 @@ body {
 	font-size: 1.3rem;
 	margin: 0 0 0 2%;
 	position: relative;
-
+	z-index: 3;
 	.maker-title {
 		strong {
 			font-weight: 600;
@@ -285,8 +288,8 @@ body {
 
 					&::before {
 						content: "\2022";
-					  	font-size: 2.4rem;
-					  	-webkit-font-smoothing: antialiased;
+						font-size: 2.4rem;
+						-webkit-font-smoothing: antialiased;
 					}
 				}
 
@@ -363,13 +366,13 @@ body {
 .base {
 	bottom: 0;
 	clear: both;
-	padding-bottom: 2%;
+	padding-bottom: 2rem;
 	position: absolute;
 	width: 100%;
 
 	.sponsor {
 		float: left;
-		margin-left: 2%;
+		margin-left: 2rem;
 		min-width: 45em;
 
 		p {
@@ -386,7 +389,7 @@ body {
 			background-size: contain;
 			float: left;
 			height: 2.5em;
-			margin-right: 2em;
+			margin-right: 2rem;
 			width: 2.5em;
 		}
 
@@ -456,3 +459,4 @@ body {
 }
 
 @import "_makers";
+@import "_circle";
