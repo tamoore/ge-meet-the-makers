@@ -3,6 +3,7 @@
 @import '../../bower_components/sass-mq/_mq';
 
 @import '_mixins';
+@import "_icons";
 
 html {
 	font: 300 normal 10px/1.2 "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -460,3 +461,4 @@ body {
 
 @import "_makers";
 @import "_circle";
+@import "_mobile";

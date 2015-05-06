@@ -1,0 +1,210 @@
+body {
+	overflow: scroll;
+}
+
+.menu {
+	border-left: 4px solid rgba(92,92,92,0.2);
+	color: #000;
+	height: 100%;
+	min-width: 75%;
+	overflow: scroll;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	transform: translateX(100%);
+	transition: transform .5s ease-in-out;
+	z-index: 1;
+
+	&.menu-slide {
+		transform: translateX(0);
+	}
+
+	.navigation {
+		background: rgba(56,59,60,.8);
+		display: block;
+		padding: 1.6rem;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			li {
+				display: block;
+				margin: 0;
+				padding: 0;
+			}
+
+			&.nav-content {
+				li {
+					border-bottom: 1px solid #b3b3b3;
+					padding: 1rem;
+				}
+				a {
+					color: #fff;
+					cursor: pointer;
+					display: inline-block;
+					font-family: Abel, sans-serif;
+					font-size: 2.5rem;
+					line-height: 1;
+					padding: 1rem 0 7px;
+					text-transform: uppercase;
+
+					&.selected,
+					&:hover {
+						border-bottom: 2px solid #fff;
+						padding: 1rem 0 5px;
+					}
+				}
+			}
+
+			&.nav-social {
+				bottom: 1.6rem;
+				position: absolute;
+
+				li {
+					float: left;
+					margin-right: 1rem;
+				}
+
+				i {
+					border: 1px solid #fff;
+					border-radius: 50%;
+					color: #fff;
+					font-size: 2.5rem;
+					font-style: normal;
+					display: block;
+					height: 4.5rem;
+					line-height: 4.5rem;
+					text-align: center;
+					width: 4.5rem;
+				}
+
+			}
+		}
+	}
+}
+
+.mobile-masthead {
+	background: rgba(0,0,0,.6);
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 0;
+
+	.sponsor {
+		background: rgba(0,0,0,.6);
+		float: left;
+		padding: 1.6rem;
+
+		p {
+			float: left;
+			margin: 0;
+			padding: 0;
+		}
+
+		img {
+			float: left;
+			height: 2.5rem;
+			width: 2.5rem;
+		}
+	}
+
+	.menu-trigger {
+		float: right;
+		padding: 1.6rem;
+	}
+
+	.meta-links {
+		clear: left;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			float: right;
+			margin: 0;
+			padding: 1rem 1.5rem;
+
+			&:first-child {
+				float: left;
+			}
+		}
+
+		.logo-guardian {
+			display: block;
+			height: 1.3rem;
+			width: auto;
+		}
+	}
+}
+
+.makers-mobile {
+	
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			display: block;
+			text-align: center;
+			width: 100%;
+
+			&.maker-tezuka {
+				background-image: url(../images/makers/bg.winch.jpg);
+			}
+
+			&.maker-wolff {
+				background-image: url(../images/makers/bg.spaceman.jpg);
+			}
+
+			&.maker-fletcher {
+				background-image: url(../images/makers/bg.adam.fletcher.jpg);
+			}
+
+			&.maker-dough {
+				background-image: url(../images/makers/bg.miner.jpg);
+			}
+
+			&.maker-spaceman {
+				background-image: url(../images/makers/bg.spaceman.jpg);
+			}
+
+			&.maker-ratched {
+				background-image: url(../images/makers/bg.adam.fletcher.jpg);
+			}
+
+			a {
+				background: rgba(46,123,168,.5) url(../images/dots.png) 0 0 repeat;
+				display: block;
+				cursor: pointer;
+				padding: 8.5rem 0 6.4rem;
+				text-decoration: none;
+			}
+
+			&:first-child {
+				a {
+					padding-top: 20rem;
+				}
+			}
+
+			i {
+				background-position: 50% 50%;
+				background-repeat: no-repeat;
+				display: inline-block;
+				height: 3.3rem;
+				width: 3.3rem;
+			}
+		}
+	}
+
+}
