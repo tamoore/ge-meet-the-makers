@@ -1187,9 +1187,14 @@
 		<script charset="utf-8" src="jspm_packages/system.js"></script>
 		<script src="config.js"></script>
 		<script>
-        	System.import('jquery').then(function() {
-          		System.import('lib/index');
-        	});
+			//System.meta['lib/index'] = { deps: ['lodash'] };
+
+			System.import('lib/index');
+
+//        	System.import('lodash').then(function(_){
+//				window._ = _;
+//				System.import('lib/index');
+//        	});
 		</script>
 		<!-- endbuild -->
 

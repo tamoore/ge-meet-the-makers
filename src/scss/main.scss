@@ -225,16 +225,14 @@ body {
   	$markerLineBaseLine:  10px;
 	cursor: pointer;
 	clear: left;
-	//overflow: scroll;
-	//overflow: hidden;
 	padding-bottom: 2em;
 	width: 100%;
-
-
-  	// centering the timeline roughly
-  	margin-top: 50vh;
-  	position: relative;
-  	top: -160px;
+	/* margin-top: 50vh; */
+	position: relative;
+	/* top: -160px; */
+	height: 100vh;
+	position: fixed;
+	top: 0;
 
 	.timeline-list {
 	  	//@include transition(all .1s cubic-bezier(0.250, 0.250, 0.750, 0.750));
@@ -244,6 +242,8 @@ body {
 		padding: 0 0 0 4em;
 		position: relative;
 		width: 490em; // ( 5em * 98 )
+		margin-top: 50vh;
+	  	top: -160px;
 
 		> li {
 			float: left;
