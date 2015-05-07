@@ -33,6 +33,7 @@ System.config({
     "marionettejs/backbone.marionette": "github:marionettejs/backbone.marionette@2.4.1",
     "marionettejs/backbone.wreqr": "github:marionettejs/backbone.wreqr@1.3.2",
     "node-easel": "npm:node-easel@0.1.2",
+    "node-uuid": "npm:node-uuid@1.4.3",
     "preload": "github:CreateJS/PreloadJS@0.6.0",
     "txt": "github:systemjs/plugin-text@0.0.2",
     "underscore": "npm:underscore@1.8.3",
@@ -258,6 +259,9 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "os": "github:jspm/nodelibs-os@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:node-uuid@1.4.3": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0"
     },
     "npm:os-browserify@0.1.2": {
       "os": "github:jspm/nodelibs-os@0.1.0"

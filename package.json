@@ -18,6 +18,7 @@
       "jquery-mousewheel": "npm:jquery-mousewheel@^3.1.12",
       "lodash": "npm:lodash@^3.7.0",
       "node-easel": "npm:node-easel@^0.1.2",
+      "node-uuid": "npm:node-uuid@^1.4.3",
       "preload": "github:CreateJS/PreloadJS@^0.6.0",
       "txt": "github:systemjs/plugin-text@^0.0.2"
     },

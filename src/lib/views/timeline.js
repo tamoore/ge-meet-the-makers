@@ -39,10 +39,10 @@ export class TimelineStageView extends BaseView {
     }
 
     handleTimeLinePanEnd(imageid){
-        console.log(imageid);
-        if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1)){
+        if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
             var videourl = this.preload.getAmbientVideoSrc("01", this.getformattedId(imageid));
             this.stageUpdate( this.ambientVideoEmitter.returnStageVideo(videourl) );
+            this.currentImageId = imageid;
         }
     }
 
@@ -60,7 +60,7 @@ export class TimelineStageView extends BaseView {
     }
 
     handleTimeLinePan(offset, imageid){
-        if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1)){
+        if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
             var image = new createjs.Bitmap(this.preload.getResult(this.generateImageLink(imageid)))
             //image.scaleX = 0.95;
             //image.scaleY = 0.95;
@@ -68,6 +68,7 @@ export class TimelineStageView extends BaseView {
         }
 
     }
+
 
 
 }

@@ -8,6 +8,7 @@ export class TimelineEmitter extends Base {
         super();
         this.config = config.timeline;
         this.currentOffset = 0;
+        console.log(view);
         this.timelineMC = new Hammer(view);
         this.timelineMC.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
         this.timelineMC.on('panleft panright', _.bind(this.handlePan, this));

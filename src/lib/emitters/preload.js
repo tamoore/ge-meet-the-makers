@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import preloadjs from 'preload';
 import config from "../config";
-import { Base } from './base'
+import { Base } from './base';
+import uuid from 'node-uuid';
 
 export class Preload extends Base {
     constructor(){
@@ -74,7 +75,7 @@ export class Preload extends Base {
             "/" + this.config.CDN_BUCKET +
             this.config.VIDEOS_PREFIX +
             this.config.MAKER_AMBIENT_PREFIX
-            + makerid + '_' + videoid + '.mp4';
+            + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
     }
 
 
