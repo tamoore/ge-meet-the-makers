@@ -24,7 +24,7 @@ gulp.task('build', ['styles'], function() {
 		.pipe(shell([
 			'jspm bundle-sfx --minify src/lib/index',
 			'mv ./build.js ./build/ && mv ./build.js.map ./build/',
-			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/'
+			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
 		]));
 
 	gulp.src('./src/index.html')
@@ -38,6 +38,18 @@ gulp.task('build', ['styles'], function() {
 			}
 		}))
 	.pipe(gulp.dest('build/'));
+
+	gulp.src('./src/static/*.html')
+		.pipe(htmlreplace({
+			src: './src/static/*.html',
+			'js': {
+				src: ['https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js','static-scripts.js']
+			},
+			'css': {
+				src: ['../css/main.css']
+			}
+		}))
+		.pipe(gulp.dest('build/static/'));
 });
 
 // Run development server environmnet
@@ -61,6 +73,7 @@ gulp.task('serve', ['styles'], function () {
   gulp.watch([
     'src/**/*.txt',
     'src/*.html',
+	  'src/**/*.html',
     'src/lib/**/*.js',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',

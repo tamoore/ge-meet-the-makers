@@ -11,9 +11,13 @@ class Application {
 
 		this.tempProgress = document.getElementById("tempProgress");
 		this.preload = new PreloadFactory();
-		this.preload.on(Preload.PROGRESS, (progress)=>{
-			this.tempProgress.textContent = progress + "%";
-		})
+
+		if(this.tempProgress){
+			this.preload.on(Preload.PROGRESS, (progress)=>{
+				this.tempProgress.textContent = progress + "%";
+			});
+		}
+
 		this.clock = new ClockView('localTime');
 		this.timelineWrapper = new TimelineWrapperView("timelineWrapper");
 		this.timelineList = new TimelineListView('timelineList');
