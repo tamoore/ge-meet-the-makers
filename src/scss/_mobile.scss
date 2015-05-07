@@ -97,9 +97,16 @@ body {
 	width: 100%;
 	z-index: 0;
 
+	.row {
+		align-items: center;
+		display: flex;
+		justify-content: flex-start;
+	}
+
 	.sponsor {
 		background: rgba(0,0,0,.6);
-		float: left;
+		display: flex;
+		flex: 2 1 auto;
 		padding: 1.6rem;
 
 		p {
@@ -111,6 +118,7 @@ body {
 		img {
 			float: left;
 			height: 2.5rem;
+			margin-left: 1em;
 			width: 2.5rem;
 		}
 	}
@@ -185,8 +193,9 @@ body {
 
 			a {
 				background: rgba(46,123,168,.5) url(../images/dots.png) 0 0 repeat;
-				display: block;
+				color: #fff;
 				cursor: pointer;
+				display: block;
 				padding: 8.5rem 0 6.4rem;
 				text-decoration: none;
 			}
