@@ -6,7 +6,7 @@ export default {
         MAKER_AMBIENT_TYPES: ['jpg', 'mp4'],
         CDN_HOST: "cdn.labs.theguardian.com",
         CDN_BUCKET: "2015/meet-the-makers/",
-        VIDEOS_PREFIX : "videos/",
+        VIDEOS_PREFIX : "videos-large/",
         IMAGES_PREFIX : "images/",
         CDN_PROTOCOL : "http"
     },

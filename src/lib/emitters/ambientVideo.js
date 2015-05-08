@@ -16,6 +16,8 @@ export class AmbientVideoEmitter extends Base {
         this.el.style.visibility = "visible";
         this.el.controls = false;
         this.el.autoplay = true;
+        this.el.width = 1280;
+        this.el.height = 720;
         this.el.loop = true;
     }
 
@@ -43,8 +45,8 @@ export class AmbientVideoEmitter extends Base {
 
     returnStageVideo(url){
         var video = new createjs.Bitmap(this.play(url));
-        video.scaleX = 1.05;
-        video.scaleY = 1.05;
+        video.scaleX = .5;
+        video.scaleY = .5;
         return video;
     }
 
