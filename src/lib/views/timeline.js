@@ -25,11 +25,14 @@ export class TimelineStageView extends BaseView {
         this.timeline.on(TimelineEmitter.PAN, _.bind(this.handleTimeLinePan, this));
         this.timeline.on(TimelineEmitter.PANEND, _.bind(this.handleTimeLinePanEnd, this));
 
+        this.ambientVideoEmitter.on(AmbientVideoEmitter.PLAYING, _.bind(this.handleVideoPlaying, this));
+
         //TODO: Adding the overall structure for it.
         this.handleTimeLinePanEnd(1);
 
     }
     stageUpdate(image){
+        this.stage.removeAllChildren();
         this.stage.addChild(image);
         this.stage.update();
     }
@@ -41,9 +44,18 @@ export class TimelineStageView extends BaseView {
     handleTimeLinePanEnd(imageid){
         if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
             var videourl = this.preload.getAmbientVideoSrc("01", this.getformattedId(imageid));
-            this.stageUpdate( this.ambientVideoEmitter.returnStageVideo(videourl) );
+            this.currentVideo = this.ambientVideoEmitter.returnStageVideo(videourl)
             this.currentImageId = imageid;
+
         }
+    }
+
+    handleVideoPlaying(event){
+        console.log("playing")
+        if(this.currentVideo){
+            this.stageUpdate(this.currentVideo);
+        }
+
     }
 
     handlePreloadComplete(event){
@@ -61,9 +73,12 @@ export class TimelineStageView extends BaseView {
 
     handleTimeLinePan(offset, imageid){
         if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
+
             var image = new createjs.Bitmap(this.preload.getResult(this.generateImageLink(imageid)))
             //image.scaleX = 0.95;
             //image.scaleY = 0.95;
+            
+
             this.stageUpdate( image );
         }
 
@@ -81,7 +96,8 @@ export class TimelineListView extends BaseView {
         this.width = this.el.clientWidth;
 
     }
-    handleTimeLinePan(offset, imageid){
+    handleTimeLinePan(offset, imageid, event){
+        console.log(event.direction)
         if(Math.abs(offset) < this.width && Math.abs(offset) > 0){
             this.el.style.webkitTransform = "translateX("+offset+"px)";
             this.el.style.MozTransform = "translateX("+offset+"px)";

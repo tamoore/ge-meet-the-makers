@@ -11,11 +11,16 @@ export class AmbientVideoEmitter extends Base {
         this.el.addEventListener("error", _.bind(this.handleVideoError, this));
         this.el.addEventListener("abort", _.bind(this.handleVideoAbort, this));
         this.el.addEventListener("loadeddata", _.bind(this.handleLoadedData, this));
+        this.el.addEventListener("play", _.bind(this.handlePlayingVideo, this));
         this.el.volume = 0;
         this.el.style.visibility = "visible";
         this.el.controls = false;
         this.el.autoplay = true;
         this.el.loop = true;
+    }
+
+    handlePlayingVideo(event){
+        this.trigger(AmbientVideoEmitter.PLAYING);
     }
 
 
@@ -44,6 +49,7 @@ export class AmbientVideoEmitter extends Base {
     }
 
 }
+AmbientVideoEmitter.PLAYING = "ambientvideo:playing";
 
 let ambidentvideo;
 export class AmbientVideoFactory {
