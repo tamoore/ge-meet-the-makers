@@ -6,7 +6,6 @@ export class AmbientVideoEmitter extends Base {
     constructor(){
         super();
         this.config = config.ambientVideo;
-
         this.el = document.createElement('video');
         this.el.addEventListener("error", _.bind(this.handleVideoError, this));
         this.el.addEventListener("abort", _.bind(this.handleVideoAbort, this));
@@ -24,7 +23,6 @@ export class AmbientVideoEmitter extends Base {
     handlePlayingVideo(event){
         this.trigger(AmbientVideoEmitter.PLAYING);
     }
-
 
     handleVideoError(event) {
         //console.log(event);
