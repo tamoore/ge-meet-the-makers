@@ -1,4 +1,6 @@
+import { Application } from '../index';
 import { BaseView } from './base';
+import { TimelineScrollEmitter } from '../emitters/timelineScroll';
 
 export class ClockView extends BaseView {
     constructor(...args){
@@ -8,6 +10,10 @@ export class ClockView extends BaseView {
         var hours = this.now.getHours();
         var	minutes = this.now.getMinutes();
         var clock = this.el;
+
+        this.m = (((minutes + 7.5)/15 | 0) * 15) % 60;
+        this.h = ((((minutes/105) + .5) | 0) + hours) % 24;
+        this.correction = 575;
 
         // Create offset measurement for scroller
         // Entire scroller = 96 blocks of 15 minutes (add another two units for spacer between 00 and 24)
@@ -44,5 +50,35 @@ export class ClockView extends BaseView {
         // Set clock local time
         var time = formatHour + ":" + formatMinute;
         clock.innerHTML = time;
+        this.position = this.calculatePosition();
+        Application.pipe.trigger(ClockView.POSITION, Math.abs( this.position ));
+    }
+
+    get position(){
+        return this._position;
+    }
+    set position(pos){
+        this._position = pos;
+    }
+
+    calculatePosition(){
+        var maddition;
+        switch(this.m){
+            case 0:
+                maddition = 0;
+                break;
+            case 15:
+                maddition = 1;
+                break;
+            case 30:
+                maddition = 2;
+                break;
+            case 45:
+                maddition = 3;
+                break;
+        }
+        return (((this.h * 4) + maddition)* TimelineScrollEmitter.INTERVAL)-this.correction;
+
     }
 }
+ClockView.POSITION = "clockview:position";

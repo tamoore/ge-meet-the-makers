@@ -1,13 +1,22 @@
 import { Preload, PreloadFactory } from './emitters/preload';
 import lodash from 'lodash';
+
+//Emitter
+import { Base } from './emitters/base';
+
+// Views
 import { ClockView } from './views/clock';
 import { TimelineWrapperView } from './views/timeline';
 import { TimelineListView } from './views/timeline';
 import { TimelineStageView } from './views/timeline';
+
 window._ = lodash;
 
-class Application {
+export class Application extends Base {
 	constructor(){
+		super();
+
+		Application.pipe = this;
 
 		this.tempProgress = document.getElementById("tempProgress");
 		this.preload = new PreloadFactory();
@@ -18,17 +27,24 @@ class Application {
 			});
 		}
 
-		this.clock = new ClockView('localTime');
+
 		this.timelineWrapper = new TimelineWrapperView("timelineWrapper");
-		this.timelineList = new TimelineListView('timelineList');
 		this.timelineStage = new TimelineStageView('ambientvideos');
+		this.timelineList = new TimelineListView('timelineList');
 
 
 
+		this.clock = new ClockView('localTime');
 	}
 
+	//registerObservers(){
+	//	//Object.observe(this.clock, (changes)=>{
+	//	//	console.log(cahnges);
+	//	//});
+	//}
 
 }
+
 
 $(function(){
 	new Application();

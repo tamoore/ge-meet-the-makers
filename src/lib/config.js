@@ -6,12 +6,12 @@ export default {
         MAKER_AMBIENT_TYPES: ['jpg', 'mp4'],
         CDN_HOST: "cdn.labs.theguardian.com",
         CDN_BUCKET: "2015/meet-the-makers/",
-        VIDEOS_PREFIX : "videos-large/",
+        VIDEOS_PREFIX : "videos/",
         IMAGES_PREFIX : "images/",
         CDN_PROTOCOL : "http"
     },
     "timeline": {
-        INTERVAL: 274,
+        INTERVAL: 408.33,
         SENSITIVITY: 10
     },
     "ambientVideo": {

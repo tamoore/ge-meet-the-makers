@@ -43,8 +43,8 @@ export class AmbientVideoEmitter extends Base {
 
     returnStageVideo(url){
         var video = new createjs.Bitmap(this.play(url));
-        video.scaleX = .5;
-        video.scaleY = .5;
+        video.scaleX = 1.05;
+        video.scaleY = 1.05;
         return video;
     }
 

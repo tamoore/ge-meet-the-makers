@@ -1,5 +1,5 @@
 import { BaseView } from './base';
-import { TimelineEmitter, TimelineFactory } from '../emitters/timeline';
+import { TimelineScrollEmitter, TimelineFactory } from '../emitters/timelineScroll';
 import { Preload, PreloadFactory } from '../emitters/preload';
 import { AmbientVideoEmitter } from '../emitters/ambientVideo';
 
@@ -22,8 +22,8 @@ export class TimelineStageView extends BaseView {
         this.preload.on(Preload.COMPLETE, _.bind(this.handlePreloadComplete, this));
         this.preload.on(Preload.FILELOADED, _.bind(this.handleFileLoaded, this));
 
-        this.timeline.on(TimelineEmitter.PAN, _.bind(this.handleTimeLinePan, this));
-        this.timeline.on(TimelineEmitter.PANEND, _.bind(this.handleTimeLinePanEnd, this));
+        this.timeline.on(TimelineScrollEmitter.PAN, _.bind(this.handleTimeLinePan, this));
+        this.timeline.on(TimelineScrollEmitter.PANEND, _.bind(this.handleTimeLinePanEnd, this));
 
         this.ambientVideoEmitter.on(AmbientVideoEmitter.PLAYING, _.bind(this.handleVideoPlaying, this));
 

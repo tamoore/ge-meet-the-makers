@@ -1,9 +1,12 @@
 import Hammer from 'hammerjs';
-import config from "../config";
+import config from '../config';
+
+import { Application } from '../index';
+import { ClockView } from '../views/clock';
 import { Base } from './base';
 
 let timeline = undefined;
-export class TimelineEmitter extends Base {
+export class TimelineScrollEmitter extends Base {
     constructor(view, listId){
         super();
         if (view==null) return;
@@ -17,6 +20,8 @@ export class TimelineEmitter extends Base {
         this.pressed = false;
         this.xform = 'transform';
         this.timeConstant = 325;
+        this.snap = TimelineScrollEmitter.INTERVAL + 25;
+
 
 
         //get the browser transform prefix
@@ -29,7 +34,13 @@ export class TimelineEmitter extends Base {
             return true;
         },this));
 
+
         this.applyEvents();
+
+        Application.pipe.on(ClockView.POSITION, _.bind(this.scroll, this));
+        Application.pipe.on(ClockView.POSITION, (scrollx)=>{
+            this.trigger(TimelineScrollEmitter.PANEND, this.getImageId(scrollx));
+        });
     }
 
     xpos(e){
@@ -86,7 +97,6 @@ export class TimelineEmitter extends Base {
                 this.reference = x;
                 scrollx = this.offset + delta
                 this.scroll(this.offset + delta);
-                this.trigger(TimelineEmitter.PAN, this.getImageId(scrollx))
             }
         }
         return false;
@@ -115,20 +125,19 @@ export class TimelineEmitter extends Base {
             if (delta > 0.5 || delta < -0.5) {
                 scrollx = this.target + delta
                 this.scroll(scrollx);
-                this.trigger(TimelineEmitter.PAN, this.getImageId(scrollx));
                 requestAnimationFrame(_.bind(this.autoScroll, this));
             } else {
-                scrollx = this.target;
+                scrollx = Math.round(this.target / this.snap) * this.snap;
                 this.scroll(scrollx);
-                this.trigger(TimelineEmitter.PANEND, this.getImageId(scrollx));
+                this.trigger(TimelineScrollEmitter.PANEND, this.getImageId(scrollx));
             }
         }
     }
 
     scroll(x){
-        console.log(x);
         this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
         this.listView.style[this.xform] = 'translateX(' + (-this.offset) + 'px)';
+        this.trigger(TimelineScrollEmitter.PAN, this.getImageId(this.offset))
         //this.indicator.style[xform] = 'translateX(' + (this.offset * this.relative) + 'px)'
     }
 
@@ -142,13 +151,14 @@ export class TimelineEmitter extends Base {
 
 }
 
-TimelineEmitter.PAN = "timeline:pan";
-TimelineEmitter.PANEND = "timeline:panend";
+TimelineScrollEmitter.PAN = "timeline:pan";
+TimelineScrollEmitter.PANEND = "timeline:panend";
+TimelineScrollEmitter.INTERVAL = 50;
 
 export class TimelineFactory {
     constructor(view, listid){
         if(!timeline){
-            timeline = new TimelineEmitter(view, listid);
+            timeline = new TimelineScrollEmitter(view, listid);
             return timeline;
         }else{
             return timeline;

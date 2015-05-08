@@ -25,7 +25,7 @@ body {
 	padding: 0;
     width: 100vw;
   	height: 100vh;
-  	overflow: hidden;
+  	overflow: hidden !important;
 
 }
 
@@ -234,6 +234,16 @@ body {
 	height: 100vh;
 	position: fixed;
 	top: 0;
+  	&:before {
+	  content: "";
+	  position: absolute;
+	  width: 1px;
+	  height: 100vh;
+	  left: 50vw;
+	  margin-left: -.5px;
+	  z-index: 100;
+	  background-color: rgba(0,0,0,.2);
+	}
 
 	.timeline-list {
 	  	//@include transition(all .1s cubic-bezier(0.250, 0.250, 0.750, 0.750));
@@ -243,7 +253,7 @@ body {
 		padding: 0 0 0 4em;
 		position: relative;
 		width: 4900px; // ( 5em * 98 )
-		margin-top: 120px;
+		margin-top: 0px;
 	  	top: 50vh;
 
 		> li {
