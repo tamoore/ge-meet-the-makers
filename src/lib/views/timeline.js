@@ -38,7 +38,7 @@ export class TimelineStageView extends BaseView {
     }
 
     handleFileLoaded(event){
-        console.log("File Loaded:", event);
+        //console.log("File Loaded:", event);
     }
 
     handleTimeLinePanEnd(imageid){
@@ -51,7 +51,7 @@ export class TimelineStageView extends BaseView {
     }
 
     handleVideoPlaying(event){
-        console.log("playing")
+        //console.log("playing")
         if(this.currentVideo){
             this.stageUpdate(this.currentVideo);
         }
@@ -71,7 +71,7 @@ export class TimelineStageView extends BaseView {
         return "maker01_"+ this.getformattedId(imageid) +"_jpg";
     }
 
-    handleTimeLinePan(offset, imageid){
+    handleTimeLinePan(imageid){
         if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
 
             var image = new createjs.Bitmap(this.preload.getResult(this.generateImageLink(imageid)))
@@ -92,19 +92,7 @@ export class TimelineListView extends BaseView {
     constructor(id){
         super(id);
         this.timeline = new TimelineFactory();
-        this.timeline.on(TimelineEmitter.PAN, _.bind(this.handleTimeLinePan, this));
         this.width = this.el.clientWidth;
-
-    }
-    handleTimeLinePan(offset, imageid, event){
-        console.log(event.direction)
-        if(Math.abs(offset) < this.width && Math.abs(offset) > 0){
-            this.el.style.webkitTransform = "translateX("+offset+"px)";
-            this.el.style.MozTransform = "translateX("+offset+"px)";
-            this.el.style.msTransform = "translateX("+offset+"px)";
-            this.el.style.OTransform = "translateX("+offset+"px)";
-            this.el.style.transform = "translateX("+offset+"px)";
-        }
 
     }
 }
@@ -112,7 +100,7 @@ export class TimelineListView extends BaseView {
 export class TimelineWrapperView extends BaseView {
     constructor(id){
         super(id);
-        this.timeline = new TimelineFactory(this.el);
+        this.timeline = new TimelineFactory(this.el, 'timelineList');
 
 
     }

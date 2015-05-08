@@ -4,64 +4,151 @@ import { Base } from './base';
 
 let timeline = undefined;
 export class TimelineEmitter extends Base {
-    constructor(view){
+    constructor(view, listId){
         super();
         if (view==null) return;
-        
+
+        this.view = view;
+        this.listView = document.getElementById(listId);
         this.config = config.timeline;
         this.currentOffset = 0;
-        this.timelineMC = new Hammer(view);
-        this.timelineMC.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL });
-        this.timelineMC.on('panleft panright', _.bind(this.handlePan, this));
-        this.timelineMC.on('panend', _.bind(this.handlePanEnd, this));
+        this.maxWidth = 4900;
+        this.offset = this.min = 0;
+        this.pressed = false;
+        this.xform = 'transform';
+        this.timeConstant = 325;
 
 
-        this.on(TimelineEmitter.PANEND, _.bind(this.release, this));
+        //get the browser transform prefix
+        ['webkit', 'Moz', 'O', 'ms'].every(_.bind(function (prefix) {
+            let e = prefix + 'Transform';
+            if(typeof view.style[e] !== 'undefined'){
+                this.xform = e;
+                return false;
+            }
+            return true;
+        },this));
 
-        // Inertia
-        this._velocityTracking = []
+        this.applyEvents();
+    }
+
+    xpos(e){
+        if (e.srcEvent.targetTouches && (e.srcEvent.targetTouches.length >= 1)) {
+            return e.srcEvent.targetTouches[0].clientX;
+        }
+
+        // mouse event
+        return e.srcEvent.clientX;
+    }
+
+    applyEvents(){
+        this.timelineHammer = new Hammer(this.view);
+        this.timelineHammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+        this.timelineHammer.on('panstart', _.bind(this.tap, this));
+        this.timelineHammer.on('pan', _.bind(this.drag, this));
+        this.timelineHammer.on('panend', _.bind(this.release, this));
 
     }
-    track(event){
-        this._velocityTracking.push(event.velocity);
-        this._direction = event.direction;
-        this._event = event;
-        this._amplitude = 0;
+
+
+    tap(e){
+        this.pressed = true;
+        this.reference = this.xpos(e);
+        this.velocity = this.amplitude = 0;
+        this.frame = this.offset;
+        this.timestamp = Date.now();
+        clearInterval(this.ticker);
+        this.ticker = setInterval(_.bind(this.track, this), 100);
+
+
+        return false;
     }
 
-    release(){
-        this._velocityOverall = _.sum(this._velocityTracking)/this._velocityTracking.length;
-        this._amplitude = 100 * this._velocityOverall;
+    track(){
+        var now, elapsed, delta, v;
 
+        now = Date.now();
+        elapsed = now - this.timestamp;
+        this.timestamp = now;
+        delta = this.offset - this.frame;
+        this.frame = this.offset;
+        v = 500 * delta / (1 + elapsed);
+        this.velocity = 0.8 * v + 0.2 * this.velocity;
+
+    }
+
+    drag(e){
+        var x, delta, scrollx;
+        if (this.pressed) {
+            x = this.xpos(e);
+            delta = this.reference - x;
+            if (delta > 2 || delta < -2) {
+                this.reference = x;
+                scrollx = this.offset + delta
+                this.scroll(this.offset + delta);
+                this.trigger(TimelineEmitter.PAN, this.getImageId(scrollx))
+            }
+        }
+        return false;
+    }
+
+    release(e){
+        this.pressed = false;
+
+        clearInterval(this.ticker);
+        if (this.velocity > 10 || this.velocity < -10) {
+            this.amplitude = 0.8 * this.velocity;
+            this.target = Math.round(this.offset + this.amplitude);
+            this.timestamp = Date.now();
+            requestAnimationFrame(_.bind(this.autoScroll, this));
+        }
+        return false;
+
+    }
+
+    autoScroll(){
+        var elapsed, delta, scrollx;
+        if (this.amplitude) {
+            elapsed = Date.now() - this.timestamp;
+            delta = -this.amplitude * Math.exp(-elapsed / this.timeConstant);
+            console.log(delta);
+            if (delta > 0.5 || delta < -0.5) {
+                scrollx = this.target + delta
+                this.scroll(scrollx);
+                this.trigger(TimelineEmitter.PAN, this.getImageId(scrollx));
+                requestAnimationFrame(_.bind(this.autoScroll, this));
+            } else {
+                scrollx = this.target;
+                this.scroll(scrollx);
+                this.trigger(TimelineEmitter.PANEND, this.getImageId(scrollx));
+            }
+        }
+    }
+
+    scroll(x){
+        console.log(x);
+        this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
+        this.listView.style[this.xform] = 'translateX(' + (-this.offset) + 'px)';
+        //this.indicator.style[xform] = 'translateX(' + (this.offset * this.relative) + 'px)'
     }
 
     getImageId(offset){
-        return  Math.abs(Math.ceil(offset/this.config.INTERVAL));
-    }
-
-    handlePan(event){
-        let offset = event.deltaX;
-        this.currentOffset = this.currentOffset + (offset/this.config.SENSITIVITY);
-        this.track(event);
-        this.trigger(TimelineEmitter.PAN, this.currentOffset, this.getImageId(this.currentOffset), event);
-    }
-
-    handlePanEnd(event){
-        //console.log(event);
-        this.trigger(TimelineEmitter.PANEND, this.getImageId(this.currentOffset));
+        let id = Math.abs(Math.ceil(offset/this.config.INTERVAL));
+        if(id == 0){
+            id = 1
+        }
+        return  id;
     }
 
 }
+
 TimelineEmitter.PAN = "timeline:pan";
 TimelineEmitter.PANEND = "timeline:panend";
-TimelineEmitter.DIRECTION_LEFT = 2;
-TimelineEmitter.DIRECTION_RIGHT = 4;
-
 
 export class TimelineFactory {
-    constructor(view){
+    constructor(view, listid){
         if(!timeline){
-            timeline = new TimelineEmitter(view);
+            timeline = new TimelineEmitter(view, listid);
             return timeline;
         }else{
             return timeline;

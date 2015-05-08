@@ -25,15 +25,15 @@ export class AmbientVideoEmitter extends Base {
 
 
     handleVideoError(event) {
-        console.log(event);
+        //console.log(event);
     }
 
     handleVideoAbort(event) {
-        console.log(event);
+        //console.log(event);
     }
 
     handleLoadedData(event) {
-        console.log(event);
+        //console.log(event);
     }
 
     play(url){
