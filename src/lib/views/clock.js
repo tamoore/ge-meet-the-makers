@@ -51,7 +51,7 @@ export class ClockView extends BaseView {
         var time = formatHour + ":" + formatMinute;
         clock.innerHTML = time;
         this.position = this.calculatePosition();
-        Application.pipe.trigger(ClockView.POSITION, Math.abs( this.position ));
+        Application.pipe.emit(ClockView.POSITION, Math.abs( this.position ));
     }
 
     get position(){

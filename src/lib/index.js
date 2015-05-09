@@ -1,4 +1,4 @@
-import { Preload, PreloadFactory } from './emitters/preload';
+import { StaticAssetsStore, PreloadInstance } from './emitters/staticAssets';
 import lodash from 'lodash';
 
 //Emitter
@@ -19,10 +19,10 @@ export class Application extends Base {
 		Application.pipe = this;
 
 		this.tempProgress = document.getElementById("tempProgress");
-		this.preload = new PreloadFactory();
+		this.preload = new PreloadInstance();
 
 		if(this.tempProgress){
-			this.preload.on(Preload.PROGRESS, (progress)=>{
+			this.preload.on(StaticAssetsStore.PROGRESS, (progress)=>{
 				this.tempProgress.textContent = progress + "%";
 			});
 		}

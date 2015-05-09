@@ -1,8 +1,12 @@
-import Observer from '../utils/class';
+import events from 'event-emitter';
 
-export class Base extends Observer {
-    constructor() {
-        super();
+export class Base {
+    constructor(){
+        this.events = events(this);
     }
 }
+
+
+
+
 

@@ -39,7 +39,7 @@ export class TimelineScrollEmitter extends Base {
 
         Application.pipe.on(ClockView.POSITION, _.bind(this.scroll, this));
         Application.pipe.on(ClockView.POSITION, (scrollx)=>{
-            this.trigger(TimelineScrollEmitter.PANEND, this.getImageId(scrollx));
+            this.emit(TimelineScrollEmitter.PANEND, this.getImageId(scrollx));
         });
     }
 
@@ -129,7 +129,7 @@ export class TimelineScrollEmitter extends Base {
             } else {
                 scrollx = Math.round(this.target / this.snap) * this.snap;
                 this.scroll(scrollx);
-                this.trigger(TimelineScrollEmitter.PANEND, this.getImageId(scrollx));
+                this.emit(TimelineScrollEmitter.PANEND, this.getImageId(scrollx));
             }
         }
     }
@@ -137,7 +137,7 @@ export class TimelineScrollEmitter extends Base {
     scroll(x){
         this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
         this.listView.style[this.xform] = 'translateX(' + (-this.offset) + 'px)';
-        this.trigger(TimelineScrollEmitter.PAN, this.getImageId(this.offset))
+        this.emit(TimelineScrollEmitter.PAN, this.getImageId(this.offset))
         //this.indicator.style[xform] = 'translateX(' + (this.offset * this.relative) + 'px)'
     }
 
@@ -155,7 +155,7 @@ TimelineScrollEmitter.PAN = "timeline:pan";
 TimelineScrollEmitter.PANEND = "timeline:panend";
 TimelineScrollEmitter.INTERVAL = 50;
 
-export class TimelineFactory {
+export class TimelineInstance {
     constructor(view, listid){
         if(!timeline){
             timeline = new TimelineScrollEmitter(view, listid);

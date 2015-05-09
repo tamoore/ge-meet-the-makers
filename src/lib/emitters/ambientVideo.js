@@ -15,13 +15,13 @@ export class AmbientVideoEmitter extends Base {
         this.el.style.visibility = "visible";
         this.el.controls = false;
         this.el.autoplay = true;
-        this.el.width = 1280;
-        this.el.height = 720;
         this.el.loop = true;
+
+        this.on(AmbientVideoEmitter.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
     }
 
     handlePlayingVideo(event){
-        this.trigger(AmbientVideoEmitter.PLAYING);
+        this.emit(AmbientVideoEmitter.PLAYING, this.currentVideo);
     }
 
     handleVideoError(event) {
@@ -38,21 +38,20 @@ export class AmbientVideoEmitter extends Base {
 
     play(url){
         this.el.src = url;
+        this.el.play();
         return this.el;
     }
 
-    returnStageVideo(url){
-        var video = new createjs.Bitmap(this.play(url));
-        video.scaleX = 1.05;
-        video.scaleY = 1.05;
-        return video;
+    handleVideoSrc(url){
+        this.currentVideo = new createjs.Bitmap(this.play(url));
+
     }
 
 }
 AmbientVideoEmitter.PLAYING = "ambientvideo:playing";
 
 let ambidentvideo;
-export class AmbientVideoFactory {
+export class AmbientInstance {
     constructor(){
         if(!ambientVideo){
             ambidentvideo = new AmbientVideoEmitter();

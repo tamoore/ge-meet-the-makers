@@ -7,6 +7,12 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	reload = browserSync.reload,
 	htmlreplace = require('gulp-html-replace');
+	var spawn = require('child_process').spawn;
+	var gutil = require('gulp-util');
+
+var appConfig = require('./src/lib/config');
+var pkg = require('./package.json');
+
 
 gulp.task('styles', function() {
 	return sass('src/scss/main.scss')
@@ -80,5 +86,57 @@ gulp.task('serve', ['styles'], function () {
   ]).on('change', reload);
 
   gulp.watch('src/scss/**/*.scss', ['styles']);
+});
+
+gulp.task('transcode-ambient-videos', function(){
+	var makerCount = appConfig.preload.MAKER_COUNT;
+	var ambientVideosCount = appConfig.preload.MAKER_AMBIENT_COUNT;
+	var makercount = 1;
+	var assetcount = 1;
+	var config = pkg.config;
+	while(makercount <= makerCount){
+		while(assetcount <= ambientVideosCount){
+
+				var child = spawn("aws",
+					[	'elastictranscoder',
+						'create-job',
+						'--pipeline-id',
+						config.transcoderPipelineId,
+						'--input',
+						JSON.stringify({"Key": appConfig.preload.MAKER_AMBIENT_PREFIX +'0'+makercount +'_'+(assetcount < 10? '0':'')+assetcount+'.mp4' }),
+						'--profile',
+						'labs',
+						'--region',
+						'us-east-1',
+						'--outputs',
+						JSON.stringify([{"Key": appConfig.preload.MAKER_AMBIENT_PREFIX +'0'+makercount +'_'+(assetcount < 10? '0':'')+assetcount+'.mp4', "PresetId": config.transcoderPresetId }]),
+						'--output-key-prefix',
+						config.s3Prefix+'videos/'
+					],
+					{cwd: process.cwd()}
+				),
+					stdout = '',
+					stderr = '';
+
+				child.stdout.setEncoding('utf8');
+				child.stdout.on('data', function (data) {
+					stdout += data;
+					gutil.log(data);
+				});
+				child.stderr.setEncoding('utf8');
+				child.stderr.on('data', function (data) {
+					stderr += data;
+					gutil.log(gutil.colors.red(data));
+					gutil.beep();
+				});
+				child.on('close', function(code) {
+					gutil.log("Done with exit code", code);
+
+				});
+			assetcount++;
+		}
+		makercount++;
+	}
+
 });
 

@@ -4,6 +4,11 @@
   "registry": "jspm",
   "version": "0.1.0",
   "main": "lib/index",
+  "config": {
+    "s3Prefix": "2015/meet-the-makers/",
+    "transcoderPipelineId": "1430866615421-909ytr",
+    "transcoderPresetId": "1429238483319-2o6x6m"
+  },
   "jspm": {
     "format": "es6",
     "directories": {
@@ -13,6 +18,7 @@
       "core-js": "npm:core-js@^0.9.6",
       "easeljs": "github:CreateJS/EaselJS@^0.8.0",
       "es6-dispatcher": "npm:es6-dispatcher@^2.1.0",
+      "event-emitter": "npm:event-emitter@^0.3.3",
       "hammerjs": "npm:hammerjs@^2.0.4",
       "jquery": "github:components/jquery@^2.1.3",
       "jquery-mousewheel": "npm:jquery-mousewheel@^3.1.12",
