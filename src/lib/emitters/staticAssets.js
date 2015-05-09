@@ -1,13 +1,21 @@
+import { Application } from '../index';
 import $ from 'jquery';
 import preloadjs from 'preload';
 import config from "../config";
 import { Base } from './base';
-import uuid from 'node-uuid';
+
+export const StaticAssetsStoreEvents = {
+    PROGRESS: "staticassets:progress",
+    COMPLETE: "staticassets:complete",
+    FILELOADED: "staticassets:fileloaded",
+    GET_RESULT: "staticassets:getresult",
+    SEND_RESULT: "staticassets:sendresult"
+}
 
 export class StaticAssetsStore extends Base {
     constructor(){
         super();
-        console.log(this);
+
         this.config = config.preload;
         this.assets = [];
         this.progress = 0;
@@ -19,21 +27,23 @@ export class StaticAssetsStore extends Base {
         this.preload.on("fileload", this.handleFileLoad, this);
         this.preload.on("complete", this.handleCompleteProgress, this);
 
+        Application.pipe.on(StaticAssetsStoreEvents.GET_RESULT, _.bind(this.getResult, this))
+
         this.generateAssetsTokens();
         this.fetchAssets();
     }
 
     handleFileLoad(event){
-        this.emit(StaticAssetsStore.FILELOADED, event);
+        Application.pipe.emit(StaticAssetsStoreEvents.FILELOADED, event);
     }
 
     handleProgress(event){
         this.progress = Math.ceil(event.progress*100);
-        this.emit(StaticAssetsStore.PROGRESS, this.progress);
+        Application.pipe.emit(StaticAssetsStoreEvents.PROGRESS, this.progress);
     }
 
     handleCompleteProgress(event){
-        this.emit(StaticAssetsStore.COMPLETE);
+        Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
     }
 
     processType(makerprefix, assetprefix, makercount, assetcount){
@@ -48,7 +58,7 @@ export class StaticAssetsStore extends Base {
     }
 
     getResult(id){
-        return this.preload.getResult(id);
+        Application.pipe.emit(StaticAssetsStoreEvents.SEND_RESULT, this.preload.getResult(id));
     }
 
     generateAssetsTokens(){
@@ -70,15 +80,6 @@ export class StaticAssetsStore extends Base {
         }
     }
 
-    getAmbientVideoSrc(makerid, videoid){
-        return this.config.CDN_PROTOCOL +
-            "://" + this.config.CDN_HOST +
-            "/" + this.config.CDN_BUCKET +
-            this.config.VIDEOS_PREFIX +
-            this.config.MAKER_AMBIENT_PREFIX
-            + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
-    }
-
 
     fetchAssets(){
         let jpgs = this.assets.filter((item)=>{
@@ -87,21 +88,5 @@ export class StaticAssetsStore extends Base {
         jpgs.forEach((item)=>{
             this.preload.loadFile({id: item.id, src: item.filename, crossOrigin: true });
         });
-    }
-}
-
-StaticAssetsStore.PROGRESS = "preload:progress";
-StaticAssetsStore.COMPLETE = "preload:complete";
-StaticAssetsStore.FILELOADED = "preload:fileloaded";
-
-let preload;
-export class PreloadInstance {
-    constructor(){
-        if(!preload){
-            preload = new StaticAssetsStore();
-            return preload;
-        }else{
-            return preload;
-        }
     }
 }

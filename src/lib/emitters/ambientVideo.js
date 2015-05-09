@@ -1,11 +1,20 @@
+import { Application } from '../index';
 import easeljs from 'easeljs';
 import { Base } from './base';
 import config from '../config';
+import uuid from 'node-uuid';
+
+
+export const AmbientVideoEmitterEvent = {
+    PLAYING: "ambientvideo:playing",
+    VIDEO_SRC: "ambientvideo:source"
+}
 
 export class AmbientVideoEmitter extends Base {
     constructor(){
         super();
-        this.config = config.ambientVideo;
+        this.config = config.preload;
+
         this.el = document.createElement('video');
         this.el.addEventListener("error", _.bind(this.handleVideoError, this));
         this.el.addEventListener("abort", _.bind(this.handleVideoAbort, this));
@@ -16,24 +25,32 @@ export class AmbientVideoEmitter extends Base {
         this.el.controls = false;
         this.el.autoplay = true;
         this.el.loop = true;
-
-        this.on(AmbientVideoEmitter.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
+        Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
     }
 
-    handlePlayingVideo(event){
-        this.emit(AmbientVideoEmitter.PLAYING, this.currentVideo);
+    handlePlayingVideo(){
+        Application.pipe.emit(AmbientVideoEmitterEvent.PLAYING, this.currentVideo);
     }
 
     handleVideoError(event) {
-        //console.log(event);
+       // console.log(event);
     }
 
     handleVideoAbort(event) {
-        //console.log(event);
+       // console.log(event);
     }
 
     handleLoadedData(event) {
-        //console.log(event);
+       // console.log(event);
+    }
+
+    getAmbientVideoSrc(makerid, videoid){
+        return this.config.CDN_PROTOCOL +
+            "://" + this.config.CDN_HOST +
+            "/" + this.config.CDN_BUCKET +
+            this.config.VIDEOS_PREFIX +
+            this.config.MAKER_AMBIENT_PREFIX
+            + makerid + '_' + ( videoid < 10 ? '0'+videoid : videoid ) + '.mp4?uuid='+uuid.v1();
     }
 
     play(url){
@@ -42,22 +59,11 @@ export class AmbientVideoEmitter extends Base {
         return this.el;
     }
 
-    handleVideoSrc(url){
-        this.currentVideo = new createjs.Bitmap(this.play(url));
+    handleVideoSrc(makerid, id){
+        this.currentVideo = new createjs.Bitmap(this.play(this.getAmbientVideoSrc(makerid, id)));
 
     }
 
 }
-AmbientVideoEmitter.PLAYING = "ambientvideo:playing";
 
-let ambidentvideo;
-export class AmbientInstance {
-    constructor(){
-        if(!ambientVideo){
-            ambidentvideo = new AmbientVideoEmitter();
-            return ambidentvideo;
-        }else{
-            return ambidentvideo;
-        }
-    }
-}
+

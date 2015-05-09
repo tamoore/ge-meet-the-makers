@@ -1,25 +1,30 @@
-import { StaticAssetsStore, PreloadInstance } from './emitters/staticAssets';
 import lodash from 'lodash';
+import events from 'event-emitter';
 
-//Emitter
-import { Base } from './emitters/base';
+import React from 'react';
+import { StaticAssetsStore, StaticInstanceStoreInstance } from './emitters/staticAssets';
+import { AmbientVideoEmitter } from './emitters/ambientVideo';
+
+
 
 // Views
-import { ClockView } from './views/clock';
-import { TimelineWrapperView } from './views/timeline';
-import { TimelineListView } from './views/timeline';
-import { TimelineStageView } from './views/timeline';
+import { ClockView } from './views/clock.jsx!';
+import { TimelineWrapperViewComponent } from './views/timeline.jsx!';
+
+//import { TimelineListView } from './views/timeline';
+//import { TimelineStageView } from './views/timeline';
 
 window._ = lodash;
 
-export class Application extends Base {
+export class Application {
 	constructor(){
-		super();
 
-		Application.pipe = this;
+		Application.pipe = events(this);
 
-		this.tempProgress = document.getElementById("tempProgress");
-		this.preload = new PreloadInstance();
+		//this.tempProgress = document.getElementById("tempProgress");
+
+		this.staticAssetsStore = new StaticAssetsStore();
+		this.ambientVideoEmitter = new AmbientVideoEmitter();
 
 		if(this.tempProgress){
 			this.preload.on(StaticAssetsStore.PROGRESS, (progress)=>{
@@ -28,13 +33,17 @@ export class Application extends Base {
 		}
 
 
-		this.timelineWrapper = new TimelineWrapperView("timelineWrapper");
-		this.timelineStage = new TimelineStageView('ambientvideos');
-		this.timelineList = new TimelineListView('timelineList');
+		//this.timelineWrapper = new TimelineWrapperView("timelineWrapper");
+		//this.timelineStage = new TimelineStageView('ambientvideos');
+		//this.timelineList = new TimelineListView('timelineList');
+
+		React.render(React.createElement(TimelineWrapperViewComponent, {}), document.getElementById("TimelineWrapperViewComponent"));
+		React.render(React.createElement(ClockView, {}), document.getElementById("ClockView"));
 
 
 
-		this.clock = new ClockView('localTime');
+
+		//this.clock = new ClockView('localTime');
 	}
 
 	//registerObservers(){

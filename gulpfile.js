@@ -81,6 +81,7 @@ gulp.task('serve', ['styles'], function () {
     'src/*.html',
 	  'src/**/*.html',
     'src/lib/**/*.js',
+	  'src/lib/**/*.jsx',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);

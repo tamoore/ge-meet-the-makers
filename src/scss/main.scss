@@ -45,7 +45,9 @@ body {
 .bg {
 	min-height: 100vh;
 	min-width: 100vw;
-	position: absolute;
+	position: fixed;
+  	top: 0;
+  	left: 0;
   	z-index: -1;
 }
 
@@ -57,7 +59,9 @@ body {
 	min-width: 100vw;
 	pointer-events: none;
 	width: 100%;
-  	position: absolute;
+  	position: fixed;
+  	top: 0;
+  	left: 0;
   	z-index: 0;
 }
 
@@ -255,6 +259,8 @@ body {
 		width: 4900px; // ( 5em * 98 )
 		margin-top: 0px;
 	  	top: 50vh;
+	  	left: 50vw;
+	  	margin-left: -64px;
 
 		> li {
 			float: left;
