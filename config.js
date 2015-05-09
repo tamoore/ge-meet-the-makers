@@ -23,6 +23,7 @@ System.config({
     "core-js": "npm:core-js@0.9.6",
     "easeljs": "github:CreateJS/EaselJS@0.8.0",
     "es6-dispatcher": "npm:es6-dispatcher@2.1.0",
+    "event-emitter": "npm:event-emitter@0.3.3",
     "hammerjs": "npm:hammerjs@2.0.4",
     "handlebars": "github:components/handlebars.js@3.0.2",
     "jquery": "github:components/jquery@2.1.3",
@@ -197,6 +198,9 @@ System.config({
       "public-encrypt": "npm:public-encrypt@2.0.0",
       "randombytes": "npm:randombytes@2.0.1"
     },
+    "npm:d@0.1.1": {
+      "es5-ext": "npm:es5-ext@0.10.7"
+    },
     "npm:debug@2.1.3": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "ms": "npm:ms@0.7.0",
@@ -221,11 +225,30 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
+    "npm:es5-ext@0.10.7": {
+      "es6-iterator": "npm:es6-iterator@0.1.3",
+      "es6-symbol": "npm:es6-symbol@2.0.1",
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
     "npm:es6-dispatcher@2.1.0": {
       "co": "npm:co@4.5.4",
       "debug": "npm:debug@2.1.3",
       "is-generator": "npm:is-generator@1.0.0",
       "thunkify-wrap": "npm:thunkify-wrap@1.0.4"
+    },
+    "npm:es6-iterator@0.1.3": {
+      "d": "npm:d@0.1.1",
+      "es5-ext": "npm:es5-ext@0.10.7",
+      "es6-symbol": "npm:es6-symbol@2.0.1"
+    },
+    "npm:es6-symbol@2.0.1": {
+      "d": "npm:d@0.1.1",
+      "es5-ext": "npm:es5-ext@0.10.7"
+    },
+    "npm:event-emitter@0.3.3": {
+      "d": "npm:d@0.1.1",
+      "es5-ext": "npm:es5-ext@0.10.7",
+      "events": "github:jspm/nodelibs-events@0.1.0"
     },
     "npm:events-browserify@0.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.1"

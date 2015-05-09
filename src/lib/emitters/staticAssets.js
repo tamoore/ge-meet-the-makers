@@ -4,13 +4,15 @@ import config from "../config";
 import { Base } from './base';
 import uuid from 'node-uuid';
 
-export class Preload extends Base {
+export class StaticAssetsStore extends Base {
     constructor(){
         super();
-
+        console.log(this);
         this.config = config.preload;
         this.assets = [];
         this.progress = 0;
+
+        // Preload the static assets
         this.preload = new createjs.LoadQueue();
         this.preload.setMaxConnections(10);
         this.preload.on("progress", this.handleProgress, this);
@@ -19,20 +21,19 @@ export class Preload extends Base {
 
         this.generateAssetsTokens();
         this.fetchAssets();
-
     }
 
     handleFileLoad(event){
-        this.trigger(Preload.FILELOADED, event);
+        this.emit(StaticAssetsStore.FILELOADED, event);
     }
 
     handleProgress(event){
         this.progress = Math.ceil(event.progress*100);
-        this.trigger(Preload.PROGRESS, this.progress);
+        this.emit(StaticAssetsStore.PROGRESS, this.progress);
     }
 
     handleCompleteProgress(event){
-        this.trigger(Preload.COMPLETE);
+        this.emit(StaticAssetsStore.COMPLETE);
     }
 
     processType(makerprefix, assetprefix, makercount, assetcount){
@@ -89,15 +90,15 @@ export class Preload extends Base {
     }
 }
 
-Preload.PROGRESS = "preload:progress";
-Preload.COMPLETE = "preload:complete";
-Preload.FILELOADED = "preload:fileloaded";
+StaticAssetsStore.PROGRESS = "preload:progress";
+StaticAssetsStore.COMPLETE = "preload:complete";
+StaticAssetsStore.FILELOADED = "preload:fileloaded";
 
 let preload;
-export class PreloadFactory {
+export class PreloadInstance {
     constructor(){
         if(!preload){
-            preload = new Preload();
+            preload = new StaticAssetsStore();
             return preload;
         }else{
             return preload;

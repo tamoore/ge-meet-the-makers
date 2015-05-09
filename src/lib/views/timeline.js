@@ -1,6 +1,6 @@
 import { BaseView } from './base';
-import { TimelineScrollEmitter, TimelineFactory } from '../emitters/timelineScroll';
-import { Preload, PreloadFactory } from '../emitters/preload';
+import { TimelineScrollEmitter, TimelineInstance } from '../emitters/timelineScroll';
+import { StaticAssetsStore, PreloadInstance } from '../emitters/staticAssets';
 import { AmbientVideoEmitter } from '../emitters/ambientVideo';
 
 
@@ -11,16 +11,16 @@ export class TimelineStageView extends BaseView {
     constructor(id){
         super(id);
 
-        this.timeline = new TimelineFactory();
-        this.preload = new PreloadFactory();
+        this.timeline = new TimelineInstance();
+        this.preload = new PreloadInstance();
         this.ambientVideoEmitter = new AmbientVideoEmitter();
 
         this.stage = new createjs.Stage(this.el);
         createjs.Ticker.setFPS(32);
         createjs.Ticker.addEventListener("tick", this.stage);
 
-        this.preload.on(Preload.COMPLETE, _.bind(this.handlePreloadComplete, this));
-        this.preload.on(Preload.FILELOADED, _.bind(this.handleFileLoaded, this));
+        this.preload.on(StaticAssetsStore.COMPLETE, _.bind(this.handlePreloadComplete, this));
+        this.preload.on(StaticAssetsStore.FILELOADED, _.bind(this.handleFileLoaded, this));
 
         this.timeline.on(TimelineScrollEmitter.PAN, _.bind(this.handleTimeLinePan, this));
         this.timeline.on(TimelineScrollEmitter.PANEND, _.bind(this.handleTimeLinePanEnd, this));
@@ -32,7 +32,7 @@ export class TimelineStageView extends BaseView {
 
     }
     stageUpdate(image){
-        this.stage.removeAllChildren();
+
         this.stage.addChild(image);
         this.stage.update();
     }
@@ -42,18 +42,21 @@ export class TimelineStageView extends BaseView {
     }
 
     handleTimeLinePanEnd(imageid){
-        if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
-            var videourl = this.preload.getAmbientVideoSrc("01", this.getformattedId(imageid));
-            this.currentVideo = this.ambientVideoEmitter.returnStageVideo(videourl)
+        if(_.inRange(imageid, 1, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
+            console.log(imageid);
+            var videoUrl = this.preload.getAmbientVideoSrc("01", this.getformattedId(imageid));
+            this.ambientVideoEmitter.emit(AmbientVideoEmitter.VIDEO_SRC, videoUrl);
             this.currentImageId = imageid;
 
         }
     }
 
-    handleVideoPlaying(event){
-        //console.log("playing")
-        if(this.currentVideo){
-            this.stageUpdate(this.currentVideo);
+    handleVideoPlaying(video){
+        if(video){
+            video.scaleX  = 1.05;
+            video.scaleY  = 1.05;
+            this.stageUpdate(video);
+
         }
 
     }
@@ -73,12 +76,8 @@ export class TimelineStageView extends BaseView {
 
     handleTimeLinePan(imageid){
         if(_.inRange(imageid, 0, config.preload.MAKER_AMBIENT_COUNT+1) && imageid != this.currentImageId){
-
             var image = new createjs.Bitmap(this.preload.getResult(this.generateImageLink(imageid)))
-            //image.scaleX = 0.95;
-            //image.scaleY = 0.95;
-            
-
+            this.stage.removeAllChildren();
             this.stageUpdate( image );
         }
 
@@ -91,7 +90,7 @@ export class TimelineStageView extends BaseView {
 export class TimelineListView extends BaseView {
     constructor(id){
         super(id);
-        this.timeline = new TimelineFactory();
+        this.timeline = new TimelineInstance();
         this.width = this.el.clientWidth;
 
     }
@@ -100,7 +99,7 @@ export class TimelineListView extends BaseView {
 export class TimelineWrapperView extends BaseView {
     constructor(id){
         super(id);
-        this.timeline = new TimelineFactory(this.el, 'timelineList');
+        this.timeline = new TimelineInstance(this.el, 'timelineList');
 
 
     }

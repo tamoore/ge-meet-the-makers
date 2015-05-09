@@ -1,5 +1,5 @@
-export default {
-    "preload": {
+module.exports = {
+    preload: {
         MAKER_AMBIENT_PREFIX: "maker",
         MAKER_AMBIENT_COUNT: 12,
         MAKER_COUNT: 1,
@@ -10,11 +10,11 @@ export default {
         IMAGES_PREFIX : "images/",
         CDN_PROTOCOL : "http"
     },
-    "timeline": {
+    timeline: {
         INTERVAL: 408.33,
         SENSITIVITY: 10
     },
-    "ambientVideo": {
+    ambientVideo: {
         WIDTH: 640,
         HEIGHT: 360
     }
