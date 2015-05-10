@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	reload = browserSync.reload,
 	htmlreplace = require('gulp-html-replace');
 	var spawn = require('child_process').spawn;
-	var gutil = require('gulp-util');
 
 var appConfig = require('./src/lib/config');
 var pkg = require('./package.json');
