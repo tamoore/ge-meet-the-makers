@@ -390,12 +390,12 @@ export class TimelineListView extends React.Component {
  * @component
  * @event {TimelineEvents.PAN} triggered when panning
  * @event {TimelineEvents.PANEND} trigger upon completion of the panning
- * @selector {id: TimelineWrapperViewComponent}
+ * @selector {id: TimelineComponent}
  *
  */
-export class TimelineWrapperViewComponent extends React.Component {
+export class TimelineComponent extends React.Component {
     /**
-     *  Main entry for TimelineWrapperViewComponent
+     *  Main entry for TimelineComponent
      *  this a few default variables and listens for piping events from App {Facade}.
      *
      *  @constructor
@@ -500,6 +500,7 @@ export class TimelineWrapperViewComponent extends React.Component {
      * React JS method
      */
     componentDidMount(){
+        Application.pipe.emit(ClockViewEvents.GETPOSITION);
         this.applyEvents()
     }
 
@@ -561,6 +562,7 @@ export class TimelineWrapperViewComponent extends React.Component {
      * @returns {XML}
      */
     render(){
+
         return (
             <section>
                 <TimelineBackgroundComponent imageid={this.state.imageid} />

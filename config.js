@@ -38,6 +38,7 @@ System.config({
     "node-uuid": "npm:node-uuid@1.4.3",
     "preload": "github:CreateJS/PreloadJS@0.6.0",
     "react": "npm:react@0.13.3",
+    "react-router": "npm:react-router@0.13.3",
     "tweenjs": "github:CreateJS/TweenJS@0.6.0",
     "txt": "github:systemjs/plugin-text@0.0.2",
     "underscore": "npm:underscore@1.8.3",
@@ -456,6 +457,12 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:react-router@0.13.3": {
+      "object-assign": "npm:object-assign@2.0.0",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "qs": "npm:qs@2.4.1",
+      "react": "npm:react@0.13.3"
     },
     "npm:react-tools@0.13.3": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",

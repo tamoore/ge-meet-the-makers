@@ -12,88 +12,12 @@
 		<title>GE Meet the makers</title>
 	</head>
 	<body data-audio="off">
-
-		<div class="content">
-			<header class="masthead">
-				<h1>Meet The<br> Makers</h1>
-				<nav class="filter">
-					<ol>
-						<li>
-							<button class="filter-button filter-button--space">
-								<span class="assistive-text">Space</span>
-							</button>
-						</li>
-						<li>
-							<button class="filter-button filter-button--industry">
-								<span class="assistive-text">Industry</span>
-							</button>
-						</li>
-						<li>
-							<button class="filter-button filter-button--fuel">
-								<span class="assistive-text">Fuel</span>
-							</button>
-						</li>
-						<li>
-							<button class="filter-button filter-button--energy">
-								<span class="assistive-text">Energy</span>
-							</button>
-						</li>
-						<li>
-							<button class="filter-button filter-button--transport">
-								<span class="assistive-text">Transportation</span>
-							</button>
-						</li>
-						<li>
-							<button class="filter-button filter-button--medical">
-								<span class="assistive-text">Medical</span>
-							</button>
-						</li>
-					</ol>
-				</nav>
-				<a   class="btn-index">Index</a>
-			</header>
-			<section class="maker-info">
-				<div class="maker-title">
-					<strong>Navigator</strong>
-					<em class="maker-name">Mark Wilson</em>
-				</div>
-				<div id="ClockView"></div>
-				<div class="maker-location">Perth, Western Australia</div>
-			</section>
-			<div id="TimelineWrapperViewComponent"></div>
-			<footer class="base">
-				<div class="sponsor">
-					<p>Brought to you by</p>
-					<img class="logo-ge" src="images/logo.ge.svg" alt="GE">
-					<p class="tagline">Innovation Never Sleeps <span>Meet The Makers</span></p>
-				</div>
-				<img class="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian">
-				<nav class="controls">
-					<ul>
-						<li><a  >Audio</a></li>
-						<li><a  >Credits</a></li>
-						<li><a  >Social</a></li>
-						<li><a  >About</a></li>
-					</ul>
-				</nav>
-			</footer>
-		
-		</div>
-
-		<!-- build:js -->
-		<script charset="utf-8" src="jspm_packages/system.js"></script>
-		<script src="config.js"></script>
-		<script>
-			//System.meta['lib/index'] = { deps: ['lodash'] };
-
-			System.import('lib/index');
-
-//        	System.import('lodash').then(function(_){
-//				window._ = _;
-//				System.import('lib/index');
-//        	});
-		</script>
-		<!-- endbuild -->
-
 	</body>
+	<!-- build:js -->
+	<script charset="utf-8" src="jspm_packages/system.js"></script>
+	<script src="config.js"></script>
+	<script>
+		System.import('lib/index');
+	</script>
+	<!-- endbuild -->
 </html>
