@@ -6,12 +6,10 @@ import React from 'react';
 import { StaticAssetsStore, StaticInstanceStoreInstance } from './emitters/staticAssets';
 import { AmbientVideoEmitter } from './emitters/ambientVideo';
 
-// Views
-import { ClockView } from './views/clock.jsx!';
-import { TimelineWrapperViewComponent } from './views/timeline.jsx!';
+import { Main } from './main.jsx!';
 
+window._ = lodash; // TODO: What to do with this nasty girl
 
-window._ = lodash;
 export class Application {
 	constructor(){
 
@@ -26,14 +24,15 @@ export class Application {
 			});
 		}
 
-		React.render(React.createElement(TimelineWrapperViewComponent, {}), document.getElementById("TimelineWrapperViewComponent"));
-		React.render(React.createElement(ClockView, {}), document.getElementById("ClockView"));
+		this.main = new Main();
 
 	}
 }
+
+
 $(()=>{
 	new Application();
-})
+});
 
 
 

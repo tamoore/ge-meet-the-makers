@@ -4,7 +4,8 @@ import { BaseView } from './base';
 import { TimelineProps, TimelineEvents } from './timeline.jsx!';
 
 export const ClockViewEvents = {
-    POSITION: "clockview:position"
+    POSITION: "clockview:position",
+    GETPOSITION: "clockview:getposition"
 }
 
 /**
@@ -111,6 +112,9 @@ export class ClockView extends ClockBase {
         this.position = this.calculatePosition();
         Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
         Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimelinePanning, this));
+        Application.pipe.on(ClockViewEvents.GETPOSITION, ()=>{
+            Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
+        })
 
     }
 
