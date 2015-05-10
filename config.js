@@ -38,6 +38,7 @@ System.config({
     "node-uuid": "npm:node-uuid@1.4.3",
     "preload": "github:CreateJS/PreloadJS@0.6.0",
     "react": "npm:react@0.13.3",
+    "tweenjs": "github:CreateJS/TweenJS@0.6.0",
     "txt": "github:systemjs/plugin-text@0.0.2",
     "underscore": "npm:underscore@1.8.3",
     "github:floatdrop/plugin-jsx@1.1.0": {

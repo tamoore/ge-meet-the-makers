@@ -1,12 +1,24 @@
 import React from 'react';
 import { Application } from '../index';
 import { BaseView } from './base';
-import { TimelineProps } from './timeline.jsx!';
+import { TimelineProps, TimelineEvents } from './timeline.jsx!';
 
 export const ClockViewEvents = {
     POSITION: "clockview:position"
 }
 
+/**
+ * ClockView Properties
+ * @type {{INCREMENT: number}}
+ */
+export const ClockViewProps = {
+    INCREMENT: 3.333,
+    TOTAL: 1440
+}
+
+/**
+ * Base class for clock
+ */
 class ClockBase extends React.Component {
     constructor(){
         super();
@@ -22,7 +34,9 @@ class ClockBase extends React.Component {
         },this));
     }
 }
-
+/**
+ * Component for the minute hand
+ */
 class HandMinuteComponent extends ClockBase {
     constructor(){
         super();
@@ -35,11 +49,12 @@ class HandMinuteComponent extends ClockBase {
         )
     }
 }
-
+/**
+ * Component for the hour hand
+ */
 class HandHourComponent extends ClockBase {
     constructor(){
         super();
-
     }
     render(){
         var styles = {};
@@ -51,7 +66,12 @@ class HandHourComponent extends ClockBase {
     }
 }
 
-
+/**
+ * Clockview Manages how the clock appears in the application
+ * @class
+ * @reactComponent
+ *
+ */
 export class ClockView extends ClockBase {
     constructor(){
         super();
@@ -59,39 +79,54 @@ export class ClockView extends ClockBase {
         var hours = this.now.getHours();
         var	minutes = this.now.getMinutes();
 
+        this.state = {
+        }
 
+        /**
+         * Minutes number
+         * @type {number}
+         */
         this.m = (((minutes + 7.5)/15 | 0) * 15) % 60;
+        /**
+         * Hour number
+         * @type {number}
+         */
         this.h = ((((minutes/105) + .5) | 0) + hours) % 24;
-        this.correction = 1000;
 
         // Create offset measurement for scroller
         // Entire scroller = 96 blocks of 15 minutes (add another two units for spacer between 00 and 24)
-
         var offsetHours = parseInt(hours) * 4;
         var offsetMinutes = Math.round( minutes / 15 );
 
         this.data =  offsetHours + offsetMinutes;
 
-
-        // Set clock hands
-        var handHour = document.getElementById('handHour');
-        var handMinute = document.getElementById('handMinute');
-
         // Subtract 90 degrees to account for the start position
-        this.rotateMinue = ( parseInt(minutes) * 6 ) - 90;
-        this.rotateHour = ( parseInt(hours) * 30 ) + ( parseInt(minutes) / 2 ) - 90;
+        [this.rotateHour, this.rotateMinue] = this.generateRotation(hours,minutes);
 
         // Format minutes with leading zero
         this.formatHour = ( hours < 10 ) ? "0" + hours : hours;
         this.formatMinute = ( minutes < 10 ) ? "0" + minutes : minutes;
 
-        // Set clock local time
-        //var time = formatHour + ":" + formatMinute;
-        //clock.innerHTML = time;
-        this.position = this.calculatePosition();
-        console.log(this.position);
-        Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
 
+        this.position = this.calculatePosition();
+        Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
+        Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimelinePanning, this));
+
+    }
+
+    /**
+     * ReactJS method
+     */
+    componentDidMount(){
+        /**
+         * State property update
+         */
+        this.setState({
+            hour: this.formatHour,
+            minute: this.formatMinute,
+            hourRotation: this.rotateHour,
+            minuteRotation: this.rotateMinue
+        });
     }
 
     get position(){
@@ -120,15 +155,38 @@ export class ClockView extends ClockBase {
         return (((this.h * 4) + maddition)* TimelineProps.INTERVAL);
 
     }
+    generateRotation(hours,minutes){
+        let rotatedMinute, rotatedHour;
+        rotatedMinute = ( parseInt(minutes) * 6 ) - 90;
+        rotatedHour = ( parseInt(hours) * 30 ) + ( parseInt(minutes) / 2 ) - 90;
+        return [rotatedHour, rotatedMinute]
+    }
+
+    /**
+     * Receieves the timeline offset
+     * @param offset {number} timeline offset value
+     */
+    handleTimelinePanning(offset){
+        let float = (offset/ClockViewProps.INCREMENT)/60;
+        let hour = (Math.floor(float));
+        let minute = Math.floor(60*(float % 1))
+        let [roatedHours, rotatedMinutes] = this.generateRotation(hour,minute);
+        this.setState({
+            hour: (hour < 10 ? '0'+hour : hour ),
+            minute: (minute < 10 ? '0'+minute : minute ),
+            hourRotation: roatedHours,
+            minuteRotation: rotatedMinutes
+        });
+    }
 
     render(){
         return (
             <div className="chrono">
                 <div className="chrono-clock">
-                    <HandHourComponent rotation={this.rotateHour} />
-                    <HandMinuteComponent rotation={this.rotateMinue} />
+                    <HandHourComponent rotation={this.state.hourRotation} />
+                    <HandMinuteComponent rotation={this.state.minuteRotation} />
                 </div>
-                <div className="chrono-time" id="localTime">{this.formatHour}:{this.formatHour}</div>
+                <div className="chrono-time" id="localTime">{this.state.hour}:{this.state.minute}</div>
             </div>
         )
     }

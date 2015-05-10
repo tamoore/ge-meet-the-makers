@@ -1,8 +1,13 @@
+/**
+ * Application Routing
+ */
 import { Application } from '../index';
-import $ from 'jquery';
+
+/**
+ * Vendor Dependencies
+ */
 import preloadjs from 'preload';
 import config from "../config";
-import { Base } from './base';
 
 export const StaticAssetsStoreEvents = {
     PROGRESS: "staticassets:progress",
@@ -12,9 +17,8 @@ export const StaticAssetsStoreEvents = {
     SEND_RESULT: "staticassets:sendresult"
 }
 
-export class StaticAssetsStore extends Base {
+export class StaticAssetsStore  {
     constructor(){
-        super();
 
         this.config = config.preload;
         this.assets = [];

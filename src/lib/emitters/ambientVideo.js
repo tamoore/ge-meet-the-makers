@@ -1,18 +1,16 @@
 import { Application } from '../index';
+
 import easeljs from 'easeljs';
-import { Base } from './base';
 import config from '../config';
 import uuid from 'node-uuid';
-
 
 export const AmbientVideoEmitterEvent = {
     PLAYING: "ambientvideo:playing",
     VIDEO_SRC: "ambientvideo:source"
 }
 
-export class AmbientVideoEmitter extends Base {
+export class AmbientVideoEmitter {
     constructor(){
-        super();
         this.config = config.preload;
 
         this.el = document.createElement('video');
@@ -25,6 +23,8 @@ export class AmbientVideoEmitter extends Base {
         this.el.controls = false;
         this.el.autoplay = true;
         this.el.loop = true;
+        this.el.width = 640;
+        this.el.height = 360;
         Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
     }
 
@@ -60,7 +60,7 @@ export class AmbientVideoEmitter extends Base {
     }
 
     handleVideoSrc(makerid, id){
-        this.currentVideo = new createjs.Bitmap(this.play(this.getAmbientVideoSrc(makerid, id)));
+        this.currentVideo = this.play(this.getAmbientVideoSrc(makerid, id));
 
     }
 
