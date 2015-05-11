@@ -1,12 +1,30 @@
 // Mobile
 $(function(){
 
+    $('#mobileWrap').scroll(function() {
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        var y = $(this).scrollTop();
+        if (y > h/2) {
+            $('#filterTrigger').fadeIn();
+        } else {
+            $('#filterTrigger').fadeOut();
+        }
+    });
+
     $('#menuTrigger').on('click', function(e){      
 
         $('.menu').addClass('menu-slide').on('click', function(){
             $(this).removeClass('menu-slide');
         });
 
+    });
+
+    $('#filterTrigger').on('click', function(e){
+        $('#filterTrigger').hide();
+        $('.timeline-filter').addClass('filter-slide').on('click', function(){
+            $(this).removeClass('filter-slide');
+            $('#filterTrigger').show();
+        });
     });
 
 });
@@ -80,6 +98,21 @@ $(function(){
             panels.data('state', 'init');
         }
 
+    });
+
+});
+
+// Audio Player
+
+$(function(){
+
+    $('#toggleAudio').on('click', function(){
+        var player = document.getElementById('audioPlayer');
+        if (player.paused) {
+            player.play();
+        } else {
+            player.pause();
+        }
     });
 
 });

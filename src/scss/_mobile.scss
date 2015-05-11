@@ -21,6 +21,20 @@ body {
 		margin-right: 1rem;
 	}
 
+	svg {
+		height: 4.5rem;
+		width: 4.5rem;
+
+		path,
+		circle {
+			stroke: #fff;
+		}
+
+		path {
+			fill: #fff;
+		}
+	}
+
 	i {
 		border: 1px solid #fff;
 		border-radius: 50%;
@@ -48,6 +62,15 @@ a.link-wide {
 	margin: 0 1.6rem;
 	padding: 2.6rem 0;
 	text-align: center;
+
+	.arrow-back {
+		background: url(../images/arrow.left.svg) 50% 50% no-repeat;
+		background-size: contain;
+		display: inline-block;
+		height: 2.2em;
+		vertical-align: middle;
+		width: 2.2em;
+	}
 }
 
 // Titles
@@ -60,7 +83,7 @@ a.link-wide {
 }
 
 // Maker Information (Industry Icon, Title, Name, Profile Pic)
-.maker-info {
+.maker-details {
 	align-items: center;
 	border-bottom: 1px solid #b2b2b2;
 	display: flex;
@@ -127,64 +150,91 @@ a.link-wide {
 
 // FILTER
 
+.filter-trigger {
+	background: rgba(6,6,6,.9);
+	border: 0;
+	border-radius: 50%;
+	box-shadow: 0 1px 1px rgba(158,161,161,.2);
+	display: none;
+	height: 4.5rem;
+	outline: none;
+	position: fixed;
+	right: .9rem;
+	top: 10rem;
+	width: 4.5rem;
+	z-index: 5;
+
+	path {
+		fill: #fff;
+		stroke: #fff;
+	}
+}
+
 .timeline-filter {
-	background: rgba(0,0,0,.2);
-	display: block;
 	height: 100%;
 	left: 0;
+	list-style: none;
+	margin: 0;
+	opacity: 0;
+	padding: 10rem 0 0;
+	pointer-events: none;
 	position: absolute;
 	top: 0;
 	transform: translateX(100%);
+	transition: background .1s linear;
 	width: 100%;
-	z-index: 6;
 
-	&.filter-slide {
-		transform: translateX(0);
+	li {
+		margin: 0 .9rem 1.5rem 0;
+		text-align: right;
+		transform: translateX(100%);
+		transition: transform .25s linear;
 	}
 
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 10rem 0 0;
+	&.filter-slide {
+		background: rgba(0,0,0,.2);
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateX(0);
+		z-index: 6;
 
 		li {
-			margin: 0 .9rem 2.4rem 0;
-			text-align: right;
+			transform: translateX(0);
+		}
+	}
+
+	button {
+		background: rgba(238,238,238,.9);
+		border: 0;
+		border-radius: 50%;
+		box-shadow: 0 1px 0 rgba(71,73,73,.2);
+		color: #000;
+		cursor: pointer;
+		display: inline-block;
+		height: 4.4rem;
+		outline: 0;
+		width: 4.4rem;
+
+		svg {
+			height: 2.5rem;
+			width: 2.5rem;
+			
+			rect,
+			path {
+				fill: #000;
+				stroke: #000;
+			}
 		}
 
-		button {
-			background: rgba(238,238,238,.9);
-			border: 0;
-			border-radius: 50%;
-			box-shadow: 0 1px 0 rgba(71,73,73,.2);
-			color: #000;
-			cursor: pointer;
-			display: inline-block;
-			height: 4.4rem;
-			outline: 0;
-			width: 4.4rem;
+		&:hover,
+		.selected {
+			background: rgba(0,0,0,.9);
 
 			svg {
-				height: 2.5rem;
-				width: 2.5rem;
-				
 				rect,
 				path {
-					fill: #000;
-					stroke: #000;
-				}
-			}
-
-			&:hover,
-			.selected {
-				background: rgba(0,0,0,.9);
-
-				svg {
-					rect,
-					path {
-						fill: #fff;
-						stroke: #fff;
-					}
+					fill: #fff;
+					stroke: #fff;
 				}
 			}
 		}
@@ -373,7 +423,7 @@ a.link-wide {
 			}
 
 			a {
-				background: rgba(46,123,168,.5) url(../images/dots.png) 0 0 repeat;
+				background: rgba(46,123,168,.5) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGCoZ2BgaITRjAxoACYAV4WhAgCV0AOEkNUCfgAAAABJRU5ErkJggg==) 0 0 repeat;
 				color: #fff;
 				cursor: pointer;
 				display: block;
@@ -502,10 +552,13 @@ a.link-wide {
 }
 
 .timeline-list {
-	border-left: 2px solid rgba(164,173,177,.5);
-	list-style: none;
-	margin: 0 1.6rem;
-	padding: 0;
+
+	.mtm-wrap & {
+		border-left: 2px solid rgba(164,173,177,.5);
+		list-style: none;
+		margin: 0 1.6rem;
+		padding: 0;
+	}
 }
 
 .timeline-list-marker {
@@ -520,14 +573,39 @@ a.link-wide {
 		padding: 0 0 0 1rem;
 
 		.icon-industry {
-			height: 1.4rem;
-			width: 1.4rem;
+			height: 1.8rem;
+			width: 1.8rem;
 		}
 
 		time {
 			font-famiy: Abel, sans-serif;
 			font-size: 1.2rem;
 			margin: 0 0 0 1rem;
+		}
+	}
+
+	.timeline-content-quote {
+		padding: 2.5rem 0 0 1.6rem;
+
+		blockquote.title {
+			margin: 0;
+			padding: 0;
+
+			&:before {
+				content: "\201c";
+				display: block;
+				font-size: 3rem;
+				line-height: 0;
+			}
+		}
+
+		h3.citation {
+			font-weight: 300;
+			margin: 1.9rem 0;
+
+			strong {
+				font-weight: 700;
+			}
 		}
 	}
 
@@ -561,6 +639,7 @@ a.link-wide {
 		.timeline-content-meta {
 			align-items: center;
 			display: flex;
+			font-weight: 700;
 			justify-content: flex-start;
 			margin: .9rem 0 0 1rem;
 		}
@@ -570,9 +649,9 @@ a.link-wide {
 			background-repeat: no-repeat;
 			background-size: contain;
 			display: inline-block;
-			height: 1.75rem;
+			height: 2rem;
 			margin-right: 1rem;
-			width: 1.75rem;
+			width: 2rem;
 		}
 
 		h2 {
