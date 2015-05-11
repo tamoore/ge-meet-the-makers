@@ -6,15 +6,19 @@ import { Application } from '../index';
 import config from '../config';
 
 import React from 'react';
+import { TimelineEvents } from './timeline.jsx!';
 
 export class IndexComponent extends React.Component {
     constructor(){
         super();
     }
     render(){
+        Application.pipe.emit(TimelineEvents.BLUR, true);
+        Application.pipe.emit(TimelineEvents.GET_IMAGE);
         return (
-            <section id="timelineCircleWrapper" className="timeline-circle" data-filter="none">
-                <div className="preview-object preview-image" id="imagePreview"><div className="image-filter"></div><img src="images/thumb.png" alt="" /></div>
+            <div>
+                <section id="timelineCircleWrapper" className="timeline-circle" data-filter="none">
+                    <div className="preview-object preview-image" id="imagePreview"><div className="image-filter"></div><img src="images/thumb.png" alt="" /></div>
                     <div id="previewBlurb" className="preview-object preview-blurb">
                         <h3 id="previewType" className="preview-type"></h3>
                         <h2 id="previewHeading" className="preview-heading"></h2>
@@ -38,220 +42,222 @@ export class IndexComponent extends React.Component {
                                     <li><a data-industry="space" data-title="A spaceman slideshow" data-type="images" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
                                     <li><a data-industry="energy" data-title="An energy video" data-type="video" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
                                     <li><a data-industry="medical" data-title="A healthcare video" data-type="video" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
-                                        <li><a data-industry="fuel" data-title="A video about petrol" data-type="video" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
-                                            <li><a data-industry="industry" data-title="A manufacturing video" data-type="video" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="13:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="14:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="15:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="16:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="17:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="18:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="19:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="20:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="21:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="22:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="23:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="00:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="01:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="02:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="03:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="04:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="05:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="06:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="07:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="08:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="09:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="10:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li className="timeline-marker" data-time="11:00">
-                                        <div className="marker-data">
-                                            <ul>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                                <li><a><span className="assistive-text">Content title</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </section>
+                                    <li><a data-industry="fuel" data-title="A video about petrol" data-type="video" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
+                                    <li><a data-industry="industry" data-title="A manufacturing video" data-type="video" data-preview="images/thumb.png"><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="13:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="14:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="15:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="16:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="17:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="18:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="19:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="20:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="21:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="22:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="23:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="00:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="01:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="02:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="03:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="04:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="05:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="06:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="07:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="08:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="09:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="10:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="timeline-marker" data-time="11:00">
+                            <div className="marker-data">
+                                <ul>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                    <li><a><span className="assistive-text">Content title</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ol>
+                </section>
+            </div>
+
         )
     }
 }

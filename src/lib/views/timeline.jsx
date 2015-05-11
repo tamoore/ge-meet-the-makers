@@ -36,7 +36,9 @@ export const TimelineEvents = {
     /**
      * Event for when panning ends
      */
-    PANEND: "timeline:panend"
+    PANEND: "timeline:panend",
+    GET_IMAGE: "timlinebackground:getimage",
+    BLUR: "timelinebackground:blur"
 }
 
 /**
@@ -66,26 +68,42 @@ export class TimelineBackgroundComponent extends React.Component {
         super();
 
         /**
-         * If true, will blur images, only works with image bitmaps, video bitmaps fail.
-         * @type {boolean}
-         */
-        this.blur = false;
-
-        /**
          * Holds a reference for all the containers added to the stage
          * @type {Array}
          */
         this.cacheStore = [];
 
         /**
+         * Holds a reference to the current imageid
+         */
+        this.currentImageId;
+
+        this.contextTypes = {
+            router: React.PropTypes.func
+        }
+
+        /**
          * Piping dispatcher listeners, receives various events from the asset managers
          */
         Application.pipe.on(AmbientVideoEmitterEvent.PLAYING, _.bind(this.handleVideoPlaying, this));
         Application.pipe.on(StaticAssetsStoreEvents.SEND_RESULT, _.bind(this.addBitMapToStage, this))
-        Application.pipe.on(TimelineEvents.PANEND, TimelineBackgroundComponent.handleTimeLinePanEnd);
+        Application.pipe.on(TimelineEvents.PANEND, _.bind(this.handleTimeLinePanEnd, this));
+        Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimeLinePan, this))
+        Application.pipe.on(TimelineEvents.GET_IMAGE, _.bind(this.getImageFromStaticStore, this))
+        Application.pipe.on(TimelineEvents.BLUR, _.bind(this.handleBlur, this));
+        Application.pipe.on(ClockViewEvents.POSITION, (scrollx)=>{
+             this.handleTimeLinePanEnd(TimelineComponent.getImageId(scrollx));
+        });
 
-        return false;
 
+    }
+
+    get blur(){
+        return this._blur;
+    }
+
+    set blur(bool){
+        this._blur = bool;
     }
 
     /**
@@ -94,22 +112,12 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {*}
      */
     static applyBlurFilter(bitmap /* CreateJS Bitmap */) {
-
         var blurFilter = new createjs.BlurFilter(50,50,1);
         bitmap.filters = [blurFilter];
         bitmap.cache(0,0, bitmap.image.width, bitmap.image.height, 1);
         return bitmap;
     }
 
-    /**
-     * Handles the timeline panning TODO: replace hardcoded 01 to dynamic makers
-     * @param imageid {number}
-     * @return boolean
-     */
-    static handleTimeLinePanEnd(imageid) {
-        Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '01', imageid);
-        return false;
-    }
 
     /**
      * Applies a Fade
@@ -120,7 +128,7 @@ export class TimelineBackgroundComponent extends React.Component {
         image.alpha = 0;
         var container = new createjs.Container();
         container.addChild(image);
-        createjs.Tween.get(image).to({alpha:1}, 1000);
+        createjs.Tween.get(image).to({alpha:1}, 500);
         return container;
     }
 
@@ -136,8 +144,8 @@ export class TimelineBackgroundComponent extends React.Component {
         if(this.blur){
             img = TimelineBackgroundComponent.applyBlurFilter(img)
         }
-
         img = TimelineBackgroundComponent.applyFade(img);
+
         this.stageUpdate( img );
         return false;
     }
@@ -185,13 +193,20 @@ export class TimelineBackgroundComponent extends React.Component {
     }
 
     /**
+     * Sets the blur from an event
+     * @param bool
+     */
+    handleBlur(bool){
+       return this.blur = bool;
+    }
+
+    /**
      * Handler for ambient video event scales videos
      * TODO: Moving scaling into config
      * @param video
      * @returns {boolean}
      */
     handleVideoPlaying(video /* videoDOM element */){
-
         if(video){
             var video = new createjs.Bitmap(video);
             video.scaleX = 1.05;
@@ -203,14 +218,39 @@ export class TimelineBackgroundComponent extends React.Component {
         return false;
     }
 
+
     /**
-     * Handle the preload completion event by adding an image (quickly replaced by a video)
-     * @param event
+     * Handle changing the static image when panning
+     * @param offset {number}
+     * @param imageid {number}
      * @returns {boolean}
      */
-    handlePreloadComplete(event){
-        Application.pipe.emit(StaticAssetsStoreEvents.GET_RESULT, this.generateImageLink(this.props.imageid));
+    handleTimeLinePan(offset, imageid){
+        if(!imageid) return;
+        this.currentImageId = imageid;
+        return this.getImageFromStaticStore();
+    }
+
+    /**
+     * Handles the timeline panning TODO: replace hardcoded 01 to dynamic makers
+     * @param imageid {number}
+     * @return boolean
+     */
+    handleTimeLinePanEnd(imageid) {
+        if(!imageid) return;
+        this.currentImageId = imageid;
+        this.getImageFromStaticStore();
+        Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '01', imageid);
         return false;
+    }
+
+    /**
+     * Get Current Image from Static Store
+     * @returns {number|*}
+     */
+    getImageFromStaticStore(){
+        Application.pipe.emit(StaticAssetsStoreEvents.GET_RESULT, this.generateImageLink(this.currentImageId));
+        return this.currentImageId;
     }
 
     /**
@@ -218,7 +258,6 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {XML}
      */
     render(){
-        Application.pipe.emit(StaticAssetsStoreEvents.GET_RESULT, this.generateImageLink(this.props.imageid));
         return (
             <div>
                 <div className="bg-filter"></div>
@@ -234,13 +273,11 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {boolean}
      */
     stageUpdate(image){
-
         this.cacheStore.push(image);
         this.stage.addChild(image);
         this.stage.update();
         this.cache();
         return false;
-
     }
 }
 
@@ -416,7 +453,7 @@ export class TimelineComponent extends React.Component {
          * Reference to Config object
          * @type {module.exports.timeline|{INTERVAL, SENSITIVITY}|n.exports.timeline|Timeline|*}
          */
-        this.config = config.timeline;
+        TimelineComponent.config = this.config = config.timeline;
 
         /**
          * Max scrolling limit
@@ -454,9 +491,7 @@ export class TimelineComponent extends React.Component {
 
 
         Application.pipe.on(ClockViewEvents.POSITION, _.bind(this.scroll, this));
-        Application.pipe.on(ClockViewEvents.POSITION, (scrollx)=>{
-            Application.pipe.emit(TimelineEvents.PANEND, this.getImageId(scrollx));
-        });
+
 
     }
 
@@ -490,7 +525,7 @@ export class TimelineComponent extends React.Component {
             } else {
                 scrollx = this.target // Math.round(this.target / this.snap) * this.snap;
                 this.scroll(scrollx);
-                Application.pipe.emit(TimelineEvents.PANEND, this.getImageId(scrollx));
+                Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(scrollx));
             }
         }
         return false;
@@ -528,8 +563,8 @@ export class TimelineComponent extends React.Component {
      * @param offset {number}
      * @returns {number}
      */
-    getImageId(offset){
-        let id = Math.abs(Math.ceil(offset/this.config.INTERVAL));
+    static getImageId(offset){
+        let id = Math.abs(Math.ceil(offset/TimelineComponent.config.INTERVAL));
         if(id == 0){
             id = 1
         }
@@ -551,7 +586,7 @@ export class TimelineComponent extends React.Component {
             this.timestamp = Date.now();
             requestAnimationFrame(_.bind(this.autoScroll, this));
         }
-        Application.pipe.emit(TimelineEvents.PANEND, this.getImageId(this.offset));
+        Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(this.offset));
         return false;
 
     }
@@ -565,7 +600,6 @@ export class TimelineComponent extends React.Component {
 
         return (
             <section>
-                <TimelineBackgroundComponent imageid={this.state.imageid} />
                 <section ref="Timeline" id="timelineWrapper" className="timeline">
                     <TimelineListView offset={this.state.offset}  />
                 </section>
@@ -582,9 +616,10 @@ export class TimelineComponent extends React.Component {
         this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
         this.setState({
             offset: this.offset,
-            imageid: this.getImageId(this.offset)
+            imageid: TimelineComponent.getImageId(this.offset)
         });
-        Application.pipe.emit(TimelineEvents.PAN, this.offset);
+        Application.pipe.emit(TimelineEvents.BLUR, false);
+        Application.pipe.emit(TimelineEvents.PAN, this.offset, this.state.imageid);
         return false;
     }
 

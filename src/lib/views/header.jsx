@@ -18,9 +18,9 @@ export class HeaderComponent extends React.Component {
         return (
             <header className="masthead">
                 <h1>
-
+                    <RouterLink to="timeline">
                         Meet The<br /> Makers
-
+                    </RouterLink>
                 </h1>
                     <nav className="filter">
                         <ol>

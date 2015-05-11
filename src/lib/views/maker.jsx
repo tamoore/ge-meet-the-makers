@@ -7,6 +7,7 @@ import { ClockView } from './clock.jsx!';
 
 import React from 'react';
 
+
 export class MakerComponent extends React.Component {
     constructor(){
         super();
