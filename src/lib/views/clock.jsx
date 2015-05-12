@@ -110,11 +110,8 @@ export class ClockView extends ClockBase {
 
 
         this.position = this.calculatePosition();
-        Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
+
         Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimelinePanning, this));
-        Application.pipe.on(ClockViewEvents.GETPOSITION, ()=>{
-            Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
-        })
 
     }
 
@@ -131,6 +128,7 @@ export class ClockView extends ClockBase {
             hourRotation: this.rotateHour,
             minuteRotation: this.rotateMinue
         });
+        Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
     }
 
     get position(){

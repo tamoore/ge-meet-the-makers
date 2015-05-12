@@ -11,7 +11,7 @@ import config from '../config';
 /**
  * Vendor dependencies
  */
-import React from 'react';
+import React from 'react/addons';
 import Hammer from 'hammerjs';
 import easeljs from 'easeljs';
 import tweenjs from 'tweenjs';
@@ -23,6 +23,12 @@ import { ClockViewEvents } from './clock.jsx!';
 import { BaseView } from './base';
 import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAssets';
 import { AmbientVideoEmitterEvent } from '../emitters/ambientVideo';
+
+
+/**
+ * Utils
+ */
+import { Transition } from '../utils/reactTransition.jsx!';
 
 /**
  * Event Constants
@@ -78,9 +84,6 @@ export class TimelineBackgroundComponent extends React.Component {
          */
         this.currentImageId;
 
-        this.contextTypes = {
-            router: React.PropTypes.func
-        }
 
         /**
          * Piping dispatcher listeners, receives various events from the asset managers
@@ -88,9 +91,11 @@ export class TimelineBackgroundComponent extends React.Component {
         Application.pipe.on(AmbientVideoEmitterEvent.PLAYING, _.bind(this.handleVideoPlaying, this));
         Application.pipe.on(StaticAssetsStoreEvents.SEND_RESULT, _.bind(this.addBitMapToStage, this))
         Application.pipe.on(TimelineEvents.PANEND, _.bind(this.handleTimeLinePanEnd, this));
-        Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimeLinePan, this))
+        Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimeLinePan, this));
+
         Application.pipe.on(TimelineEvents.GET_IMAGE, _.bind(this.getImageFromStaticStore, this))
         Application.pipe.on(TimelineEvents.BLUR, _.bind(this.handleBlur, this));
+
         Application.pipe.on(ClockViewEvents.POSITION, (scrollx)=>{
              this.handleTimeLinePanEnd(TimelineComponent.getImageId(scrollx));
         });
@@ -304,7 +309,7 @@ export class TimeLineItem extends React.Component {
         this._rnd = Math.floor(Math.random() * (8 - 0) + 0);
         this.items = [];
         for(var i = 0;i<this._rnd;i++){
-            this.items.push(<li><a><span className="assistive-text">Content title</span></a></li>)
+            this.items.push(<li key={i}><a><span className="assistive-text">Content title</span></a></li>)
         }
     }
 
@@ -318,7 +323,7 @@ export class TimeLineItem extends React.Component {
         }
 
         return (
-            <li className="timeline-marker timeline-marker-start" data-time="0:00">
+            <li key={this.props.key} className="timeline-marker timeline-marker-start" data-time="0:00">
                 <div className="marker-data">
                     <ul>
                         {this.items}
@@ -345,9 +350,14 @@ export class TimelineListView extends React.Component {
         super();
         this.x = 0;
 
+        this.props = {
+            _id: "timeline"
+        };
+
         /**
          * TODO: have resued this a couple of times, should put it into a utls function
          */
+
         ['Webkit', 'Moz', 'O', 'ms'].every(_.bind(function (prefix) {
             let e = prefix + 'Transform';
             if(typeof document.createElement("div").style[e] !== 'undefined'){
@@ -357,6 +367,9 @@ export class TimelineListView extends React.Component {
             return true;
         },this));
 
+    }
+    componentDidMount(){
+        this.setState({ _id: "timeline1"});
     }
 
     /**
@@ -391,7 +404,7 @@ export class TimelineListView extends React.Component {
                         break;
                 }
             }
-            itemsTemp.push(<TimeLineItem hourLabel={hour} hour={hour} minute={minute} />);
+            itemsTemp.push(<TimeLineItem key={i} hourLabel={hour} hour={hour} minute={minute} />);
         }
         return itemsTemp;
     }
@@ -409,11 +422,12 @@ export class TimelineListView extends React.Component {
 
 
 
-        styles[this.xform] = 'translateX(' + (-this.props.offset) + 'px)'
+        styles[this.xform] = 'translateX(' + (-this.props.offset) + 'px)';
         return (
-            <ol id="timelineList" className="timeline-list" style={styles}>
-                {items}
-            </ol>
+                    <ol key='timelineListView' id="timelineList" className="timeline-list" style={styles}>
+                        {items}
+                    </ol>
+
         )
     }
 }
@@ -446,7 +460,9 @@ export class TimelineComponent extends React.Component {
          * @type {{offset: number}}
          */
         this.state = {
-            offset: 0
+            offset: TimelineComponent.clockPosition,
+            imageid: TimelineComponent.currentImage
+
         };
 
         /**
@@ -465,7 +481,8 @@ export class TimelineComponent extends React.Component {
          * Holds scrolling offset
          * @type {number}
          */
-        this.offset = this.min = 0;
+        this.offset = TimelineComponent.clockPosition;
+        this.min = 0;
 
         this.pressed = false;
         /**
@@ -488,9 +505,11 @@ export class TimelineComponent extends React.Component {
          * @type {number}
          */
         this.snap = TimelineProps.INTERVAL;
+        Application.pipe.on(ClockViewEvents.POSITION, (x)=>{
+            TimelineComponent.clockPosition = x;
+            this.offset = x;
 
-
-        Application.pipe.on(ClockViewEvents.POSITION, _.bind(this.scroll, this));
+        });
 
 
     }
@@ -535,8 +554,13 @@ export class TimelineComponent extends React.Component {
      * React JS method
      */
     componentDidMount(){
-        Application.pipe.emit(ClockViewEvents.GETPOSITION);
-        this.applyEvents()
+        this.setState({
+            offset: TimelineComponent.clockPosition,
+            imageid: TimelineComponent.currentImage
+        });
+        Application.pipe.emit(TimelineEvents.BLUR, false);
+        Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(this.state.offset));
+        this.applyEvents();
     }
 
     /**
@@ -586,10 +610,12 @@ export class TimelineComponent extends React.Component {
             this.timestamp = Date.now();
             requestAnimationFrame(_.bind(this.autoScroll, this));
         }
-        Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(this.offset));
+        Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.currentImage);
         return false;
 
     }
+
+
 
     /**
      * React render function
@@ -597,13 +623,12 @@ export class TimelineComponent extends React.Component {
      * @returns {XML}
      */
     render(){
-
         return (
-            <section>
-                <section ref="Timeline" id="timelineWrapper" className="timeline">
-                    <TimelineListView offset={this.state.offset}  />
-                </section>
-            </section>
+                <div key='timelineParentWRapper'>
+                    <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
+                        <TimelineListView offset={this.state.offset} key='timelineListView'  />
+                    </div>
+                </div>
         )
     }
 
@@ -613,12 +638,12 @@ export class TimelineComponent extends React.Component {
      * @param x {number}
      */
     scroll(x){
-        this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
+        TimelineComponent.clockPosition = this.offset = (x > this.max) ? this.max : (x < this.min) ? this.min : x;
+        TimelineComponent.currentImage = TimelineComponent.getImageId(this.offset);
         this.setState({
-            offset: this.offset,
-            imageid: TimelineComponent.getImageId(this.offset)
+            offset: TimelineComponent.clockPosition,
+            imageid: TimelineComponent.currentImage
         });
-        Application.pipe.emit(TimelineEvents.BLUR, false);
         Application.pipe.emit(TimelineEvents.PAN, this.offset, this.state.imageid);
         return false;
     }
@@ -692,3 +717,5 @@ export class TimelineComponent extends React.Component {
     }
 
 }
+TimelineComponent.clockPosition = null;
+TimelineComponent.currentImage = null;

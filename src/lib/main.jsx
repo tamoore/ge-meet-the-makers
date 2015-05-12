@@ -3,6 +3,8 @@ import config from './config';
 
 import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+
+
 import Router from 'react-router';
 
 /**
@@ -28,7 +30,6 @@ export class Main {
             <Route name="app" path="/" handler={MainView}>
                 <Route name="index" handler={IndexComponent}/>
                 <Route name="timeline" handler={TimelineComponent}/>
-                <DefaultRoute handler={TimelineComponent}/>
             </Route>
         )
         Router.run(this.routes, (Handler)=>{
@@ -41,19 +42,24 @@ export class MainView extends React.Component {
 
     constructor(){
         super();
+
     }
 
     render(){
+        var name = this.context.router.getCurrentPath();
         return (
             <div>
                 <HeaderComponent />
                 <MakerComponent />
-                <TransitionGroup component="div" transitionName="fade">
-                    <TimelineBackgroundComponent  />
-                    <RouteHandler/>
+                <TimelineBackgroundComponent  />
+                <TransitionGroup component="div" transitionName="example">
+                    <RouteHandler key={name} />
                 </TransitionGroup>
                 <FooterComponent />
             </div>
         )
     }
+}
+MainView.contextTypes = {
+    router: React.PropTypes.func
 }
