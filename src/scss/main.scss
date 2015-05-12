@@ -53,7 +53,7 @@ body {
 
 .bg-filter {
 	background: transparent;
-	background-image: url(../images/dots.png), radial-gradient(transparent, black);
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGCoZ2BgaITRjAxoACYAV4WhAgCV0AOEkNUCfgAAAABJRU5ErkJggg==), radial-gradient(transparent, black);
 	height: 100%;
 	min-height: 100vh;
 	min-width: 100vw;
@@ -68,7 +68,6 @@ body {
 
 // Page mast with heading and filter
 .masthead {
-
 	display: block;
 	padding: 2rem 0 6.5rem 2rem;
 	position: relative;
@@ -190,15 +189,14 @@ body {
 
 // Clock face
 .chrono-clock {
-	border: 2px solid #fff;
-	border-radius: 100em;
+	background: url(../images/bg.clock.svg);
+	background-size: contain;
+	border-radius: 50%;
 	float: left;
-	height: 32.5px;
-	height: 3.25rem;
-	margin: 1.5rem 1rem 0 0;
+	height: 4rem;
+	margin: 1.25rem 1rem 0 0;
 	position: relative;
-	width: 32.5px;
-	width: 3.25rem;
+	width: 4rem;
 
 	.chrono-clock--hand-hour,
 	.chrono-clock--hand-minute {
@@ -385,8 +383,11 @@ body {
 // Footer
 
 .base {
+	align-items: center;
 	bottom: 0;
 	clear: both;
+	display: flex;
+	justify-content: flex-start;
 	padding-bottom: 2rem;
 	position: absolute;
 	width: 100%;
@@ -431,14 +432,19 @@ body {
 	}
 
 	.controls {
+		display: flex;
+		flex: 2 1 auto;
 		float: right;
+		justify-content: flex-end;
 
 		ul {
+			align-items: baseline;
+			display: flex;
 			list-style: none;
 			margin: 0;
 			padding: 0;
 			position: relative;
-			top: 1em;
+			//top: 1em;
 		}
 
 		li {
@@ -464,17 +470,32 @@ body {
 			font-size: 1rem;
 			font-weight: 300;
 			margin: 0;
-			padding: .5em 2em;
+			padding: .5em 1.5em;
 			text-decoration: none;
+		}
+
+		svg {
+			height: 1.8rem;
+			width: 1.8rem;
+
+			path,
+			rect {
+				fill: #fff;
+			}
+
+			path.icon-letters {
+				fill: #000000;
+			}
 		}
 	}
 
 	.logo-guardian {
 		float: right;
 		height: 1.45em;
-		margin-right: 2%;
-	  	top: 1.5rem;
-	  	position: relative;
+		margin: 0 2% 0 7rem;
+		order: 99;
+	  	//position: relative;
+	  	//top: 1.5rem;
 		width: 8.4em;
 	}
 }

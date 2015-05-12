@@ -1,7 +1,3 @@
-.bg {
-	//background-image: url(../images/bg.blur.jpg);
-}
-
 .timeline-circle {
 	height: calc(100vh - 15rem);
 	left: 50%;
@@ -238,7 +234,7 @@
 	z-index: 1;
 
 	.image-filter {
-		background: url(../images/dots.png) 0 0 repeat;
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGCoZ2BgaITRjAxoACYAV4WhAgCV0AOEkNUCfgAAAABJRU5ErkJggg==) 0 0 repeat;
 		display: block;
 		height: 100%;
 		left: 0;

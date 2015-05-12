@@ -1,3 +1,22 @@
+// Global
+.btn-close {
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	font-size: 1.4rem;
+	opacity: .2;
+	padding: 1rem;
+	position: fixed;
+	right: 1rem;
+	text-decoration: none;
+	top: 1rem;
+	transition: opacity .2s ease-out;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
 // General panel styles
 
 .makers {
@@ -230,18 +249,6 @@
 					}
 				}
 			}
-		}
-
-		.btn-article-close {
-			color: #fff;
-			cursor: pointer;
-			display: block;
-			font-size: 1.4rem;
-			padding: 1rem;
-			position: fixed;
-			right: 1rem;
-			text-decoration: none;
-			top: 1rem;
 		}
 
 		.maker-panel-background {
