@@ -1,0 +1,117 @@
+.base {
+  align-items: center;
+  bottom: 0;
+  clear: both;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 2rem;
+  position: absolute;
+  width: 100%;
+
+  .sponsor {
+    float: left;
+    margin-left: 2rem;
+    min-width: 45em;
+
+    p {
+      font-family: "Open Sans", sans-serif;
+      font-size: 10px;
+      font-size: 1rem;
+      font-weight: 300;
+      display: block;
+      margin: 0 0 .75em;
+    }
+
+    .logo-ge {
+      background: url(../images/logo.ge.svg) 50% 50% no-repeat;
+      background-size: contain;
+      float: left;
+      height: 2.5em;
+      margin-right: 2rem;
+      width: 2.5em;
+    }
+
+    .tagline {
+      font-size: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin: 0;
+      padding: 0;
+      text-transform: uppercase;
+
+      span {
+        display: block;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .controls {
+    display: flex;
+    flex: 2 1 auto;
+    float: right;
+    justify-content: flex-end;
+
+    ul {
+      align-items: baseline;
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      //top: 1em;
+    }
+
+    li {
+      float: left;
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      margin: 0;
+      outline: none;
+      padding: 0;
+    }
+
+    a,
+    button {
+      color: #fff;
+      display: inline-block;
+      font-size: 10px;
+      font-size: 1rem;
+      font-weight: 300;
+      margin: 0;
+      padding: .5em 1.5em;
+      text-decoration: none;
+    }
+
+    svg {
+      height: 1.8rem;
+      width: 1.8rem;
+
+      path,
+      rect {
+        fill: #fff;
+      }
+
+      path.icon-letters {
+        fill: #000000;
+      }
+    }
+  }
+
+  .logo-guardian {
+    float: right;
+    height: 1.45em;
+    margin: 0 2% 0 7rem;
+    order: 99;
+    //position: relative;
+    //top: 1.5rem;
+    width: 8.4em;
+  }
+}

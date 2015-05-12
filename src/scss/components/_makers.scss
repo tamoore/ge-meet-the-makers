@@ -38,7 +38,7 @@
 	transition: all 500ms ease-in-out;
 
 	.maker-panel-background {
-		background-image: url(../images/makers/bg.adam.fletcher.jpg);
+		background-image: url(../../images/makers/bg.adam.fletcher.jpg);
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -51,19 +51,19 @@
 
 		// PANEL BACKGROUNDS
 		&.maker-fletcher {
-			background-image: url(../images/makers/bg.adam.fletcher.jpg);
+			background-image: url(../../images/makers/bg.adam.fletcher.jpg);
 		}
 
 		&.maker-miner {
-			background-image: url(../images/makers/bg.miner.jpg);
+			background-image: url(../../images/makers/bg.miner.jpg);
 		}
 
 		&.maker-spaceman {
-			background-image: url(../images/makers/bg.spaceman.jpg);
+			background-image: url(../../images/makers/bg.spaceman.jpg);
 		}
 
 		&.maker-winch {
-			background-image: url(../images/makers/bg.winch.jpg);
+			background-image: url(../../images/makers/bg.winch.jpg);
 		}
 	}
 

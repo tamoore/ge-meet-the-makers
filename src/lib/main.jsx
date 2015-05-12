@@ -30,6 +30,7 @@ export class Main {
             <Route name="app" path="/" handler={MainView}>
                 <Route name="index" handler={IndexComponent}/>
                 <Route name="timeline" handler={TimelineComponent}/>
+                <DefaultRoute handler={TimelineComponent} />
             </Route>
         )
         Router.run(this.routes, (Handler)=>{
@@ -49,13 +50,16 @@ export class MainView extends React.Component {
         var name = this.context.router.getCurrentPath();
         return (
             <div>
+                <TransitionGroup component="div" transitionName="section">
                 <HeaderComponent />
                 <MakerComponent />
                 <TimelineBackgroundComponent  />
-                <TransitionGroup component="div" transitionName="example">
+
                     <RouteHandler key={name} />
-                </TransitionGroup>
+
+
                 <FooterComponent />
+                </TransitionGroup>
             </div>
         )
     }

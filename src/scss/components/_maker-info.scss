@@ -1,0 +1,73 @@
+// Information about maker, local time and location
+.maker-info {
+  font-size: 13px;
+  font-size: 1.3rem;
+  margin: 0 0 0 2%;
+  position: relative;
+  z-index: 3;
+  .maker-title {
+    strong {
+      font-weight: 600;
+    }
+    em {
+      font-style: normal;
+    }
+  }
+
+  .maker-location {
+    margin: .75em 0 0;
+  }
+}
+
+.chrono {
+  float: left;
+  margin-right: 10px;
+  margin-right: 1rem;
+}
+
+// Local time
+.chrono-time {
+  float: left;
+  font-family: Abel, sans-serif;
+  font-size: 56px;
+  font-size: 5.6rem;
+}
+
+// Clock face
+.chrono-clock {
+  background: url(../images/bg.clock.svg);
+  background-size: contain;
+  border-radius: 50%;
+  float: left;
+  height: 4rem;
+  margin: 1.25rem 1rem 0 0;
+  position: relative;
+  width: 4rem;
+
+  .chrono-clock--hand-hour,
+  .chrono-clock--hand-minute {
+    display: block;
+    left: 0%;
+    position: absolute;
+    top: 50%;
+    transform-origin: top 50%;
+    z-index: 1;
+
+    i {
+      background: #fff;
+      border: 1px solid #fff;
+      display: block;
+      height: 1px;
+    }
+  }
+
+  .chrono-clock--hand-hour {
+    padding: 0 20% 0 49%;
+    width: 100%;
+  }
+
+  .chrono-clock--hand-minute {
+    padding: 0 10% 0 49%;
+    width: 100%;
+  }
+}

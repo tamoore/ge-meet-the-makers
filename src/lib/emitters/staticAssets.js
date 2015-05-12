@@ -66,21 +66,17 @@ export class StaticAssetsStore  {
     }
 
     generateAssetsTokens(){
-        var makercount = 1;
-        var assetcount = 1;
-
-
-        while(makercount <= this.config.MAKER_COUNT){
-            while(assetcount <= this.config.MAKER_AMBIENT_COUNT){
+        for(var makercount =1; makercount <= this.config.MAKER_COUNT; makercount++){
+            for(var assetcount=1; assetcount <= this.config.MAKER_AMBIENT_COUNT; assetcount++){
                 if(assetcount < 10){
                     this.processType('0', '0', makercount, assetcount);
 
                 }else{
                     this.processType('0','', makercount, assetcount);
                 }
-                assetcount++;
+
             }
-            makercount++;
+
         }
     }
 

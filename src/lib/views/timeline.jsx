@@ -19,7 +19,7 @@ import tweenjs from 'tweenjs';
 /**
  * App dependencies
  */
-import { ClockViewEvents } from './clock.jsx!';
+import { ClockViewEvents, ClockView } from './clock.jsx!';
 import { BaseView } from './base';
 import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAssets';
 import { AmbientVideoEmitterEvent } from '../emitters/ambientVideo';
@@ -89,26 +89,16 @@ export class TimelineBackgroundComponent extends React.Component {
          * Piping dispatcher listeners, receives various events from the asset managers
          */
         Application.pipe.on(AmbientVideoEmitterEvent.PLAYING, _.bind(this.handleVideoPlaying, this));
-        Application.pipe.on(StaticAssetsStoreEvents.SEND_RESULT, _.bind(this.addBitMapToStage, this))
+        Application.pipe.on(StaticAssetsStoreEvents.SEND_RESULT, _.bind(this.addBitMapToStage, this));
+
         Application.pipe.on(TimelineEvents.PANEND, _.bind(this.handleTimeLinePanEnd, this));
         Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimeLinePan, this));
 
         Application.pipe.on(TimelineEvents.GET_IMAGE, _.bind(this.getImageFromStaticStore, this))
-        Application.pipe.on(TimelineEvents.BLUR, _.bind(this.handleBlur, this));
-
-        Application.pipe.on(ClockViewEvents.POSITION, (scrollx)=>{
-             this.handleTimeLinePanEnd(TimelineComponent.getImageId(scrollx));
+        Application.pipe.on(ClockViewEvents.POSITION, ()=>{
+            this.handleTimeLinePanEnd();
         });
 
-
-    }
-
-    get blur(){
-        return this._blur;
-    }
-
-    set blur(bool){
-        this._blur = bool;
     }
 
     /**
@@ -116,7 +106,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @param bitmap {createjs BitMap}
      * @returns {*}
      */
-    static applyBlurFilter(bitmap /* CreateJS Bitmap */) {
+    applyBlurFilter(bitmap /* CreateJS Bitmap */) {
         var blurFilter = new createjs.BlurFilter(50,50,1);
         bitmap.filters = [blurFilter];
         bitmap.cache(0,0, bitmap.image.width, bitmap.image.height, 1);
@@ -129,7 +119,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @param image {createjs BitMap}
      * @returns {*|Container}
      */
-    static applyFade(image /* CreateJS Bitmap */){
+     applyFade(image /* CreateJS Bitmap */){
         image.alpha = 0;
         var container = new createjs.Container();
         container.addChild(image);
@@ -146,13 +136,18 @@ export class TimelineBackgroundComponent extends React.Component {
         if(!image)return
         var img = new createjs.Bitmap(image);
 
-        if(this.blur){
-            img = TimelineBackgroundComponent.applyBlurFilter(img)
+
+        //if(TimelineBackgroundComponent.blur){
+        //    img = TimelineBackgroundComponent.applyBlurFilter(img)
+        //}
+
+        if(TimelineBackgroundComponent.blur){
+            img = this.applyBlurFilter(img);
         }
-        img = TimelineBackgroundComponent.applyFade(img);
+        img = this.applyFade(img);
 
         this.stageUpdate( img );
-        return false;
+
     }
 
     /**
@@ -194,7 +189,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {string}
      */
     generateImageLink(imageid){
-        return "maker01_"+ this.getformattedId(imageid) +"_jpg";
+        return "maker02_"+ this.getformattedId(imageid) +"_jpg";
     }
 
     /**
@@ -214,9 +209,8 @@ export class TimelineBackgroundComponent extends React.Component {
     handleVideoPlaying(video /* videoDOM element */){
         if(video){
             var video = new createjs.Bitmap(video);
-            video.scaleX = 1.05;
-            video.scaleY = 1.05;
-            video = TimelineBackgroundComponent.applyFade(video);
+            video.scaleX = 2;
+            video.scaleY = 2;
             this.stageUpdate( video );
         }
 
@@ -231,8 +225,8 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {boolean}
      */
     handleTimeLinePan(offset, imageid){
-        if(!imageid) return;
-        this.currentImageId = imageid;
+        if(!ClockView.hour) return;
+        this.currentImageId = ClockView.hour;
         return this.getImageFromStaticStore();
     }
 
@@ -242,10 +236,9 @@ export class TimelineBackgroundComponent extends React.Component {
      * @return boolean
      */
     handleTimeLinePanEnd(imageid) {
-        if(!imageid) return;
-        this.currentImageId = imageid;
+        if(!ClockView.hour) return;
         this.getImageFromStaticStore();
-        Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '01', imageid);
+        Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '02', ClockView.hour);
         return false;
     }
 
@@ -254,7 +247,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {number|*}
      */
     getImageFromStaticStore(){
-        Application.pipe.emit(StaticAssetsStoreEvents.GET_RESULT, this.generateImageLink(this.currentImageId));
+        Application.pipe.emit(StaticAssetsStoreEvents.GET_RESULT, this.generateImageLink(ClockView.hour));
         return this.currentImageId;
     }
 
@@ -266,7 +259,7 @@ export class TimelineBackgroundComponent extends React.Component {
         return (
             <div>
                 <div className="bg-filter"></div>
-                <canvas ref="Stage" id="ambientvideos" width="640" height="360" className="bg"></canvas>
+                <canvas ref="Stage" id="ambientvideos" width="1920" height="1080" className="bg"></canvas>
             </div>
 
         )
@@ -278,6 +271,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {boolean}
      */
     stageUpdate(image){
+        if(!this.stage) return;
         this.cacheStore.push(image);
         this.stage.addChild(image);
         this.stage.update();
@@ -285,6 +279,7 @@ export class TimelineBackgroundComponent extends React.Component {
         return false;
     }
 }
+TimelineBackgroundComponent.blur = false;
 
 /**
  * Component for the TimeLineItems
@@ -471,6 +466,7 @@ export class TimelineComponent extends React.Component {
          */
         TimelineComponent.config = this.config = config.timeline;
 
+
         /**
          * Max scrolling limit
          * @type {number}
@@ -506,10 +502,9 @@ export class TimelineComponent extends React.Component {
          */
         this.snap = TimelineProps.INTERVAL;
         Application.pipe.on(ClockViewEvents.POSITION, (x)=>{
-            TimelineComponent.clockPosition = x;
             this.offset = x;
 
-        });
+        })
 
 
     }
@@ -558,7 +553,7 @@ export class TimelineComponent extends React.Component {
             offset: TimelineComponent.clockPosition,
             imageid: TimelineComponent.currentImage
         });
-        Application.pipe.emit(TimelineEvents.BLUR, false);
+        TimelineBackgroundComponent.blur = false;
         Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(this.state.offset));
         this.applyEvents();
     }
@@ -575,7 +570,7 @@ export class TimelineComponent extends React.Component {
             delta = this.reference - x;
             if (delta > 2 || delta < -2) {
                 this.reference = x;
-                scrollx = this.offset + delta
+                scrollx = this.offset + delta;
                 this.scroll(scrollx);
             }
         }
@@ -719,3 +714,4 @@ export class TimelineComponent extends React.Component {
 }
 TimelineComponent.clockPosition = null;
 TimelineComponent.currentImage = null;
+TimelineComponent.config = config.timeline;

@@ -23,8 +23,8 @@ export class AmbientVideoEmitter {
         this.el.controls = false;
         this.el.autoplay = true;
         this.el.loop = true;
-        this.el.width = 640;
-        this.el.height = 360;
+        this.el.width = 1920;
+        this.el.height = 1080;
         Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
     }
 

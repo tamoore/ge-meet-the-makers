@@ -65,7 +65,7 @@ a.link-wide {
 	text-align: center;
 
 	.arrow-back {
-		background: url(../images/arrow.left.svg) 50% 50% no-repeat;
+		background: url(../../images/arrow.left.svg) 50% 50% no-repeat;
 		background-size: contain;
 		display: inline-block;
 		height: 2.2em;
@@ -407,27 +407,27 @@ a.link-wide {
 			width: 100%;
 
 			&.maker-tezuka {
-				background-image: url(../images/makers/bg.winch.jpg);
+				background-image: url(../../images/makers/bg.winch.jpg);
 			}
 
 			&.maker-wolff {
-				background-image: url(../images/makers/bg.spaceman.jpg);
+				background-image: url(../../images/makers/bg.spaceman.jpg);
 			}
 
 			&.maker-fletcher {
-				background-image: url(../images/makers/bg.adam.fletcher.jpg);
+				background-image: url(../../images/makers/bg.adam.fletcher.jpg);
 			}
 
 			&.maker-dough {
-				background-image: url(../images/makers/bg.miner.jpg);
+				background-image: url(../../images/makers/bg.miner.jpg);
 			}
 
 			&.maker-spaceman {
-				background-image: url(../images/makers/bg.spaceman.jpg);
+				background-image: url(../../images/makers/bg.spaceman.jpg);
 			}
 
 			&.maker-ratched {
-				background-image: url(../images/makers/bg.adam.fletcher.jpg);
+				background-image: url(../../images/makers/bg.adam.fletcher.jpg);
 			}
 
 			a {
@@ -458,7 +458,7 @@ a.link-wide {
 // MOBILE CONTENT PAGE
 
 .makers-content {
-	background: url(../images/bg.blur.jpg) 0 0 no-repeat;
+	background: url(../../images/bg.blur.jpg) 0 0 no-repeat;
 	background-size: cover;
 	display: block;
 	min-height: 100vh;
@@ -510,7 +510,7 @@ a.link-wide {
 // MOBILE TIMELINE STYLES
 
 .mobile-timeline {
-	background: url(../images/bg.blur.jpg) 0 0 no-repeat;
+	background: url(../../images/bg.blur.jpg) 0 0 no-repeat;
 	background-size: cover;
 	display: block;
 	min-height: 100vh;
@@ -575,7 +575,7 @@ a.link-wide {
 	padding: 0 0 9.5rem;
 
 	.timeline-marker-meta {
-		background: transparent url(../images/mobile.tick.svg) 0 1.625rem no-repeat;
+		background: transparent url(../../images/mobile.tick.svg) 0 1.625rem no-repeat;
 		border: 0;
 		margin: 0;
 		padding: 0 0 0 1rem;
@@ -618,7 +618,7 @@ a.link-wide {
 	}
 
 	.timeline-content-preview {
-		background: url(../images/mobile.div.svg) 1.3rem 100% no-repeat;
+		background: url(../../images/mobile.div.svg) 1.3rem 100% no-repeat;
 		padding-bottom: 3.4rem;
 
 		.preview-media {

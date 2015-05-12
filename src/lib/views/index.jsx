@@ -6,18 +6,34 @@ import { Application } from '../index';
 import config from '../config';
 
 import React from 'react';
-import { TimelineEvents } from './timeline.jsx!';
+import { TimelineEvents, TimelineComponent, TimelineBackgroundComponent } from './timeline.jsx!';
 
 export class IndexComponent extends React.Component {
     constructor(){
         super();
+        this.state = {
+            className: "timeline-circle"
+        }
+    }
+
+    componentDidMount(){
+        TimelineBackgroundComponent.blur = true;
+        Application.pipe.emit(TimelineEvents.GET_IMAGE);
+        this.setState({
+            "className": "timeline-circle off"
+        })
+        setTimeout(()=>{
+            this.setState({
+                "className": "timeline-circle animate"
+            })
+            Application.pipe.emit(TimelineEvents.GET_IMAGE);
+        },500);
+
     }
     render(){
-        Application.pipe.emit(TimelineEvents.BLUR, true);
-        Application.pipe.emit(TimelineEvents.GET_IMAGE);
         return (
             <div>
-                <section id="timelineCircleWrapper" className="timeline-circle" data-filter="none">
+                <section id="timelineCircleWrapper" className={this.state.className} data-filter="none">
                     <div className="preview-object preview-image" id="imagePreview"><div className="image-filter"></div><img src="images/thumb.png" alt="" /></div>
                     <div id="previewBlurb" className="preview-object preview-blurb">
                         <h3 id="previewType" className="preview-type"></h3>

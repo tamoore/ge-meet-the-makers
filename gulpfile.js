@@ -8,6 +8,8 @@ var gulp = require('gulp'),
 	reload = browserSync.reload,
 	htmlreplace = require('gulp-html-replace');
 	var spawn = require('child_process').spawn;
+	var gutil = require('gulp-util');
+
 
 var appConfig = require('./src/lib/config');
 var pkg = require('./package.json');
@@ -90,13 +92,12 @@ gulp.task('serve', ['styles'], function () {
 
 gulp.task('transcode-ambient-videos', function(){
 	var makerCount = appConfig.preload.MAKER_COUNT;
-	var ambientVideosCount = appConfig.preload.MAKER_AMBIENT_COUNT;
-	var makercount = 1;
-	var assetcount = 1;
-	var config = pkg.config;
-	while(makercount <= makerCount){
-		while(assetcount <= ambientVideosCount){
 
+	var ambientVideosCount = appConfig.preload.MAKER_AMBIENT_COUNT;
+	var config = pkg.config;
+	for(var makercount=1; makercount <= makerCount; makercount++){
+		for(var assetcount = 1; assetcount <= ambientVideosCount; assetcount++){
+				console.log(makercount, assetcount);
 				var child = spawn("aws",
 					[	'elastictranscoder',
 						'create-job',
@@ -121,7 +122,7 @@ gulp.task('transcode-ambient-videos', function(){
 				child.stdout.setEncoding('utf8');
 				child.stdout.on('data', function (data) {
 					stdout += data;
-					gutil.log(data);
+					gutil.log(JSON.parse(data).Job.Input.Key);
 				});
 				child.stderr.setEncoding('utf8');
 				child.stderr.on('data', function (data) {
@@ -133,9 +134,9 @@ gulp.task('transcode-ambient-videos', function(){
 					gutil.log("Done with exit code", code);
 
 				});
-			assetcount++;
+
 		}
-		makercount++;
+
 	}
 
 });

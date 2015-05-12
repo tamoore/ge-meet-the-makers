@@ -1,7 +1,7 @@
 import React from 'react';
 import { Application } from '../index';
 import { BaseView } from './base';
-import { TimelineProps, TimelineEvents } from './timeline.jsx!';
+import { TimelineProps, TimelineEvents, TimelineComponent } from './timeline.jsx!';
 
 export const ClockViewEvents = {
     POSITION: "clockview:position",
@@ -112,7 +112,7 @@ export class ClockView extends ClockBase {
         this.position = this.calculatePosition();
 
         Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimelinePanning, this));
-
+        TimelineComponent.clockPosition = this.position;
     }
 
     /**
@@ -128,7 +128,12 @@ export class ClockView extends ClockBase {
             hourRotation: this.rotateHour,
             minuteRotation: this.rotateMinue
         });
+        ClockView.hour = this.formatHour;
+        Application.pipe.emit(TimelineEvents.PANEND, ClockView.hour);
         Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
+        Application.pipe.emit(TimelineEvents.GET_IMAGE);
+
+
     }
 
     get position(){
@@ -171,6 +176,7 @@ export class ClockView extends ClockBase {
     handleTimelinePanning(offset){
         let float = (offset/ClockViewProps.INCREMENT)/60;
         let hour = (Math.floor(float));
+        ClockView.hour = hour;
         let minute = Math.floor(60*(float % 1))
         let [roatedHours, rotatedMinutes] = this.generateRotation(hour,minute);
         this.setState({
@@ -179,6 +185,7 @@ export class ClockView extends ClockBase {
             hourRotation: roatedHours,
             minuteRotation: rotatedMinutes
         });
+
     }
 
     render(){
@@ -193,3 +200,4 @@ export class ClockView extends ClockBase {
         )
     }
 }
+ClockView.hour = null;

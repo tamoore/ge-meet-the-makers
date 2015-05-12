@@ -3,32 +3,32 @@ import $ from 'jquery';
 import events from 'event-emitter';
 
 import React from 'react';
-import { StaticAssetsStore, StaticInstanceStoreInstance } from './emitters/staticAssets';
+import { StaticAssetsStore, StaticAssetsStoreEvents } from './emitters/staticAssets';
 import { AmbientVideoEmitter } from './emitters/ambientVideo';
-
 import { Main } from './main.jsx!';
+import { PreloadComponent } from './views/preload.jsx!';
 
 window._ = lodash; // TODO: What to do with this nasty girl
 
 export class Application {
 	constructor(){
 
-		Application.pipe = events(this);
+
 
 		this.staticAssetsStore = new StaticAssetsStore();
 		this.ambientVideoEmitter = new AmbientVideoEmitter();
 
-		if(this.tempProgress){
-			this.preload.on(StaticAssetsStore.PROGRESS, (progress)=>{
-				this.tempProgress.textContent = progress + "%";
-			});
-		}
 
-		this.main = new Main();
+		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
+				this.main = new Main();
+		});
+
+
+		React.render(React.createElement(PreloadComponent), document.body);
 
 	}
 }
-
+Application.pipe = events(this);
 
 $(()=>{
 	new Application();
