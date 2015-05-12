@@ -52,7 +52,9 @@
 	}
 
 	.timeline-list {
-		background: url(../../images/timeline.circle.svg) 50% 50% no-repeat;
+	  	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB3aWR0aD0iNDcwcHgiIGhlaWdodD0iNDcwcHgiIHZpZXdCb3g9IjAgMCA0NzAgNDcwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+ICAgIDxnIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiAgICAgICAgPGNpcmNsZSBzdHJva2U9IiNGRkZGRkYiIGN4PSIyMzUiIGN5PSIyMzUiIHI9IjIyNSI+PC9jaXJjbGU+ICAgICAgICA8Y2lyY2xlIHN0cm9rZS1vcGFjaXR5PSIwLjIiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxMCIgY3g9IjIzNSIgY3k9IjIzNSIgcj0iMjIwIj48L2NpcmNsZT4gICAgPC9nPjwvc3ZnPg==);
+	  	background-size: 50% 50%;
+	  	background-repeat: no-repeat;
 		background-size: cover;
 		display: block;
 		height: 100%;
