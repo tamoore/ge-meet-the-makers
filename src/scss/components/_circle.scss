@@ -42,7 +42,6 @@
 			text-align: left;
 			transform: translateY(50%);
 		}
-
 		&.timeline-label-6 {
 			bottom: 50%;
 			left: -2em;
@@ -205,6 +204,7 @@
 						text-align: center;
 						text-decoration: none;
 						transform: scale(.3);
+
 						transition: transform .1s ease-out;
 						width: 2.4rem;
 

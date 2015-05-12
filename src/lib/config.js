@@ -12,7 +12,7 @@ module.exports = {
     },
     timeline: {
         INTERVAL: 201.5,
-        SENSITIVITY: 10
+        SENSITIVITY: 20
     },
     ambientVideo: {
         WIDTH: 640,

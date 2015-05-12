@@ -145,6 +145,8 @@ export class TimelineBackgroundComponent extends React.Component {
             img = this.applyBlurFilter(img);
         }
         img = this.applyFade(img);
+        img.scaleX = 0.5;
+        img.scaleY = 0.5;
 
         this.stageUpdate( img );
 
@@ -209,8 +211,8 @@ export class TimelineBackgroundComponent extends React.Component {
     handleVideoPlaying(video /* videoDOM element */){
         if(video){
             var video = new createjs.Bitmap(video);
-            video.scaleX = 2;
-            video.scaleY = 2;
+            video.scaleX = 1;
+            video.scaleY = 1;
             this.stageUpdate( video );
         }
 
@@ -259,7 +261,7 @@ export class TimelineBackgroundComponent extends React.Component {
         return (
             <div>
                 <div className="bg-filter"></div>
-                <canvas ref="Stage" id="ambientvideos" width="1920" height="1080" className="bg"></canvas>
+                <canvas ref="Stage" id="ambientvideos" width="960" height="540" className="bg"></canvas>
             </div>
 
         )
@@ -318,7 +320,7 @@ export class TimeLineItem extends React.Component {
         }
 
         return (
-            <li key={this.props.key} className="timeline-marker timeline-marker-start" data-time="0:00">
+            <li key={this.props.key} className="timeline-marker timeline-marker-start" data-minute={this.props.minute} data-time="0:00">
                 <div className="marker-data">
                     <ul>
                         {this.items}
@@ -674,7 +676,7 @@ export class TimelineComponent extends React.Component {
         this.timestamp = now;
         delta = this.offset - this.frame;
         this.frame = this.offset;
-        v = 100 * delta / (1 + elapsed);
+        v = 500 * delta / (1 + elapsed);
         this.velocity = 0.8 * v + 0.2 * this.velocity;
         return false;
     }

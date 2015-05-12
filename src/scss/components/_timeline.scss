@@ -102,8 +102,10 @@
 
         &.marker-tick-long {
           &:before {
+            content: "";
             bottom: $markerLineBaseLine;
           }
+
           background-size: 1px 1.5em;
         }
 
@@ -133,6 +135,15 @@
       }
 
       .marker-label {
+        &:before {
+          content: "";
+          width: 1px;
+          height: 24px;
+          top: -34px;
+          left: 50%;
+          position: absolute;
+          background-color: rgba(255,255,255,0.6);
+        }
         display: block;
         font-family: Abel, sans-serif;
         font-size: 20px;
@@ -148,5 +159,16 @@
       }
 
     }
+  }
+  [data-minute="30"]{
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      width: 1px;
+      height: 17px;
+      background-color: rgba(255,255,255,0.4);
+    }
+
   }
 }
