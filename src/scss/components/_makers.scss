@@ -20,9 +20,9 @@
 // General panel styles
 
 .makers {
-	@include flexbox();
-	@include flex-align(center);
-	@include flex-direction(row);
+  	@include display(flex);
+  	@include align-items(center);
+  	@include flex-direction(row);
 	@include flex-wrap(nowrap);
 
 	overflow: hidden;
@@ -36,7 +36,15 @@
 	position: relative;
 	width: 16.66666666666667%;
 	transition: all 500ms ease-in-out;
-
+	&:before {
+	  pointer-events: none;
+	  content: "";
+	  position: absolute;
+	  z-index: 1;
+	  width: 100%;
+	  height: 100%;
+	  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGCoZ2BgaITRjAxoACYAV4WhAgCV0AOEkNUCfgAAAABJRU5ErkJggg==), radial-gradient(transparent, black);;
+	}
 	.maker-panel-background {
 		background-image: url(../../images/makers/bg.adam.fletcher.jpg);
 		background-position: 50% 50%;
@@ -48,7 +56,6 @@
 		top: 0;
 		width: 100%;
 		z-index: 0;
-
 		// PANEL BACKGROUNDS
 		&.maker-fletcher {
 			background-image: url(../../images/makers/bg.adam.fletcher.jpg);

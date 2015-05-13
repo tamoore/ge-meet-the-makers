@@ -6,8 +6,11 @@
 
 @import "components/masthead";
 @import "components/maker-info";
+@import "components/makers";
 @import "components/timeline";
 @import "components/footer";
+@import "components/meet-the-makers";
+@import "components/video-content-component";
 
 @import "utils/transitions";
 
@@ -21,8 +24,8 @@
 
 
 #progress {
-  height: 1px;
-  top: 50vh;
+  height: 2px;
+  top: 0px;
   background-color: #fff;
   position: absolute;
   left: 0;

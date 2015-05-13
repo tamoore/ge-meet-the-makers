@@ -9,9 +9,29 @@
 
 .section-leave {
   opacity: 1;
-  transition: opacity 0.01s ease-in;
+  transition: opacity 0.01s ease-in !important;
 }
 
 .section-leave.section-leave-active {
   opacity: 0.01;
+}
+
+#main-panel.makers-enter {
+ @include transform( translateY(100vh) );
+}
+
+[data-transition="off"] {
+  opacity: 0.01;
+  display: none !important;
+  transition: opacity 0.01s ease-in !important;
+}
+[data-content="deactivate"] {
+  transition: opacity 0.01s ease-in;
+  display: none !important;
+}
+[data-content="activate"] {
+  transition: opacity 1s ease-in;
+}
+[data-transition="animate"] {
+  opacity: 1;
 }

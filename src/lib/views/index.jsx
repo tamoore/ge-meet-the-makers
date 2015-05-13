@@ -7,6 +7,7 @@ import config from '../config';
 
 import React from 'react';
 import { TimelineEvents, TimelineComponent, TimelineBackgroundComponent } from './timeline.jsx!';
+
 export const IndexEvents = {
     ACTIVE: "indexevents:active"
 }

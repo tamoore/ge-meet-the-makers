@@ -12,6 +12,7 @@ import config from '../config';
  * Vendor dependencies
  */
 import React from 'react/addons';
+import Router from 'react-router';
 import Hammer from 'hammerjs';
 import easeljs from 'easeljs';
 import tweenjs from 'tweenjs';
@@ -23,7 +24,10 @@ import { ClockViewEvents, ClockView } from './clock.jsx!';
 import { BaseView } from './base';
 import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAssets';
 import { AmbientVideoEmitterEvent } from '../emitters/ambientVideo';
+import { HeaderComponent } from './header.jsx!';
+import { VideosContentComponent } from './content/video.jsx!';
 
+let RouterLink = Router.Link;
 
 /**
  * Utils
@@ -297,7 +301,7 @@ export class TimeLineItem extends React.Component {
         this._rnd = Math.floor(Math.random() * (8 - 0) + 0);
         this.items = [];
         for(var i = 0;i<this._rnd;i++){
-            this.items.push(<li key={i}><a><span className="assistive-text">Content title</span></a></li>)
+            this.items.push(<li key={i}><a href="#/content/video/1/1"><span className="assistive-text">Content title</span></a></li>)
         }
     }
 
@@ -611,11 +615,15 @@ export class TimelineComponent extends React.Component {
      */
     render(){
         return (
-                <div key='timelineParentWRapper'>
-                    <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
-                        <TimelineListView offset={this.state.offset} key='timelineListView'  />
+                <div>
+
+                    <div key='timelineParentWRapper'>
+                        <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
+                            <TimelineListView offset={this.state.offset} key='timelineListView'  />
+                        </div>
                     </div>
                 </div>
+
         )
     }
 

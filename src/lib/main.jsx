@@ -23,6 +23,11 @@ import { HeaderComponent } from './views/header.jsx!';
 import { MakerComponent } from './views/maker.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { FooterComponent } from './views/footer.jsx!';
+import { MeetTheMakersComponent } from './views/makers.jsx!';
+
+import { VideosContentComponent } from './views/content/video.jsx!'
+
+
 
 export class Main {
     constructor(){
@@ -30,6 +35,7 @@ export class Main {
             <Route name="app" path="/" handler={MainView}>
                 <Route name="index" handler={IndexComponent}/>
                 <Route name="timeline" handler={TimelineComponent}/>
+                <Route name="content/video/:maker/:id" handler={VideosContentComponent}/>
                 <DefaultRoute handler={TimelineComponent} />
             </Route>
         )
@@ -39,31 +45,56 @@ export class Main {
     }
 }
 
+export const MainEvents = {
+    SHOWMAKERS: "mainevents:showmakers",
+    HIDEMAKERS: "mainevents:hidemakers"
+};
+
 export class MainView extends React.Component {
 
     constructor(){
         super();
+        this.state = {
+            mainPanelKlass: ""
+        }
+        Application.pipe.on(MainEvents.SHOWMAKERS, _.bind(this.handleShowMakers, this))
+        Application.pipe.on(MainEvents.HIDEMAKERS, _.bind(this.handleHideMakers, this));
+    }
 
+    handleShowMakers(){
+        this.setState({
+            mainPanelKlass: "makers-enter"
+        });
+
+    }
+
+    handleHideMakers(){
+        this.setState({
+            mainPanelKlass: "makers-leave"
+        });
     }
 
     render(){
         var name = this.context.router.getCurrentPath();
         return (
-            <div>
-                <TransitionGroup component="div" transitionName="section">
-                <HeaderComponent />
-                <MakerComponent />
-                <TimelineBackgroundComponent  />
-
-                    <RouteHandler key={name} />
-
-
-                <FooterComponent />
-                </TransitionGroup>
+            <div ref="Main">
+                <div className="meet-the-makers-wrapper" data-active={this.state.mainPanelKlass}>
+                    <MeetTheMakersComponent />
+                </div>
+                <div id="main-panel" className={this.state.mainPanelKlass}>
+                    <HeaderComponent currentRoute={name}  />
+                    <MakerComponent />
+                    <TimelineBackgroundComponent  />
+                    <TransitionGroup component="div" transitionName="section">
+                        <RouteHandler key={name} />
+                    </TransitionGroup>
+                    <FooterComponent />
+                </div>
             </div>
         )
     }
-}
+};
+
 MainView.contextTypes = {
     router: React.PropTypes.func
 }

@@ -9,7 +9,7 @@
   position: relative;
   /* top: -160px; */
   height: 100vh;
-  position: fixed;
+  position: absolute;
   top: 0;
   &:before {
     content: "";
@@ -75,10 +75,18 @@
           text-align: center;
           text-decoration: none;
           width: 2.4rem;
+          &:hover {
+            &:before {
+              font-size: 4.5rem;
+              left: -.2rem;
+              position: relative;
 
+            }
+          }
           &::before {
             content: "\2022";
             font-size: 2.4rem;
+            @include transition(font-size .05s ease-in);
             -webkit-font-smoothing: antialiased;
           }
         }

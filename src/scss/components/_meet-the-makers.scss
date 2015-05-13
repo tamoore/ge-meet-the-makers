@@ -1,0 +1,11 @@
+.meet-the-makers-wrapper {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  @include transform(translateY(-100vh));
+  @include transition(transform 1s ease-in-out);
+  &[data-active="makers-enter"]{
+    @include transform(translateY(0));
+  }
+}

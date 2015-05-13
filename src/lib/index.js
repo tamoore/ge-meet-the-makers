@@ -13,23 +13,29 @@ window._ = lodash; // TODO: What to do with this nasty girl
 export class Application {
 	constructor(){
 
-
+		Application.history = [];
+		window.addEventListener("hashchange", _.bind(this.handleHashChange, this))
 
 		this.staticAssetsStore = new StaticAssetsStore();
 		this.ambientVideoEmitter = new AmbientVideoEmitter();
 
 
 		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
-				//this.main = new Main();
+				this.main = new Main();
 		});
 
-		this.main = new Main();
+		//this.main = new Main();
 
-		//React.render(React.createElement(PreloadComponent), document.body);
+		React.render(React.createElement(PreloadComponent), document.body);
 
+	}
+
+	handleHashChange(event){
+		Application.history.push(event);
 	}
 }
 Application.pipe = events(this);
+
 
 $(()=>{
 	new Application();

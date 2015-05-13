@@ -1,3 +1,36 @@
+.meet-the-makers-wrapper {
+  .base {
+    opacity: 0.01;
+    &[data-state="active"] {
+      opacity: 1;
+    }
+    @include transition(opacity .5s ease-in);
+    z-index: 2;
+    background-color: rgba(0,0,0,.4);
+    padding-top: 2rem;
+    box-shadow: inset 0px 0px 8px 3px rgba(0,0,0,.5);
+    h1 {
+      cursor: pointer;
+      float: left;
+      font-size: 12px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.08333333333;
+      margin: 0 2em 0 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      text-transform: uppercase;
+      padding-left: 2rem;
+      a {
+        color: #fff;
+        text-decoration: none;
+
+      }
+
+    }
+  }
+}
+
 .base {
   align-items: center;
   bottom: 0;
@@ -7,6 +40,7 @@
   padding-bottom: 2rem;
   position: absolute;
   width: 100%;
+  top: calc(100vh - 60px);
 
   .sponsor {
     float: left;

@@ -5,10 +5,18 @@
   position: relative;
   width: 100%;
   z-index: 3;
+  opacity: 1;
+  @include transition(opacity .5s ease-in);
+  &[data-hide="hidden"]{
+    opacity: 0.01;
+    pointer-events: none;
+
+  }
   * {
     -webkit-font-smoothing: antialiased;
   }
   h1 {
+    cursor: pointer;
     float: left;
     font-size: 12px;
     font-size: 1.3rem;

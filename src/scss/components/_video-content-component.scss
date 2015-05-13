@@ -1,0 +1,44 @@
+.video-content-component {
+  z-index: 1;
+  position: absolute;
+  padding-top: 20rem;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  @include display(flex);
+  @include align-items(flex-start);
+  @include justify-content(flex-start);
+  .video-content {
+    @include display(flex);
+    @include justify-content(center);
+  }
+  aside {
+    max-width: 25rem;
+    margin-left: 15rem;
+    h3 {
+      font-weight: 100;
+      -webkit-font-smoothing: antialiased;
+      font-size: 3rem;
+      text-transform: uppercase;
+      font-family: Abel, sans-serif;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.6rem;
+      line-height: 1.5;
+    }
+
+  }
+  iframe {
+    border: 1px solid transparent !important;
+    float: right;
+    margin-top: 3rem;
+    margin-left: 5rem;
+  }
+}
+
+
+
+//display: flex;
+//align-items: center;
+//justify-content: center;

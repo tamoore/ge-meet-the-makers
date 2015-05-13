@@ -20,10 +20,8 @@ gulp.task('styles', function() {
 	.on('error', function (err) {
       console.error('Error', err.message);
    	})
-	.pipe(gulp.dest('src/css')).
-	on('end', function(){
-		reload();
-	})
+	.pipe(gulp.dest('src/css'))
+	.pipe(reload({stream: true}));
 });
 
 gulp.task('build', ['styles'], function() {
@@ -47,16 +45,16 @@ gulp.task('build', ['styles'], function() {
 	.pipe(gulp.dest('build/'));
 
 	gulp.src('./src/static/*.html')
-		.pipe(htmlreplace({
-			src: './src/static/*.html',
-			'js': {
-				src: ['https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js','static-scripts.js']
-			},
-			'css': {
-				src: ['../css/main.css']
-			}
-		}))
-		.pipe(gulp.dest('build/static/'));
+	.pipe(htmlreplace({
+		src: './src/static/*.html',
+		'js': {
+			src: ['https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js','static-scripts.js']
+		},
+		'css': {
+			src: ['../css/main.css']
+		}
+	}))
+	.pipe(gulp.dest('build/static/'));
 });
 
 // Run development server environmnet
@@ -80,13 +78,12 @@ gulp.task('serve', ['styles'], function () {
   gulp.watch([
     'src/**/*.txt',
     'src/*.html',
-	  'src/**/*.html',
+    'src/**/*.html',
     'src/lib/**/*.js',
-	  'src/lib/**/*.jsx',
+    'src/lib/**/*.jsx',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
-
   gulp.watch('src/scss/**/*.scss', ['styles']);
 });
 
