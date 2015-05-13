@@ -22,10 +22,11 @@ export class FooterComponent extends React.Component {
                 <img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" />
                 <nav className="controls">
                     <ul>
-                        <li><a>Audio</a></li>
-                        <li><a>Credits</a></li>
-                        <li><a>Social</a></li>
-                        <li><a>About</a></li>
+                        <li><a>About this content</a></li>
+                        <li><a id="footer-audio"><span className="assistive-text">Audio</span></a></li>
+                        <li><a id="footer-facebook"> <span className="assistive-text">Facebook</span> </a></li>
+                        <li><a id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
+                        <li><a id="footer-linkedin"> <span className="assistive-text">LinkedIn</span> </a></li>
                     </ul>
                 </nav>
             </footer>

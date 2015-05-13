@@ -176,7 +176,7 @@ export class ClockView extends ClockBase {
     handleTimelinePanning(offset){
         let float = (offset/ClockViewProps.INCREMENT)/60;
         let hour = (Math.floor(float));
-        ClockView.hour = hour;
+        ClockView.hour = (hour < 10 ? '0'+hour : hour );
         let minute = Math.floor(60*(float % 1))
         let [roatedHours, rotatedMinutes] = this.generateRotation(hour,minute);
         this.setState({

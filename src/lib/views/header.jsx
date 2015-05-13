@@ -7,20 +7,35 @@ import config from '../config';
 
 import React from 'react';
 import Router from 'react-router';
+
+import { IndexComponent, IndexEvents } from './index.jsx!';
+
 let RouterLink = Router.Link;
 
 
 export class HeaderComponent extends React.Component {
     constructor(){
         super();
+        this.state = {
+            index: false
+        };
+
+        Application.pipe.on(IndexEvents.ACTIVE, _.bind(this.handleIndexActive, this));
     }
+
+    handleIndexActive(value){
+        this.setState({
+            index: value
+        });
+    }
+
     render(){
+        var indexLocation = this.state.index ? "timeline" : "index";
+        var indexLabel = this.state.index ? "close" : "index";
         return (
             <header className="masthead">
                 <h1>
-                    <RouterLink to="timeline">
-                        Meet The<br /> Makers
-                    </RouterLink>
+                    Meet The<br /> Makers
                 </h1>
                     <nav className="filter">
                         <ol>
@@ -56,8 +71,8 @@ export class HeaderComponent extends React.Component {
                             </li>
                         </ol>
                     </nav>
-                    <RouterLink to="index" className="btn-index">
-                        Index
+                    <RouterLink to={indexLocation} className="btn-index" onClick={this.handleClick}>
+                        {indexLabel}
                     </RouterLink>
                 </header>
         )

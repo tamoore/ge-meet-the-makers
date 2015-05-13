@@ -7,13 +7,18 @@ import config from '../config';
 
 import React from 'react';
 import { TimelineEvents, TimelineComponent, TimelineBackgroundComponent } from './timeline.jsx!';
-
+export const IndexEvents = {
+    ACTIVE: "indexevents:active"
+}
 export class IndexComponent extends React.Component {
     constructor(){
         super();
         this.state = {
             className: "timeline-circle"
         }
+    }
+    componentWillMount(){
+        this.isActive = true;
     }
 
     componentDidMount(){
@@ -26,10 +31,24 @@ export class IndexComponent extends React.Component {
             this.setState({
                 "className": "timeline-circle animate"
             })
+
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
         },500);
-
     }
+
+    componentWillUnmount(){
+        this.isActive = false;
+    }
+
+    get isActive(){
+        return IndexComponent.active;
+    }
+
+    set isActive(value){
+        IndexComponent.active = value;
+        Application.pipe.emit(IndexEvents.ACTIVE, this.isActive);
+    }
+
     render(){
         return (
             <div>
@@ -277,6 +296,7 @@ export class IndexComponent extends React.Component {
         )
     }
 }
+IndexComponent.active = false;
 
 
 
