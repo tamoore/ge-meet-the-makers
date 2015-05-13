@@ -15,12 +15,8 @@ export class MakerComponent extends React.Component {
     render(){
         return (
             <section className="maker-info">
-                <div className="maker-title">
-                    <strong>Navigator</strong>
-                    <em className="maker-name">Mark Wilson</em>
-                </div>
+                <div className="maker-title"></div>
                 <ClockView />
-                <div className="maker-location">Perth, Western Australia</div>
             </section>
         )
     }

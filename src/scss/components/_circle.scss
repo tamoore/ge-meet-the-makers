@@ -6,7 +6,8 @@
 	padding: 0;
 	position: absolute;
 	top: 10rem;
-	transform: translateX(-50%);
+  	@include transform(translateX(-50%));
+	//transform: translateX(-50%);
 	width: calc(100vh - 15rem);
 	z-index: 3;
   	transition: opacity 1s ease-in;
@@ -27,26 +28,31 @@
 		&.timeline-label-12 {
 			left: 50%;
 			top: -.5em;
-			transform: translateX(-50%);
+		  	@include transform(translateX(-50%));
+			//transform: translateX(-50%);
 		}
 
 		&.timeline-label-0 {
 			bottom: -.5em;
 			left: 50%;
-			transform: translateX(-50%);
+		  	@include transform(translateX(-50%));
+			//transform: translateX(-50%);
 		}
 
 		&.timeline-label-18 {
 			bottom: 50%;
-			right: -2em;
+			right: -4em;
 			text-align: left;
-			transform: translateY(50%);
+		  	@include transform(translateX(-50%));
+			//transform: translateY(50%);
 		}
 		&.timeline-label-6 {
 			bottom: 50%;
 			left: -2em;
 			text-align: left;
-			transform: translateY(50%);
+
+		  	@include transform(translateX(-50%));
+			//transform: translateY(50%);
 		}
 	}
 
@@ -79,27 +85,28 @@
 
 			// Noon
 			&:nth-child(1) {
-				transform: rotate(-90deg);
+			  	@include transform(rotate(-90deg));
+				//ransform: rotate(-90deg);
 			}
 
 			&:nth-child(2) {
-				transform: rotate(-75deg);
+				@include transform(rotate(-75deg));
 			}
 
 			&:nth-child(3) {
-				transform: rotate(-60deg);
+				@include transform(rotate(-60deg));
 			}
 
 			&:nth-child(4) {
-				transform: rotate(-45deg);
+				@include transform(rotate(-45deg));
 			}
 
 			&:nth-child(5) {
-				transform: rotate(-30deg);
+				@include transform(rotate(-30deg));
 			}
 
 			&:nth-child(6) {
-				transform: rotate(-15deg);
+				@include transform(rotate(-15deg));
 			}
 
 			&:nth-child(7) {
@@ -107,79 +114,79 @@
 			}
 
 			&:nth-child(8) {
-				transform: rotate(15deg);
+				@include transform(rotate(15deg));
 			}
 
 			&:nth-child(9) {
-				transform: rotate(30deg);
+				@include transform(rotate(30deg));
 			}
 
 			&:nth-child(10) {
-				transform: rotate(45deg);
+				@include transform(rotate(45deg));
 			}
 
 			&:nth-child(11) {
-				transform: rotate(60deg);
+				@include transform(rotate(60deg));
 			}
 
 			&:nth-child(12) {
-				transform: rotate(75deg);
+				@include transform(rotate(75deg));
 			}
 
 			&:nth-child(13) {
-				transform: rotate(90deg);
+				@include transform(rotate(90deg));
 			}
 
 			&:nth-child(14) {
-				transform: rotate(105deg);
+				@include transform(rotate(105deg));
 			}
 
 			&:nth-child(15) {
-				transform: rotate(120deg);
+				@include transform(rotate(120deg));
 			}
 
 			&:nth-child(16) {
-				transform: rotate(135deg);
+				@include transform(rotate(135deg));
 			}
 
 			&:nth-child(17) {
-				transform: rotate(150deg);
+				@include transform(rotate(150deg));
 			}
 
 			&:nth-child(18) {
-				transform: rotate(165deg);
+				@include transform(rotate(165deg));
 			}
 
 			&:nth-child(19) {
-				transform: rotate(180deg);
+				@include transform(rotate(180deg));
 			}
 
 			&:nth-child(20) {
-				transform: rotate(195deg);
+				@include transform(rotate(195deg));
 			}
 
 			&:nth-child(21) {
-				transform: rotate(210deg);
+				@include transform(rotate(210deg));
 			}
 
 			&:nth-child(22) {
-				transform: rotate(225deg);
+				@include transform(rotate(225deg));
 			}
 
 			&:nth-child(23) {
-				transform: rotate(240deg);
+				@include transform(rotate(240deg));
 			}
 
 			&:nth-child(24) {
-				transform: rotate(255deg);
+				@include transform(rotate(255deg));
 			}
 
 			&:nth-child(25) {
-				transform: rotate(270deg);
+				@include transform(rotate(270deg));
 			}
 
 			&:nth-child(26) {
-				transform: rotate(285deg);
+				@include transform(rotate(285deg));
 			}
 
 			.marker-data {
@@ -203,13 +210,13 @@
 						pointer-events: auto;
 						text-align: center;
 						text-decoration: none;
-						transform: scale(.3);
+						@include transform(scale(.3));
 
 						transition: transform .1s ease-out;
 						width: 2.4rem;
 
 						&:hover {
-							transform: scale(1);
+							@include transform(scale(1));
 						}
 					}
 				}
@@ -222,12 +229,12 @@
 .preview-object {
 	opacity: 0;
 	position: absolute;
-	transform: scale(0);
+	@include transform(scale(0));
 	transition: transform .1s linear, opacity .2s linear;
 
 	&.preview-display {
 		opacity: 1;
-		transform: scale(1);
+		@include transform(scale(1));
 	}
 }
 
@@ -265,7 +272,7 @@
 	position: absolute;
 	text-align: center;
 	top: 50%;
-	transform: translateY(-50%);
+	@include transform(translateY(-50%));
 	transition: all .1s linear;
 	width: 30%;
 	z-index: 1;
@@ -278,7 +285,7 @@
 
 	&.hidden {
 		opacity: 0;
-		transform: scale(0) translateY(-50%);
+		@include transform( scale(0) translateY(-50%));
 	}
 }
 

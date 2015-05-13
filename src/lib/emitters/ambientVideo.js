@@ -50,7 +50,7 @@ export class AmbientVideoEmitter {
             "/" + this.config.CDN_BUCKET +
             this.config.VIDEOS_PREFIX +
             this.config.MAKER_AMBIENT_PREFIX
-            + makerid + '_' + ( videoid < 10 ? '0'+videoid : videoid ) + '.mp4?uuid='+uuid.v1();
+            + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
     }
 
     play(url){

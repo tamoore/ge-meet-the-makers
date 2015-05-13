@@ -107,7 +107,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {*}
      */
     applyBlurFilter(bitmap /* CreateJS Bitmap */) {
-        var blurFilter = new createjs.BlurFilter(50,50,1);
+        var blurFilter = new createjs.BlurFilter(20,30,1);
         bitmap.filters = [blurFilter];
         bitmap.cache(0,0, bitmap.image.width, bitmap.image.height, 1);
         return bitmap;
@@ -177,21 +177,12 @@ export class TimelineBackgroundComponent extends React.Component {
     }
 
     /**
-     * Returns 01 for 1 and 10 for 10
-     * @param imageid {number}
-     * @returns {string}
-     */
-    getformattedId(imageid /* Number */){
-        return (imageid < 10 ? '0'+imageid : imageid)
-    }
-
-    /**
      * Return formatted string of image assets for preloadjs
      * @param imageid
      * @returns {string}
      */
     generateImageLink(imageid){
-        return "maker02_"+ this.getformattedId(imageid) +"_jpg";
+        return "maker02_"+ imageid +"_jpg";
     }
 
     /**
@@ -505,8 +496,7 @@ export class TimelineComponent extends React.Component {
         this.snap = TimelineProps.INTERVAL;
         Application.pipe.on(ClockViewEvents.POSITION, (x)=>{
             this.offset = x;
-
-        })
+        });
 
 
     }
