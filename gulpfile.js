@@ -24,6 +24,13 @@ gulp.task('styles', function() {
 	.pipe(reload({stream: true}));
 });
 
+gulp.task('deploy-scratch', function() {
+	return gulp.src(['./'])
+		.on('end', shell.task([
+			'aws s3 sync ./scratch s3://cdn.labs.theguardian.com/2015/meet-the-makers/scratch/ --profile labs --acl public-read --region ap-southeast-2 --cache-control="max-age=0, no-cache"'
+		]));
+});
+
 gulp.task('build', ['styles'], function() {
 	gulp.src('./')
 		.pipe(shell([

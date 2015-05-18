@@ -74,12 +74,9 @@ export class StaticAssetsStore  {
                 }else{
                     this.processType('0','', makercount, assetcount);
                 }
-
             }
-
         }
     }
-
 
     fetchAssets(){
         let jpgs = this.assets.filter((item)=>{
