@@ -306,7 +306,7 @@ export class TimeLineItem extends React.Component {
             let maker = this.props.data[i].maker;
             let guid = this.props.data[i].guid;
             let url = "#/content/"+type+"/"+maker+"/"+guid;
-            this.items.push(<li key={i}><a href={url}><span className="assistive-text">{this.props.data[i].title}</span></a></li>)
+            this.items.push(<li key={i} data-maker={maker}><a href={url}><span className="assistive-text">{this.props.data[i].title}</span></a></li>)
         }
 
     }

@@ -54,7 +54,7 @@ export class HeaderComponent extends React.Component {
                     <nav className="filter">
                         <ol>
                             <li>
-                                <button className="filter-button filter-button--space">
+                                <button className="filter-button filter-button--space" rel="1">
                                     <span className="assistive-text">Space</span>
                                 </button>
                             </li>
