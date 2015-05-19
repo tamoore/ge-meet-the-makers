@@ -29,6 +29,7 @@ System.config({
     "jquery": "github:components/jquery@2.1.3",
     "jquery-mousewheel": "npm:jquery-mousewheel@3.1.12",
     "jsx": "github:floatdrop/plugin-jsx@1.1.0",
+    "keymaster": "github:madrobby/keymaster@1.6.3",
     "lodash": "npm:lodash@3.7.0",
     "marionette": "github:marionettejs/backbone.marionette@2.4.1",
     "marionettejs/backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
@@ -39,6 +40,7 @@ System.config({
     "preload": "github:CreateJS/PreloadJS@0.6.0",
     "react": "npm:react@0.13.3",
     "react-router": "npm:react-router@0.13.3",
+    "reqwest": "npm:reqwest@1.1.5",
     "tweenjs": "github:CreateJS/TweenJS@0.6.0",
     "txt": "github:systemjs/plugin-text@0.0.2",
     "underscore": "npm:underscore@1.8.3",
@@ -495,6 +497,12 @@ System.config({
       "private": "npm:private@0.1.6",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "source-map": "npm:source-map@0.1.43"
+    },
+    "npm:reqwest@1.1.5": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:ripemd160@1.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",

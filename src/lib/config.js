@@ -10,6 +10,9 @@ module.exports = {
         IMAGES_PREFIX : "images/",
         CDN_PROTOCOL : "http"
     },
+    data: {
+      url: 'http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/data.json'
+    },
     timeline: {
         INTERVAL: 201.5,
         SENSITIVITY: 20

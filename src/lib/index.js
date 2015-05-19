@@ -7,6 +7,7 @@ import { StaticAssetsStore, StaticAssetsStoreEvents } from './emitters/staticAss
 import { AmbientVideoEmitter } from './emitters/ambientVideo';
 import { Main } from './main.jsx!';
 import { PreloadComponent } from './views/preload.jsx!';
+import { Data, DataEvents } from './data/data';
 
 window._ = lodash; // TODO: What to do with this nasty girl
 
@@ -16,16 +17,13 @@ export class Application {
 		Application.history = [];
 		window.addEventListener("hashchange", _.bind(this.handleHashChange, this))
 
+		this.appdata = new Data();
 		this.staticAssetsStore = new StaticAssetsStore();
 		this.ambientVideoEmitter = new AmbientVideoEmitter();
-
 
 		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 				this.main = new Main();
 		});
-
-		//this.main = new Main();
-
 		React.render(React.createElement(PreloadComponent), document.body);
 
 	}

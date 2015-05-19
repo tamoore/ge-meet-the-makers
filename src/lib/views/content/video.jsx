@@ -7,38 +7,73 @@ import config from '../../config';
 
 import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
+import { DataEvents, Data } from '../../data/data';
 
 import React from 'react';
 
 export class VideoContentComponent extends React.Component {
     constructor(){
         super();
+        this._data = Data.result;
+        this.state = {}
+
 
     }
+
+    get data(){
+        return this._data;
+    }
+    set data(obj){
+        this._data = obj;
+        if(!this._data) this.attachDataEventHandler();
+    }
+
     componentWillMount(){
 
     }
 
     componentDidMount(){
+        this.processData();
+
+    }
+
+    processData(){
+        let data = this._data.filter((item)=>{
+            return item.maker.toString() == this.props.params.maker;
+        }).filter((item)=>{
+            return item.guid == this.props.params.id;
+        });
+        if(data.length == 1) this.setState(data[0]);
+
     }
 
     componentWillUnmount(){
 
     }
 
+    handleData(data){
+        this.setState(data);
+
+    }
+
+    attachDataEventHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleData, this));
+    }
 
     render(){
+        var ytembed = "https://www.youtube.com/embed/"+this.state.ytid;
+        var standfirst =  this.state.furniture ? this.state.furniture.standfirst : null;
         return (
             <div className="video-content">
                 <aside>
                     <h3>
-                        Lorem ipsum dolor sit amet
+                        {this.state.title}
                     </h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor doloribus ducimus excepturi ipsa iste minus modi mollitia, quas quia quibusdam quod reiciendis repudiandae rerum sunt tempora tempore vel veniam voluptatibus.
+                        {standfirst}
                     </p>
                 </aside>
-                <iframe src="https://player.vimeo.com/video/127295085" width="700" height="393.75" frameborder="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <iframe width="560" height="315" src={ytembed} frameborder="0" allowfullscreen></iframe>
             </div>
         )
     }
@@ -60,7 +95,6 @@ export class VideosContentComponent extends React.Component {
     componentDidMount(){
         TimelineBackgroundComponent.blur = true;
         Application.pipe.emit(TimelineEvents.GET_IMAGE);
-        console.log(this.context.router.getCurrentParams());
 
         this.setState({
             "state": "off",
@@ -87,7 +121,7 @@ export class VideosContentComponent extends React.Component {
         return (
             <div className="video-content-component" data-content={this.state.apply} data-transition={this.state.state} key={this.context.router.name}>
                 <CloseButtonComponent />
-                <VideoContentComponent />
+                <VideoContentComponent params={this.context.router.getCurrentParams()} />
             </div>
         )
     }

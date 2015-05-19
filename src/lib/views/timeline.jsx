@@ -26,6 +26,7 @@ import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAs
 import { AmbientVideoEmitterEvent } from '../emitters/ambientVideo';
 import { HeaderComponent } from './header.jsx!';
 import { VideosContentComponent } from './content/video.jsx!';
+import { DataEvents, Data } from '../data/data';
 
 let RouterLink = Router.Link;
 
@@ -287,6 +288,7 @@ TimelineBackgroundComponent.blur = false;
 export class TimeLineItem extends React.Component {
     constructor(){
         super();
+
     }
 
     /**
@@ -298,11 +300,19 @@ export class TimeLineItem extends React.Component {
          * @type {number}
          * @private
          */
-        this._rnd = Math.floor(Math.random() * (8 - 0) + 0);
         this.items = [];
-        for(var i = 0;i<this._rnd;i++){
-            this.items.push(<li key={i}><a href="#/content/video/1/1"><span className="assistive-text">Content title</span></a></li>)
+        for(var i = 0;i<this.props.data.length;i++){
+            let type = this.props.data[i].type;
+            let maker = this.props.data[i].maker;
+            let guid = this.props.data[i].guid;
+            let url = "#/content/"+type+"/"+maker+"/"+guid;
+            this.items.push(<li key={i}><a href={url}><span className="assistive-text">{this.props.data[i].title}</span></a></li>)
         }
+
+    }
+
+    handleDataUpdate(data){
+        console.log(data);
     }
 
     /**
@@ -376,6 +386,7 @@ export class TimelineListView extends React.Component {
             if((i % 4) == 0){
                 hourref = i;
                 var hour = ((i/4) < 10 ? '0'+(i/4) : (i/4));
+                var hourcopy = hour.toString();
                 var minute = '00';
 
             }else{
@@ -396,7 +407,14 @@ export class TimelineListView extends React.Component {
                         break;
                 }
             }
-            itemsTemp.push(<TimeLineItem key={i} hourLabel={hour} hour={hour} minute={minute} />);
+            /**
+             * Holds the data for the individual timeslots
+             * @type {Array.<T>|*}
+             */
+            var data = this.props.data.filter((item)=>{
+                return (item.metadata.timeline.hour == hourcopy && item.metadata.timeline.minute == minute)
+            });
+            itemsTemp.push(<TimeLineItem key={i} data={data} hourLabel={hour} hour={hour} minute={minute} />);
         }
         return itemsTemp;
     }
@@ -453,8 +471,8 @@ export class TimelineComponent extends React.Component {
          */
         this.state = {
             offset: TimelineComponent.clockPosition,
-            imageid: TimelineComponent.currentImage
-
+            imageid: TimelineComponent.currentImage,
+            data: Data.result.length ? Data.result : this.attachDataHandler()
         };
 
         /**
@@ -540,6 +558,9 @@ export class TimelineComponent extends React.Component {
         }
         return false;
     }
+    attachDataHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
+    }
 
     /**
      * React JS method
@@ -571,6 +592,10 @@ export class TimelineComponent extends React.Component {
             }
         }
         return false;
+    }
+
+    handleDataUpdate(resp){
+        console.log(resp);
     }
 
     /**
@@ -619,7 +644,7 @@ export class TimelineComponent extends React.Component {
 
                     <div key='timelineParentWRapper'>
                         <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
-                            <TimelineListView offset={this.state.offset} key='timelineListView'  />
+                            <TimelineListView offset={this.state.offset} data={this.state.data} key='timelineListView'  />
                         </div>
                     </div>
                 </div>

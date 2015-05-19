@@ -6,11 +6,13 @@ import { Application } from '../index';
 import config from '../config';
 
 import React from 'react';
+import key from 'keymaster';
 
 export class CloseButtonComponent extends React.Component {
     constructor(){
         super();
         this.handleCloseClick = _.bind(this.handleCloseClick, this);
+        key('esc', _.bind(this.handleCloseClick, this));
 
     }
     componentWillMount(){
@@ -28,9 +30,7 @@ export class CloseButtonComponent extends React.Component {
     handleCloseClick(event){
         let target = Application.history[Application.history.length-1];
         if(target === undefined) return window.location.hash = "#/timeline";
-
         window.location.hash = "#" + target.oldURL.split("#")[1];
-
     }
 
     render(){

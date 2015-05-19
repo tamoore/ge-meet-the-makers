@@ -6,6 +6,7 @@ import { Application } from '../index';
 import config from '../config';
 
 import React from 'react';
+import key from 'keymaster';
 import { TimelineEvents, TimelineComponent, TimelineBackgroundComponent } from './timeline.jsx!';
 
 export const IndexEvents = {
@@ -17,6 +18,10 @@ export class IndexComponent extends React.Component {
         this.state = {
             className: "timeline-circle"
         }
+        key('esc', ()=>{
+            this.isActive = false;
+            return window.location.hash = "#/timeline"
+        })
     }
     componentWillMount(){
         this.isActive = true;
