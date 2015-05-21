@@ -75,14 +75,16 @@
           text-align: center;
           text-decoration: none;
           width: 2.4rem;
+          //border: 1px solid red;
+          @include transition(color 0.25s ease-in-out);
 
           &:hover {
             @include transform(scale(1.5));
           }
           &:focus {
-            @include transform(scale(2.5));
+            @include transform(scale(1.5));
             &:before {
-              @include transform(scale(1.5));
+              @include transform(scale(1));
             }
           }
           &::before {
@@ -182,3 +184,21 @@
 
   }
 }
+
+@for $i from 1 through 6 {
+  #stateContainer.maker-#{$i} {
+    li {
+      a {
+        color:rgba(255,255,255,.1);
+      }
+    }
+    [data-maker="#{$i}"] {
+      a {
+        color: rgba(255,255,255,1);
+      }
+
+    }
+  }
+}
+
+

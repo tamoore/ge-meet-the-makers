@@ -42,6 +42,21 @@
     float: left;
     padding-left: 2.5rem;
     padding-right: 1.5rem;
+    button {
+      position: relative;
+      &:after {
+        width: 0%;
+        position: absolute;
+        height: 3px;
+        content: "";
+        margin-left: -62%;
+        height: 3px;
+        background: white;
+        bottom: -9px;
+        opacity: 0;
+        @include transition(width .15s ease-in-out);
+      }
+    }
 
     // Filter icons
     .filter-button--space {
@@ -98,5 +113,19 @@
     background-position: top center;
     background-size: 1.5rem;
     padding-top: 1.7rem;
+  }
+
+  @for $i from 1 through 6 {
+    &[data-active-maker="#{$i}"]{
+
+      [rel="#{$i}"] {
+        @include transform(scale(1.33));
+        &:after {
+          width: 124%;
+          opacity: 1;
+
+        }
+      }
+    }
   }
 }

@@ -47,7 +47,8 @@ export class Main {
 
 export const MainEvents = {
     SHOWMAKERS: "mainevents:showmakers",
-    HIDEMAKERS: "mainevents:hidemakers"
+    HIDEMAKERS: "mainevents:hidemakers",
+    FILTERMAKERS: "mainevents:filtermakers"
 };
 
 export class MainView extends React.Component {

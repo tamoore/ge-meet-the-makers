@@ -21,12 +21,15 @@ import tweenjs from 'tweenjs';
  * App dependencies
  */
 import { ClockViewEvents, ClockView } from './clock.jsx!';
+import { MainEvents } from '../main.jsx!';
 import { BaseView } from './base';
 import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAssets';
 import { AmbientVideoEmitterEvent } from '../emitters/ambientVideo';
 import { HeaderComponent } from './header.jsx!';
 import { VideosContentComponent } from './content/video.jsx!';
 import { DataEvents, Data } from '../data/data';
+import { PreviewComponent } from './timelinePreview.jsx!';
+
 
 let RouterLink = Router.Link;
 
@@ -49,7 +52,9 @@ export const TimelineEvents = {
      */
     PANEND: "timeline:panend",
     GET_IMAGE: "timlinebackground:getimage",
-    BLUR: "timelinebackground:blur"
+    BLUR: "timelinebackground:blur",
+    ADDPREVIEW: "timelineevents:addPreview",
+    REMOVEPREVIEW: "timelineevents:removePreview"
 }
 
 /**
@@ -279,6 +284,45 @@ export class TimelineBackgroundComponent extends React.Component {
 }
 TimelineBackgroundComponent.blur = false;
 
+export class TLNode extends React.Component {
+    constructor(){
+        super();
+        this.handleOnOver = _.bind(this.handleOnOver, this);
+        this.handleOnLeave = _.bind(this.handleOnLeave, this);
+    }
+
+    handleOnOver(event){
+        if(this.over) return
+        Application.pipe.emit(TimelineEvents.ADDPREVIEW, event.clientX, event.clientY, this.props.data);
+        this.over = true;
+
+    }
+
+    handleOnLeave(event){
+        if(this.over){
+            Application.pipe.emit(TimelineEvents.REMOVEPREVIEW);
+            this.over = false;
+
+        }
+    }
+
+    render(){
+        let type = this.props.data.type;
+        let maker = this.props.data.maker;
+        let guid = this.props.data.guid;
+        let url = "#/content/"+type+"/"+maker+"/"+guid;
+        return (
+            <li onMouseOver={this.handleOnOver} onMouseLeave={this.handleOnLeave} key={this.props.index} data-maker={maker}><a href={url}><span className="assistive-text">{this.props.data.title}</span></a></li>
+        )
+    }
+}
+TLNode.propTypes = {
+    data: React.PropTypes.object
+};
+
+
+
+
 /**
  * Component for the TimeLineItems
  *
@@ -291,6 +335,7 @@ export class TimeLineItem extends React.Component {
 
     }
 
+
     /**
      * ReactJS method
      */
@@ -302,11 +347,7 @@ export class TimeLineItem extends React.Component {
          */
         this.items = [];
         for(var i = 0;i<this.props.data.length;i++){
-            let type = this.props.data[i].type;
-            let maker = this.props.data[i].maker;
-            let guid = this.props.data[i].guid;
-            let url = "#/content/"+type+"/"+maker+"/"+guid;
-            this.items.push(<li key={i} data-maker={maker}><a href={url}><span className="assistive-text">{this.props.data[i].title}</span></a></li>)
+            this.items.push(<TLNode index={i} data={this.props.data[i]} />)
         }
 
     }
@@ -472,7 +513,8 @@ export class TimelineComponent extends React.Component {
         this.state = {
             offset: TimelineComponent.clockPosition,
             imageid: TimelineComponent.currentImage,
-            data: Data.result.length ? Data.result : this.attachDataHandler()
+            data: Data.result.length ? Data.result : this.attachDataHandler(),
+            currentMaker: null
         };
 
         /**
@@ -572,7 +614,16 @@ export class TimelineComponent extends React.Component {
         });
         TimelineBackgroundComponent.blur = false;
         Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(this.state.offset));
+        Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{ this.setState({ currentMaker: makerId }) });
+        Application.pipe.on(TimelineEvents.ADDPREVIEW, _.bind(this.handleAddingPreview, this));
+        Application.pipe.on(TimelineEvents.REMOVEPREVIEW, _.bind(this.handleAddingPreview, this));
         this.applyEvents();
+    }
+
+    handleAddingPreview(clientX, clientY, data){
+        this.setState({
+            preview: data && !this.pressed ? <PreviewComponent clientX={clientX} clientY={clientY} data={data} /> : null
+        });
     }
 
     /**
@@ -639,11 +690,12 @@ export class TimelineComponent extends React.Component {
      * @returns {XML}
      */
     render(){
+        var className = this.state.currentMaker ? "maker-"+this.state.currentMaker : "";
         return (
                 <div>
-
-                    <div key='timelineParentWRapper'>
+                    <div id="stateContainer" key='timelineParentWRapper' className={className}>
                         <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
+                            {this.state.preview}
                             <TimelineListView offset={this.state.offset} data={this.state.data} key='timelineListView'  />
                         </div>
                     </div>
