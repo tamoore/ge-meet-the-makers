@@ -2,8 +2,37 @@
     position: absolute;
     width: 200px;
     height: 200px;
-    background: red;
+    border: 1px solid white;
     margin-top: -210px;
+    background-color: lightgray;
     margin-left: -100px;
     z-index: 10;
+  &:before {
+    position: absolute;
+    content: "";
+    height: 1px;
+    width: 1px;
+    background-color: white;
+    opacity: 0;
+    @include transition(opacity .2s ease);
+  }
+  &.preview-top:before{
+    height: 345px;
+    left: 15px;
+    opacity: 0.2;
+    @include transform(rotate(150deg));
+  }
+  &.preview-left:before {
+    @include transform(rotate(193deg));
+    left: -96px;
+    height: 331px;
+    opacity: 0.2;
+  }
+  &.preview-right:before {
+    @include transform(rotate(-228deg));
+    left: 134px;
+    top: -67px;
+    height: 470px;
+    opacity: 0.2;
+  }
 }

@@ -7,9 +7,9 @@ import config from '../config';
 import React from 'react';
 
 export const PreviewEvents = {
-    TOP: "preview:top",
-    LEFT: "preview:left",
-    RIGHT: "preview:right"
+    TOP: "preview-top",
+    LEFT: "preview-left",
+    RIGHT: "preview-right"
 }
 export class PreviewComponent extends React.Component {
     constructor(){
@@ -41,23 +41,25 @@ export class PreviewComponent extends React.Component {
     componentDidMount(){
         var x, y;
         if(PreviewComponent.position != PreviewEvents.TOP){
-            let angle = PreviewComponent.position == PreviewEvents.LEFT ? 260 : 45;
-            x = this.props.clientX + 450 * Math.cos(angle);
-            y = (this.props.clientY-400) + 450 * Math.sin(angle);
+            let angle = PreviewComponent.position == PreviewEvents.LEFT ? 320 : 35;
+            x = this.props.clientX + 250 * Math.cos(angle);
+            y = (this.props.clientY) + 250 * Math.sin(angle);
         }else{
             x  = this.props.clientX;
             y  = (this.props.clientY-100);
         }
-
-        this.setState({
-            x: x,
-            y: y,
-            styles: {
-                left: x.toString()+"px",
-                top:  y.toString()+"px"
-            }
-        });
-        console.log(PreviewComponent.cycles);
+        var oldPos = new String(PreviewComponent.position);
+        setTimeout(()=>{
+            this.setState({
+                x: x,
+                y: y,
+                styles: {
+                    left: x.toString()+"px",
+                    top:  y.toString()+"px"
+                },
+                klass: oldPos
+            });
+        }, 1);
         PreviewComponent.position = this.positions[PreviewComponent.cycles];
 
 
@@ -67,7 +69,7 @@ export class PreviewComponent extends React.Component {
     }
     render(){
         return (
-            <div style={this.state.styles} id="previewElement">
+            <div style={this.state.styles} className={this.state.klass} id="previewElement">
 
             </div>
         )

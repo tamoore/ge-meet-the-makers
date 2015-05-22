@@ -19,7 +19,7 @@
     left: 50vw;
     margin-left: -.5px;
     z-index: 100;
-    background-color: rgba(0,0,0,.2);
+    //background-color: rgba(0,0,0,.2);
   }
 
   .timeline-list {
@@ -71,15 +71,17 @@
           font-size: 1.2rem;
           height: 2.4rem;
           line-height: 2.4rem;
-          margin: 0 auto;
+          margin: 0;
           text-align: center;
           text-decoration: none;
           width: 2.4rem;
+          position: relative;
+          left: 1.4rem;
           //border: 1px solid red;
           @include transition(color 0.25s ease-in-out);
 
           &:hover {
-            @include transform(scale(1.5));
+            @include transform(scale(2.5));
           }
           &:focus {
             @include transform(scale(1.5));

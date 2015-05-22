@@ -155,8 +155,8 @@ export class TimelineBackgroundComponent extends React.Component {
             img = this.applyBlurFilter(img);
         }
         img = this.applyFade(img);
-        img.scaleX = 0.5;
-        img.scaleY = 0.5;
+        img.scaleX = 1;
+        img.scaleY = 1;
 
         this.stageUpdate( img );
 
@@ -212,8 +212,8 @@ export class TimelineBackgroundComponent extends React.Component {
     handleVideoPlaying(video /* videoDOM element */){
         if(video){
             var video = new createjs.Bitmap(video);
-            video.scaleX = 1;
-            video.scaleY = 1;
+            video.scaleX = 1.333;
+            video.scaleY = 1.333;
             this.stageUpdate( video );
         }
 
@@ -262,7 +262,7 @@ export class TimelineBackgroundComponent extends React.Component {
         return (
             <div>
                 <div className="bg-filter"></div>
-                <canvas ref="Stage" id="ambientvideos" width="960" height="540" className="bg"></canvas>
+                <canvas ref="Stage" id="ambientvideos" width="1280" height="720" className="bg"></canvas>
             </div>
 
         )
@@ -312,7 +312,7 @@ export class TLNode extends React.Component {
         let guid = this.props.data.guid;
         let url = "#/content/"+type+"/"+maker+"/"+guid;
         return (
-            <li onMouseOver={this.handleOnOver} onMouseLeave={this.handleOnLeave} key={this.props.index} data-maker={maker}><a href={url}><span className="assistive-text">{this.props.data.title}</span></a></li>
+            <li key={this.props.index} data-maker={maker}><a href={url} onMouseOver={this.handleOnOver} onMouseLeave={this.handleOnLeave}><span className="assistive-text">{this.props.data.title}</span></a></li>
         )
     }
 }
