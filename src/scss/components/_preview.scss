@@ -43,7 +43,10 @@
     background-color: lightgray;
     margin-left: -100px;
     z-index: 10;
-
+    background-image: url(http://www.geminiairporttaxis.com/wp-content/uploads/2013/11/airport-airlines.jpg);
+    background-size: cover;
+    background-position: center center;
+  
     //@include transition(opacity .5s ease-in-out);
     @include animation(flipInX .25s ease-in);
 
