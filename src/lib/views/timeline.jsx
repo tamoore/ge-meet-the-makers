@@ -292,8 +292,10 @@ export class TLNode extends React.Component {
     }
 
     handleOnOver(event){
+
+        let bbox = event.target.getBoundingClientRect();
         if(this.over) return
-        Application.pipe.emit(TimelineEvents.ADDPREVIEW, event.clientX, event.clientY, this.props.data);
+        Application.pipe.emit(TimelineEvents.ADDPREVIEW, bbox.left, bbox.top, this.props.data);
         this.over = true;
 
     }

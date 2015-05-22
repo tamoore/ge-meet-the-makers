@@ -1,38 +1,52 @@
+//.previewLineEl {
+//  stroke-dasharray: 1000;
+//  stroke-dashoffset: 1000;
+//  @include animation(dash 1s ease forwards);
+//}
+//
+//@include keyframes(dash) {
+//  from {
+//    stroke-dashoffset: 1000;
+//  }
+//  to {
+//    stroke-dashoffset: 0;
+//  }
+//}
+
+[rel="previewWrapper"] {
+  position:relative;
+}
+
+#previewLine {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  &.preview-top {
+    top: -196px;
+    left: -134px;
+  }
+  &.preview-left {
+    top: -192px;
+    left: -359px;
+  }
+  &.preview-right {
+    top: -196px;
+    left: -134px;
+  }
+}
 #previewElement {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 120px;
     border: 1px solid white;
     margin-top: -210px;
     background-color: lightgray;
     margin-left: -100px;
     z-index: 10;
-  &:before {
-    position: absolute;
-    content: "";
-    height: 1px;
-    width: 1px;
-    background-color: white;
-    opacity: 0;
-    @include transition(opacity .2s ease);
-  }
-  &.preview-top:before{
-    height: 345px;
-    left: 15px;
-    opacity: 0.2;
-    @include transform(rotate(150deg));
-  }
-  &.preview-left:before {
-    @include transform(rotate(193deg));
-    left: -96px;
-    height: 331px;
-    opacity: 0.2;
-  }
-  &.preview-right:before {
-    @include transform(rotate(-228deg));
-    left: 134px;
-    top: -67px;
-    height: 470px;
-    opacity: 0.2;
-  }
+
+    //@include transition(opacity .5s ease-in-out);
+    @include animation(flipInX .25s ease-in);
+
 }
+
+

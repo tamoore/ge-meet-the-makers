@@ -62,6 +62,12 @@
         li {
           margin: 0;
           padding: 0;
+          &:last-child {
+            a {
+              margin-bottom: 0px;
+            }
+
+          }
         }
 
         a {
@@ -77,6 +83,8 @@
           width: 2.4rem;
           position: relative;
           left: 1.4rem;
+          margin-bottom: 16px;
+
           //border: 1px solid red;
           @include transition(color 0.25s ease-in-out);
 
