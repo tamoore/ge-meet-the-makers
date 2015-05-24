@@ -80,15 +80,41 @@ export class PreviewComponent extends React.Component {
                 activeStateClass: 'active'
             });
         }, 150);
+
+
+        var index = 0;
+        var textLength = this.props.data.title.length;
+
+        var typingFunc = ()=>{
+            if(index == textLength){
+                clearTimeout(this.typingTimer);
+                return;
+            }
+            if(index == 0){
+                this.setState({
+                    title: this.props.data.title.charAt(index)
+                });
+            }else{
+                this.setState({
+                    title: this.state.title + this.props.data.title.charAt(index)
+                });
+            }
+            index++;
+            this.typingTimer = setTimeout(()=>{
+                typingFunc()
+            }, 5);
+
+        }
+        typingFunc();
+
     }
+
+
     componentWillUnmount(){
 
     }
     render(){
-        //var styles = {
-        //    stroke: "rgb(255,255,255)",
-        //    strokeWidth: ".5"
-        //}
+
         var x1 = {};
         x1[PreviewEvents.TOP] = 0;
         x1[PreviewEvents.LEFT] = 230;
@@ -109,6 +135,10 @@ export class PreviewComponent extends React.Component {
         y2[PreviewEvents.LEFT] = 325;
         y2[PreviewEvents.RIGHT] = 335;
 
+        let previewImage = {
+            backgroundImage: `url( ${this.props.data.furniture ? this.props.data.furniture.mainImage : null} )`
+        }
+
         return (
             <div rel="previewWrapper" style={this.state.styles}>
                 <svg height="470" width="500" id="previewLine" className={this.state.klass}>
@@ -118,8 +148,10 @@ export class PreviewComponent extends React.Component {
                         </line>
                     </g>
                 </svg>
-                <div id="previewElement" className={this.state.activeStateClass}>
+                <div id="previewElement" style={previewImage} className={this.state.activeStateClass}>
+                    <h2 data-type={this.props.data.type}>{this.state.title}</h2>
                 </div>
+
             </div>
         )
     }

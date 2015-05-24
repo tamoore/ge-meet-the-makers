@@ -15,6 +15,29 @@
 
 [rel="previewWrapper"] {
   position:relative;
+  h2 {
+    &:before {
+      content: attr(data-type);
+      display: block;
+      font-family: "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-weight: 600;
+      text-transform: capitalize;
+      font-size: 1.5rem;
+      margin-top: -2rem;
+      margin-left: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    position: absolute;
+    font-family: Abel, sans-serif;
+    top: 0px;
+    left: 110%;
+    min-width: 30rem;
+    font-size: 2.5rem;
+    line-height: 1;
+    font-weight: 100;
+    -webkit-font-smoothing: antialiased;
+    text-transform: uppercase;
+  }
 }
 
 #previewLine {
@@ -43,7 +66,6 @@
     background-color: lightgray;
     margin-left: -100px;
     z-index: 10;
-    background-image: url(http://www.geminiairporttaxis.com/wp-content/uploads/2013/11/airport-airlines.jpg);
     background-size: cover;
     background-position: center center;
   
