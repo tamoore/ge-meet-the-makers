@@ -39,17 +39,34 @@ export class PreviewComponent extends React.Component {
 
     }
     componentDidMount(){
-        var x, y;
+        var x, y, angle;
         if(PreviewComponent.position != PreviewEvents.TOP){
-            let angle = PreviewComponent.position == PreviewEvents.LEFT ? 320 : 35;
+            angle = PreviewComponent.position == PreviewEvents.LEFT ? 320 : 35;
             x = this.props.clientX + 250 * Math.cos(angle);
             y = (this.props.clientY) + 250 * Math.sin(angle);
+
         }else{
             x  = this.props.clientX;
             y  = (this.props.clientY-100);
         }
+        // Capture it on far LEFT
+        if(x < 200){
+            angle = 320;
+            x = this.props.clientX + 250 * Math.cos(angle);
+            PreviewComponent.position = PreviewEvents.LEFT;
+            y = (this.props.clientY) + 250 * Math.sin(angle);
+        }
+
+        // Capture it on far RIGHT
+        if(x > window.innerWidth - 300){
+            angle = 35;
+            x = this.props.clientX + 250 * Math.cos(angle);
+            PreviewComponent.position = PreviewEvents.RIGHT;
+            y = (this.props.clientY) + 250 * Math.sin(angle);
+        }
+
         var oldPos = new String(PreviewComponent.position);
-        setTimeout(()=>{
+        this.stateTimer = setTimeout(()=>{
             this.setState({
                 x: x,
                 y: y,
@@ -109,10 +126,10 @@ export class PreviewComponent extends React.Component {
 
     }
 
-
     componentWillUnmount(){
-
+        clearTimeout(this.stateTimer);
     }
+
     render(){
 
         var x1 = {};
