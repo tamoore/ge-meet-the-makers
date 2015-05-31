@@ -3,7 +3,7 @@
  */
 import { Application } from '../index';
 import config from '../config';
-
+import marked from 'marked';
 import React from 'react';
 
 export const PreviewEvents = {
@@ -97,6 +97,7 @@ export class PreviewComponent extends React.Component {
             this.setState({
                 activeStateClass: 'active'
             });
+            console.log(marked(this.props.data.body));
         }, 150);
 
 

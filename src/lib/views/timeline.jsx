@@ -364,7 +364,8 @@ export class TimeLineItem extends React.Component {
      */
     render(){
         if(this.props.hourLabel){
-            var hourMarker = <span className="marker-label">{this.props.hourLabel}:00</span>;
+
+            var hourMarker = this.props.circle ? false : <span className="marker-label">{this.props.hourLabel}:00</span>;
         }
 
         return (
@@ -424,14 +425,14 @@ export class TimelineListView extends React.Component {
      */
     generateHoursMinutesLabels(){
         var itemsTemp = [];
+        var count = this.props.circle ? 24 : 96;
         var hourref;
-        for(var i=0;i<96;i++){
+        for(var i=0;i<count;i++){
             if((i % 4) == 0){
                 hourref = i;
-                var hour = ((i/4) < 10 ? '0'+(i/4) : (i/4));
+                var hour = this.props.circle ? i : ((i/4) < 10 ? '0'+(i/4) : (i/4));
                 var hourcopy = hour.toString();
                 var minute = '00';
-
             }else{
                 var hour = null;
                 var minute;
@@ -455,9 +456,14 @@ export class TimelineListView extends React.Component {
              * @type {Array.<T>|*}
              */
             var data = this.props.data.filter((item)=>{
-                return (item.metadata.timeline.hour == hourcopy && item.metadata.timeline.minute == minute)
+                if(!this.props.circle){
+                    return (item.metadata.timeline.hour == hourcopy && item.metadata.timeline.minute == minute)
+                }else{
+                    return item.metadata.timeline.hour == i;
+                }
             });
-            itemsTemp.push(<TimeLineItem key={i} data={data} hourLabel={hour} hour={hour} minute={minute} />);
+
+            itemsTemp.push(<TimeLineItem circle={this.props.circle} key={i} data={data} hourLabel={hour} hour={hour} minute={minute} />);
         }
         return itemsTemp;
     }

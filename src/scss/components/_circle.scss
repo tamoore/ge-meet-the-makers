@@ -200,7 +200,7 @@
 					margin: 0 .25em;
 
 					a {
-						background: #fff;
+						background-color: #fff;
 						border-radius: 50%;
 						cursor: pointer;
 						display: block;
@@ -355,4 +355,23 @@
 			background-image: url(../../images/icon.petrol.svg);
 		}
 	}
+}
+#timelineCircleWrapper {
+  @for $i from 1 through 6 {
+	#stateContainer.maker-#{$i} {
+	  li {
+		a {
+		  background-color: rgba(255,255,255,.1);
+
+		}
+	  }
+	  [data-maker="#{$i}"] {
+		a {
+		  background-color: rgba(255,255,255,1);
+
+		}
+
+	  }
+	}
+  }
 }

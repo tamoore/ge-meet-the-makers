@@ -10,12 +10,16 @@ import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { DataEvents, Data } from '../../data/data';
 
 import React from 'react';
+import marked from 'marked';
 
 export class VideoContentComponent extends React.Component {
     constructor(){
         super();
         this._data = Data.result;
-        this.state = {}
+        this.state = {
+            yturl: "",
+            standfirst: ""
+        }
 
 
     }
@@ -44,7 +48,13 @@ export class VideoContentComponent extends React.Component {
             return item.guid == this.props.params.id;
         });
         if(data.length == 1) this.setState(data[0]);
-
+        var ytembed = "https://www.youtube.com/embed/"+data[0].ytid+"?autoplay=1";
+        var standfirst =  data[0].furniture ? data[0].furniture.standfirst : null;
+        this.setState({
+            "yturl" : ytembed,
+            "standfirst": standfirst,
+            "body": marked(data[0].body)
+        });
     }
 
     componentWillUnmount(){
@@ -54,6 +64,7 @@ export class VideoContentComponent extends React.Component {
     handleData(data){
         this.setState(data);
 
+
     }
 
     attachDataEventHandler(){
@@ -61,19 +72,16 @@ export class VideoContentComponent extends React.Component {
     }
 
     render(){
-        var ytembed = "https://www.youtube.com/embed/"+this.state.ytid;
-        var standfirst =  this.state.furniture ? this.state.furniture.standfirst : null;
         return (
             <div className="video-content">
                 <aside>
                     <h3>
                         {this.state.title}
                     </h3>
-                    <p>
-                        {standfirst}
-                    </p>
+                    <div dangerouslySetInnerHTML={{__html: this.state.body}} />
+
                 </aside>
-                <iframe width="560" height="315" src={ytembed} frameborder="0" allowfullscreen></iframe>
+                <iframe width="560" height="315" src={this.state.yturl} frameborder="0" allowfullscreen></iframe>
             </div>
         )
     }
@@ -94,7 +102,7 @@ export class VideosContentComponent extends React.Component {
 
     componentDidMount(){
         TimelineBackgroundComponent.blur = true;
-        Application.pipe.emit(TimelineEvents.GET_IMAGE);
+        //Application.pipe.emit(TimelineEvents.GET_IMAGE);
 
         this.setState({
             "state": "off",
@@ -103,9 +111,13 @@ export class VideosContentComponent extends React.Component {
         setTimeout(()=>{
             this.setState({
                 "state": "show"
-            })
+            });
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
         },10);
+        setTimeout(()=>{
+            Application.pipe.emit(TimelineEvents.GET_IMAGE);
+        },1000);
+
 
     }
     componentWillUnmount(){
@@ -114,7 +126,6 @@ export class VideosContentComponent extends React.Component {
             "apply": "deactivate"
         })
     }
-
 
 
     render(){

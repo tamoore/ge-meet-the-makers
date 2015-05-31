@@ -25,6 +25,7 @@
       "jsx": "github:floatdrop/plugin-jsx@^1.1.0",
       "keymaster": "github:madrobby/keymaster@^1.6.3",
       "lodash": "npm:lodash@^3.7.0",
+      "marked": "npm:marked@^0.3.3",
       "node-easel": "npm:node-easel@^0.1.2",
       "node-uuid": "npm:node-uuid@^1.4.3",
       "preload": "github:CreateJS/PreloadJS@^0.6.0",

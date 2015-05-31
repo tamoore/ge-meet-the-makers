@@ -35,6 +35,7 @@ System.config({
     "marionettejs/backbone.babysitter": "github:marionettejs/backbone.babysitter@0.1.6",
     "marionettejs/backbone.marionette": "github:marionettejs/backbone.marionette@2.4.1",
     "marionettejs/backbone.wreqr": "github:marionettejs/backbone.wreqr@1.3.2",
+    "marked": "npm:marked@0.3.3",
     "node-easel": "npm:node-easel@0.1.2",
     "node-uuid": "npm:node-uuid@1.4.3",
     "preload": "github:CreateJS/PreloadJS@0.6.0",
