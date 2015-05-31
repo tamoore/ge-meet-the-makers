@@ -77,6 +77,7 @@ export class PreviewComponent extends React.Component {
                 klass: oldPos
             });
         }, 1);
+            
         PreviewComponent.position = this.positions[PreviewComponent.cycles];
         let line = React.findDOMNode(this.refs.line);
         let anim = React.findDOMNode(this.refs.anim);
@@ -153,7 +154,7 @@ export class PreviewComponent extends React.Component {
         y2[PreviewEvents.RIGHT] = 335;
 
         let previewImage = {
-            backgroundImage: `url( ${this.props.data.furniture ? this.props.data.furniture.mainImage : null} )`
+            backgroundImage: `url( http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}.jpg )`
         }
 
         return (
