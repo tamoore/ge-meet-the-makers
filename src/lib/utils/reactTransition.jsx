@@ -3,10 +3,6 @@
  */
 import { Application } from '../index';
 
-/**
- * Config object
- */
-import config from '../config';
 
 /**
  * Vendor dependencies

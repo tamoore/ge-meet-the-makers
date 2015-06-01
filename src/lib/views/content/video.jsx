@@ -3,7 +3,6 @@
  *
  */
 import { Application } from '../../index';
-import config from '../../config';
 
 import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';

@@ -1,7 +1,7 @@
 import { Application } from '../index';
 
+import { Data } from '../data/data';
 import easeljs from 'easeljs';
-import config from '../config';
 import uuid from 'node-uuid';
 
 export const AmbientVideoEmitterEvent = {
@@ -11,7 +11,7 @@ export const AmbientVideoEmitterEvent = {
 
 export class AmbientVideoEmitter {
     constructor(){
-        this.config = config.preload;
+        this.config = Data.config;
 
         this.el = document.createElement('video');
         this.el.addEventListener("error", _.bind(this.handleVideoError, this));
@@ -23,8 +23,8 @@ export class AmbientVideoEmitter {
         this.el.controls = false;
         this.el.autoplay = true;
         this.el.loop = true;
-        this.el.width = 1280;
-        this.el.height = 720;
+        this.el.width = 1920;
+        this.el.height = 1080;
         Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
     }
 
@@ -45,11 +45,11 @@ export class AmbientVideoEmitter {
     }
 
     getAmbientVideoSrc(makerid, videoid){
-        return this.config.CDN_PROTOCOL +
-            "://" + this.config.CDN_HOST +
-            "/" + this.config.CDN_BUCKET +
-            this.config.VIDEOS_PREFIX +
-            this.config.MAKER_AMBIENT_PREFIX
+        return this.config.cdnProtocol +
+            "://" + this.config.cdnHost +
+            "/" + this.config.cdnBucket +
+            this.config.videosPrefix +
+            this.config.makerAmbientPrefix
             + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
     }
 

@@ -3,7 +3,6 @@
  *
  */
 import { Application } from '../index';
-import config from '../config';
 import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAssets';
 
 import React from 'react';

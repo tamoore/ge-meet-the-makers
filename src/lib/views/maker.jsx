@@ -2,7 +2,6 @@
  * View for the maker Component includes ClockView
  */
 import { Application } from '../index';
-import config from '../config';
 import { ClockView } from './clock.jsx!';
 
 import React from 'react';

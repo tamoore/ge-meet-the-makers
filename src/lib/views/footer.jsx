@@ -2,7 +2,6 @@
  * View for the footer
  */
 import { Application } from '../index';
-import config from '../config';
 
 import React from 'react';
 

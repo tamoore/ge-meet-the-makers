@@ -6,8 +6,8 @@ import { Application } from '../index';
 /**
  * Vendor Dependencies
  */
+import { Data } from '../data/data';
 import preloadjs from 'preload';
-import config from "../config";
 
 export const StaticAssetsStoreEvents = {
     PROGRESS: "staticassets:progress",
@@ -20,7 +20,7 @@ export const StaticAssetsStoreEvents = {
 export class StaticAssetsStore  {
     constructor(){
 
-        this.config = config.preload;
+        this.config = Data.config;
         this.assets = [];
         this.progress = 0;
 
@@ -51,13 +51,13 @@ export class StaticAssetsStore  {
     }
 
     processType(makerprefix, assetprefix, makercount, assetcount){
-        this.config.MAKER_AMBIENT_TYPES.forEach((type)=>{
+        this.config.makerAmbientTypes.forEach((type)=>{
             this.assets.push({
                 "id": "maker"+makerprefix+makercount+"_"+assetprefix+assetcount+"_"+type,
                 "type": type,
-                "filename" : this.config.CDN_PROTOCOL + "://" + this.config.CDN_HOST + "/" + this.config.CDN_BUCKET +
-                (type === "jpg" ? this.config.IMAGES_PREFIX : this.config.VIDEOS_PREFIX)
-                + this.config.MAKER_AMBIENT_PREFIX + makerprefix+makercount +'_'+assetprefix+assetcount+'.'+type });
+                "filename" : this.config.cdnProtocol + "://" + this.config.cdnHost + "/" + this.config.cdnBucket +
+                (type === "jpg" ? this.config.imagesPrefix : this.config.videosPrefix)
+                + this.config.makerAmbientPrefix + makerprefix+makercount +'_'+assetprefix+assetcount+'.'+type });
         });
     }
 
@@ -66,8 +66,8 @@ export class StaticAssetsStore  {
     }
 
     generateAssetsTokens(){
-        for(var makercount =1; makercount <= this.config.MAKER_COUNT; makercount++){
-            for(var assetcount=1; assetcount <= this.config.MAKER_AMBIENT_COUNT; assetcount++){
+        for(var makercount = 1; makercount <= this.config.makercount; makercount++){
+            for(var assetcount=1; assetcount <= this.config.ambientcount; assetcount++){
                 if(assetcount < 10){
                     this.processType('0', '0', makercount, assetcount);
 

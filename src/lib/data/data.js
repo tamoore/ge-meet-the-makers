@@ -1,24 +1,26 @@
 import { Application } from '../index';
-import config from '../config';
 import reqwest from 'reqwest';
 
 export const DataEvents = {
     UPDATE: "dataevents:update",
-    COMPLETE: "dataevents:complete"
+    COMPLETE: "dataevents:complete",
+    CONFIG: "dataevents:config"
 }
 export class Data  {
     constructor(){
-        this.config = config.data;
-        if(config.data && config.data.url){
-            reqwest({
-                url: this.config.url,
-                method: 'GET',
-                crossOrigin: true
-            }).then(_.bind(this.handleDataResponse,this))
-            .fail(_.bind(this.handleDataFailure, this))
-            .always(_.bind(this.handleRequest, this));
-
-        }
+          this.getData = _.bind(this.getData, this);
+          reqwest({
+              url: 'http://cdn.labs.theguardian.com/2015/meet-the-makers/config/config.json',
+              method: 'GET',
+              crossOrigin: true
+          }).then(this.getData);
+    }
+    get config(){
+        return this._config;
+    }
+    set config(c){
+        this._config = c;
+        Data.config = c;
     }
     get data(){
         return this._data;
@@ -27,6 +29,21 @@ export class Data  {
         this._data = o;
         Application.pipe.emit(DataEvents.UPDATE, this._data);
         Data.result = this._data;
+    }
+
+    getData(config){
+        this.config = config;
+        Application.pipe.emit(DataEvents.CONFIG, this._data);
+        if(config.dataUrl){
+            reqwest({
+                url: config.dataUrl,
+                method: 'GET',
+                crossOrigin: true
+            }).then(_.bind(this.handleDataResponse,this))
+            .fail(_.bind(this.handleDataFailure, this))
+            .always(_.bind(this.handleRequest, this));
+
+        }
     }
 
     handleDataResponse(resp){

@@ -3,10 +3,6 @@
  */
 import { Application } from '../index';
 
-/**
- * Config object
- */
-import config from '../config';
 
 /**
  * Vendor dependencies
@@ -82,7 +78,9 @@ export const TimelineProps = {
 export class TimelineBackgroundComponent extends React.Component {
     constructor(){
         super();
-
+        this.state = {
+            currentMaker: 1
+        }
         /**
          * Holds a reference for all the containers added to the stage
          * @type {Array}
@@ -109,6 +107,46 @@ export class TimelineBackgroundComponent extends React.Component {
             this.handleTimeLinePanEnd();
         });
 
+        Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
+            if(makerId) {
+                clearTimeout(this.cycleMakersTimer);
+                this.filtered = true;
+                this.setState({currentMaker: makerId});
+                setTimeout(()=> {
+                    Application.pipe.emit(TimelineEvents.PANEND);
+                }, 1)
+            }else{
+                clearTimeout(this.cycleMakersTimer);
+                this.filtered = false;
+                this.cycleMakers();
+            }
+        });
+        //this.cycleMakers();
+
+
+    }
+    cycleMakers(){
+        this.cycling = true;
+        this.cycleMakersTimer = setTimeout(()=>{
+
+            if(this.state.currentMaker < 6){
+                this.setState({
+                    currentMaker: parseInt(this.state.currentMaker)+1
+                })
+            }else{
+                this.setState({
+                    currentMaker: 1
+                })
+            }
+
+            setTimeout(()=> {
+                Application.pipe.emit(TimelineEvents.GET_IMAGE);
+            }, 1);
+            setTimeout(()=>{
+                Application.pipe.emit(TimelineEvents.PANEND);
+            }, 2000);
+            this.cycleMakers();
+        }, 15000);
     }
 
     /**
@@ -133,7 +171,7 @@ export class TimelineBackgroundComponent extends React.Component {
         image.alpha = 0;
         var container = new createjs.Container();
         container.addChild(image);
-        createjs.Tween.get(image).to({alpha:1}, 500);
+        createjs.Tween.get(image).to({alpha:1}, this.cycling ? 2000 : 500);
         return container;
     }
 
@@ -155,8 +193,8 @@ export class TimelineBackgroundComponent extends React.Component {
             img = this.applyBlurFilter(img);
         }
         img = this.applyFade(img);
-        img.scaleX = 1;
-        img.scaleY = 1;
+        img.scaleX = .666666;
+        img.scaleY = .666666;
 
         this.stageUpdate( img );
 
@@ -192,7 +230,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {string}
      */
     generateImageLink(imageid){
-        return "maker02_"+ imageid +"_jpg";
+        return "maker0"+this.state.currentMaker+"_"+ imageid +"_jpg";
     }
 
     /**
@@ -212,8 +250,9 @@ export class TimelineBackgroundComponent extends React.Component {
     handleVideoPlaying(video /* videoDOM element */){
         if(video){
             var video = new createjs.Bitmap(video);
-            video.scaleX = 1.333;
-            video.scaleY = 1.333;
+            this.applyFade(video);
+            video.scaleX = 1.333333;
+            video.scaleY = 1.333333;
             this.stageUpdate( video );
         }
 
@@ -228,6 +267,8 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {boolean}
      */
     handleTimeLinePan(offset, imageid){
+        clearTimeout(this.cycleMakersTimer);
+        this.cycling = false;
         if(!ClockView.hour) return;
         this.currentImageId = ClockView.hour;
         return this.getImageFromStaticStore();
@@ -239,9 +280,14 @@ export class TimelineBackgroundComponent extends React.Component {
      * @return boolean
      */
     handleTimeLinePanEnd(imageid) {
+        if(imageid){
+            if(!this.filtered){
+                this.cycleMakers();
+            }
+        }
         if(!ClockView.hour) return;
         this.getImageFromStaticStore();
-        Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '02', ClockView.hour);
+        Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '0'+this.state.currentMaker, ClockView.hour);
         return false;
     }
 
@@ -277,7 +323,10 @@ export class TimelineBackgroundComponent extends React.Component {
         if(!this.stage) return;
         this.cacheStore.push(image);
         this.stage.addChild(image);
-        this.stage.update();
+        setTimeout(()=>{
+            this.stage.update();
+        },1)
+
         this.cache();
         return false;
     }
@@ -455,6 +504,7 @@ export class TimelineListView extends React.Component {
              * Holds the data for the individual timeslots
              * @type {Array.<T>|*}
              */
+            if(!this.props.data) return
             var data = this.props.data.filter((item)=>{
                 if(!this.props.circle){
                     return (item.metadata.timeline.hour == hourcopy && item.metadata.timeline.minute == minute)
@@ -521,7 +571,7 @@ export class TimelineComponent extends React.Component {
         this.state = {
             offset: TimelineComponent.clockPosition,
             imageid: TimelineComponent.currentImage,
-            data: Data.result.length ? Data.result : this.attachDataHandler(),
+            data: Data.result ? Data.result : this.attachDataHandler(),
             currentMaker: null
         };
 
@@ -529,7 +579,7 @@ export class TimelineComponent extends React.Component {
          * Reference to Config object
          * @type {module.exports.timeline|{INTERVAL, SENSITIVITY}|n.exports.timeline|Timeline|*}
          */
-        TimelineComponent.config = this.config = config.timeline;
+        TimelineComponent.config = this.config = Data.config;
 
 
         /**
@@ -621,7 +671,7 @@ export class TimelineComponent extends React.Component {
             imageid: TimelineComponent.currentImage
         });
         TimelineBackgroundComponent.blur = false;
-        Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(this.state.offset));
+        Application.pipe.emit(TimelineEvents.PANEND);
         Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{ this.setState({ currentMaker: makerId }) });
         Application.pipe.on(TimelineEvents.ADDPREVIEW, _.bind(this.handleAddingPreview, this));
         Application.pipe.on(TimelineEvents.REMOVEPREVIEW, _.bind(this.handleAddingPreview, this));
@@ -654,7 +704,9 @@ export class TimelineComponent extends React.Component {
     }
 
     handleDataUpdate(resp){
-        console.log(resp);
+        this.setState({
+            data: resp
+        })
     }
 
     /**
@@ -663,7 +715,7 @@ export class TimelineComponent extends React.Component {
      * @returns {number}
      */
     static getImageId(offset){
-        let id = Math.abs(Math.ceil(offset/TimelineComponent.config.INTERVAL));
+        let id = Math.abs(Math.ceil(offset/TimelineComponent.config.timelineInterval));
         if(id == 0){
             id = 1
         }
@@ -797,6 +849,7 @@ export class TimelineComponent extends React.Component {
     }
 
 }
+
 TimelineComponent.clockPosition = null;
 TimelineComponent.currentImage = null;
-TimelineComponent.config = config.timeline;
+TimelineComponent.config = Data.config;

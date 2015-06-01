@@ -11,7 +11,6 @@ var gulp = require('gulp'),
 	var gutil = require('gulp-util');
 
 
-var appConfig = require('./src/lib/config');
 var pkg = require('./package.json');
 
 
@@ -101,54 +100,4 @@ gulp.task('serve', ['styles'], function () {
   gulp.watch('src/scss/**/*.scss', ['styles']);
 });
 
-gulp.task('transcode-ambient-videos', function(){
-	var makerCount = appConfig.preload.MAKER_COUNT;
-
-	var ambientVideosCount = appConfig.preload.MAKER_AMBIENT_COUNT;
-	var config = pkg.config;
-	for(var makercount=1; makercount <= makerCount; makercount++){
-		for(var assetcount = 1; assetcount <= ambientVideosCount; assetcount++){
-				console.log(makercount, assetcount);
-				var child = spawn("aws",
-					[	'elastictranscoder',
-						'create-job',
-						'--pipeline-id',
-						config.transcoderPipelineId,
-						'--input',
-						JSON.stringify({"Key": appConfig.preload.MAKER_AMBIENT_PREFIX +'0'+makercount +'_'+(assetcount < 10? '0':'')+assetcount+'.mp4' }),
-						'--profile',
-						'labs',
-						'--region',
-						'us-east-1',
-						'--outputs',
-						JSON.stringify([{"Key": appConfig.preload.MAKER_AMBIENT_PREFIX +'0'+makercount +'_'+(assetcount < 10? '0':'')+assetcount+'.mp4', "PresetId": config.transcoderPresetId }]),
-						'--output-key-prefix',
-						config.s3Prefix+'videos/'
-					],
-					{cwd: process.cwd()}
-				),
-					stdout = '',
-					stderr = '';
-
-				child.stdout.setEncoding('utf8');
-				child.stdout.on('data', function (data) {
-					stdout += data;
-					gutil.log(JSON.parse(data).Job.Input.Key);
-				});
-				child.stderr.setEncoding('utf8');
-				child.stderr.on('data', function (data) {
-					stderr += data;
-					gutil.log(gutil.colors.red(data));
-					gutil.beep();
-				});
-				child.on('close', function(code) {
-					gutil.log("Done with exit code", code);
-
-				});
-
-		}
-
-	}
-
-});
 

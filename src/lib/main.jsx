@@ -1,5 +1,4 @@
 import { Application } from './index';
-import config from './config';
 
 import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';

@@ -18,8 +18,11 @@ export class Application {
 		window.addEventListener("hashchange", _.bind(this.handleHashChange, this))
 
 		this.appdata = new Data();
-		this.staticAssetsStore = new StaticAssetsStore();
-		this.ambientVideoEmitter = new AmbientVideoEmitter();
+
+		Application.pipe.on(DataEvents.CONFIG, ()=> {
+			this.staticAssetsStore = new StaticAssetsStore();
+			this.ambientVideoEmitter = new AmbientVideoEmitter();
+		});
 
 		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 				this.main = new Main();
