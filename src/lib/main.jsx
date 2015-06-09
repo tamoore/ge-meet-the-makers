@@ -25,7 +25,7 @@ import { FooterComponent } from './views/footer.jsx!';
 import { MeetTheMakersComponent } from './views/makers.jsx!';
 
 import { VideosContentComponent } from './views/content/video.jsx!'
-
+import { PostsContentComponent } from './views/content/post.jsx!';
 
 
 export class Main {
@@ -35,6 +35,7 @@ export class Main {
                 <Route name="index" handler={IndexComponent}/>
                 <Route name="timeline" handler={TimelineComponent}/>
                 <Route name="content/video/:maker/:id" handler={VideosContentComponent}/>
+                <Route name="content/post/:maker/:id" handler={VideosContentComponent}/>
                 <DefaultRoute handler={TimelineComponent} />
             </Route>
         )

@@ -26,9 +26,6 @@ import { VideosContentComponent } from './content/video.jsx!';
 import { DataEvents, Data } from '../data/data';
 import { PreviewComponent } from './timelinePreview.jsx!';
 
-
-let RouterLink = Router.Link;
-
 /**
  * Utils
  */
@@ -111,6 +108,7 @@ export class TimelineBackgroundComponent extends React.Component {
             if(makerId) {
                 clearTimeout(this.cycleMakersTimer);
                 this.filtered = true;
+                this.cycling = false;
                 this.setState({currentMaker: makerId});
                 setTimeout(()=> {
                     Application.pipe.emit(TimelineEvents.PANEND);
@@ -136,15 +134,17 @@ export class TimelineBackgroundComponent extends React.Component {
             }else{
                 this.setState({
                     currentMaker: 1
-                })
+                });
             }
 
             setTimeout(()=> {
                 Application.pipe.emit(TimelineEvents.GET_IMAGE);
             }, 1);
+
             setTimeout(()=>{
                 Application.pipe.emit(TimelineEvents.PANEND);
             }, 2000);
+
             this.cycleMakers();
         }, 15000);
     }

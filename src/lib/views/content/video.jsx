@@ -19,7 +19,8 @@ export class VideoContentComponent extends React.Component {
             yturl: "",
             standfirst: ""
         }
-
+        this.typing = [];
+        this.typingIndex = 0;
 
     }
 
@@ -54,10 +55,54 @@ export class VideoContentComponent extends React.Component {
             "standfirst": standfirst,
             "body": marked(data[0].body)
         });
+
+        this.qTypeing(data[0].title, "title");
+        this.qTypeing(marked(data[0].body), "body");
+        this.doTyping();
+
+    }
+
+
+    qTypeing(text, label){
+        this.typing.push({
+           "value": text,
+           "label": label
+        });
+        var o = {};
+        o[label] = "";
+        this.setState(o);
+    }
+
+    doTyping(){
+        var index = 0;
+        var textLength = this.typing[this.typingIndex].value.length;
+
+        var typingFunc = ()=>{
+            if(index == textLength){
+                cancelAnimationFrame(this.request);
+                this.typingIndex = this.typingIndex+1;
+                if(this.typingIndex < this.typing.length){
+                    this.doTyping();
+                }
+                return;
+            }
+            if(index == 0){
+                var o = {};
+                o[this.typing[this.typingIndex].label] = this.typing[this.typingIndex].value.charAt(index);
+                this.setState(o);
+            }else{
+                var o = {};
+                o[this.typing[this.typingIndex].label] = this.state[this.typing[this.typingIndex].label] + this.typing[this.typingIndex].value.charAt(index);
+                this.setState(o);
+            }
+            index++;
+            this.request = requestAnimationFrame(_.bind(typingFunc, this));
+
+        }
+        typingFunc();
     }
 
     componentWillUnmount(){
-
     }
 
     handleData(data){
@@ -78,7 +123,6 @@ export class VideoContentComponent extends React.Component {
                         {this.state.title}
                     </h3>
                     <div dangerouslySetInnerHTML={{__html: this.state.body}} />
-
                 </aside>
                 <iframe width="560" height="315" src={this.state.yturl} frameborder="0" allowfullscreen></iframe>
             </div>
@@ -86,7 +130,7 @@ export class VideoContentComponent extends React.Component {
     }
 }
 
-
+//
 
 export class VideosContentComponent extends React.Component {
     constructor(){
@@ -95,8 +139,8 @@ export class VideosContentComponent extends React.Component {
             state: "off"
         }
     }
-    componentWillMount(){
 
+    componentWillMount(){
     }
 
     componentDidMount(){
@@ -116,9 +160,8 @@ export class VideosContentComponent extends React.Component {
         setTimeout(()=>{
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
         },1000);
-
-
     }
+
     componentWillUnmount(){
         this.setState({
             "state": "show",

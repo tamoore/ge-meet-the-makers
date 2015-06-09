@@ -105,7 +105,7 @@ export class PreviewComponent extends React.Component {
 
         var typingFunc = ()=>{
             if(index == textLength){
-                clearTimeout(this.typingTimer);
+                cancelRequestAnimationFrame(this.request);
                 return;
             }
             if(index == 0){
@@ -118,9 +118,7 @@ export class PreviewComponent extends React.Component {
                 });
             }
             index++;
-            this.typingTimer = setTimeout(()=>{
-                typingFunc()
-            }, 5);
+            this.request = requestAnimationFrame(_.bind(typingFunc, this));
 
         }
         typingFunc();
