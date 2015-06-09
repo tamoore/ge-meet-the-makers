@@ -6,7 +6,9 @@ import { Application } from '../../index';
 
 import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
+import { MainEvents } from '../../main.jsx!';
 import { DataEvents, Data } from '../../data/data';
+
 
 import React from 'react';
 import marked from 'marked';
@@ -144,8 +146,9 @@ export class VideosContentComponent extends React.Component {
     }
 
     componentDidMount(){
+        Application.pipe.emit(TimelineEvents.PAUSECYCLE);
         TimelineBackgroundComponent.blur = true;
-        //Application.pipe.emit(TimelineEvents.GET_IMAGE);
+
 
         this.setState({
             "state": "off",
@@ -159,14 +162,15 @@ export class VideosContentComponent extends React.Component {
         },10);
         setTimeout(()=>{
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
-        },1000);
+        },
+            1000);
     }
 
     componentWillUnmount(){
         this.setState({
             "state": "show",
             "apply": "deactivate"
-        })
+        });
     }
 
 

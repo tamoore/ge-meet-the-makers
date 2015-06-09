@@ -47,7 +47,9 @@ export const TimelineEvents = {
     GET_IMAGE: "timlinebackground:getimage",
     BLUR: "timelinebackground:blur",
     ADDPREVIEW: "timelineevents:addPreview",
-    REMOVEPREVIEW: "timelineevents:removePreview"
+    REMOVEPREVIEW: "timelineevents:removePreview",
+    PAUSECYCLE: "timelineevents:pauseCycling"
+
 }
 
 /**
@@ -119,6 +121,15 @@ export class TimelineBackgroundComponent extends React.Component {
                 this.cycleMakers();
             }
         });
+
+        Application.pipe.on(TimelineEvents.PAUSECYCLE, ()=>{
+           if(this.cycling){
+               this.cycling = false;
+           }else{
+               this.cycling = true;
+           }
+        });
+
         //this.cycleMakers();
 
 
@@ -126,7 +137,7 @@ export class TimelineBackgroundComponent extends React.Component {
     cycleMakers(){
         this.cycling = true;
         this.cycleMakersTimer = setTimeout(()=>{
-
+            if(!this.cycling) return;
             if(this.state.currentMaker < 6){
                 this.setState({
                     currentMaker: parseInt(this.state.currentMaker)+1
