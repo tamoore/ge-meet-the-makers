@@ -41,6 +41,7 @@ gulp.task('build', ['styles'], function() {
 	gulp.src('./')
 		.pipe(shell([
 			'jspm bundle-sfx --minify src/lib/index',
+			'jspm bundle-sfx --minify src/lib-mobile/index',
 			'mv ./build.js ./build/ && mv ./build.js.map ./build/',
 			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
 		]));
@@ -48,6 +49,18 @@ gulp.task('build', ['styles'], function() {
 	gulp.src('./src/index.html')
 		.pipe(htmlreplace({
 			src: './src/index.html',
+			'js': {
+				src: ['build.js']
+			},
+			'css': {
+				src: ['css/main.css']
+			}
+		}))
+	.pipe(gulp.dest('build/'));
+	
+	gulp.src('./src/index-mobile.html')
+		.pipe(htmlreplace({
+			src: './src/index-mobile.html',
 			'js': {
 				src: ['build.js']
 			},
@@ -94,6 +107,8 @@ gulp.task('serve', ['styles'], function () {
     'src/**/*.html',
     'src/lib/**/*.js',
     'src/lib/**/*.jsx',
+    'src/lib-mobile/**/*.js',
+    'src/lib-mobile/**/*.jsx',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
