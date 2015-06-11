@@ -14,7 +14,6 @@ export class HeaderComponent extends React.Component {
 	
     constructor(){
         super();
-        this.state = {};
     }
 
     render(){

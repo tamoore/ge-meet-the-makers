@@ -25,6 +25,7 @@ export class Application {
 		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 				this.main = new Main();
 		});
+		
 		React.render(React.createElement(PreloadComponent), document.body);
 
 	}

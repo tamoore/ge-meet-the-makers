@@ -23,6 +23,15 @@ gulp.task('styles', function() {
 	.pipe(reload({stream: true}));
 });
 
+gulp.task('styles', function() {
+	return sass('src/scss/main-mobile.scss')
+	.on('error', function (err) {
+      console.error('Error', err.message);
+   	})
+	.pipe(gulp.dest('src/css'))
+	.pipe(reload({stream: true}));
+});
+
 gulp.task('deploy-scratch', function() {
 	return gulp.src(['./'])
 		.on('end', shell.task([
@@ -65,7 +74,7 @@ gulp.task('build', ['styles'], function() {
 				src: ['build.js']
 			},
 			'css': {
-				src: ['css/main.css']
+				src: ['css/main-mobile.css']
 			}
 		}))
 	.pipe(gulp.dest('build/'));

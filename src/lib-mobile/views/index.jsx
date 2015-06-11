@@ -5,6 +5,8 @@ import { Application } from '../index';
 
 import React from 'react';
 
+import { TimelineComponent } from './timeline.jsx!';
+
 export class IndexComponent extends React.Component {
     
     constructor(){
@@ -13,9 +15,14 @@ export class IndexComponent extends React.Component {
     
     render(){
         return (
-            <section className="maker-index">
-                <h1>Home</h1>
-            </section>
+            <main className="mobile-timeline">
+				<header className="introduction">
+					<h1><strong>Innovation<br />never sleeps</strong> Meet the makers</h1>
+					<h2><strong>24 hours</strong> in the lives of Australia’s top innovators</h2>
+					<i className="icon-down-indicator"></i>
+				</header>
+				<TimelineComponent />
+			</main>
         )
     }
 }

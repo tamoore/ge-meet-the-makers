@@ -3,7 +3,6 @@ import { Application } from './index';
 import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
-
 import Router from 'react-router';
 
 /**
@@ -17,6 +16,8 @@ let RouteHandler = Router.RouteHandler;
 // Views
 import { HeaderComponent } from './views/header.jsx!';
 import { NavComponent } from './views/nav.jsx!';
+import { FilterButtonComponent } from './views/filterbutton.jsx!';
+import { FilterNavComponent } from './views/filternav.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
 import { FooterComponent } from './views/footer.jsx!';
@@ -37,7 +38,9 @@ export class Main {
 
 }
 
-export const MainEvents = {};
+export const MainEvents = {
+	FILTERMAKERS: "mainevents:filtermakers"
+};
 
 export class MainView extends React.Component {
 
@@ -50,14 +53,14 @@ export class MainView extends React.Component {
 
     render(){
     	var name = this.context.router.getCurrentPath();
-    	
+
         return (
 			<div id="mobileWrap" className="mtm-wrap">
                 <HeaderComponent />
                 <NavComponent />
-                	<TransitionGroup component="div" transitionName="section">
-                        <RouteHandler key={name} />
-                    </TransitionGroup>
+                <FilterButtonComponent />
+                <FilterNavComponent />
+                <RouteHandler key={name} />
                 <FooterComponent />
             </div>
         )
