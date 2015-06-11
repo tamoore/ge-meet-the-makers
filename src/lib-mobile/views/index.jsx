@@ -5,6 +5,7 @@ import { Application } from '../index';
 
 import React from 'react';
 
+import { MainEvents } from '../main.jsx!';
 import { TimelineComponent } from './timeline.jsx!';
 
 export class IndexComponent extends React.Component {

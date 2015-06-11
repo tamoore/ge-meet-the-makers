@@ -46,14 +46,9 @@ export class MainView extends React.Component {
 
     constructor(){
         super();
-        this.state = {
-            mainPanelKlass: ""
-        }
     }
 
     render(){
-    	var name = this.context.router.getCurrentPath();
-
         return (
 			<div id="mobileWrap" className="mtm-wrap">
                 <HeaderComponent />
