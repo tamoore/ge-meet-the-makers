@@ -155,7 +155,7 @@ a.link-wide {
 
 // FILTER
 .filter-trigger {
-	background: rgba(6,6,6,.9);
+	background-color: rgba(6,6,6,.9);
 	border: 0;
 	border-radius: 50%;
 	box-shadow: 0 1px 1px rgba(158,161,161,.2);
@@ -167,6 +167,9 @@ a.link-wide {
 	top: 10rem;
 	width: 4.5rem;
 	z-index: 5;
+	background-size: 60% 60%;
+	background-repeat: no-repeat;
+	background-position: center;
 
 	path {
 		fill: #fff;
@@ -208,7 +211,7 @@ a.link-wide {
 	}
 
 	button {
-		background: rgba(238,238,238,.9);
+		background-color: rgba(238,238,238,.9);
 		border: 0;
 		border-radius: 50%;
 		box-shadow: 0 1px 0 rgba(71,73,73,.2);
@@ -218,29 +221,16 @@ a.link-wide {
 		height: 4.4rem;
 		outline: 0;
 		width: 4.4rem;
+		background-size: 60% 60%;
+		background-repeat: no-repeat;
+		background-position: center;
 
-		svg {
-			height: 2.5rem;
-			width: 2.5rem;
-			
-			rect,
-			path {
-				fill: #000;
-				stroke: #000;
-			}
+		&:hover {
+			background-color: rgba(0,0,0,.9);
 		}
 
-		&:hover,
-		.selected {
-			background: rgba(0,0,0,.9);
-
-			svg {
-				rect,
-				path {
-					fill: #fff;
-					stroke: #fff;
-				}
-			}
+		&.selected {
+			background-color: rgba(0,0,0,.9);
 		}
 	}
 }
@@ -288,23 +278,21 @@ a.link-wide {
 			&.nav-content {
 				li {
 					border-bottom: 1px solid #b3b3b3;
-					padding: 1rem;
 				}
 				a {
 					color: #fff;
 					cursor: pointer;
-					display: inline-block;
+					display: block;
 					font-family: Abel, sans-serif;
 					font-size: 2.5rem;
 					line-height: 1;
-					padding: 1rem 0 7px;
+					padding: 2rem 1rem 1.7rem;
 					text-decoration: none;
 					text-transform: uppercase;
 
-					&.selected,
-					&:hover {
+					&.selected span,
+					&:hover span {
 						border-bottom: 2px solid #fff;
-						padding: 1rem 0 5px;
 					}
 				}
 			}
@@ -396,7 +384,7 @@ a.link-wide {
 
 // MEET THE MAKERS PANEL
 
-.makers-mobile {
+.mobile-makers {
 	
 	ul {
 		list-style: none;
@@ -462,7 +450,7 @@ a.link-wide {
 
 // MOBILE CONTENT PAGE
 
-.makers-content {
+.mobile-maker {
 	background: url(../../images/bg.blur.jpg) 0 0 no-repeat;
 	background-size: cover;
 	display: block;
@@ -519,7 +507,7 @@ a.link-wide {
 	background-size: cover;
 	display: block;
 	min-height: 100vh;
-	padding: 0 0 1.6rem;
+	/*padding: 0 0 1.6rem;*/
 
 	.introduction {
 		height: 100vh;
@@ -673,3 +661,25 @@ a.link-wide {
 		}
 	}
 }
+
+.icon-1 {
+	background-image: url(../images/icon.space.svg);
+}
+.icon-2 {
+	background-image: url(../images/icon.factory.svg);
+}
+.icon-3 {
+	background-image: url(../images/icon.petrol.svg);
+}
+.icon-4 {
+	background-image: url(../images/icon.solar.svg);
+}
+.icon-5 {
+	background-image: url(../images/icon.train.svg);
+}
+.icon-6 {
+	background-image: url(../images/icon.healthcare.svg);
+}
+/*.icon-clear {
+	background-image: url(../images/icon.clear.svg);
+}*/

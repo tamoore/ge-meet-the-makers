@@ -24,8 +24,6 @@ export class IndexComponent extends React.Component {
         Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
         	this.setState({ 
         		currentMaker: makerId
-        	}, function(){
-        		console.log(this.state.currentMaker);
         	});
         });
     }

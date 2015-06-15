@@ -18,6 +18,8 @@ import { HeaderComponent } from './views/header.jsx!';
 import { NavComponent } from './views/nav.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
+import { MakerComponent } from './views/maker.jsx!';
+import { AboutComponent } from './views/about.jsx!';
 import { FooterComponent } from './views/footer.jsx!';
 
 export class Main {
@@ -26,6 +28,8 @@ export class Main {
         this.routes = (
             <Route name="app" path="/" handler={MainView}>
                 <Route name="makers" handler={MakersComponent}/>
+                <Route name="makers/:maker" handler={MakerComponent}/>
+                <Route name="about" handler={AboutComponent}/>
                 <DefaultRoute handler={IndexComponent} />
             </Route>
         )
@@ -37,8 +41,7 @@ export class Main {
 }
 
 export const MainEvents = {
-	FILTERMAKERS: "mainevents:filtermakers",
-	MENUACTIVEITEM: "mainevents:menuactiveitem"
+	FILTERMAKERS: "mainevents:filtermakers"
 };
 
 export class MainView extends React.Component {
@@ -54,7 +57,9 @@ export class MainView extends React.Component {
 			<div id="mobileWrap" className="mtm-wrap">
                 <HeaderComponent />
                 <NavComponent page={name} />
-                <RouteHandler key={name} />
+                <TransitionGroup component="div" transitionName="section">
+                	<RouteHandler key={name} />
+                </TransitionGroup>
                 <FooterComponent />
             </div>
         )

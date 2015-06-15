@@ -10,13 +10,13 @@ export class FilterButtonComponent extends React.Component {
 
     constructor(){
         super();
-        this.state = {};
     }
 
     render(){
+    	var maker = this.props.makerId;
+
         return (
-			<button id="filterTrigger" className="filter-trigger">
-			</button>
+			<button id="filterTrigger" className={maker ? "icon-"+maker+" filter-trigger" : "icon-filter filter-trigger"} data-maker={maker ? maker : ""}></button>
         )
     }
 }

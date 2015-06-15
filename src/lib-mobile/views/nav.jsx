@@ -13,13 +13,14 @@ export class NavComponent extends React.Component {
     }
 
     render(){
+    	var page = this.props.page.split('/')[1];
         return (
 			<nav className="menu">
 				<div className="navigation">
 					<ul className="nav-content">
-						<li><a href="mobile.html">Timeline</a></li>
-						<li><a href="mobile-makers.html">Meet The Makers</a></li>
-						<li><a>About</a></li>
+						<li><a href="#/" className={page == "" ? "selected" : ""}><span>Timeline</span></a></li>
+						<li><a href="#/makers" className={page == "makers" ? "selected" : ""}><span>Meet The Makers</span></a></li>
+						<li><a href="#/about" className={page == "about" ? "selected" : ""}><span>About</span></a></li>
 					</ul>
 					<ul className="nav-social">
 						<li><a><svg viewBox="0 0 514 514"><path d="M375.7 123.5H138.3c-8.1 0-14.7 6.6-14.7 14.7v237.4c0 8.1 6.6 14.7 14.7 14.7h127.8V287.1h-34.8v-40.3h34.8v-29.7c0-34.5 21.1-53.2 51.8-53.2 14.7 0 27.4 1.1 31.1 1.6v36l-21.3 0c-16.7 0-20 7.9-20 19.6v25.7h39.9l-5.2 40.3h-34.7v103.4h68c8.1 0 14.7-6.6 14.7-14.7V138.3C390.4 130.1 383.8 123.5 375.7 123.5z"/><circle fill="none" stroke="#000000" stroke-width="16" stroke-miterlimit="10" cx="257" cy="257" r="249"/></svg><span className="assistive-text">Facebook</span></a></li>
