@@ -182,7 +182,7 @@ a.link-wide {
 	opacity: 0;
 	padding: 10rem 0 0;
 	pointer-events: none;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	transform: translateX(100%);
 	transition: background .1s linear;

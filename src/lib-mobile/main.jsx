@@ -16,8 +16,6 @@ let RouteHandler = Router.RouteHandler;
 // Views
 import { HeaderComponent } from './views/header.jsx!';
 import { NavComponent } from './views/nav.jsx!';
-import { FilterButtonComponent } from './views/filterbutton.jsx!';
-import { FilterNavComponent } from './views/filternav.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
 import { FooterComponent } from './views/footer.jsx!';
@@ -39,7 +37,8 @@ export class Main {
 }
 
 export const MainEvents = {
-	FILTERMAKERS: "mainevents:filtermakers"
+	FILTERMAKERS: "mainevents:filtermakers",
+	MENUACTIVEITEM: "mainevents:menuactiveitem"
 };
 
 export class MainView extends React.Component {
@@ -49,12 +48,12 @@ export class MainView extends React.Component {
     }
 
     render(){
+    	var name = this.context.router.getCurrentPath();
+
         return (
 			<div id="mobileWrap" className="mtm-wrap">
                 <HeaderComponent />
-                <NavComponent />
-                <FilterButtonComponent />
-                <FilterNavComponent />
+                <NavComponent page={name} />
                 <RouteHandler key={name} />
                 <FooterComponent />
             </div>

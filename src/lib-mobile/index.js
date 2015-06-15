@@ -13,6 +13,8 @@ window._ = lodash; // TODO: What to do with this nasty girl
 export class Application {
 	constructor(){
 
+		React.initializeTouchEvents(true);
+
 		Application.history = [];
 		window.addEventListener("hashchange", _.bind(this.handleHashChange, this))
 

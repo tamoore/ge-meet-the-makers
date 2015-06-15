@@ -5,24 +5,48 @@ import { Application } from '../index';
 
 import React from 'react';
 
+import { DataEvents, Data } from '../data/data';
 import { MainEvents } from '../main.jsx!';
+import { FilterButtonComponent } from './filterbutton.jsx!';
+import { FilterNavComponent } from './filternav.jsx!';
+import { TimelineHeadComponent } from './timelinehead.jsx!';
 import { TimelineComponent } from './timeline.jsx!';
 
 export class IndexComponent extends React.Component {
-    
+
     constructor(){
         super();
+        this.state = {
+            data: Data.result.length ? Data.result : this.attachDataHandler(),
+            currentMaker: null
+        }
+
+        Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
+        	this.setState({ 
+        		currentMaker: makerId
+        	}, function(){
+        		console.log(this.state.currentMaker);
+        	});
+        });
+    }
+
+    attachDataHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
+    }
+
+    handleDataUpdate(resp){
+        this.setState({
+            data: resp
+        })
     }
     
     render(){
         return (
             <main className="mobile-timeline">
-				<header className="introduction">
-					<h1><strong>Innovation<br />never sleeps</strong> Meet the makers</h1>
-					<h2><strong>24 hours</strong> in the lives of Australia’s top innovators</h2>
-					<i className="icon-down-indicator"></i>
-				</header>
-				<TimelineComponent />
+				<FilterButtonComponent makerId={this.state.currentMaker} />
+                <FilterNavComponent makerId={this.state.currentMaker} />
+				<TimelineHeadComponent makerId={this.state.currentMaker} />
+				<TimelineComponent makerId={this.state.currentMaker} data={this.state.data} />
 			</main>
         )
     }

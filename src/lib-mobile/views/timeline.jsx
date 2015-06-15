@@ -6,71 +6,11 @@ import { Application } from '../index';
 
 import React from 'react';
 
-import { DataEvents, Data } from '../data/data';
-import { MainEvents } from '../main.jsx!';
-
 export class TimelineComponent extends React.Component {
 
     constructor(){
         super();
-        this.state = {
-            data: Data.result.length ? Data.result : this.attachDataHandler(),
-            timelineItems: [],
-            currentMaker: null
-        }
-
-        Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{ 
-        	this.setState({ 
-        		currentMaker: makerId,
-        		timelineItems: this.buildTimelineList(this.state.data)
-        	});
-        	console.log(makerId);
-        });
     }
-
-    attachDataHandler(){
-        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
-    }
-
-    handleDataUpdate(resp){
-        this.setState({
-            data: resp,
-            timelineItems: this.buildTimelineList(this.state.data)
-        })
-    }
-
-    componentDidMount(){
-    	this.setState({
-            timelineItems: this.buildTimelineList(this.state.data)
-        });
-    }
-
-	buildTimelineList(timelineData){
-		var items = [];
-
-		for ( var i = 0; i < timelineData.length; i++ ){
-    		var item = timelineData[i];
-    		var hidden = false;
-    		
-    		if ( !this.state.currentMaker && item.maker !== this.state.currentMaker ){
-    			hidden = true;
-    		}
-    		
-    		switch ( item.type ){
-    			case "post":
-    				items.push(this.buildPost(i, item, hidden));
-    				break;
-    			case "video":
-    				items.push(this.buildVideo(i, item, hidden));
-    				break;
-    			default:
-    		}
-    	}
-
-    	console.log('updated');
-
-    	return items;
-	}
 
 	buildVideo(i, itemData, hidden){
 		var visClass = "timeline-list-marker";
@@ -135,9 +75,30 @@ export class TimelineComponent extends React.Component {
 	}
 
     render(){
+    	console.log('triggered');
+
+		var timelineItems = [];
+
+		for ( var i = 0; i < this.props.data.length; i++ ){
+    		var item = this.props.data[i];
+    		var hidden = false;
+    		
+    		if ( !this.props.makerId || item.maker == this.props.makerId ){
+    			switch ( item.type ){
+	    			case "post":
+	    				timelineItems.push(this.buildPost(i, item, hidden));
+	    				break;
+	    			case "video":
+	    				timelineItems.push(this.buildVideo(i, item, hidden));
+	    				break;
+	    			default:
+	    		}
+    		}
+    	}
+
         return (
-        	<ol className="timeline-list">
-	        	{this.state.timelineItems}
+        	<ol className="timeline-list" data-maker={this.props.makerId}>
+	        	{timelineItems}
 	        </ol>
         )
     }

@@ -39,6 +39,8 @@ export class HeaderComponent extends React.Component {
     }
 
     handleClick(event){
+    	console.log(event);
+    	console.log(event.target.getAttribute("rel"));
         let makerId = event.target.getAttribute("rel");
         this.state.makerId == makerId ? makerId = null : false;
         this.setState({
