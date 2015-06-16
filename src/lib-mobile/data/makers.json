@@ -1,0 +1,116 @@
+{
+	"1": {
+		"id": 1,
+		"name": "Osamu Tezuka",
+		"slug": "osamu-tezuka",
+		"role": "Astronaut",
+		"furniture": {
+			"portraitImg": "../images/makers/profile.png",
+			"icon": "space",
+			"makerImg": "../images/makers/bg.winch.jpg",
+			"bgImg": "../images/bg.blur.jpg"
+		},
+		"title": "Maker Title",
+		"figure": {
+			"img": "../images/makers/bg.winch.jpg",
+			"caption": "Image caption"
+		},
+		"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.",
+		"bio": "##Header 2\n### Header 3\n**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Proin fringilla odio ut tempus finibus. Duis sit amet purus et magna blandit feugiat feugiat et ligula. Quisque ac est in felis sodales tincidunt. *Proin euismod fringilla nibh*, sit amet tristique turpis maximus eu.\n\nThis is an [example link](http://example.com/).\n\nA simple list:\n\n* Item 1\n* Item 2\n* Item 3\n\nA numbered list:\n\n1. Item 1\n2. Item 2\n3. Item 3\n\n> This is a blockquote.\n> \n> This is the second paragraph in the blockquote.\n"
+	},
+	"2": {
+		"id": 2,
+		"name": "Susie Wolff",
+		"slug": "susie-wolff",
+		"role": "Engineer",
+		"furniture": {
+			"portraitImg": "../images/makers/profile.png",
+			"icon": "factory",
+			"makerImg": "../images/makers/bg.spaceman.jpg",
+			"bgImg": "../images/bg.blur.jpg"
+		},
+		"title": "Maker Title",
+		"figure": {
+			"img": "../images/makers/bg.spaceman.jpg",
+			"caption": "Image caption"
+		},
+		"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.",
+		"bio": "##Header 2\n### Header 3\n**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Proin fringilla odio ut tempus finibus. Duis sit amet purus et magna blandit feugiat feugiat et ligula. Quisque ac est in felis sodales tincidunt. *Proin euismod fringilla nibh*, sit amet tristique turpis maximus eu.\n\nThis is an [example link](http://example.com/).\n\nA simple list:\n\n* Item 1\n* Item 2\n* Item 3\n\nA numbered list:\n\n1. Item 1\n2. Item 2\n3. Item 3\n\n> This is a blockquote.\n> \n> This is the second paragraph in the blockquote.\n"
+	},
+	"3": {
+		"id": 3,
+		"name": "Adam Fletcher",
+		"slug": "adam-fletcher",
+		"role": "Engineer",
+		"furniture": {
+			"portraitImg": "../images/makers/profile.png",
+			"icon": "energy",
+			"makerImg": "../images/makers/bg.adam.fletcher.jpg",
+			"bgImg": "../images/bg.blur.jpg"
+		},
+		"title": "Maker Title",
+		"figure": {
+			"img": "../images/makers/bg.adam.fletcher.jpg",
+			"caption": "Image caption"
+		},
+		"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.",
+		"bio": "##Header 2\n### Header 3\n**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Proin fringilla odio ut tempus finibus. Duis sit amet purus et magna blandit feugiat feugiat et ligula. Quisque ac est in felis sodales tincidunt. *Proin euismod fringilla nibh*, sit amet tristique turpis maximus eu.\n\nThis is an [example link](http://example.com/).\n\nA simple list:\n\n* Item 1\n* Item 2\n* Item 3\n\nA numbered list:\n\n1. Item 1\n2. Item 2\n3. Item 3\n\n> This is a blockquote.\n> \n> This is the second paragraph in the blockquote.\n"
+	},
+	"4": {
+		"id": 4,
+		"name": "Dosie Dough",
+		"slug": "dosie-dough",
+		"role": "Miner",
+		"furniture": {
+			"portraitImg": "../images/makers/profile.png",
+			"icon": "fuel",
+			"makerImg": "../images/makers/bg.miner.jpg",
+			"bgImg": "../images/bg.blur.jpg"
+		},
+		"title": "Maker Title",
+		"figure": {
+			"img": "../images/makers/bg.miner.jpg",
+			"caption": "Image caption"
+		},
+		"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.",
+		"bio": "##Header 2\n### Header 3\n**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Proin fringilla odio ut tempus finibus. Duis sit amet purus et magna blandit feugiat feugiat et ligula. Quisque ac est in felis sodales tincidunt. *Proin euismod fringilla nibh*, sit amet tristique turpis maximus eu.\n\nThis is an [example link](http://example.com/).\n\nA simple list:\n\n* Item 1\n* Item 2\n* Item 3\n\nA numbered list:\n\n1. Item 1\n2. Item 2\n3. Item 3\n\n> This is a blockquote.\n> \n> This is the second paragraph in the blockquote.\n"
+	},
+	"5": {
+		"id": 5,
+		"name": "Leo Spaceman",
+		"slug": "leo-spaceman",
+		"role": "Electrician",
+		"furniture": {
+			"portraitImg": "../images/makers/profile.png",
+			"icon": "transport",
+			"makerImg": "../images/makers/bg.spaceman.jpg",
+			"bgImg": "../images/bg.blur.jpg"
+		},
+		"title": "Maker Title",
+		"figure": {
+			"img": "../images/makers/bg.spaceman.jpg",
+			"caption": "Image caption"
+		},
+		"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.",
+		"bio": "##Header 2\n### Header 3\n**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Proin fringilla odio ut tempus finibus. Duis sit amet purus et magna blandit feugiat feugiat et ligula. Quisque ac est in felis sodales tincidunt. *Proin euismod fringilla nibh*, sit amet tristique turpis maximus eu.\n\nThis is an [example link](http://example.com/).\n\nA simple list:\n\n* Item 1\n* Item 2\n* Item 3\n\nA numbered list:\n\n1. Item 1\n2. Item 2\n3. Item 3\n\n> This is a blockquote.\n> \n> This is the second paragraph in the blockquote.\n"
+	},
+	"6": {
+		"id": 6,
+		"name": "Nurse Ratched",
+		"slug": "nurse-ratched",
+		"role": "Technician",
+		"furniture": {
+			"portraitImg": "../images/makers/profile.png",
+			"icon": "medical",
+			"makerImg": "../images/makers/bg.adam.fletcher.jpg",
+			"bgImg": "../images/bg.blur.jpg"
+		},
+		"title": "Maker Title",
+		"figure": {
+			"img": "../images/makers/bg.adam.fletcher.jpg",
+			"caption": "Image caption"
+		},
+		"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.",
+		"bio": "##Header 2\n### Header 3\n**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Proin fringilla odio ut tempus finibus. Duis sit amet purus et magna blandit feugiat feugiat et ligula. Quisque ac est in felis sodales tincidunt. *Proin euismod fringilla nibh*, sit amet tristique turpis maximus eu.\n\nThis is an [example link](http://example.com/).\n\nA simple list:\n\n* Item 1\n* Item 2\n* Item 3\n\nA numbered list:\n\n1. Item 1\n2. Item 2\n3. Item 3\n\n> This is a blockquote.\n> \n> This is the second paragraph in the blockquote.\n"
+	}
+}

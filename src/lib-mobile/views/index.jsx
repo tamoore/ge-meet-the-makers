@@ -6,11 +6,8 @@ import { Application } from '../index';
 import React from 'react';
 
 import { DataEvents, Data } from '../data/data';
-import { MainEvents } from '../main.jsx!';
-import { FilterButtonComponent } from './filterbutton.jsx!';
-import { FilterNavComponent } from './filternav.jsx!';
-import { TimelineHeadComponent } from './timelinehead.jsx!';
-import { TimelineComponent } from './timeline.jsx!';
+import { MainEvents, MakersData } from '../main.jsx!';
+import { FilterButtonComponent, FilterNavComponent, TimelineHeadComponent, TimelineComponent } from './timeline.jsx!';
 
 export class IndexComponent extends React.Component {
 
@@ -18,6 +15,7 @@ export class IndexComponent extends React.Component {
         super();
         this.state = {
             data: Data.result.length ? Data.result : this.attachDataHandler(),
+            makerData: {},
             currentMaker: null
         }
 
@@ -37,14 +35,36 @@ export class IndexComponent extends React.Component {
             data: resp
         })
     }
+
+	componentDidMount() {
+		$.ajax({
+			url: "../lib-mobile/data/makers.json",
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({makerData: data});
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error("doh");
+			}.bind(this)
+		});
+	}
     
     render(){
+    	var bgImg = "../images/bg.blur.jpg";
+    	var maker = null;
+    	if ( this.state.currentMaker ){
+    		bgImg = this.state.makerData[this.state.currentMaker].furniture.bgImg;
+    		maker = this.state.makerData[this.state.currentMaker];
+    	}
+
         return (
-            <main className="mobile-timeline">
+            <main className="mobile-timeline" style={{backgroundImage: "url("+bgImg+")"}}>
+            	{this.props.activeRoute}
 				<FilterButtonComponent makerId={this.state.currentMaker} />
                 <FilterNavComponent makerId={this.state.currentMaker} />
-				<TimelineHeadComponent makerId={this.state.currentMaker} />
-				<TimelineComponent makerId={this.state.currentMaker} data={this.state.data} />
+				<TimelineHeadComponent makerId={this.state.currentMaker} maker={maker} />
+				<TimelineComponent makerId={this.state.currentMaker} data={this.state.data} makers={this.state.makerData} />
 			</main>
         )
     }

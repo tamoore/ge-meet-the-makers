@@ -5,10 +5,33 @@ import { Application } from '../index';
 
 import React from 'react';
 
+import { DataEvents, Data } from '../data/data';
+import { MainEvents, MakersData } from '../main.jsx!';
+
 export class MakerComponent extends React.Component {
-    
+
     constructor(){
         super();
+        this.state = {
+            data: Data.result.length ? Data.result : this.attachDataHandler(),
+            currentMaker: null
+        }
+
+        Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
+        	this.setState({ 
+        		currentMaker: makerId
+        	});
+        });
+    }
+
+    attachDataHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
+    }
+
+    handleDataUpdate(resp){
+        this.setState({
+            data: resp
+        })
     }
     
     render(){

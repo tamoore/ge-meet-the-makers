@@ -14,8 +14,7 @@ let Route = Router.Route;
 let RouteHandler = Router.RouteHandler;
 
 // Views
-import { HeaderComponent } from './views/header.jsx!';
-import { NavComponent } from './views/nav.jsx!';
+import { HeaderComponent, NavComponent } from './views/header.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
 import { MakerComponent } from './views/maker.jsx!';
@@ -45,9 +44,9 @@ export const MainEvents = {
 };
 
 export class MainView extends React.Component {
-
     constructor(){
         super();
+        this.state = {};
     }
 
     render(){

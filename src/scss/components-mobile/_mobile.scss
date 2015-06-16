@@ -218,9 +218,9 @@ a.link-wide {
 		color: #000;
 		cursor: pointer;
 		display: inline-block;
-		height: 4.4rem;
+		height: 4.5rem;
 		outline: 0;
-		width: 4.4rem;
+		width: 4.5rem;
 		background-size: 60% 60%;
 		background-repeat: no-repeat;
 		background-position: center;
@@ -507,6 +507,7 @@ a.link-wide {
 	background-size: cover;
 	display: block;
 	min-height: 100vh;
+	overflow:hidden;
 	/*padding: 0 0 1.6rem;*/
 
 	.introduction {
@@ -550,6 +551,13 @@ a.link-wide {
 			position: absolute;
 			width: 2rem;
 		}
+
+		.icon-industry {
+			height: 1.8rem;
+			width: 1.8rem;
+			position: static;
+			background-color: none;
+		}
 	}
 }
 
@@ -558,7 +566,7 @@ a.link-wide {
 	.mtm-wrap & {
 		border-left: 2px solid rgba(164,173,177,.5);
 		list-style: none;
-		margin: 0 1.6rem;
+		margin: 0 1.6rem 1.6rem;
 		padding: 0;
 	}
 }
@@ -633,6 +641,8 @@ a.link-wide {
 
 				img {
 					transform: skewX(2deg) translateX(-2.5%);
+					-webkit-backface-visibility: hidden;
+					outline: 1px solid transparent;
 					width: 105%;
 				}
 			}
