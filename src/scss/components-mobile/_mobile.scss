@@ -167,9 +167,9 @@ a.link-wide {
 	top: 10rem;
 	width: 4.5rem;
 	z-index: 5;
-	background-size: 60% 60%;
-	background-repeat: no-repeat;
-	background-position: center;
+	background-size: 60% 60% !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
 
 	path {
 		fill: #fff;
@@ -453,50 +453,56 @@ a.link-wide {
 .mobile-maker {
 	background: url(../../images/bg.blur.jpg) 0 0 no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 	display: block;
 	min-height: 100vh;
 	padding: 9rem 0 1.6rem;
+	position: relative;
 
-	h1 {
-		margin: 3rem 1.6rem;
-	}
+	.profile-container {
+		position: relative;
 
-	p {
-		font-size: 1.15rem;
-		line-height: 1.3;
-		margin: 0 1.6rem 1.6rem;
-	}
-
-	article {
-		p:first-of-type {
-			font-weight: 700;
-		}
-	}
-
-	figure {
-		display: block;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-
-		img {
-			display: block;
-			height: auto;
-			width: 100%;
+		h1 {
+			margin: 3rem 1.6rem;
 		}
 
-		figcaption {
-			p {
-				color: #b2b2b2;
-				font-size: 1rem;
-				margin: 1em 1.6em;
+		p {
+			font-size: 1.15rem;
+			line-height: 1.3;
+			margin: 0 1.6rem 1.6rem;
+		}
+
+		article {
+			p:first-of-type {
+				font-weight: 700;
 			}
 		}
-	}
 
-	.nav-social {
-		overflow: hidden;
-		margin: 3rem 1.6rem;
+		figure {
+			display: block;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+
+			img {
+				display: block;
+				height: auto;
+				width: 100%;
+			}
+
+			figcaption {
+				p {
+					color: #b2b2b2;
+					font-size: 1rem;
+					margin: 1em 1.6em;
+				}
+			}
+		}
+
+		.nav-social {
+			overflow: hidden;
+			margin: 3rem 1.6rem;
+		}
 	}
 }
 
@@ -505,14 +511,16 @@ a.link-wide {
 .mobile-timeline {
 	background: url(../../images/bg.blur.jpg) 0 0 no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 	display: block;
 	min-height: 100vh;
 	overflow:hidden;
+	position: relative;
 	/*padding: 0 0 1.6rem;*/
 
 	.introduction {
 		height: 100vh;
-		min-height:350px;
+		min-height:420px;
 		padding: 11.3rem 1.6rem 0;
 		position: relative;
 
@@ -531,6 +539,13 @@ a.link-wide {
 			}
 		}
 
+		&.maker-intro {
+			h1, h1 strong {
+				font-size:3.1rem;
+			}
+
+		}
+
 		h2 {
 			font-size: 2rem;
 			font-weight: 300;
@@ -542,7 +557,7 @@ a.link-wide {
 			}
 		}
 
-		i {
+		i.icon-down-indicator {
 			background: #fff;
 			bottom: 4rem;
 			display: block;
@@ -553,10 +568,12 @@ a.link-wide {
 		}
 
 		.icon-industry {
-			height: 1.8rem;
-			width: 1.8rem;
+			margin-top:30px;
+			height: 3.5rem;
+			width: 3.5rem;
 			position: static;
-			background-color: none;
+			display: block;
+			background-color: transparent;
 		}
 	}
 }
@@ -568,6 +585,7 @@ a.link-wide {
 		list-style: none;
 		margin: 0 1.6rem 1.6rem;
 		padding: 0;
+		position: relative;
 	}
 }
 
@@ -672,24 +690,12 @@ a.link-wide {
 	}
 }
 
-.icon-1 {
-	background-image: url(../images/icon.space.svg);
+.texture-overlay {
+	background: rgba(46,123,168,.5) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGCoZ2BgaITRjAxoACYAV4WhAgCV0AOEkNUCfgAAAABJRU5ErkJggg==) 0 0 repeat;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 0;
 }
-.icon-2 {
-	background-image: url(../images/icon.factory.svg);
-}
-.icon-3 {
-	background-image: url(../images/icon.petrol.svg);
-}
-.icon-4 {
-	background-image: url(../images/icon.solar.svg);
-}
-.icon-5 {
-	background-image: url(../images/icon.train.svg);
-}
-.icon-6 {
-	background-image: url(../images/icon.healthcare.svg);
-}
-/*.icon-clear {
-	background-image: url(../images/icon.clear.svg);
-}*/

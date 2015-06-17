@@ -53,6 +53,7 @@ export class IndexComponent extends React.Component {
     render(){
     	var bgImg = "../images/bg.blur.jpg";
     	var maker = null;
+
     	if ( this.state.currentMaker ){
     		bgImg = this.state.makerData[this.state.currentMaker].furniture.bgImg;
     		maker = this.state.makerData[this.state.currentMaker];
@@ -60,9 +61,9 @@ export class IndexComponent extends React.Component {
 
         return (
             <main className="mobile-timeline" style={{backgroundImage: "url("+bgImg+")"}}>
-            	{this.props.activeRoute}
-				<FilterButtonComponent makerId={this.state.currentMaker} />
-                <FilterNavComponent makerId={this.state.currentMaker} />
+            	<div className="texture-overlay"></div>
+				<FilterButtonComponent maker={maker} />
+                <FilterNavComponent makerId={this.state.currentMaker} makers={this.state.makerData} />
 				<TimelineHeadComponent makerId={this.state.currentMaker} maker={maker} />
 				<TimelineComponent makerId={this.state.currentMaker} data={this.state.data} makers={this.state.makerData} />
 			</main>

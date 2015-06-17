@@ -72,9 +72,11 @@ export class MakersComponent extends React.Component {
     render(){
     	var makerItems = [];
 
-    	_.forEach(this.state.makerData, function(item) {
-    		makerItems.push(<MakersItemComponent key={item.id} data={item} />);
-		});
+    	if ( !_.isEmpty(this.state.makerData) ){
+	    	_.forEach(this.state.makerData, function(item) {
+	    		makerItems.push(<MakersItemComponent key={item.id} data={item} />);
+			});
+	    }
 
         return (
             <main className="mobile-makers">

@@ -20,10 +20,8 @@ export class FilterButtonComponent extends React.Component {
     }
 
     render(){
-    	var maker = this.props.makerId;
-
         return (
-			<button id="filterTrigger" className={maker ? "icon-"+maker+" filter-trigger" : "icon-filter filter-trigger"} data-maker={maker ? maker : ""}></button>
+			<button id="filterTrigger" className={this.props.maker ? "icon-industry icon-industry-"+this.props.maker.furniture.icon+" filter-trigger" : "icon-industry icon-filter filter-trigger"} data-maker={this.props.maker ? this.props.maker.id : "null"}></button>
         )
     }
 }
@@ -32,7 +30,7 @@ export class FilterButtonComponent extends React.Component {
  * View for the header Filters on the timeline primarily
  *
  */
-export class FilterNavComponent extends React.Component {
+export class FilterNavItemComponent extends React.Component {
 
     constructor(){
         super();
@@ -46,45 +44,20 @@ export class FilterNavComponent extends React.Component {
     }
 
     render(){
-    	var maker = this.props.makerId;
+    	var m = this.props.data;
+    	var icon;
+    	if ( m.id ){
+    		icon = this.props.makerId == m.id ? "selected icon-industry-"+m.furniture.icon : "icon-industry-"+m.furniture.icon
+    	} else {
+    		icon = this.props.makerId == m.id ? "selected icon-"+m.furniture.icon : "icon-"+m.furniture.icon
+    	}
+    	
         return (
-			<ul className="timeline-filter">
-			    <li>
-			        <button data-industry="space" onClick={this.handleClick} rel="1" className={maker == "1" ? "selected icon-1" : "icon-1"}>
-			        	<span className="assistive-text">Space</span>
-			        </button>
-			    </li>
-			    <li>
-			        <button data-industry="factory" onClick={this.handleClick} rel="2" className={maker == "2" ? "selected icon-2" : "icon-2"}>
-			        	<span className="assistive-text">Factory</span>
-			        </button>
-			    </li>
-			    <li>
-			        <button data-industry="fuel" onClick={this.handleClick} rel="3" className={maker == "3" ? "selected icon-3" : "icon-3"}>
-			        	<span className="assistive-text">Fuel</span>
-			        </button>
-			    </li>
-			    <li>
-			        <button data-industry="energy" onClick={this.handleClick} rel="4" className={maker == "4" ? "selected icon-4" : "icon-4"}>
-			        	<span className="assistive-text">Energy</span>
-			        </button>
-			    </li>
-			    <li>
-			        <button data-industry="transport" onClick={this.handleClick} rel="5" className={maker == "5" ? "selected icon-5" : "icon-5"}>
-			        	<span className="assistive-text">Transport</span>
-			        </button>
-			    </li>
-			    <li>
-			        <button data-industry="medical" onClick={this.handleClick} rel="6" className={maker == "6" ? "selected icon-6" : "icon-6"}>
-			        	<span className="assistive-text">Medical</span>
-			        </button>
-			    </li>
-			    <li>
-			        <button onClick={this.handleClick} rel="" className={!maker ? "selected icon-clear" : "icon-clear"}>
-			        	<span className="assistive-text">Remove Filter</span>
-			        </button>
-			    </li>
-			</ul>
+		    <li key={this.props.key}>
+		        <button data-industry={m.furniture.icon} onClick={this.handleClick} rel={m.id} className={icon}>
+		        	<span className="assistive-text">{m.furniture.icon}</span>
+		        </button>
+		    </li>
         )
     }
 }
@@ -93,18 +66,27 @@ export class FilterNavComponent extends React.Component {
  * View for the header Filters on the timeline primarily
  *
  */
-export class htmlWrapComponent extends React.Component {
-    
+export class FilterNavComponent extends React.Component {
+
     constructor(){
         super();
     }
 
     render(){
-    	var output = this.props.input;
-    	console.log(output);
-    	return (
-    		{output}
-    	)
+    	var filterItems = [];
+		var maker = this.props.makerId;
+
+		_.forEach(this.props.makers, function(item) {
+    		filterItems.push(<FilterNavItemComponent key={item.id} data={item} makerId={maker} />);
+		});
+
+		filterItems.push(<FilterNavItemComponent key="0" data={{ id: null, furniture: { icon: "close" } }} makerId={maker} />);
+
+        return (
+			<ul className="timeline-filter">
+			    {filterItems}
+			</ul>
+        )
     }
 }
 
@@ -120,19 +102,24 @@ export class TimelineHeadComponent extends React.Component {
 
     render(){
     	var ha,
-    		icon = "";
+    		icon = "",
+    		c = "introduction";
 
     	if ( this.props.makerId ){
-    		ha = "<h1><strong>"+this.props.maker.role+"</strong>"+this.props.maker.name+"</h1>";
-    		icon = '<h2><i className="icon-industry icon-industry-'+this.props.maker.furniture.icon+'"></i></h2>';
+    		if ( !_.isEmpty(this.props.maker) ){
+	    		ha = "<h1><strong>"+this.props.maker.role+"</strong>"+this.props.maker.name+"</h1>";
+	    		icon = '<i class="icon-industry icon-industry-'+this.props.maker.furniture.icon+'"></i>';
+	    		c = c+" maker-intro";
+    		}
     	} else {
     		ha = "<h1><strong>Innovation<br />never sleeps</strong> Meet the makers</h1>";
     	}
 
     	return (
-			<header className="introduction" data-maker={this.props.makerId}>
+			<header className={c} data-maker={this.props.makerId}>
 				<span dangerouslySetInnerHTML={{__html: ha}}></span>
 				<h2><strong>24 hours</strong> in the lives of Australia’s top innovators</h2>
+				<div dangerouslySetInnerHTML={{__html: icon}}></div>
 				<i className="icon-down-indicator"></i>
 			</header>
         )
