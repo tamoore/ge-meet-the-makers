@@ -175,6 +175,10 @@ a.link-wide {
 		fill: #fff;
 		stroke: #fff;
 	}
+
+	&.filter-trigger-hidden {
+		display:none !important;
+	}
 }
 
 .timeline-filter {
@@ -232,6 +236,10 @@ a.link-wide {
 		&.selected {
 			background-color: rgba(0,0,0,.9);
 		}
+	}
+
+	&.timeline-filter-hidden {
+		display:none;
 	}
 }
 

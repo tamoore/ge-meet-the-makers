@@ -65,7 +65,7 @@
 			"portraitImg": "../images/makers/profile.png",
 			"icon": "fuel",
 			"makerImg": "../images/makers/bg.miner.jpg",
-			"bgImg": "../images/bg.blur.jpg"
+			"bgImg": "../images/makers/bg.miner.jpg"
 		},
 		"title": "Maker Title",
 		"figure": {

@@ -14,7 +14,9 @@ let Route = Router.Route;
 let RouteHandler = Router.RouteHandler;
 
 // Views
+import { DataEvents, Data } from './data/data';
 import { HeaderComponent, NavComponent } from './views/header.jsx!';
+import { FilterButtonComponent, FilterNavComponent } from './views/filter.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
 import { MakerComponent } from './views/maker.jsx!';
@@ -26,9 +28,9 @@ export class Main {
     constructor(){
         this.routes = (
             <Route name="app" path="/" handler={MainView}>
-                <Route name="makers" handler={MakersComponent}/>
-                <Route name="makers/:maker" handler={MakerComponent}/>
-                <Route name="about" handler={AboutComponent}/>
+                <Route name="makers" path="/makers" handler={MakersComponent}/>
+                <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
+                <Route name="about" path="/about" handler={AboutComponent}/>
                 <DefaultRoute handler={IndexComponent} />
             </Route>
         )
@@ -40,28 +42,80 @@ export class Main {
 }
 
 export const MainEvents = {
-	FILTERMAKERS: "mainevents:filtermakers"
+	FILTERMAKERS: null,
+	HIDEFILTER: false
 };
+
+export const MainDefaults = {
+	BGIMAGE: "../images/bg.blur.jpg",
+}
 
 export class MainView extends React.Component {
     constructor(){
         super();
-        this.state = {};
+        this.state = {
+        	data: Data.result.length ? Data.result : this.attachDataHandler(),
+            makerData: {},
+            currentMaker: MainEvents.FILTERMAKERS
+        }
     }
 
-    render(){
-    	var name = this.context.router.getCurrentPath();
+    attachDataHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
+    }
 
-        return (
-			<div id="mobileWrap" className="mtm-wrap">
-                <HeaderComponent />
-                <NavComponent page={name} />
-                <TransitionGroup component="div" transitionName="section">
-                	<RouteHandler key={name} />
-                </TransitionGroup>
-                <FooterComponent />
-            </div>
-        )
+    handleDataUpdate(resp){
+        this.setState({
+            data: resp
+        })
+    }
+
+    componentDidMount(){
+		Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
+        	this.setState({ 
+        		currentMaker: makerId
+        	});
+        });
+
+		$.ajax({
+			url: "../lib-mobile/data/makers.json",
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({makerData: data});
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error("doh");
+			}.bind(this)
+		});
+	}
+
+    render(){
+    	var { currentMaker, data, makerData } = this.state;
+
+    	if ( !_.isEmpty(makerData) ){
+	    	var name = this.context.router.getCurrentPath();
+	    	var maker = null;
+
+	    	if ( currentMaker ){
+	    		maker = makerData[currentMaker];
+	    	}
+
+	        return (
+				<div id="mobileWrap" className="mtm-wrap">
+	                <HeaderComponent />
+	                <NavComponent page={name} />
+	                <FilterButtonComponent maker={maker} />
+	                <FilterNavComponent makerId={currentMaker} makerData={makerData} />
+	                <TransitionGroup component="div" transitionName="section">
+	                	<RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
+	                </TransitionGroup>
+	                <FooterComponent />
+	            </div>
+	        )
+	    } else {
+	    	return false;
+	    }
     }
 };
 
