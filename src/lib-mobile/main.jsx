@@ -20,6 +20,7 @@ import { FilterButtonComponent, FilterNavComponent } from './views/filter.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
 import { MakerComponent } from './views/maker.jsx!';
+import { ContentComponent } from './views/content.jsx!';
 import { AboutComponent } from './views/about.jsx!';
 import { FooterComponent } from './views/footer.jsx!';
 
@@ -30,6 +31,7 @@ export class Main {
             <Route name="app" path="/" handler={MainView}>
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
                 <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
+                <Route name="makers/:maker/:type/:guid" path="makers/:maker/:type/:guid" handler={ContentComponent}/>
                 <Route name="about" path="/about" handler={AboutComponent}/>
                 <DefaultRoute handler={IndexComponent} />
             </Route>
@@ -77,20 +79,6 @@ export class MainView extends React.Component {
         		currentMaker: makerId
         	});
         });
-
-		/*
-		$.ajax({
-			url: "../lib-mobile/data/makers.json",
-			dataType: 'json',
-			cache: false,
-			success: function(data) {
-				this.setState({makerData: data});
-			}.bind(this),
-			error: function(xhr, status, err) {
-				console.error("doh");
-			}.bind(this)
-		});
-		*/
 	}
 
     render(){
