@@ -3,7 +3,6 @@ import $ from 'jquery';
 import events from 'event-emitter';
 
 import React from 'react';
-import { StaticAssetsStore, StaticAssetsStoreEvents } from './emitters/staticAssets';
 import { Main } from './main.jsx!';
 import { PreloadComponent } from './views/preload.jsx!';
 import { Data, DataEvents } from './data/data';
@@ -20,15 +19,9 @@ export class Application {
 
 		this.appdata = new Data();
 
-		Application.pipe.on(DataEvents.CONFIG, ()=> {
-			this.staticAssetsStore = new StaticAssetsStore();
+		Application.pipe.on(DataEvents.COMPLETE, ()=> {
+			this.main = new Main();
 		});
-
-		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
-				this.main = new Main();
-		});
-		
-		React.render(React.createElement(PreloadComponent), document.body);
 
 	}
 
