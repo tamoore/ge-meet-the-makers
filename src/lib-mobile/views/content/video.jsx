@@ -44,7 +44,7 @@ export class VideoContentComponent extends React.Component {
     }
 
     processData(){
-        let data = this._data.content.filter((item)=>{
+        let data = this._data.filter((item)=>{
             return item.maker.toString() == this.props.params.maker;
         }).filter((item)=>{
             return item.guid == this.props.params.id;
@@ -55,10 +55,53 @@ export class VideoContentComponent extends React.Component {
         this.setState({
             "yturl" : ytembed,
             "standfirst": standfirst,
-            "body": marked(data[0].body),
-            "title": data[0].title
+            "body": marked(data[0].body)
         });
 
+        this.qTypeing(data[0].title, "title");
+        this.qTypeing(marked(data[0].body), "body");
+        this.doTyping();
+
+    }
+
+
+    qTypeing(text, label){
+        this.typing.push({
+           "value": text,
+           "label": label
+        });
+        var o = {};
+        o[label] = "";
+        this.setState(o);
+    }
+
+    doTyping(){
+        var index = 0;
+        var textLength = this.typing[this.typingIndex].value.length;
+
+        var typingFunc = ()=>{
+            if(index == textLength){
+                cancelAnimationFrame(this.request);
+                this.typingIndex = this.typingIndex+1;
+                if(this.typingIndex < this.typing.length){
+                    this.doTyping();
+                }
+                return;
+            }
+            if(index == 0){
+                var o = {};
+                o[this.typing[this.typingIndex].label] = this.typing[this.typingIndex].value.charAt(index);
+                this.setState(o);
+            }else{
+                var o = {};
+                o[this.typing[this.typingIndex].label] = this.state[this.typing[this.typingIndex].label] + this.typing[this.typingIndex].value.charAt(index);
+                this.setState(o);
+            }
+            index++;
+            this.request = requestAnimationFrame(_.bind(typingFunc, this));
+
+        }
+        typingFunc();
     }
 
     componentWillUnmount(){

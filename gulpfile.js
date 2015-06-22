@@ -23,6 +23,15 @@ gulp.task('styles', function() {
 	.pipe(reload({stream: true}));
 });
 
+gulp.task('styles', function() {
+	return sass('src/scss/main-mobile.scss')
+	.on('error', function (err) {
+      console.error('Error', err.message);
+   	})
+	.pipe(gulp.dest('src/css'))
+	.pipe(reload({stream: true}));
+});
+
 gulp.task('deploy-scratch', function() {
 	return gulp.src(['./'])
 		.on('end', shell.task([
@@ -41,6 +50,7 @@ gulp.task('build', ['styles'], function() {
 	gulp.src('./')
 		.pipe(shell([
 			'jspm bundle-sfx --minify src/lib/index',
+			'jspm bundle-sfx --minify src/lib-mobile/index',
 			'mv ./build.js ./build/ && mv ./build.js.map ./build/',
 			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
 		]));
@@ -53,6 +63,18 @@ gulp.task('build', ['styles'], function() {
 			},
 			'css': {
 				src: ['css/main.css']
+			}
+		}))
+	.pipe(gulp.dest('build/'));
+	
+	gulp.src('./src/index-mobile.html')
+		.pipe(htmlreplace({
+			src: './src/index-mobile.html',
+			'js': {
+				src: ['build.js']
+			},
+			'css': {
+				src: ['css/main-mobile.css']
 			}
 		}))
 	.pipe(gulp.dest('build/'));
@@ -94,6 +116,8 @@ gulp.task('serve', ['styles'], function () {
     'src/**/*.html',
     'src/lib/**/*.js',
     'src/lib/**/*.jsx',
+    'src/lib-mobile/**/*.js',
+    'src/lib-mobile/**/*.jsx',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);

@@ -102,26 +102,10 @@ export class PreviewComponent extends React.Component {
 
         var index = 0;
         var textLength = this.props.data.title.length;
+        this.setState({
+            title: this.props.data.title
+        });
 
-        var typingFunc = ()=>{
-            if(index == textLength){
-                cancelRequestAnimationFrame(this.request);
-                return;
-            }
-            if(index == 0){
-                this.setState({
-                    title: this.props.data.title.charAt(index)
-                });
-            }else{
-                this.setState({
-                    title: this.state.title + this.props.data.title.charAt(index)
-                });
-            }
-            index++;
-            this.request = requestAnimationFrame(_.bind(typingFunc, this));
-
-        }
-        typingFunc();
 
     }
 

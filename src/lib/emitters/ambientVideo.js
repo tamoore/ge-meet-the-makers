@@ -9,7 +9,9 @@ export const AmbientVideoEmitterEvent = {
     VIDEO_SRC: "ambientvideo:source"
 }
 
-export const 
+export const IntroVideoEvents = {
+
+}
 
 export class AmbientVideoEmitter {
     constructor(){
@@ -71,3 +73,9 @@ export class AmbientVideoEmitter {
 }
 
 
+export class IntroVideo extends AmbientVideoEmitter {
+    constructor(){
+        super();
+        this.srcURL = "";
+    }
+}
