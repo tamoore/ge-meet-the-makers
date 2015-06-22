@@ -618,6 +618,11 @@ a.link-wide {
 			font-size: 1.2rem;
 			margin: 0 0 0 1rem;
 		}
+
+		a {
+			display: flex;
+			flex: 2 1 auto;
+		}
 	}
 
 	.timeline-content-quote {
@@ -664,6 +669,7 @@ a.link-wide {
 			&.mask-skew {
 				overflow: hidden;
 				transform: skewX(-2deg);
+				max-height: 269px;
 
 				img {
 					transform: skewX(2deg) translateX(-2.5%);
@@ -694,6 +700,15 @@ a.link-wide {
 
 		h2 {
 			margin: 0 0 0 1rem;
+		}
+	}
+
+	a {
+		color: #fff;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
 		}
 	}
 }

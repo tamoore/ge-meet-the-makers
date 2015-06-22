@@ -63,7 +63,7 @@ export class TimelineItemComponent extends React.Component {
     	var minute = data.metadata.timeline.minute.toString().length > 1 ? data.metadata.timeline.minute : "0"+data.metadata.timeline.minute;
 
         return (
-        	<li key={key} className="timeline-list-marker">
+        	<li key={key} className="timeline-list-marker" data-maker={maker.id}>
 				<header className="maker-details timeline-marker-meta">
 					<i className={"icon-industry icon-industry-"+maker.furniture.icon}></i>
 					<time>{hour}:{minute}</time>
@@ -76,14 +76,16 @@ export class TimelineItemComponent extends React.Component {
 					</a>
 				</header>
 				<div className="timeline-content-preview">
-					<a href={"#/"+maker.maker+"/"+data.type+"/"+data.guid}>
+					<a href={"#/makers/"+maker.slug+"/"+data.type+"/"+data.guid}>
 						<div className="preview-media mask-skew">
 							<img src={maker.furniture.makerImg} alt={data.title} />
 						</div>
+					</a>
 						<div className="timeline-content-meta">
 							<i className={"icon-content-type icon-content-"+data.type}></i>
 							<span className="label-content-type">{data.type}</span>
 						</div>
+					<a href={"#/makers/"+maker.slug+"/"+data.type+"/"+data.guid}>
 						<h2 className="title">{data.title}</h2>
 					</a>
 				</div>

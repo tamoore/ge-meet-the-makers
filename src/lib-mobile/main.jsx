@@ -54,8 +54,8 @@ export class MainView extends React.Component {
     constructor(){
         super();
         this.state = {
-        	data: Data.result.length ? Data.result : this.attachDataHandler(),
-            makerData: {},
+        	data: Data.result.content.length ? Data.result.content : this.attachDataHandler(),
+            makerData: _.size(Data.result.makers) ? Data.result.makers : this.attachDataHandler(),
             currentMaker: MainEvents.FILTERMAKERS
         }
     }
@@ -66,7 +66,8 @@ export class MainView extends React.Component {
 
     handleDataUpdate(resp){
         this.setState({
-            data: resp
+            data: resp.content,
+            makerData: resp.makers
         })
     }
 
@@ -77,6 +78,7 @@ export class MainView extends React.Component {
         	});
         });
 
+		/*
 		$.ajax({
 			url: "../lib-mobile/data/makers.json",
 			dataType: 'json',
@@ -88,6 +90,7 @@ export class MainView extends React.Component {
 				console.error("doh");
 			}.bind(this)
 		});
+		*/
 	}
 
     render(){
