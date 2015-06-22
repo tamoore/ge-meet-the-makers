@@ -81,6 +81,9 @@ export class ClockView extends ClockBase {
         var	minutes = this.now.getMinutes();
 
         this.state = {
+            styles: {
+                opacity: 0
+            }
         }
 
         /**
@@ -132,7 +135,13 @@ export class ClockView extends ClockBase {
         Application.pipe.emit(TimelineEvents.PANEND, ClockView.hour);
         Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
         Application.pipe.emit(TimelineEvents.GET_IMAGE);
-
+        setTimeout(()=>{
+            this.setState({
+                styles: {
+                    opacity: 1
+                }
+            })
+        }, 1500)
 
     }
 
@@ -190,7 +199,7 @@ export class ClockView extends ClockBase {
 
     render(){
         return (
-            <div className="chrono">
+            <div className="chrono" style={this.state.styles}>
                 <div className="chrono-clock">
                     <HandHourComponent rotation={this.state.hourRotation} />
                     <HandMinuteComponent rotation={this.state.minuteRotation} />

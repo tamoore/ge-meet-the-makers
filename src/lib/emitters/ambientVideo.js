@@ -10,21 +10,24 @@ export const AmbientVideoEmitterEvent = {
 }
 
 export const IntroVideoEvents = {
-
+    PLAYING: "introvideo:playing",
+    COMPLETE: "introvideo:complete"
 }
 
 export class AmbientVideoEmitter {
     constructor(){
         this.config = Data.config;
         this._createVideoAndEvents();
-        Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
+
     }
     _createVideoAndEvents(){
+        Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
         this.el = document.createElement('video');
         this.el.addEventListener("error", _.bind(this.handleVideoError, this));
         this.el.addEventListener("abort", _.bind(this.handleVideoAbort, this));
         this.el.addEventListener("loadeddata", _.bind(this.handleLoadedData, this));
         this.el.addEventListener("play", _.bind(this.handlePlayingVideo, this));
+        this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
         this.el.volume = 0;
         this.el.style.visibility = "visible";
         this.el.controls = false;
@@ -42,6 +45,10 @@ export class AmbientVideoEmitter {
        // console.log(event);
     }
 
+    handleVideoEnd(event){
+
+    }
+
     handleVideoAbort(event) {
        // console.log(event);
     }
@@ -51,11 +58,12 @@ export class AmbientVideoEmitter {
     }
 
     getAmbientVideoSrc(makerid, videoid){
-        return this.config.cdnProtocol +
-            "://" + this.config.cdnHost +
-            "/" + this.config.cdnBucket +
-            this.config.videosPrefix +
-            this.config.makerAmbientPrefix
+        let config = Data.config;
+        return config.cdnProtocol +
+            "://" + config.cdnHost +
+            "/" + config.cdnBucket +
+            config.videosPrefix +
+            config.makerAmbientPrefix
             + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
     }
 
@@ -67,15 +75,53 @@ export class AmbientVideoEmitter {
 
     handleVideoSrc(makerid, id){
         this.currentVideo = this.play(this.getAmbientVideoSrc(makerid, id));
-
     }
+
 
 }
 
-
-export class IntroVideo extends AmbientVideoEmitter {
+export class IntroVideo {
     constructor(){
-        super();
-        this.srcURL = "";
+        this.srcURL = "https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/videos/introvideo.mp4";
+        this._createVideoAndEvents();
+        this.el.loop = false;
+        this.el.volume = 1;
+        this.currentVideo = this.play(this.srcURL);
     }
+
+    _createVideoAndEvents(){
+        this.el = document.createElement('video');
+        this.el.addEventListener("play", _.bind(this.handlePlayingVideo, this));
+        this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
+        this.el.volume = 0;
+        this.el.style.visibility = "visible";
+        this.el.controls = false;
+        this.el.autoplay = true;
+        this.el.loop = true;
+        this.el.width = 1920;
+        this.el.height = 1080;
+    }
+
+    play(url){
+        this.el.src = url;
+        this.el.play();
+        return this.el;
+    }
+
+    handlePlayingVideo(){
+        Application.pipe.emit(IntroVideoEvents.PLAYING, this.currentVideo);
+    }
+
+    handleVideoEnd(event){
+        Application.pipe.emit(IntroVideoEvents.COMPLETE);
+    }
+
+    kill(){
+        this.el.remove();
+        this.currentVideo = undefined;
+        this.handlePlayingVideo = function(){ return false; }
+    }
+
+
+
 }

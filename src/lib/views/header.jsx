@@ -20,12 +20,25 @@ export class HeaderComponent extends React.Component {
         this.state = {
             index: false,
             hide: false,
-            makerId: null
+            makerId: null,
+            styles: {
+                opacity: 0
+            }
         };
         this.showMakers = _.bind(this.showMakers, this);
         this.handleClick = _.bind(this.handleClick, this);
 
         Application.pipe.on(IndexEvents.ACTIVE, _.bind(this.handleIndexActive, this));
+    }
+
+    componentDidMount(){
+        setTimeout(()=>{
+            this.setState({
+                styles: {
+                    opacity: 1
+                }
+            })
+        },MainEvents.timeLinetimeout);
     }
 
     handleIndexActive(value){
@@ -39,8 +52,6 @@ export class HeaderComponent extends React.Component {
     }
 
     handleClick(event){
-    	console.log(event);
-    	console.log(event.target.getAttribute("rel"));
         let makerId = event.target.getAttribute("rel");
         this.state.makerId == makerId ? makerId = null : false;
         this.setState({
@@ -56,7 +67,7 @@ export class HeaderComponent extends React.Component {
 
 
         return (
-            <header className="masthead" data-active-maker={this.state.makerId} data-hide={hide}>
+            <header className="masthead" data-active-maker={this.state.makerId} data-hide={hide} style={this.state.styles}>
                     <h1 onClick={this.showMakers}>
                         Meet The<br /> Makers
                     </h1>

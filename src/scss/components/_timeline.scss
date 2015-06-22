@@ -1,4 +1,8 @@
 // Timeline
+#stateContainer {
+  @include transition(opacity 1s ease-in);
+}
+
 .timeline {
   $markerLineBaseLine:  10px;
   cursor: pointer;

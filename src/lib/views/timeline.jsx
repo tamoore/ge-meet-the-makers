@@ -26,6 +26,7 @@ import { VideosContentComponent } from './content/video.jsx!';
 import { DataEvents, Data } from '../data/data';
 import { PreviewComponent } from './timelinePreview.jsx!';
 
+
 /**
  * Utils
  */
@@ -78,7 +79,10 @@ export class TimelineBackgroundComponent extends React.Component {
     constructor(){
         super();
         this.state = {
-            currentMaker: 1
+            currentMaker: Math.ceil(Math.random() * (6 - 1) + 1),
+            styles: {
+                "opacity": 0
+            }
         }
         /**
          * Holds a reference for all the containers added to the stage
@@ -90,8 +94,12 @@ export class TimelineBackgroundComponent extends React.Component {
          * Holds a reference to the current imageid
          */
         this.currentImageId;
+        this.assignEvents();
 
 
+    }
+
+    assignEvents(){
         /**
          * Piping dispatcher listeners, receives various events from the asset managers
          */
@@ -107,58 +115,16 @@ export class TimelineBackgroundComponent extends React.Component {
         });
 
         Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
-            if(makerId) {
-                clearTimeout(this.cycleMakersTimer);
-                this.filtered = true;
-                this.cycling = false;
+            if(makerId){
                 this.setState({currentMaker: makerId});
-                setTimeout(()=> {
-                    Application.pipe.emit(TimelineEvents.PANEND);
-                }, 1)
-            }else{
-                clearTimeout(this.cycleMakersTimer);
-                this.filtered = false;
-                this.cycleMakers();
+                setTimeout(()=>{
+                    this.handleTimeLinePan();
+                    this.handleTimeLinePanEnd();
+                }, 0)
             }
         });
-
-        Application.pipe.on(TimelineEvents.PAUSECYCLE, ()=>{
-           if(this.cycling){
-               this.cycling = false;
-           }else{
-               this.cycling = true;
-           }
-        });
-
-        //this.cycleMakers();
-
-
     }
-    cycleMakers(){
-        this.cycling = true;
-        this.cycleMakersTimer = setTimeout(()=>{
-            if(!this.cycling) return;
-            if(this.state.currentMaker < 6){
-                this.setState({
-                    currentMaker: parseInt(this.state.currentMaker)+1
-                })
-            }else{
-                this.setState({
-                    currentMaker: 1
-                });
-            }
 
-            setTimeout(()=> {
-                Application.pipe.emit(TimelineEvents.GET_IMAGE);
-            }, 1);
-
-            setTimeout(()=>{
-                Application.pipe.emit(TimelineEvents.PANEND);
-            }, 2000);
-
-            this.cycleMakers();
-        }, 15000);
-    }
 
     /**
      * Applys a blur filter if @blur is set to true
@@ -230,6 +196,11 @@ export class TimelineBackgroundComponent extends React.Component {
      */
     componentDidMount(){
         this.stage = new createjs.Stage(React.findDOMNode(this.refs.Stage));
+        this.setState({
+            styles: {
+                opacity: 1
+            }
+        });
         createjs.Ticker.setFPS(32);
         createjs.Ticker.addEventListener("tick", this.stage);
         return false;
@@ -278,8 +249,6 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {boolean}
      */
     handleTimeLinePan(offset, imageid){
-        clearTimeout(this.cycleMakersTimer);
-        this.cycling = false;
         if(!ClockView.hour) return;
         this.currentImageId = ClockView.hour;
         return this.getImageFromStaticStore();
@@ -291,13 +260,9 @@ export class TimelineBackgroundComponent extends React.Component {
      * @return boolean
      */
     handleTimeLinePanEnd(imageid) {
-        if(imageid){
-            if(!this.filtered){
-                this.cycleMakers();
-            }
-        }
         if(!ClockView.hour) return;
         this.getImageFromStaticStore();
+        console.log(ClockView.hour);
         Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '0'+this.state.currentMaker, ClockView.hour);
         return false;
     }
@@ -317,7 +282,7 @@ export class TimelineBackgroundComponent extends React.Component {
      */
     render(){
         return (
-            <div>
+            <div style={this.state.styles}>
                 <div className="bg-filter"></div>
                 <canvas ref="Stage" id="ambientvideos" width="1280" height="720" className="bg"></canvas>
             </div>
@@ -336,7 +301,7 @@ export class TimelineBackgroundComponent extends React.Component {
         this.stage.addChild(image);
         setTimeout(()=>{
             this.stage.update();
-        },1)
+        },0)
 
         this.cache();
         return false;
@@ -583,7 +548,10 @@ export class TimelineComponent extends React.Component {
             offset: TimelineComponent.clockPosition,
             imageid: TimelineComponent.currentImage,
             data: Data.result ? Data.result.content : this.attachDataHandler(),
-            currentMaker: null
+            currentMaker: null,
+            styles:{
+                "opacity": 0
+            }
         };
 
         /**
@@ -686,8 +654,25 @@ export class TimelineComponent extends React.Component {
         Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{ this.setState({ currentMaker: makerId }) });
         Application.pipe.on(TimelineEvents.ADDPREVIEW, _.bind(this.handleAddingPreview, this));
         Application.pipe.on(TimelineEvents.REMOVEPREVIEW, _.bind(this.handleAddingPreview, this));
+        setTimeout(()=>{
+            this.setState({
+                styles: {
+                    opacity: 1
+                }
+            })
+        }, MainEvents.timeLinetimeout || 0);
+        MainEvents.timeLinetimeout = 0;
         this.applyEvents();
     }
+
+    componentWillUnmount(){
+        this.setState({
+            styles: {
+                opacity: 0
+            }
+        })
+    }
+
 
     handleAddingPreview(clientX, clientY, data){
         this.setState({
@@ -761,10 +746,11 @@ export class TimelineComponent extends React.Component {
      * @returns {XML}
      */
     render(){
+
         var className = this.state.currentMaker ? "maker-"+this.state.currentMaker : "";
         return (
                 <div>
-                    <div id="stateContainer" key='timelineParentWRapper' className={className}>
+                    <div id="stateContainer" key='timelineParentWRapper' className={className} style={this.state.styles}>
                         <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
                             {this.state.preview}
                             <TimelineListView offset={this.state.offset} data={this.state.data} key='timelineListView'  />

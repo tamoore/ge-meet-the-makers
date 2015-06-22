@@ -77,6 +77,7 @@ export class MainView extends React.Component {
 
     render(){
         var name = this.context.router.getCurrentPath();
+
         return (
             <div ref="Main">
                 <div className="meet-the-makers-wrapper" data-active={this.state.mainPanelKlass}>

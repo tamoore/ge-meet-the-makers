@@ -2,17 +2,33 @@
  * View for the footer
  */
 import { Application } from '../index';
+import { MainEvents } from '../main.jsx!';
 
 import React from 'react';
 
 export class FooterComponent extends React.Component {
     constructor(){
         super();
+        this.state = {
+            styles: {
+                "opacity": 0
+            }
+        }
+    }
+
+    componentDidMount(){
+        setTimeout(()=>{
+            this.setState({
+                styles: {
+                    opacity: 1
+                }
+            })
+        }, MainEvents.footerTimeout || 0);
     }
 
     render(){
         return (
-            <footer className="base">
+            <footer className="base" style={this.state.styles}>
                 <div className="sponsor">
                     <p>Brought to you by</p>
                     <img className="logo-ge" src="images/logo.ge.svg" alt="GE" />

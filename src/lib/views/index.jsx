@@ -18,7 +18,7 @@ export class IndexComponent extends React.Component {
         super();
         this.state = {
             className: "timeline-circle",
-            data: Data.result.length ? Data.result : this.attachDataHandler()
+            data: Data.result.content.length ? Data.result.content : this.attachDataHandler()
         }
 
         key('esc', ()=>{
@@ -46,8 +46,7 @@ export class IndexComponent extends React.Component {
         setTimeout(()=>{
             this.setState({
                 "className": "timeline-circle animate"
-            })
-
+            });
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
         },500);
         setTimeout(()=>{
