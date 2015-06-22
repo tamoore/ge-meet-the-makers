@@ -78,6 +78,7 @@ export const TimelineProps = {
 export class TimelineBackgroundComponent extends React.Component {
     constructor(){
         super();
+        //Math.ceil(Math.random() * (6 - 1) + 1)
         this.state = {
             currentMaker: Math.ceil(Math.random() * (6 - 1) + 1),
             styles: {

@@ -23,7 +23,7 @@ export class IntroVideoComponent extends TimelineBackgroundComponent {
     }
 
     componentWillMount(){
-        MainEvents.timeLinetimeout = 3000;
+        MainEvents.timeLinetimeout = 3500;
         MainEvents.footerTimeout = 3500;
     }
 

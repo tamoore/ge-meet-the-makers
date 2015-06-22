@@ -56,21 +56,30 @@
 		top: 0;
 		width: 100%;
 		z-index: 0;
+
 		// PANEL BACKGROUNDS
-		&.maker-fletcher {
-			background-image: url(../images/makers/bg.adam.fletcher.jpg);
+		&.maker-01 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-01.jpg);
 		}
 
-		&.maker-miner {
-			background-image: url(../images/makers/bg.miner.jpg);
+		&.maker-02 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-02.jpg);
 		}
 
-		&.maker-spaceman {
-			background-image: url(../images/makers/bg.spaceman.jpg);
+		&.maker-03 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-03.jpg);
 		}
 
-		&.maker-winch {
-			background-image: url(../images/makers/bg.winch.jpg);
+		&.maker-04 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-04.jpg);
+		}
+
+		&.maker-05 {
+		  background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-05.jpg);
+		}
+
+		&.maker-06 {
+		  background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-06.jpg);
 		}
 	}
 

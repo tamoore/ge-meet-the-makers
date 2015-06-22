@@ -63,7 +63,7 @@ export class MeetTheMakersComponent extends React.Component {
                 <div id="makerPanels" className="makers meet-the-makers-component">
 
                     <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-fletcher"></div>
+                        <div className="maker-panel-background maker-01"></div>
 
                         <header>
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
@@ -80,7 +80,7 @@ export class MeetTheMakersComponent extends React.Component {
                     </section>
 
                     <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-winch"></div>
+                        <div className="maker-panel-background maker-02"></div>
 
                         <header>
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
@@ -97,7 +97,7 @@ export class MeetTheMakersComponent extends React.Component {
                     </section>
 
                     <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-miner"></div>
+                        <div className="maker-panel-background maker-03"></div>
 
                         <header>
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
@@ -114,7 +114,7 @@ export class MeetTheMakersComponent extends React.Component {
                     </section>
 
                     <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background"></div>
+                        <div className="maker-panel-background maker-04"></div>
 
                         <header>
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
@@ -131,7 +131,7 @@ export class MeetTheMakersComponent extends React.Component {
                     </section>
 
                     <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-spaceman"></div>
+                        <div className="maker-panel-background maker-05"></div>
 
                         <header>
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
@@ -148,7 +148,7 @@ export class MeetTheMakersComponent extends React.Component {
                     </section>
 
                     <section className="maker-panel" data-state="init">
-                            <div className="maker-panel-background"></div>
+                            <div className="maker-panel-background maker-06"></div>
 
                             <header>
                                 <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />

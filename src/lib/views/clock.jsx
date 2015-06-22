@@ -141,7 +141,7 @@ export class ClockView extends ClockBase {
                     opacity: 1
                 }
             })
-        }, 1500)
+        }, 750)
 
     }
 

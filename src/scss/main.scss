@@ -28,6 +28,9 @@
   position: absolute;
   left: 0;
   top: 0px;
+  z-index: 2;
 
 }
-
+#introVideo {
+	z-index: 1;
+}

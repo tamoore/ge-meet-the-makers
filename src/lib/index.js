@@ -37,6 +37,7 @@ export class Application {
 
 		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 			this.staticAssetsStoreComplete = true;
+			document.body.setAttribute("data-loading", "false");
 			if(this.introVideoComplete){
 				this.unmountCom();
 				this.main = new Main();
