@@ -100,7 +100,7 @@ gulp.task('build-mobile', function(){
 		.pipe(htmlreplace({
 			src: './src/index-mobile.html',
 			'js': {
-				src: ['build.js']
+				src: ['build.js', 'static/static-scripts.js']
 			},
 			'css': {
 				src: ['css/main-mobile.css']

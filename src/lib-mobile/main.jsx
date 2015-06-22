@@ -49,7 +49,7 @@ export const MainEvents = {
 };
 
 export const MainDefaults = {
-	BGIMAGE: "../images/bg.blur.jpg",
+	BGIMAGE: "images/bg.blur.jpg",
 }
 
 export class MainView extends React.Component {

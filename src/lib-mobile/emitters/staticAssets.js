@@ -19,9 +19,26 @@ export const StaticAssetsStoreEvents = {
 
 export class StaticAssetsStore  {
     constructor(){
-
         this.config = Data.config;
-        this.assets = [];
+
+		var path = "http://labs.theguardian.com/meet-the-makers/development/mobile/build/";
+
+        this.assets = [
+        	path+"images/icon.healthcare.svg",
+        	path+"images/icon.space.svg",
+        	path+"images/icon.train.svg",
+        	path+"images/icon.factory.svg",
+        	path+"images/icon.petrol.svg",
+        	path+"images/icon.healthcare.svg",
+        	path+"images/icon.solar.svg",
+        	path+"images/icon.video.svg",
+        	path+"images/icon.infographic.svg",
+        	path+"images/icon.map.svg",
+        	path+"images/icon.longform.svg",
+        	path+"images/bg.blur.jpg",
+        	path+"images/logo.ge.svg",
+        	path+"images/logo.guardian.svg"
+        ];
         this.progress = 0;
 
         // Preload the static assets
@@ -33,7 +50,6 @@ export class StaticAssetsStore  {
 
         Application.pipe.on(StaticAssetsStoreEvents.GET_RESULT, _.bind(this.getResult, this))
 
-        this.generateAssetsTokens();
         this.fetchAssets();
     }
 
@@ -50,40 +66,15 @@ export class StaticAssetsStore  {
         Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
     }
 
-    processType(makerprefix, assetprefix, makercount, assetcount){
-        this.config.makerAmbientTypes.forEach((type)=>{
-            this.assets.push({
-                "id": "maker"+makerprefix+makercount+"_"+assetprefix+assetcount+"_"+type,
-                "type": type,
-                "filename" : this.config.cdnProtocol + "://" + this.config.cdnHost + "/" + this.config.cdnBucket +
-                (type === "jpg" ? this.config.imagesPrefix : this.config.videosPrefix)
-                + this.config.makerAmbientPrefix + makerprefix+makercount +'_'+assetprefix+assetcount+'.'+type });
-        });
-    }
-
     getResult(id){
         Application.pipe.emit(StaticAssetsStoreEvents.SEND_RESULT, this.preload.getResult(id));
     }
 
-    generateAssetsTokens(){
-        for(var makercount = 1; makercount <= this.config.makercount; makercount++){
-            for(var assetcount=1; assetcount <= this.config.ambientcount; assetcount++){
-                if(assetcount < 10){
-                    this.processType('0', '0', makercount, assetcount);
-
-                }else{
-                    this.processType('0','', makercount, assetcount);
-                }
-            }
-        }
-    }
-
     fetchAssets(){
-        let jpgs = this.assets.filter((item)=>{
-            return item.type == "jpg";
-        });
-        jpgs.forEach((item)=>{
-            this.preload.loadFile({id: item.id, src: item.filename, crossOrigin: true });
+    	var i = 0;
+        this.assets.forEach((item)=>{
+            this.preload.loadFile({id: i, src: item, crossOrigin: true });
+            i++;
         });
     }
 }
