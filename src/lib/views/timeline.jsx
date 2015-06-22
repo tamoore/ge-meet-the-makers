@@ -582,7 +582,7 @@ export class TimelineComponent extends React.Component {
         this.state = {
             offset: TimelineComponent.clockPosition,
             imageid: TimelineComponent.currentImage,
-            data: Data.result ? Data.result : this.attachDataHandler(),
+            data: Data.result ? Data.result.content : this.attachDataHandler(),
             currentMaker: null
         };
 
@@ -716,7 +716,7 @@ export class TimelineComponent extends React.Component {
 
     handleDataUpdate(resp){
         this.setState({
-            data: resp
+            data: resp.content
         })
     }
 
