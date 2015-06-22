@@ -23,7 +23,7 @@ gulp.task('styles', function() {
 	.pipe(reload({stream: true}));
 });
 
-gulp.task('styles', function() {
+gulp.task('styles-mobile', function() {
 	return sass('src/scss/main-mobile.scss')
 	.on('error', function (err) {
       console.error('Error', err.message);
@@ -138,7 +138,7 @@ gulp.task('serve', ['styles'], function () {
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
-  gulp.watch('src/scss/**/*.scss', ['styles']);
+  gulp.watch('src/scss/**/*.scss', ['styles', 'styles-mobile']);
 });
 
 
