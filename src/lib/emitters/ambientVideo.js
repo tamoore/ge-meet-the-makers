@@ -9,10 +9,15 @@ export const AmbientVideoEmitterEvent = {
     VIDEO_SRC: "ambientvideo:source"
 }
 
+export const 
+
 export class AmbientVideoEmitter {
     constructor(){
         this.config = Data.config;
-
+        this._createVideoAndEvents();
+        Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
+    }
+    _createVideoAndEvents(){
         this.el = document.createElement('video');
         this.el.addEventListener("error", _.bind(this.handleVideoError, this));
         this.el.addEventListener("abort", _.bind(this.handleVideoAbort, this));
@@ -25,7 +30,6 @@ export class AmbientVideoEmitter {
         this.el.loop = true;
         this.el.width = 1920;
         this.el.height = 1080;
-        Application.pipe.on(AmbientVideoEmitterEvent.VIDEO_SRC, _.bind(this.handleVideoSrc, this))
     }
 
     handlePlayingVideo(){
