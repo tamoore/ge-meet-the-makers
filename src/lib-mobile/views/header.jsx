@@ -22,13 +22,13 @@ export class HeaderComponent extends React.Component {
 				<div className="row">
 					<div className="sponsor">
 						<p>Brought<br />to you by</p>
-						<img className="logo-ge" src="../images/logo.ge.svg" alt="GE" />
+						<img className="logo-ge" src="images/logo.ge.svg" alt="GE" />
 					</div>
 					<a id="menuTrigger" className="menu-trigger"><i>Menu</i></a>
 				</div>
 				<ul className="meta-links">
 					<li><a>About this content</a></li>
-					<li><a><img className="logo-guardian" src="../images/logo.guardian.svg" alt="The Guardian" /></a></li>
+					<li><a><img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" /></a></li>
 				</ul>
 			</header>
         )
