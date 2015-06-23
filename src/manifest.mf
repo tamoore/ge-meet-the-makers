@@ -1,4 +1,7 @@
 CACHE MANIFEST
+NETWORK:
+*
+
 CACHE:
 http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker01_01.jpg
 http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker01_02.jpg
@@ -145,5 +148,3 @@ http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker06_22.jpg
 http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker06_23.jpg
 http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker06_24.jpg
 
-NETWORK:
-*
