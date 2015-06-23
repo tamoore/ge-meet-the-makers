@@ -80,7 +80,7 @@ export class TimelineBackgroundComponent extends React.Component {
         super();
         //Math.ceil(Math.random() * (6 - 1) + 1)
         this.state = {
-            currentMaker: Math.ceil(Math.random() * (6 - 1) + 1),
+            currentMaker: Application.maker,
             styles: {
                 "opacity": 0
             }
@@ -171,8 +171,8 @@ export class TimelineBackgroundComponent extends React.Component {
             img = this.applyBlurFilter(img);
         }
         img = this.applyFade(img);
-        img.scaleX = .666666;
-        img.scaleY = .666666;
+        img.scaleX = 2.666666;
+        img.scaleY = 2.666666;
 
         this.stageUpdate( img );
 

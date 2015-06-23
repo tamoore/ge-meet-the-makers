@@ -58,7 +58,8 @@ gulp.task('build', ['styles'], function() {
 		.pipe(shell([
 			'jspm bundle-sfx --minify src/lib/index',
 			'mv ./build.js ./build/ && mv ./build.js.map ./build/',
-			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
+			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/',
+			'cp ./src/manifest.mf ./build'
 		]));
 
 	gulp.src('./src/index.html')
@@ -107,6 +108,14 @@ gulp.task('build-mobile', function(){
 			}
 		}))
 	.pipe(gulp.dest('build/'));
+});
+
+gulp.task('print-images', function() {
+	for (var makercount = 1; makercount <= 6; makercount++) {
+		for (var assetcount = 1; assetcount <= 24; assetcount++) {
+			console.log('http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker0' + makercount + '_' + (assetcount < 10 ? '0' : '') + assetcount + '.jpg')
+		}
+	}
 });
 
 // Run development server environmnet

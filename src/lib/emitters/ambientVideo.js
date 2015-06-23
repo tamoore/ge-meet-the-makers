@@ -64,7 +64,7 @@ export class AmbientVideoEmitter {
             "/" + config.cdnBucket +
             config.videosPrefix +
             config.makerAmbientPrefix
-            + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
+            + makerid + '_' + videoid + '.mp4';
     }
 
     play(url){
@@ -85,7 +85,6 @@ export class IntroVideo {
         this.srcURL = "https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/videos/introvideo.mp4";
         this._createVideoAndEvents();
         this.el.loop = false;
-        this.el.volume = 1;
         this.currentVideo = this.play(this.srcURL);
     }
 
@@ -93,9 +92,8 @@ export class IntroVideo {
         this.el = document.createElement('video');
         this.el.addEventListener("play", _.bind(this.handlePlayingVideo, this));
         this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
-        this.el.volume = 0;
         this.el.style.visibility = "visible";
-        this.el.controls = false;
+        this.el.controls = true;
         this.el.autoplay = true;
         this.el.loop = true;
         this.el.width = 1920;

@@ -19,10 +19,11 @@ export const StaticAssetsStoreEvents = {
 
 export class StaticAssetsStore  {
     constructor(){
-
+        this.maker = Application.maker;
         this.config = Data.config;
         this.assets = [];
         this.progress = 0;
+        this.index = 0;
 
         // Preload the static assets
         this.preload = new createjs.LoadQueue();
@@ -34,7 +35,7 @@ export class StaticAssetsStore  {
         Application.pipe.on(StaticAssetsStoreEvents.GET_RESULT, _.bind(this.getResult, this))
 
         this.generateAssetsTokens();
-        this.fetchAssets();
+        this.fetchMakerAssets();
     }
 
     handleFileLoad(event){
@@ -47,12 +48,24 @@ export class StaticAssetsStore  {
     }
 
     handleCompleteProgress(event){
+        //if(this.initialAssets){
+        //    Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
+        //}
         Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
+        this.initialAssets = false;
+        //this.index = this.index+1;
+        //if(this.index < this.config.makercount){
+        //    this.fetchMakerAssets(this.index);
+        //}
+
+
+
     }
 
     processType(makerprefix, assetprefix, makercount, assetcount){
         this.config.makerAmbientTypes.forEach((type)=>{
             this.assets.push({
+                "maker": makercount,
                 "id": "maker"+makerprefix+makercount+"_"+assetprefix+assetcount+"_"+type,
                 "type": type,
                 "filename" : this.config.cdnProtocol + "://" + this.config.cdnHost + "/" + this.config.cdnBucket +
@@ -78,12 +91,24 @@ export class StaticAssetsStore  {
         }
     }
 
-    fetchAssets(){
+    fetchInitialAssets(){
+        let jpgs = this.assets.filter((item)=>{
+            return item.type == "jpg" && item.maker == Application.maker;
+        });
+        jpgs.forEach((item)=>{
+            this.preload.loadFile({id: item.id, src: item.filename, crossOrigin: true });
+        });
+        this.initialAssets = true;
+    }
+
+    fetchMakerAssets(maker){
         let jpgs = this.assets.filter((item)=>{
             return item.type == "jpg";
         });
         jpgs.forEach((item)=>{
             this.preload.loadFile({id: item.id, src: item.filename, crossOrigin: true });
         });
+
     }
+
 }

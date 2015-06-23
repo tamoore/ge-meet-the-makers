@@ -29,6 +29,7 @@ export class Application {
 
 		Application.pipe.on(IntroVideoEvents.COMPLETE, ()=>{
 			this.introVideoComplete = true;
+			React.unmountComponentAtNode(document.getElementById('introVideo'));
 			if(this.staticAssetsStoreComplete){
 				this.unmountCom();
 				this.main = new Main();
@@ -39,7 +40,6 @@ export class Application {
 			this.staticAssetsStoreComplete = true;
 			document.body.setAttribute("data-loading", "false");
 			if(this.introVideoComplete){
-				this.unmountCom();
 				this.main = new Main();
 			}
 		});
@@ -58,11 +58,11 @@ export class Application {
 
 	unmountCom(){
 		React.unmountComponentAtNode(document.getElementById('introVideo'));
-		React.unmountComponentAtNode(document.getElementById('preload'));
+
 	}
 }
 Application.pipe = events(this);
-
+Application.maker = Math.ceil(Math.random() * (6 - 1) + 1);
 
 $(()=>{
 	new Application();
