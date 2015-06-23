@@ -8,7 +8,7 @@
   opacity: 1;
   @include transition(opacity .5s ease-in);
   &[data-hide="hidden"]{
-    opacity: 0.01;
+    opacity: 0.01 !important;
     pointer-events: none;
 
   }

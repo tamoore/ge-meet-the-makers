@@ -221,7 +221,7 @@
 			}
 		}
 
-		.maker-bio {
+		.content {
 			display: block;
 			left: 35rem;
 			position: absolute;
@@ -267,9 +267,9 @@
 			}
 		}
 
-		.maker-panel-background {
-			@include filter(blur(5px));
-			position: fixed;
-		}
+		//.maker-panel-background {
+		//	@include filter(blur(5px));
+		//	position: fixed;
+		//}
 	}
 }

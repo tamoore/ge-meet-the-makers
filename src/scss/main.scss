@@ -1,4 +1,5 @@
 @import '../../bower_components/bourbon/app/assets/stylesheets/_bourbon';
+@import './vendor/gemini-scrollbar';
 @import '../../bower_components/neat/app/assets/stylesheets/_neat';
 @import '../../bower_components/sass-mq/_mq';
 
@@ -13,6 +14,7 @@
 @import "components/video-content-component";
 @import "components/mobile";
 @import "components/preview";
+@import "components/content-posts";
 
 @import "utils/transitions";
 
