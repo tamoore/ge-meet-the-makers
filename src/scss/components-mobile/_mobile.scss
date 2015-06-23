@@ -57,8 +57,6 @@ body {
 
 // Full-width links
 a.link-wide {
-	border: 1px solid #b2b2b2;
-	border-width: 1px 0;
 	clear: both;
 	color: #fff;
 	display: block;
@@ -81,9 +79,9 @@ a.link-wide {
 // Titles
 .title {
 	font-family: Abel, sans-serif;
-	font-size: 2.5rem;
+	font-size: 3.3rem;
 	font-weight: 300;
-	line-height: 1.35;
+	line-height: 1.15;
 	text-transform: uppercase;
 }
 
@@ -191,6 +189,8 @@ a.link-wide {
 	pointer-events: none;
 	position: fixed;
 	top: 0;
+	-webkit-transform: translateX(100%);
+	-webkit-transition: background .1s linear;
 	transform: translateX(100%);
 	transition: background .1s linear;
 	width: 100%;
@@ -198,6 +198,8 @@ a.link-wide {
 	li {
 		margin: 0 .9rem 1.5rem 0;
 		text-align: right;
+		-webkit-transform: translateX(100%);
+		-webkit-transition: transform .25s linear;
 		transform: translateX(100%);
 		transition: transform .25s linear;
 	}
@@ -206,10 +208,12 @@ a.link-wide {
 		background: rgba(0,0,0,.2);
 		opacity: 1;
 		pointer-events: auto;
+		-webkit-transform: translateX(0);
 		transform: translateX(0);
 		z-index: 6;
 
 		li {
+			-webkit-transform: translateX(0);
 			transform: translateX(0);
 		}
 	}
@@ -256,11 +260,14 @@ a.link-wide {
 	position: fixed;
 	right: 0;
 	top: 0;
+	-webkit-transform: translateX(100%);
+	-webkit-transition: transform .5s ease-in-out;
 	transform: translateX(100%);
 	transition: transform .5s ease-in-out;
 	z-index: 10;
 
 	&.menu-slide {
+		-webkit-transform: translateX(0);
 		transform: translateX(0);
 	}
 
@@ -339,12 +346,14 @@ a.link-wide {
 		flex: 2 1 auto;
 		padding: 1.6rem 1.6rem 1.6rem 2.6rem;
 		position: relative;
+		-webkit-transform: skew(-5deg) translateX(-1rem);
 		transform: skew(-5deg) translateX(-1rem);
 
 		p {
 			float: left;
 			margin: 0;
 			padding: 0;
+			-webkit-transform: skew(5deg);
 			transform: skew(5deg);
 		}
 
@@ -352,6 +361,7 @@ a.link-wide {
 			float: left;
 			height: 2.5rem;
 			margin-left: 1em;
+			-webkit-transform: skew(5deg);
 			transform: skew(5deg);
 			width: 2.5rem;
 		}
@@ -446,6 +456,11 @@ a.link-wide {
 	.profile-container {
 		position: relative;
 
+		.border-bottom {
+			border: 1px solid #b2b2b2;
+			border-width: 1px 0 0;
+		}
+
 		h1 {
 			margin: 3rem 1.6rem;
 		}
@@ -459,6 +474,23 @@ a.link-wide {
 		article {
 			p:first-of-type {
 				font-weight: 700;
+			}
+
+			h2, h3, h4 {
+				margin: 0 1.6rem 1.6rem;
+			}
+
+			ul, ol {
+				margin: 0 1.6rem 1.6rem;
+				padding: 0 0 0 30px;
+			}
+
+			blockquote {
+				margin: 0 1.6rem 1.6rem;
+
+				p {
+					margin: 0 0 1.6rem;
+				}
 			}
 		}
 
@@ -475,6 +507,8 @@ a.link-wide {
 			}
 
 			figcaption {
+				margin: 0 0 2.6em;
+
 				p {
 					color: #b2b2b2;
 					font-size: 1rem;
@@ -486,6 +520,10 @@ a.link-wide {
 		.nav-social {
 			overflow: hidden;
 			margin: 3rem 1.6rem;
+		}
+
+		footer a:last-child {
+			border-width: 1px 0;
 		}
 	}
 }
@@ -644,10 +682,12 @@ a.link-wide {
 
 			&.mask-skew {
 				overflow: hidden;
+				-webkit-transform: skewX(-2deg);
 				transform: skewX(-2deg);
 				max-height: 269px;
 
 				img {
+					-webkit-transform: skewX(2deg) translateX(-2.5%);
 					transform: skewX(2deg) translateX(-2.5%);
 					-webkit-backface-visibility: hidden;
 					outline: 1px solid transparent;
