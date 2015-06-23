@@ -110,7 +110,7 @@ gulp.task('build-mobile', function(){
 });
 
 // Run development server environmnet
-gulp.task('serve', ['styles'], function () {
+gulp.task('serve-desktop', ['styles'], function () {
   browserSync({
     notify: false,
     port: 9000,
@@ -138,7 +138,37 @@ gulp.task('serve', ['styles'], function () {
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
-  gulp.watch('src/scss/**/*.scss', ['styles', 'styles-mobile']);
+  gulp.watch('src/scss/**/*.scss', ['styles']);
+});
+
+// Run development server environmnet
+gulp.task('serve-mobile', ['styles'], function () {
+	browserSync({
+		notify: false,
+		port: 9000,
+		ui: {
+			port: 9001
+		},
+		server: {
+			baseDir: ['.tmp', 'src'],
+			routes: {
+				'/jspm_packages': 'jspm_packages',
+				'/config.js': 'config.js'
+			}
+		}
+	});
+
+	// watch for changes
+	gulp.watch([
+		'src/**/*.txt',
+		'src/*.html',
+		'src/**/*.html',
+		'src/lib-mobile/**/*.js',
+		'src/lib-mobile/**/*.jsx',
+		'src/images/**/*',
+		'.tmp/scripts/**/*.js',
+	]).on('change', reload);
+	gulp.watch('src/scss/**/*.scss', ['styles-mobile']);
 });
 
 
