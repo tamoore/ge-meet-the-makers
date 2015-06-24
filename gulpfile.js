@@ -73,9 +73,7 @@ gulp.task('build', ['styles'], function() {
 			}
 		}))
 	.pipe(gulp.dest('build/'));
-	
-	
-<<<<<<< HEAD
+
 
 	gulp.src('./src/static/*.html')
 	.pipe(htmlreplace({
@@ -110,8 +108,8 @@ gulp.task('build-mobile', function(){
 		}))
 	.pipe(gulp.dest('build/'));
 });
-=======
->>>>>>> eae5f4db8cb414a553f64072bddf71f2bb9c0d6f
+
+
 
 gulp.task('print-images', function() {
 	for (var makercount = 1; makercount <= 6; makercount++) {
