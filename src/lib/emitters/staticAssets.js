@@ -17,6 +17,45 @@ export const StaticAssetsStoreEvents = {
     SEND_RESULT: "staticassets:sendresult"
 }
 
+export const PreloadConst = {
+    HOST: "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"
+}
+
+export const PreloadEvents = {
+    COMPLETE: "preloadAssets:complete"
+}
+
+export class Preload {
+    constructor(){
+        this.progress = 0;
+        this.preload = new createjs.LoadQueue();
+        this.preload.setMaxConnections(10);
+        this.preload.on("progress", this.handleProgress, this);
+        this.preload.on("fileload", this.handleFileLoad, this);
+        this.preload.on("complete", this.handleCompleteProgress, this);
+    }
+    handleFileLoad(event){
+    }
+
+    handleProgress(event){
+        this.progress = Math.ceil(event.progress*100);
+        console.log(this.progress);
+    }
+
+    handleCompleteProgress(event){
+        console.log('complete');
+        Application.pipe.emit(PreloadEvents.COMPLETE);
+    }
+
+    loadAssets(array){
+        array.forEach((item)=>{
+            this.preload.loadFile({id: item.src, src: PreloadConst.HOST + item.src + '.jpg', crossOrigin: true });
+        });
+    }
+
+}
+
+
 export class StaticAssetsStore  {
     constructor(){
         this.maker = Application.maker;
@@ -50,7 +89,6 @@ export class StaticAssetsStore  {
     handleCompleteProgress(event){
         Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
         this.initialAssets = false;
-
     }
 
     processType(makerprefix, assetprefix, makercount, assetcount){

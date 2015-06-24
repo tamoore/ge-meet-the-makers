@@ -3,6 +3,7 @@ import { Application } from '../../index';
 import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { DataEvents, Data } from '../../data/data';
+import { Preload, PreloadEvents } from '../../emitters/staticAssets';
 
 import React from 'react';
 import marked from 'marked';
@@ -10,11 +11,13 @@ import marked from 'marked';
 export class GalleryContentComponent extends React.Component {
     constructor(){
         super();
+        this.preload = new Preload();
         this._data = Data.result;
         this.state = {
             state: "off",
             imageCaption: ""
         }
+        this.assignEvents();
     }
     get data(){
         return this._data;
@@ -27,12 +30,28 @@ export class GalleryContentComponent extends React.Component {
     componentWillMount(){
     }
 
+    assignEvents(){
+        Application.pipe.on(PreloadEvents.COMPLETE, _.bind(this.handlePreloadComplete, this));
+    }
+
     attachDataEventHandler(){
         Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleData, this));
     }
 
     handleData(data){
         this.setState(data);
+    }
+
+    handlePreloadComplete(event){
+        if(!this.images) return;
+        let imagesArray = [];
+        this.images.forEach((image)=>{
+            imagesArray.push(this.preload.preload.getResult(image.src));
+        })
+        this.setState({
+            imagesRaw: imagesArray[0]
+        });
+
     }
 
     componentDidMount(){
@@ -75,7 +94,14 @@ export class GalleryContentComponent extends React.Component {
 
         if(data.length == 1) this.setState(data[0]);
         var standfirst =  data[0].furniture ? data[0].furniture.standfirst : null;
+        this.load(data[0].images);
         this.setState({});
+
+    }
+
+    load(images){
+        this.images = images;
+        this.preload.loadAssets(images);
     }
 
     render(){
@@ -86,6 +112,10 @@ export class GalleryContentComponent extends React.Component {
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
+                <div>
+                    {this.state.imagesRaw}
+                </div>
+
             </div>
         )
     }

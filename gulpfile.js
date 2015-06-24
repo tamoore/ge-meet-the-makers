@@ -75,6 +75,7 @@ gulp.task('build', ['styles'], function() {
 	.pipe(gulp.dest('build/'));
 	
 	
+<<<<<<< HEAD
 
 	gulp.src('./src/static/*.html')
 	.pipe(htmlreplace({
@@ -109,6 +110,8 @@ gulp.task('build-mobile', function(){
 		}))
 	.pipe(gulp.dest('build/'));
 });
+=======
+>>>>>>> eae5f4db8cb414a553f64072bddf71f2bb9c0d6f
 
 gulp.task('print-images', function() {
 	for (var makercount = 1; makercount <= 6; makercount++) {
@@ -116,6 +119,27 @@ gulp.task('print-images', function() {
 			console.log('http://cdn.labs.theguardian.com/2015/meet-the-makers/images/maker0' + makercount + '_' + (assetcount < 10 ? '0' : '') + assetcount + '.jpg')
 		}
 	}
+});
+
+gulp.task('build-mobile', function(){
+	gulp.src('./')
+	.pipe(shell([
+		'jspm bundle-sfx --minify src/lib-mobile/index',
+		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
+		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
+
+	]));
+	gulp.src('./src/index-mobile.html')
+		.pipe(htmlreplace({
+			src: './src/index-mobile.html',
+			'js': {
+				src: ['build.js', 'static/static-scripts.js']
+			},
+			'css': {
+				src: ['css/main-mobile.css']
+			}
+		}))
+	.pipe(gulp.dest('build/'));
 });
 
 // Run development server environmnet
@@ -147,7 +171,7 @@ gulp.task('serve-desktop', ['styles'], function () {
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
-  gulp.watch('src/scss/**/*.scss', ['styles']);
+  gulp.watch('src/scss/**/*.scss', ['styles', 'styles-mobile']);
 });
 
 // Run development server environmnet
