@@ -27,8 +27,8 @@ export class HeaderComponent extends React.Component {
 					<a id="menuTrigger" className="menu-trigger"><i>Menu</i></a>
 				</div>
 				<ul className="meta-links">
-					<li><a>About this content</a></li>
-					<li><a><img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" /></a></li>
+					<li><a href="#/about">About this content</a></li>
+					<li><a href="http://www.theguardian.com/" target="_blank"><img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" /></a></li>
 				</ul>
 			</header>
         )

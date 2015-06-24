@@ -37,7 +37,11 @@ export class StaticAssetsStore  {
         	path+"images/icon.longform.svg",
         	path+"images/bg.blur.jpg",
         	path+"images/logo.ge.svg",
-        	path+"images/logo.guardian.svg"
+        	path+"images/logo.guardian.svg",
+        	path+"images/nav.hamburger.svg",
+        	path+"images/arrows.down.svg",
+        	path+"images/arrow.left.svg",
+        	path+"images/arrow.right.svg"
         ];
         this.progress = 0;
 

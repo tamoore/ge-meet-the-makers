@@ -80,28 +80,29 @@ export class ContentFooterComponent extends React.Component {
     }
 
     render(){
-    	var { makerData, makerId } = this.props;
-    	var maker = makerData[makerId];
+    	var { makerId, makerData, data, contentIndex } = this.props;
 
     	// Pagination count and Prev/Next links
-    	var makerCount = _.size(makerData);
-    	var next = makerId < makerCount ? makerId+1 : 1;
-    	var prev = makerId > 1 ? makerId-1 : makerCount;
-    	var nextMaker = makerData[next].slug;
-    	var prevMaker = makerData[prev].slug;
+    	var contentCount = data.length;
+    	var next = contentIndex+1 <= contentCount ? contentIndex+1 : 0;
+    	var prev = contentIndex > 0 ? contentIndex : contentCount-1;
+    	var nextMaker = data[next];
+    	var prevMaker = data[prev];
+
+    	// Back to Timeline
+    	console.log(Application.history);
 
         return (
 			<footer>
-				<ul className="nav-social border-bottom">
+				<ul className="nav-social">
 					<li><a><svg viewBox="0 0 514 514"><path d="M375.7 123.5H138.3c-8.1 0-14.7 6.6-14.7 14.7v237.4c0 8.1 6.6 14.7 14.7 14.7h127.8V287.1h-34.8v-40.3h34.8v-29.7c0-34.5 21.1-53.2 51.8-53.2 14.7 0 27.4 1.1 31.1 1.6v36l-21.3 0c-16.7 0-20 7.9-20 19.6v25.7h39.9l-5.2 40.3h-34.7v103.4h68c8.1 0 14.7-6.6 14.7-14.7V138.3C390.4 130.1 383.8 123.5 375.7 123.5z"/><circle fill="none" stroke="#000000" stroke-width="16" stroke-miterlimit="10" cx="257" cy="257" r="249"/></svg><span className="assistive-text">Facebook</span></a></li>
 					<li><a><svg viewBox="0 0 514 514"><defs><rect x="93.9" y="135.5" width="326.2" height="265.1"/></defs><clipPath><use overflow="visible"/></clipPath><path clip-path="url(#SVGID_2_)" d="M196.4 400.6c-37.8 0-73-11.1-102.6-30.1 5.2 0.6 10.6 0.9 16 0.9 31.4 0 60.2-10.7 83.1-28.7 -29.3-0.5-54-19.9-62.5-46.5 4.1 0.8 8.3 1.2 12.6 1.2 6.1 0 12-0.8 17.6-2.3 -30.6-6.1-53.7-33.2-53.7-65.6 0-0.3 0-0.6 0-0.8 9 5 19.3 8 30.3 8.4 -18-12-29.8-32.5-29.8-55.7 0-12.3 3.3-23.8 9.1-33.6 33 40.5 82.3 67.1 138 69.9 -1.1-4.9-1.7-10-1.7-15.3 0-37 30-66.9 66.9-66.9 19.3 0 36.6 8.1 48.9 21.1 15.2-3 29.6-8.6 42.5-16.2 -5 15.6-15.6 28.7-29.4 37 13.5-1.6 26.4-5.2 38.4-10.5 -9 13.4-20.3 25.2-33.4 34.6 0.1 2.9 0.2 5.8 0.2 8.7C386.9 298.6 319.5 400.6 196.4 400.6"/><circle fill="none" stroke="#000000" stroke-width="16" stroke-miterlimit="10" cx="257" cy="257" r="249"/></svg><span className="assistive-text">Twitter</span></a></li>
 				</ul>
 				<div className="page-nav border-bottom">
-					<a className="page-nav-previous" href={"#/makers/"+prevMaker}>Previous</a>
-					<div className="page-nav-counter">{makerId} of {makerCount}</div>
-					<a className="page-nav-next" href={"#/makers/"+nextMaker}>Next</a>
+					<a className="page-nav-previous" href={"#/content/"+prevMaker.type+"/"+prevMaker.guid}>Previous</a>
+					<div className="page-nav-counter">{contentIndex+1} of {contentCount}</div>
+					<a className="page-nav-next" href={"#/content/"+nextMaker.type+"/"+nextMaker.guid}>Next</a>
 				</div>
-				<a className="link-wide border-bottom" href="#/makers">Back to Meet the makers</a>
 				<a className="link-wide border-bottom" href="#/"><i className="arrow-back"></i>Back to timeline</a>
 			</footer>
         )
@@ -125,32 +126,32 @@ export class ContentComponent extends React.Component {
     	var { makerId, data, makerData, params } = this.props;
 
     	// Set view defaults
-		var bgImg = MainDefaults.BGIMAGE;
+		var bgImg = MainDefaults.BGIMAGE,
+			maker = {},
+			filteredData = data;
 
 		// Find requested Maker
-		var pathMaker = params.maker;
-		var makerKey = _.findKey(makerData, function(m) {
-    		return m.slug == pathMaker;
-		});
+		if ( makerId ){
+			bgImg = makerData[makerId].furniture.bgImg;
+			maker = makerData[makerId];
+
+			filteredData = _.filter(data, { 'maker': makerId });
+		}
 
 		// Find requested Content
 		var pathGuid = params.guid;
-		var contentIndex = _.findIndex(data, function(c) {
-    		return c.maker == makerKey && c.guid == pathGuid;
+		var contentIndex = _.findIndex(filteredData, function(c) {
+    		return c.guid == pathGuid;
 		});
-
-		// Find Maker data for render
-		bgImg = makerData[makerKey].furniture.bgImg;
-		var maker = makerData[makerKey];
 		var content = data[contentIndex];
 
 		return (
-            <main className="mobile-maker" style={{backgroundImage: "url("+bgImg+")"}}>
+            <main className="mobile-maker-content" style={{backgroundImage: "url("+bgImg+")"}}>
             	<div className="texture-overlay"></div>
-            	<div className="profile-container">
-					<ContentHeaderComponent maker={maker} content={content} />
+            	<div className="content-container">
+					<ContentHeaderComponent makerId={makerId} maker={maker} content={content} />
 					<ContentArticleComponent content={content} />
-					<ContentFooterComponent makerId={maker.id} makerData={makerData} />
+					<ContentFooterComponent makerId={makerId} makerData={makerData} data={filteredData} contentIndex={contentIndex} />
 				</div>
 			</main>
         )
