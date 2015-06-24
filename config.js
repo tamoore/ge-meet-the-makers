@@ -34,6 +34,7 @@ System.config({
     "react": "npm:react@0.13.3",
     "react-gemini-scrollbar": "npm:react-gemini-scrollbar@1.1.1",
     "react-router": "npm:react-router@0.13.3",
+    "react-slick": "npm:react-slick@0.6.0",
     "reqwest": "npm:reqwest@1.1.5",
     "traceur": "github:jmcriffey/bower-traceur@0.0.87",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.87",
@@ -169,6 +170,11 @@ System.config({
       "nan": "npm:nan@1.8.4",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:classnames@2.1.2": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:commander@2.5.1": {
@@ -356,6 +362,9 @@ System.config({
     "npm:is-generator@1.0.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
+    "npm:json2mq@0.2.0": {
+      "string-convert": "npm:string-convert@0.2.1"
+    },
     "npm:jstransform@10.1.0": {
       "base62": "npm:base62@0.1.1",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -450,11 +459,30 @@ System.config({
       "gemini-scrollbar": "npm:gemini-scrollbar@1.2.5",
       "react": "npm:react@0.13.3"
     },
+    "npm:react-responsive-mixin@0.3.5": {
+      "can-use-dom": "npm:can-use-dom@0.1.0",
+      "enquire.js": "npm:enquire.js@2.1.1",
+      "json2mq": "npm:json2mq@0.2.0",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
     "npm:react-router@0.13.3": {
-      "object-assign": "npm:object-assign@2.0.0",
+      "object-assign": "npm:object-assign@2.1.1",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "qs": "npm:qs@2.4.1",
       "react": "npm:react@0.13.3"
+    },
+    "npm:react-slick@0.6.0": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "classnames": "npm:classnames@2.1.2",
+      "json2mq": "npm:json2mq@0.2.0",
+      "object-assign": "npm:object-assign@2.1.1",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "react": "npm:react@0.13.3",
+      "react-responsive-mixin": "npm:react-responsive-mixin@0.3.5",
+      "slick-carousel": "npm:slick-carousel@1.5.5",
+      "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:react-tools@0.13.3": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
