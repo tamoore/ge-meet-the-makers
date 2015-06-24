@@ -48,17 +48,8 @@ export class StaticAssetsStore  {
     }
 
     handleCompleteProgress(event){
-        //if(this.initialAssets){
-        //    Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
-        //}
         Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
         this.initialAssets = false;
-        //this.index = this.index+1;
-        //if(this.index < this.config.makercount){
-        //    this.fetchMakerAssets(this.index);
-        //}
-
-
 
     }
 
@@ -89,16 +80,6 @@ export class StaticAssetsStore  {
                 }
             }
         }
-    }
-
-    fetchInitialAssets(){
-        let jpgs = this.assets.filter((item)=>{
-            return item.type == "jpg" && item.maker == Application.maker;
-        });
-        jpgs.forEach((item)=>{
-            this.preload.loadFile({id: item.id, src: item.filename, crossOrigin: true });
-        });
-        this.initialAssets = true;
     }
 
     fetchMakerAssets(maker){

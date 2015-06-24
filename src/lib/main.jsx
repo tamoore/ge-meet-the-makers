@@ -26,6 +26,7 @@ import { MeetTheMakersComponent } from './views/makers.jsx!';
 
 import { VideosContentComponent } from './views/content/video.jsx!'
 import { PostsContentComponent } from './views/content/post.jsx!';
+import { GalleryContentComponent } from './views/content/gallery.jsx!';
 
 
 export class Main {
@@ -36,6 +37,7 @@ export class Main {
                 <Route name="timeline" handler={TimelineComponent}/>
                 <Route name="content/video/:maker/:id" handler={VideosContentComponent}/>
                 <Route name="content/post/:maker/:id" handler={PostsContentComponent}/>
+                <Route name="content/gallery/:maker/:id" handler={GalleryContentComponent}/>
                 <DefaultRoute handler={TimelineComponent} />
             </Route>
         )

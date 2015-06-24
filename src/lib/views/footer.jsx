@@ -38,10 +38,8 @@ export class FooterComponent extends React.Component {
                 <nav className="controls">
                     <ul>
                         <li><a>About this content</a></li>
-                        <li><a id="footer-audio"><span className="assistive-text">Audio</span></a></li>
                         <li><a id="footer-facebook"> <span className="assistive-text">Facebook</span> </a></li>
                         <li><a id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
-                        <li><a id="footer-linkedin"> <span className="assistive-text">LinkedIn</span> </a></li>
                     </ul>
                 </nav>
             </footer>

@@ -135,9 +135,8 @@ export class PreviewComponent extends React.Component {
         y2[PreviewEvents.LEFT] = 325;
         y2[PreviewEvents.RIGHT] = 335;
 
-        let previewImage = {
-            backgroundImage: `url( http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}.jpg )`
-        }
+        let previewImage = `http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}.jpg`
+
 
         return (
             <div rel="previewWrapper" style={this.state.styles}>
@@ -148,7 +147,10 @@ export class PreviewComponent extends React.Component {
                         </line>
                     </g>
                 </svg>
-                <div id="previewElement" style={previewImage} className={this.state.activeStateClass}>
+                <div id="previewElement" className={this.state.activeStateClass}>
+                    <div className="timelinePreview-image--wrapper">
+                        <img src={previewImage} className="timelinePreview-image" />
+                    </div>
                     <h2 data-type={this.props.data.type}>{this.state.title}</h2>
                 </div>
 

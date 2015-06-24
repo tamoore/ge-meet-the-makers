@@ -59,6 +59,7 @@ export class PostsContentComponent extends React.Component {
         }).filter((item)=>{
             return item.guid == this.props.params.id;
         });
+
         if(data.length == 1) this.setState(data[0]);
         var standfirst =  data[0].furniture ? data[0].furniture.standfirst : null;
         this.setState({
@@ -83,6 +84,10 @@ export class PostsContentComponent extends React.Component {
         return (
         <div className="post-content-component" data-content={this.state.apply} data-transition={this.state.state} key={this.context.router.name}>
             <CloseButtonComponent />
+            <aside className="aside">
+                <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+            </aside>
             <GeminiScrollbar className="article">
                 <article className="content" >
                     <h1>{this.state.title}</h1>

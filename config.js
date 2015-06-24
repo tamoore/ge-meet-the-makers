@@ -20,6 +20,7 @@ System.config({
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
     "es6-dispatcher": "npm:es6-dispatcher@2.1.0",
     "event-emitter": "npm:event-emitter@0.3.3",
+    "gemini-scrollbar": "npm:gemini-scrollbar@1.2.5",
     "hammerjs": "npm:hammerjs@2.0.4",
     "jquery": "github:components/jquery@2.1.4",
     "jquery-mousewheel": "npm:jquery-mousewheel@3.1.12",
@@ -31,6 +32,7 @@ System.config({
     "node-uuid": "npm:node-uuid@1.4.3",
     "preload": "github:CreateJS/PreloadJS@0.6.1",
     "react": "npm:react@0.13.3",
+    "react-gemini-scrollbar": "npm:react-gemini-scrollbar@1.1.1",
     "react-router": "npm:react-router@0.13.3",
     "reqwest": "npm:reqwest@1.1.5",
     "traceur": "github:jmcriffey/bower-traceur@0.0.87",
@@ -103,7 +105,7 @@ System.config({
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
-    "npm:amdefine@0.1.0": {
+    "npm:amdefine@0.1.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "module": "github:jspm/nodelibs-module@0.1.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -158,7 +160,7 @@ System.config({
     },
     "npm:buffer@3.2.2": {
       "base64-js": "npm:base64-js@0.0.8",
-      "ieee754": "npm:ieee754@1.1.5",
+      "ieee754": "npm:ieee754@1.1.6",
       "is-array": "npm:is-array@1.0.1"
     },
     "npm:canvas@1.2.3": {
@@ -444,6 +446,10 @@ System.config({
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
+    "npm:react-gemini-scrollbar@1.1.1": {
+      "gemini-scrollbar": "npm:gemini-scrollbar@1.2.5",
+      "react": "npm:react@0.13.3"
+    },
     "npm:react-router@0.13.3": {
       "object-assign": "npm:object-assign@2.0.0",
       "process": "github:jspm/nodelibs-process@0.1.1",
@@ -503,13 +509,13 @@ System.config({
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:source-map@0.1.31": {
-      "amdefine": "npm:amdefine@0.1.0",
+      "amdefine": "npm:amdefine@0.1.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:source-map@0.1.43": {
-      "amdefine": "npm:amdefine@0.1.0",
+      "amdefine": "npm:amdefine@0.1.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
