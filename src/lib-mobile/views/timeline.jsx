@@ -125,7 +125,7 @@ export class TimelineItemComponent extends React.Component {
 	}
 
     render(){
-    	var { key, data, maker } = this.props;
+    	var { key, data, maker, viewport } = this.props;
 
     	// Ensure time fits 00:00 format
     	var hour = data.metadata.timeline.hour.toString().length > 1 ? data.metadata.timeline.hour : "0"+data.metadata.timeline.hour;
@@ -145,16 +145,16 @@ export class TimelineItemComponent extends React.Component {
 					</a>
 				</header>
 				<div className="timeline-content-preview">
-					<a href={"#/content/"+data.type+"/"+data.guid}>
+					<a href={"#/content/"+maker.slug+"/"+data.guid}>
 						<div className="preview-media mask-skew">
-							<TimelineItemImageComponent src={maker.furniture.makerImg} alt={data.title} viewport={this.props.viewport} showImage={this.state.showImage} updateImagePosition={this.updateImagePosition} />
+							<TimelineItemImageComponent src={maker.furniture.makerImg} alt={data.title} viewport={viewport} showImage={this.state.showImage} updateImagePosition={this.updateImagePosition} />
 						</div>
 					</a>
 						<div className="timeline-content-meta">
 							<i className={"icon-content-type icon-content-"+data.type}></i>
 							<span className="label-content-type">{data.type}</span>
 						</div>
-					<a href={"#/content/"+data.type+"/"+data.guid}>
+					<a href={"#/content/"+maker.slug+"/"+data.guid}>
 						<h2 className="title">{data.title}</h2>
 					</a>
 				</div>
@@ -177,11 +177,10 @@ export class TimelineComponent extends React.Component {
 			viewport: {
 				top: 0,
 				height: 0
-			},
-			active: false
+			}
 		};
 		this.updateViewport = _.bind(this.updateViewport, this);
-		this.updateV = _.debounce(this.updateViewport, 200);
+		this.updateV = _.debounce(this.updateViewport, 500);
     }
 
     componentDidMount() {

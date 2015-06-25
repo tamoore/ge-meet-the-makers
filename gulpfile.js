@@ -88,13 +88,12 @@ gulp.task('build', ['styles'], function() {
 	.pipe(gulp.dest('build/static/'));
 });
 
-gulp.task('build-mobile', function(){
+gulp.task('build-mobile', ['styles-mobile'], function(){
 	gulp.src('./')
 	.pipe(shell([
 		'jspm bundle-sfx --minify src/lib-mobile/index',
 		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
 		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
-
 	]));
 	gulp.src('./src/index-mobile.html')
 		.pipe(htmlreplace({

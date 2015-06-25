@@ -32,6 +32,7 @@ export class Application {
 	}
 
 	handleHashChange(event){
+		event.fromTop = window.pageYOffset;
 		Application.history.push(event);
 	}
 }

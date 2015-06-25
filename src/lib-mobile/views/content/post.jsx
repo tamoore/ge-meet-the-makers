@@ -1,58 +1,33 @@
 import { Application } from '../../index';
 
-import { CloseButtonComponent } from '../close.jsx!';
-import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
-import { DataEvents, Data } from '../../data/data';
-
 import React from 'react';
 import marked from 'marked';
 
-export class PostsContentComponent extends React.Component {
+import { MainEvents, MainDefaults } from '../../main.jsx!';
+
+export class PostContentComponent extends React.Component {
+    
     constructor(){
         super();
-        this.state = {
-            state: "off"
-        }
     }
-    componentWillMount(){
-    }
-
-    componentDidMount(){
-        Application.pipe.emit(TimelineEvents.PAUSECYCLE);
-        TimelineBackgroundComponent.blur = true;
-
-        this.setState({
-            "state": "off",
-            "apply": "activate"
-        })
-        setTimeout(()=>{
-            this.setState({
-                "state": "show"
-            });
-            Application.pipe.emit(TimelineEvents.GET_IMAGE);
-        },10);
-        setTimeout(()=>{
-            Application.pipe.emit(TimelineEvents.GET_IMAGE);
-        },1000);
-    }
-    componentWillUnmount(){
-        this.setState({
-            "state": "show",
-            "apply": "deactivate"
-        });
-        Application.pipe.emit(TimelineEvents.PAUSECYCLE);
-    }
-
 
     render(){
-        return (
-            <div className="post-content-component" data-content={this.state.apply} data-transition={this.state.state} key={this.context.router.name}>
-                <CloseButtonComponent />
+    	var { content } = this.props;
 
-            </div>
+    	// Convert bio Markdown to HTML for render
+    	var body = marked(content.body.toString(), {sanitize: true});
+
+        return (
+			<article className="type-post">
+				<h1 className="title">{content.title}</h1>
+				<figure>
+					<img src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+content.furniture.mainImage+".jpg"} alt={content.furniture.standfirst} />
+					<figcaption>
+						<p>{content.furniture.standfirst}</p>
+					</figcaption>
+				</figure>
+				<div dangerouslySetInnerHTML={{__html: body}}></div>
+			</article>
         )
     }
-}
-PostsContentComponent.contextTypes = {
-    router: React.PropTypes.func
 }

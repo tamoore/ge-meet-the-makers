@@ -31,7 +31,7 @@ export class Main {
             <Route name="app" path="/" handler={MainView}>
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
                 <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
-                <Route name="content/:type/:guid" path="content/:type/:guid" handler={ContentComponent}/>
+                <Route name="content/:maker/:guid" path="content/:maker/:guid" handler={ContentComponent}/>
                 <Route name="about" path="/about" handler={AboutComponent}/>
                 <DefaultRoute handler={IndexComponent} />
             </Route>
