@@ -96,7 +96,6 @@ export class PreviewComponent extends React.Component {
             this.setState({
                 activeStateClass: 'active'
             });
-            console.log(marked(this.props.data.body));
         }, 150);
 
 

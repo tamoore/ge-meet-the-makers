@@ -86,7 +86,7 @@ export class MeetTheMakersComponent extends React.Component {
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
                             <h3 className="maker-title">Astronaut</h3>
                             <h2 className="maker-name">Leo Spaceman</h2>
-                            <img src="images/icon.factory.svg" alt="Maker Industry Icon" className="maker-industry" />
+                            <img src="images/icon.plane-virgin.svg" alt="Maker Industry Icon" className="maker-industry" />
                         </header>
 
                         <div className="maker-bio-excerpt">
@@ -103,7 +103,7 @@ export class MeetTheMakersComponent extends React.Component {
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
                             <h3 className="maker-title">Technician</h3>
                             <h2 className="maker-name">Doris Deigh</h2>
-                            <img src="images/icon.petrol.svg" alt="Maker Industry Icon" className="maker-industry" />
+                            <img src="images/boat-csiro.svg" alt="Maker Industry Icon" className="maker-industry" />
                         </header>
 
                         <div className="maker-bio-excerpt">
@@ -120,7 +120,7 @@ export class MeetTheMakersComponent extends React.Component {
                             <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
                             <h3 className="maker-title">Engineer</h3>
                             <h2 className="maker-name">Adam Fletcher</h2>
-                            <img src="images/icon.solar.svg" alt="Maker Industry Icon" className="maker-industry" />
+                            <img src="images/icon.microscope-calimmune.svg" alt="Maker Industry Icon" className="maker-industry" />
                         </header>
 
                         <div className="maker-bio-excerpt">
@@ -154,7 +154,7 @@ export class MeetTheMakersComponent extends React.Component {
                                 <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
                                 <h3 className="maker-title">Celebrity Chef</h3>
                                 <h2 className="maker-name">Uncle Muscles</h2>
-                                <img src="images/icon.healthcare.svg" alt="Maker Industry Icon" className="maker-industry" />
+                                <img src="images/icon.solar.svg" alt="Maker Industry Icon" className="maker-industry" />
                             </header>
 
                             <div className="maker-bio-excerpt">
