@@ -2,7 +2,7 @@
 @import './vendor/gemini-scrollbar';
 @import '../../bower_components/neat/app/assets/stylesheets/_neat';
 @import '../../bower_components/sass-mq/_mq';
-
+@import 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css';
 @import "base/base";
 
 @import "components/masthead";
@@ -15,6 +15,7 @@
 @import "components/mobile";
 @import "components/preview";
 @import "components/content-posts";
+@import "components/gallery";
 
 @import "utils/transitions";
 

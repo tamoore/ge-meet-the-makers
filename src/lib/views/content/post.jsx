@@ -4,7 +4,7 @@ import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { DataEvents, Data } from '../../data/data';
 import  GeminiScrollbar from 'react-gemini-scrollbar';
-
+import key from 'keymaster';
 import React from 'react';
 import marked from 'marked';
 
@@ -16,6 +16,10 @@ export class PostsContentComponent extends React.Component {
             state: "off",
             imageCaption: ""
         }
+        key('esc', ()=>{
+            this.isActive = false;
+            return window.location.hash = "#/timeline"
+        })
     }
     get data(){
         return this._data;

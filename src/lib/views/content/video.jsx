@@ -9,7 +9,7 @@ import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { MainEvents } from '../../main.jsx!';
 import { DataEvents, Data } from '../../data/data';
 
-
+import key from 'keymaster';
 import React from 'react';
 import marked from 'marked';
 
@@ -23,7 +23,10 @@ export class VideoContentComponent extends React.Component {
         }
         this.typing = [];
         this.typingIndex = 0;
-
+        key('esc', ()=>{
+            this.isActive = false;
+            return window.location.hash = "#/timeline"
+        })
     }
 
     get data(){
