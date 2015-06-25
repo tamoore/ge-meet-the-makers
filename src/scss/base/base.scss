@@ -73,3 +73,9 @@ body {
   cursor: pointer;
   z-index: 300;
 }
+
+.introVideoContainer {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+}

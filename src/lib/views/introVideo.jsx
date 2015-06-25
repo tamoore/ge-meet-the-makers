@@ -27,15 +27,33 @@ export class IntroVideoComponent extends TimelineBackgroundComponent {
         MainEvents.footerTimeout = 3500;
     }
 
+    handleVideoPlaying(video /* videoDOM element */){
+        if(video){
+            var videoContainer = React.findDOMNode(this.refs.videoContainer);
+            videoContainer.appendChild(video);
+
+            //var v = video;
+            //var video = new createjs.Bitmap(video);
+            //this.applyFade(video);
+            //video.scaleX = 2;
+            //video.scaleY = 2;
+            //this.stageUpdate( video );
+        }
+
+        return false;
+    }
+
     componentWillUnmount(){
         this.introVideo.kill();
         delete this.introVideo;
     }
 
     render(){
+        var styles = {
+          marginTop: (this.state.canvasHeight < window.innerHeight ?  (window.innerHeight - this.state.canvasHeight) / 2 : 0 )+"px"
+        };
         return (
-            <div>
-                <canvas ref="Stage" id="introVideo" width="1280" height="720" className="bg"></canvas>
+            <div className="introVideoContainer" ref="videoContainer" style={styles}>
             </div>
         )
     }

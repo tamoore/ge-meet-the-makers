@@ -90,14 +90,16 @@ export class IntroVideo {
 
     _createVideoAndEvents(){
         this.el = document.createElement('video');
+        this.el.className = "introVideo";
         this.el.addEventListener("play", _.bind(this.handlePlayingVideo, this));
         this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
         this.el.style.visibility = "visible";
-        this.el.controls = true;
+        this.el.controls = false;
+        this.el.volume = 1;
         this.el.autoplay = true;
-        this.el.loop = true;
-        this.el.width = 1920;
-        this.el.height = 1080;
+        this.el.loop = false;
+        this.el.width = (window.innerHeight)*1.7777778;
+        this.el.height = (window.innerHeight);
     }
 
     play(url){
