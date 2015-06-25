@@ -4,12 +4,14 @@
 import { Application } from '../index';
 import marked from 'marked';
 import React from 'react';
+import { MainEvents } from '../main.jsx!';
 
 export const PreviewEvents = {
     TOP: "preview-top",
     LEFT: "preview-left",
     RIGHT: "preview-right"
 }
+
 export class PreviewComponent extends React.Component {
     constructor(){
         super();
@@ -105,11 +107,14 @@ export class PreviewComponent extends React.Component {
             title: this.props.data.title
         });
 
+        Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
+
 
     }
 
     componentWillUnmount(){
         clearTimeout(this.stateTimer);
+        Application.pipe.emit(MainEvents.MAKERTITLE, 0);
     }
 
     render(){

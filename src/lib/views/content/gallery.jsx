@@ -30,8 +30,6 @@ export class GalleryContentComponent extends React.Component {
             currentIndex: this.currentIndex
         }
         window.addEventListener('resize', _.bind(this.handleWindowResize, this));
-
-
         this.assignEvents();
     }
     get data(){
