@@ -1,4 +1,7 @@
 .timeline-circle {
+  * {
+	-webkit-font-smoothing: antialiased;
+  }
   	opacity: 0.01;
 	height: calc(100vh - 15rem);
 	left: 50%;

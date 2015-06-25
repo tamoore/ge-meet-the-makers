@@ -16,6 +16,7 @@ export class MakerComponent extends React.Component {
             <section className="maker-info">
                 <div className="maker-title"></div>
                 <ClockView />
+                <div className="maker-location">Perth, Western Australia</div>
             </section>
         )
     }

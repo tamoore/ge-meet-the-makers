@@ -16,10 +16,7 @@ export class PostsContentComponent extends React.Component {
             state: "off",
             imageCaption: ""
         }
-        key('esc', ()=>{
-            this.isActive = false;
-            return window.location.hash = "#/timeline"
-        })
+
     }
     get data(){
         return this._data;
@@ -30,6 +27,10 @@ export class PostsContentComponent extends React.Component {
     }
 
     componentWillMount(){
+        key('esc', ()=>{
+            this.isActive = false;
+            return window.location.hash = "#/timeline"
+        })
     }
 
     attachDataEventHandler(){

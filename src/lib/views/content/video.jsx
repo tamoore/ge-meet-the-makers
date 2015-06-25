@@ -23,10 +23,7 @@ export class VideoContentComponent extends React.Component {
         }
         this.typing = [];
         this.typingIndex = 0;
-        key('esc', ()=>{
-            this.isActive = false;
-            return window.location.hash = "#/timeline"
-        })
+
     }
 
     get data(){
@@ -38,6 +35,10 @@ export class VideoContentComponent extends React.Component {
     }
 
     componentWillMount(){
+        key('esc', ()=>{
+            this.isActive = false;
+            return window.location.hash = "#/timeline"
+        })
 
     }
 

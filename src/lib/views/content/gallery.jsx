@@ -30,16 +30,7 @@ export class GalleryContentComponent extends React.Component {
             currentIndex: this.currentIndex
         }
         window.addEventListener('resize', _.bind(this.handleWindowResize, this));
-        key('esc', ()=>{
-            this.isActive = false;
-            return window.location.hash = "#/timeline"
-        })
-        key('right', ()=>{
-            this.nextImage();
-        });
-        key('left', ()=>{
-            this.prevImage();
-        });
+
 
         this.assignEvents();
     }
@@ -52,6 +43,16 @@ export class GalleryContentComponent extends React.Component {
     }
 
     componentWillMount(){
+        key('esc', ()=>{
+            this.isActive = false;
+            return window.location.hash = "#/timeline"
+        })
+        key('right', ()=>{
+            this.nextImage();
+        });
+        key('left', ()=>{
+            this.prevImage();
+        });
     }
 
     assignEvents(){
