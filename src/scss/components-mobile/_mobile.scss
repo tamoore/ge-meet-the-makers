@@ -553,6 +553,16 @@ a.link-wide {
 				padding: 0 0 0 30px;
 			}
 
+			ul.gallery {
+				margin: 0 0 0 0;
+				padding: 0 0 0 0;
+				list-style: none;
+
+				li.gallery-image {
+					margin: 0 0 2rem;
+				}
+			}
+
 			blockquote {
 				margin: 0 1.6rem 1.6rem;
 
@@ -742,7 +752,7 @@ a.link-wide {
 		padding-bottom: 2.4rem;
 
 		.preview-media {
-			background: center no-repeat url(../images/loader.gif) black;
+			background: #fff;
 			border: 2px solid #fff;
 			box-shadow: 0 3px 0 0 rgba(34,63,82,0.2);
 			margin: .75rem 0 0 -.8rem;
@@ -826,5 +836,25 @@ a, a:visited {
 
 	&:active {
 		text-decoration: underline;
+	}
+}
+
+.lazyload {
+	background: center no-repeat url(../images/loader.gif) black;
+	overflow: hidden;
+
+	img {
+		display: block;
+		width: 100%;
+		opacity: 1;
+		height: auto;
+		-webkit-backface-visibility: hidden;
+		-webkit-transition: opacity .3s linear;
+		transition: opacity .3s linear;
+
+		&.loading {
+			opacity: 0;
+			max-height: 50vw;
+		}
 	}
 }

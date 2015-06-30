@@ -76,7 +76,6 @@ export class FooterTimelineLinkComponent extends React.Component {
     // Click event for Timeline button that updates MainEvents.FILTERMAKERS to this maker's ID
     handleClick(){
     	Application.pipe.emit(MainEvents.FILTERMAKERS, this.props.makerId.toString());
-    	console.log(MainEvents.FILTERMAKERS);
     }
 
     render(){

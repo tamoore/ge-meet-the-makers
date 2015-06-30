@@ -57,9 +57,6 @@ export class ContentArticleComponent extends React.Component {
     render(){
     	var { content } = this.props;
 
-    	// Convert bio Markdown to HTML for render
-    	var body = marked(content.body.toString(), {sanitize: true});
-
     	switch ( content.type ){
 			case "post":
 				return (

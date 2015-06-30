@@ -45,7 +45,11 @@ export class Main {
 
 export const MainEvents = {
 	FILTERMAKERS: null,
-	HIDEFILTER: false
+	HIDEFILTER: false,
+	VIEWPORT: {
+		top: window.pageYOffset,
+		height: window.innerHeight
+	}
 };
 
 export const MainDefaults = {
@@ -59,8 +63,11 @@ export class MainView extends React.Component {
         	data: Data.result.content.length ? Data.result.content : this.attachDataHandler(),
             makerData: _.size(Data.result.makers) ? Data.result.makers : this.attachDataHandler(),
             currentMaker: MainEvents.FILTERMAKERS
-        }
-    }
+        };
+
+        this.updateViewport = _.bind(this.updateViewport, this);
+		this.updateV = _.debounce(this.updateViewport, 500);
+    } 
 
     attachDataHandler(){
         Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
@@ -79,7 +86,23 @@ export class MainView extends React.Component {
         		currentMaker: makerId
         	});
         });
+
+        window.addEventListener('scroll', this.updateV, false);
+		window.addEventListener('resize', this.updateV, false);
+		this.updateViewport();
 	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.updateV);
+		window.removeEventListener('resize', this.updateV);
+	}
+
+	updateViewport() {
+		Application.pipe.emit(MainEvents.VIEWPORT, {
+			top: window.pageYOffset,
+			height: window.innerHeight
+		});
+	}   
 
     render(){
     	var { currentMaker, data, makerData } = this.state;

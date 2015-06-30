@@ -13,18 +13,11 @@ var gulp = require('gulp'),
 
 var pkg = require('./package.json');
 
-
-gulp.task('styles', function() {
-	return sass('src/scss/main.scss')
-	.on('error', function (err) {
-      console.error('Error', err.message);
-   	})
-	.pipe(gulp.dest('src/css'))
-	.pipe(reload({stream: true}));
-});
-
 gulp.task('styles-mobile', function() {
-	return sass('src/scss/main-mobile.scss')
+	return sass('src/scss/main-mobile.scss', {
+		container: 'gulp-ruby-sass',
+		verbose: true
+	})
 	.on('error', function (err) {
       console.error('Error', err.message);
    	})
@@ -39,13 +32,6 @@ gulp.task('deploy-scratch', function() {
 		]));
 });
 
-gulp.task('deploy-staging', ['build'], function() {
-	return gulp.src(['./'])
-		.on('end', shell.task([
-			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/development/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
-		]));
-});
-
 gulp.task('deploy-staging-mobile', ['build-mobile'], function() {
 	return gulp.src(['./'])
 		.on('end', shell.task([
@@ -53,47 +39,12 @@ gulp.task('deploy-staging-mobile', ['build-mobile'], function() {
 	]));
 });
 
-gulp.task('build', ['styles'], function() {
-	gulp.src('./')
-		.pipe(shell([
-			'jspm bundle-sfx --minify src/lib/index',
-			'mv ./build.js ./build/ && mv ./build.js.map ./build/',
-			'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
-		]));
-
-	gulp.src('./src/index.html')
-		.pipe(htmlreplace({
-			src: './src/index.html',
-			'js': {
-				src: ['build.js']
-			},
-			'css': {
-				src: ['css/main.css']
-			}
-		}))
-	.pipe(gulp.dest('build/'));
-	
-	
-
-	gulp.src('./src/static/*.html')
-	.pipe(htmlreplace({
-		src: './src/static/*.html',
-		'js': {
-			src: ['https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js','static-scripts.js']
-		},
-		'css': {
-			src: ['../css/main.css']
-		}
-	}))
-	.pipe(gulp.dest('build/static/'));
-});
-
 gulp.task('build-mobile', ['styles-mobile'], function(){
 	gulp.src('./')
 	.pipe(shell([
 		'jspm bundle-sfx --minify src/lib-mobile/index',
 		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
-		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/ && cp -rf ./src/static/static-scripts.js ./build/static/'
+		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/ && cp -rf ./src/static/static-scripts.js ./build/static/'
 	]));
 	gulp.src('./src/index-mobile.html')
 		.pipe(htmlreplace({
@@ -109,7 +60,7 @@ gulp.task('build-mobile', ['styles-mobile'], function(){
 });
 
 // Run development server environmnet
-gulp.task('serve', ['styles'], function () {
+gulp.task('serve', ['styles-mobile'], function () {
   browserSync({
     notify: false,
     port: 9000,
@@ -130,14 +81,12 @@ gulp.task('serve', ['styles'], function () {
     'src/**/*.txt',
     'src/*.html',
     'src/**/*.html',
-    'src/lib/**/*.js',
-    'src/lib/**/*.jsx',
     'src/lib-mobile/**/*.js',
     'src/lib-mobile/**/*.jsx',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
-  gulp.watch('src/scss/**/*.scss', ['styles', 'styles-mobile']);
+  gulp.watch('src/scss/**/*.scss', ['styles-mobile']);
 });
 
 
