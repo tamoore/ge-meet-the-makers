@@ -60,7 +60,7 @@ export class ContentArticleComponent extends React.Component {
     	switch ( content.type ){
 			case "post":
 				return (
-					<PostContentComponent content={content} />
+					<VideoContentComponent content={content} />
 		        );
 		        break;
 			case "gallery":
