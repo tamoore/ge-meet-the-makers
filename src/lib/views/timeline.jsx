@@ -313,25 +313,47 @@ TimelineBackgroundComponent.blur = false;
 export class TLNode extends React.Component {
     constructor(){
         super();
+
+        this.state = {
+            imageEl: null
+        };
+
         this.handleOnOver = _.bind(this.handleOnOver, this);
         this.handleOnLeave = _.bind(this.handleOnLeave, this);
+
+    }
+
+    componentDidMount(){
+        this.el = React.findDOMNode(this.refs.item);
     }
 
     handleOnOver(event){
-
         let bbox = event.target.getBoundingClientRect();
         if(this.over) return
         Application.pipe.emit(TimelineEvents.ADDPREVIEW, bbox.left, bbox.top, this.props.data);
         this.over = true;
+        if(this.props.circle){
+            let style = {
+                backgroundImage: 'url(' +(this.props.data.furniture ? Application.assetLocation+this.props.data.furniture.mainImage+".jpg" : null)+");"
+            }
+            this.setState({
+                imageEl: <div style={style} className="circle-preview-image"></div>
+            });
+        }
 
     }
 
     handleOnLeave(event){
+        if(this.props.circle){
+            this.setState({
+                imageEl: null
+            })
+        }
         if(this.over){
             Application.pipe.emit(TimelineEvents.REMOVEPREVIEW);
             this.over = false;
-
         }
+
     }
 
     render(){
@@ -340,7 +362,12 @@ export class TLNode extends React.Component {
         let guid = this.props.data.guid;
         let url = "#/content/"+type+"/"+maker+"/"+guid;
         return (
-            <li key={this.props.index} data-maker={maker}><a href={url} onMouseOver={this.handleOnOver} onMouseLeave={this.handleOnLeave}><span className="assistive-text">{this.props.data.title}</span></a></li>
+            <li key={this.props.index} ref="item" data-maker={maker}>
+
+                <a href={url} onMouseOver={this.handleOnOver} onMouseLeave={this.handleOnLeave}>
+                    {this.state.imageEl}
+                    <span className="assistive-text">{this.props.data.title}</span></a>
+            </li>
         )
     }
 }
@@ -375,7 +402,7 @@ export class TimeLineItem extends React.Component {
          */
         this.items = [];
         for(var i = 0;i<this.props.data.length;i++){
-            this.items.push(<TLNode index={i} data={this.props.data[i]} />)
+            this.items.push(<TLNode index={i} circle={this.props.circle} data={this.props.data[i]} />)
         }
 
     }
@@ -728,7 +755,7 @@ export class TimelineComponent extends React.Component {
         this.pressed = false;
 
         clearInterval(this.ticker);
-        if (this.velocity > 5 || this.velocity < -5) {
+        if (this.velocity > 1 || this.velocity < -1) {
             this.amplitude = 0.8 * this.velocity;
             this.target = Math.round(this.offset + this.amplitude);
             this.timestamp = Date.now();
@@ -736,7 +763,6 @@ export class TimelineComponent extends React.Component {
         }
         Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.currentImage);
         return false;
-
     }
 
 

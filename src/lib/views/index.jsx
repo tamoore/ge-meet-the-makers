@@ -6,6 +6,7 @@ import { Application } from '../index';
 
 import React from 'react';
 import key from 'keymaster';
+import { CloseButtonComponent } from './close.jsx!';
 import { TimelineEvents, TimelineComponent, TimelineBackgroundComponent, TimelineListView } from './timeline.jsx!';
 import { DataEvents, Data } from '../data/data';
 import { MainEvents } from '../main.jsx!';
@@ -16,19 +17,35 @@ export const IndexEvents = {
 export class IndexComponent extends React.Component {
     constructor(){
         super();
+        this.handlePreviewEvent = this.handlePreviewEvent.bind(this);
+        this.handlePreviewEventEnd = this.handlePreviewEventEnd.bind(this);
+        this.instructions = "Hover over a dot to jump to content";
+
         this.state = {
             className: "timeline-circle",
-            data: Data.result.content.length ? Data.result.content : this.attachDataHandler()
-        }
+            data: Data.result.content.length ? Data.result.content : this.attachDataHandler(),
+            currentMaker: {
+                title: null
+            },
+            instructions: this.instructions,
+            makerClass: ""
+        };
+
+        this.attachEvents();
 
         key('esc', ()=>{
             this.isActive = false;
             return window.location.hash = "#/timeline"
-        })
+        });
     }
 
     attachDataHandler(){
         Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
+    }
+
+    attachEvents(){
+        Application.pipe.on(TimelineEvents.ADDPREVIEW, this.handlePreviewEvent);
+        Application.pipe.on(TimelineEvents.REMOVEPREVIEW, this.handlePreviewEventEnd);
     }
 
     componentWillMount(){
@@ -58,6 +75,26 @@ export class IndexComponent extends React.Component {
         this.isActive = false;
     }
 
+    handlePreviewEvent(left,top,data){
+        if(!data) return;
+        
+        this.setState({
+            currentMaker: data,
+            instructions: data.type.charAt(0).toUpperCase() + data.type.slice(1),
+            makerClass: "maker-"+ data.maker
+        });
+    }
+
+    handlePreviewEventEnd(){
+        this.setState({
+            currentMaker: {
+                title: null
+            },
+            instructions: "",
+            makerClass: ""
+        });
+    }
+
     get isActive(){
         return IndexComponent.active;
     }
@@ -71,6 +108,7 @@ export class IndexComponent extends React.Component {
         var className = this.state.currentMaker ? "maker-"+this.state.currentMaker : "";
         return (
             <div>
+                <CloseButtonComponent />
                 <section id="timelineCircleWrapper" className={this.state.className} data-filter="none">
                     <div className="preview-object preview-image" id="imagePreview"><div className="image-filter"></div><img src="images/thumb.png" alt="" /></div>
                     <div id="previewBlurb" className="preview-object preview-blurb">
@@ -80,7 +118,8 @@ export class IndexComponent extends React.Component {
                     </div>
                     <div id="stateContainer" key='timelineParentWRapper' className={className}>
                         <div id="timelineInstructions" className="timeline-instructions">
-                            <p>Hover over a dot to jump to content</p>
+                            <p>{this.state.instructions}</p>
+                            <h3 className={this.state.makerClass}>{this.state.currentMaker.title}</h3>
                         </div>
                     </div>
 
@@ -89,7 +128,7 @@ export class IndexComponent extends React.Component {
                     <div className="timeline-label timeline-label-0">noon</div>
                     <div className="timeline-label timeline-label-6">18:00</div>
 
-                    <TimelineListView offset={0} circle={true} data={this.state.data} key='timelineListView'  />
+                    <TimelineListView offset={0} currentMaker={this.state.currentMaker} circle={true} data={this.state.data} key='timelineListView'  />
 
 
 

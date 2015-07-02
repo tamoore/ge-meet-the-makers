@@ -46,9 +46,9 @@ export class MakerComponent extends React.Component {
     handleMakerTitle(maker){
         if(maker){
             this.setState({
-                makerTitle: this._data[maker].title,
+                makerTitle: this._data[maker].role,
                 makerName: this._data[maker].name,
-                makerLocation: "Somewhere"
+                makerLocation: this._data[maker].location
             });
         }else{
             this.setState({
@@ -59,8 +59,6 @@ export class MakerComponent extends React.Component {
         }
 
     }
-
-
 
     render(){
         return (

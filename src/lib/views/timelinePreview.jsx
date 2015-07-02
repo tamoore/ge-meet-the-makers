@@ -12,6 +12,26 @@ export const PreviewEvents = {
     RIGHT: "preview-right"
 }
 
+export class PreviewIconComponent extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            className: "PreviewIconComponent"
+        }
+    }
+    componentDidMount(){
+        this.setState({
+            className: this.state.className + " maker-" + this.props.maker
+        });
+    }
+
+    render(){
+        return (
+            <div className={this.state.className} ></div>
+        )
+    }
+}
+
 export class PreviewComponent extends React.Component {
     constructor(){
         super();
@@ -152,6 +172,7 @@ export class PreviewComponent extends React.Component {
                     </g>
                 </svg>
                 <div id="previewElement" className={this.state.activeStateClass}>
+                    <PreviewIconComponent maker={this.props.data.maker} />
                     <div className="timelinePreview-image--wrapper">
                         <img src={previewImage} className="timelinePreview-image" />
                     </div>

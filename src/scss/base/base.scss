@@ -78,4 +78,27 @@ body {
   @include display(flex);
   @include align-items(center);
   @include justify-content(center);
+  video {
+   // position: absolute;
+    //bottom: 50%;
+    //right: 50%;
+    //-webkit-transform: translateX(-50%) translateY(-50%);
+    //transform: translateX(-50%) translateY(-50%);
+    min-width: 100%;
+    min-height: 100vh;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    overflow: hidden;
+    object-fit: cover;
+  }
+  .skip-video {
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    color:#fff;
+    bottom: 2rem;
+    right: 2rem;
+    text-decoration: none;
+  }
 }

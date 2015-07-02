@@ -24,9 +24,33 @@
       text-transform: capitalize;
       font-size: 1.5rem;
       margin-top: -2rem;
-      margin-left: 2.5rem;
+      margin-left: 3rem;
       margin-bottom: 1.5rem;
     }
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 1.7rem;
+      height: 1.7rem;
+      top: -2rem;
+      left: 0px;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    &[data-type="post"]:after {
+      background-image: url(../images/content-type-icons/post-icon.svg);
+    }
+    &[data-type="gallery"]:after {
+      background-image: url(../images/content-type-icons/gallery-icon.svg);
+    }
+    &[data-type="image"]:after {
+      background-image: url(../images/content-type-icons/image-icon.svg);
+    }
+    &[data-type="quote"]:after {
+      background-image: url(../images/content-type-icons/quote-icon.svg);
+    }
+
     position: absolute;
     font-family: Abel, sans-serif;
     top: 0px;
@@ -37,6 +61,32 @@
     font-weight: 100;
     -webkit-font-smoothing: antialiased;
     text-transform: uppercase;
+  }
+}
+
+.PreviewIconComponent {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  top: 0px;
+  left: -40px;
+  &.maker-3 {
+    background-image: url(../images/framed/boat-csiro-framed.svg);
+  }
+  &.maker-1 {
+    background-image: url(../images/framed/space-sabre-framed.svg);
+  }
+  &.maker-2 {
+    background-image: url(../images/framed/plane-virgin-framed.svg);
+  }
+  &.maker-4 {
+    background-image: url(../images/framed/microscope-calimmune-framed.svg);
+  }
+  &.maker-5 {
+    background-image: url(../images/framed/train-royhill-framed.svg);
+  }
+  &.maker-6 {
+    background-image: url(../images/framed/solar-infratech-framed.svg);
   }
 }
 
@@ -57,17 +107,16 @@
     left: -134px;
   }
 }
+
 #previewElement {
     position: absolute;
     width: 180px;
     height: 120px;
     margin-top: -210px;
-
     margin-left: -100px;
     z-index: 10;
     background-size: cover;
     background-position: center center;
-  
     //@include transition(opacity .5s ease-in-out);
     @include animation(flipInX .25s ease-in);
     .timelinePreview-image--wrapper{
@@ -75,13 +124,8 @@
       clip-path: polygon(5% 0, 100% 0%, 95% 100%, 0% 100%);
       padding-left: 1px;
       padding-right: 1px;
-
       background-color: white;
       min-width: 200px;
-
-
-
-
       > img {
         width: 100%;
 
@@ -91,6 +135,30 @@
         clip-path: polygon(5% 0, 100% 0%, 95% 100%, 0% 100%);
       }
     }
+
+}
+@at-root .circle-preview-wrapper {
+  //position: relative;
+}
+@at-root .circle-preview-image {
+
+  background-size: cover;
+  overflow: visible;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  min-width: 13rem;
+  max-width: 13rem;
+  min-height: 13rem;
+  max-height: 13rem;
+  border-radius: 50%;
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  margin-left: -6.5rem;
+  margin-top: -6.5rem;
+
+
 
 }
 

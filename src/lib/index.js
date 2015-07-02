@@ -25,13 +25,18 @@ export class Application {
 			this.ambientVideoEmitter = new AmbientVideoEmitter();
 		});
 
-
+		Application.pipe.on(Application.SKIPVIDEO, ()=>{
+			this.unmountCom();
+			this.introVideoComplete = true;
+			if(this.staticAssetsStoreComplete){
+				this.main = new Main();
+			}
+		});
 
 		Application.pipe.on(IntroVideoEvents.COMPLETE, ()=>{
 			this.introVideoComplete = true;
-			React.unmountComponentAtNode(document.getElementById('introVideo'));
+			this.unmountCom();
 			if(this.staticAssetsStoreComplete){
-				this.unmountCom();
 				this.main = new Main();
 			}
 		});
@@ -43,11 +48,13 @@ export class Application {
 				this.main = new Main();
 			}
 		});
+
 		if(!window.location.hash || window.location.hash == "#/"){
 			React.render(React.createElement(IntroVideoComponent), document.getElementById('introVideo'));
 		}else{
 			this.introVideoComplete = true;
 		}
+
 		React.render(React.createElement(PreloadComponent), document.getElementById('preload'));
 
 	}
@@ -63,7 +70,8 @@ export class Application {
 }
 Application.pipe = events(this);
 Application.maker = Math.ceil(Math.random() * (6 - 1) + 1);
-
+Application.assetLocation  = "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/";
+Application.SKIPVIDEO = "skipvideo";
 $(()=>{
 	new Application();
 });

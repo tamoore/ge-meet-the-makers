@@ -23,7 +23,10 @@ export class HeaderComponent extends React.Component {
             makerId: null,
             styles: {
                 opacity: 0
-            }
+            },
+            routesToIgnore: [
+                'content', 'index'
+            ]
         };
         this.showMakers = _.bind(this.showMakers, this);
         this.handleClick = _.bind(this.handleClick, this);
@@ -63,7 +66,8 @@ export class HeaderComponent extends React.Component {
     render(){
         var indexLocation = this.state.index ? "timeline" : "index";
         var indexLabel = this.state.index ? "close" : "index";
-        var hide = this.props.currentRoute.split("/")[1] === "content" ? "hidden" : "shown";
+        let routeToCheck = this.props.currentRoute.split("/")[1];
+        var hide = _.includes(this.state.routesToIgnore, routeToCheck)  ? "hidden" : "shown";
 
 
         return (

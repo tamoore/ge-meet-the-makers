@@ -15,6 +15,7 @@ export class IntroVideoComponent extends TimelineBackgroundComponent {
     constructor(){
         super();
         this.introVideo = new IntroVideo();
+        this.handleSkipVideo = this.handleSkipVideo.bind(this);
         this.assignEvents();
 
     }
@@ -25,6 +26,10 @@ export class IntroVideoComponent extends TimelineBackgroundComponent {
     componentWillMount(){
         MainEvents.timeLinetimeout = 3500;
         MainEvents.footerTimeout = 3500;
+    }
+
+    handleSkipVideo(){
+        Application.pipe.emit(Application.SKIPVIDEO);
     }
 
     handleVideoPlaying(video /* videoDOM element */){
@@ -54,6 +59,7 @@ export class IntroVideoComponent extends TimelineBackgroundComponent {
         };
         return (
             <div className="introVideoContainer" ref="videoContainer" style={styles}>
+                <a href="javascript:void(0)" onClick={this.handleSkipVideo} className="skip-video">Skip Video</a>
             </div>
         )
     }

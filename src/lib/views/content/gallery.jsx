@@ -207,6 +207,9 @@ export class GalleryContentComponent extends React.Component {
             var _clsName = (index == this.state.currentIndex ? 'active': null);
           dots.push(<a onClick={this.handleDotClick} key={index} className={_clsName} data-index={index}><span className="assistive-text">image {index}</span></a>)
         });
+        if(dots.length == 1){
+            dots = [];
+        }
         var dotsStyles = {
             marginTop: this.state.canvasHeight+10 + "px",
             maxWidth: this.state.canvasWidth

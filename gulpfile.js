@@ -169,7 +169,7 @@ gulp.task('serve-desktop', ['styles'], function () {
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);
-  gulp.watch('src/scss/**/*.scss', ['styles', 'styles-mobile']);
+  gulp.watch('src/scss/**/*.scss', ['styles']);
 });
 
 // Run development server environmnet
