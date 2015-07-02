@@ -7,6 +7,7 @@ import React from 'react';
 import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../main.jsx!';
+import { LazyLoadImageComponent } from './elements/image.jsx!';
 
 /**
  * Component for Maker profile header
@@ -52,7 +53,7 @@ export class ProfileArticleComponent extends React.Component {
 			<article>
 				<h1 className="title">{maker.title}</h1>
 				<figure>
-					<img src={maker.figure.img} alt={maker.figure.caption} />
+					<LazyLoadImageComponent src={maker.figure.img} alt={maker.figure.caption} classes="" />
 					<figcaption>
 						<p>{maker.figure.caption}</p>
 					</figcaption>
@@ -80,7 +81,7 @@ export class FooterTimelineLinkComponent extends React.Component {
 
     render(){
         return (
-			<a className="link-wide border-bottom" onClick={this.handleClick} href="#/">Explore their timeline</a>
+			<a className="link-wide border-bottom" onClick={this.handleClick} href="#/timeline">Explore their timeline</a>
         )
     }
 }
@@ -118,7 +119,7 @@ export class ProfileFooterComponent extends React.Component {
 					<a className="page-nav-next" href={"#/makers/"+nextMaker}>Next</a>
 				</div>
 				<a className="link-wide border-bottom" href="#/makers">Back to Meet the makers</a>
-				<a className="link-wide border-bottom" href="#/"><i className="arrow-back"></i>Back to timeline</a>
+				<a className="link-wide border-bottom" href="#/timeline"><i className="arrow-back"></i>Back to timeline</a>
 			</footer>
         )
     }

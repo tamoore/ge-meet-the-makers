@@ -7,7 +7,7 @@ import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import { MainEvents } from '../main.jsx!';
-import { LazyLoadImageComponent } from './content/image.jsx!';
+import { LazyLoadImageComponent } from './elements/image.jsx!';
 
 /**
  * Component for Timeline header/intro

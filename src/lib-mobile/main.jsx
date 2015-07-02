@@ -11,12 +11,14 @@ import Router from 'react-router';
 let DefaultRoute = Router.DefaultRoute;
 let RouterLink = Router.Link;
 let Route = Router.Route;
+let Redirect = Router.Redirect;
 let RouteHandler = Router.RouteHandler;
 
 // Views
 import { DataEvents, Data } from './data/data';
 import { HeaderComponent, NavComponent } from './views/header.jsx!';
 import { FilterButtonComponent, FilterNavComponent } from './views/filter.jsx!';
+import { IntroComponent } from './views/intro.jsx!';
 import { IndexComponent } from './views/index.jsx!';
 import { MakersComponent } from './views/makers.jsx!';
 import { MakerComponent } from './views/maker.jsx!';
@@ -29,6 +31,8 @@ export class Main {
     constructor(){
         this.routes = (
             <Route name="app" path="/" handler={MainView}>
+            	<Redirect from="/" to="/timeline" />
+                <Route name="timeline" path="/timeline" handler={IndexComponent}/>
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
                 <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
                 <Route name="content/:maker/:guid" path="content/:maker/:guid" handler={ContentComponent}/>
@@ -102,34 +106,30 @@ export class MainView extends React.Component {
 			top: window.pageYOffset,
 			height: window.innerHeight
 		});
-	}   
+	}
 
     render(){
     	var { currentMaker, data, makerData } = this.state;
 
-    	if ( !_.isEmpty(makerData) ){
-	    	var name = this.context.router.getCurrentPath();
-	    	var maker = null;
+    	var name = this.context.router.getCurrentPath();
+    	var maker = null;
 
-	    	if ( currentMaker ){
-	    		maker = makerData[currentMaker];
-	    	}
+    	if ( currentMaker ){
+    		maker = makerData[currentMaker];
+    	}
 
-	        return (
-				<div id="mobileWrap" className="mtm-wrap">
-	                <HeaderComponent />
-	                <NavComponent page={name} />
-	                <FilterButtonComponent maker={maker} />
-	                <FilterNavComponent makerId={currentMaker} makerData={makerData} />
-	                <TransitionGroup component="div" transitionName="section">
-	                	<RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
-	                </TransitionGroup>
-	                <FooterComponent />
-	            </div>
-	        )
-	    } else {
-	    	return false;
-	    }
+        return (
+			<div id="mobileWrap" className="mtm-wrap">
+                <HeaderComponent />
+                <NavComponent page={name} />
+                <FilterButtonComponent maker={maker} />
+                <FilterNavComponent makerId={currentMaker} makerData={makerData} />
+                <TransitionGroup component="div" transitionName="section">
+                	<RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
+                </TransitionGroup>
+                <FooterComponent />
+            </div>
+        )
     }
 };
 

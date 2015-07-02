@@ -51,7 +51,7 @@ export class NavComponent extends React.Component {
 			<nav className="menu">
 				<div className="navigation">
 					<ul className="nav-content">
-						<li><a href="#/" className={page == "" || page == "content" ? "selected" : ""}><span>Timeline</span></a></li>
+						<li><a href="#/timeline" className={page == "" || page == "content" ? "selected" : ""}><span>Timeline</span></a></li>
 						<li><a href="#/makers" className={page == "makers" ? "selected" : ""}><span>Meet The Makers</span></a></li>
 						<li><a href="#/about" className={page == "about" ? "selected" : ""}><span>About</span></a></li>
 					</ul>

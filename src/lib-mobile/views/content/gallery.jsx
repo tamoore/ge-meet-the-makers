@@ -4,7 +4,7 @@ import React from 'react';
 import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../../main.jsx!';
-import { LazyLoadImageComponent } from './image.jsx!';
+import { LazyLoadImageComponent } from '../elements/image.jsx!';
 
 export class GalleryImageComponent extends React.Component {
 

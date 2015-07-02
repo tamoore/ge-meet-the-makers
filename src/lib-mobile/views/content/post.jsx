@@ -4,7 +4,7 @@ import React from 'react';
 import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../../main.jsx!';
-import { LazyLoadImageComponent } from './image.jsx!';
+import { LazyLoadImageComponent } from '../elements/image.jsx!';
 
 export class PostContentComponent extends React.Component {
     
@@ -59,7 +59,7 @@ export class PostContentComponent extends React.Component {
 						<p>{content.furniture.standfirst}</p>
 					</figcaption>
 				</figure>
-				{output}
+				<div dangerouslySetInnerHTML={{__html: body}}></div>
 			</article>
         )
     }

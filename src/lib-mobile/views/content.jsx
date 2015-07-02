@@ -116,7 +116,7 @@ export class ContentFooterComponent extends React.Component {
 					<div className="page-nav-counter">{contentIndex+1} of {contentCount}</div>
 					<a className="page-nav-next" href={"#/content/"+makerData.slug+"/"+nextContent.guid}>Next</a>
 				</div>
-				<a className="link-wide border-bottom" href="#/"><i className="arrow-back"></i>Back to {makersName}timeline</a>
+				<a className="link-wide border-bottom" href="#/timeline"><i className="arrow-back"></i>Back to {makersName}timeline</a>
 			</footer>
         )
     }
