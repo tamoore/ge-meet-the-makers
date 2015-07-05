@@ -7,6 +7,7 @@ import { Application } from '../../index';
 import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { MainEvents } from '../../main.jsx!';
+
 import { DataEvents, Data } from '../../data/data';
 
 import key from 'keymaster';
@@ -70,10 +71,12 @@ export class VideoContentComponent extends React.Component {
             "standfirst": standfirst,
             "title": data[0].title
         });
+        Application.pipe.emit(MainEvents.MAKERTITLE, data[0].maker);
 
     }
 
     componentWillUnmount(){
+        Application.pipe.emit(MainEvents.MAKERTITLE, 0);
     }
 
     handleData(data){
@@ -96,6 +99,8 @@ export class VideoContentComponent extends React.Component {
                     <div>
                         <p>{this.state.standfirst}</p>
                     </div>
+                    <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <iframe width={this.state.canvasWidth} height={this.state.canvasHeight} src={this.state.yturl} frameborder="0" allowfullscreen></iframe>
             </div>

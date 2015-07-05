@@ -59,6 +59,10 @@ gulp.task('deploy-staging', ['build-mobile'], function() {
 		]));
 });
 
+gulp.task('build-all', ['build', 'build-mobile'], function(){
+
+})
+
 gulp.task('build', ['styles'], function() {
 	gulp.src('./')
 		.pipe(shell([
@@ -112,7 +116,7 @@ gulp.task('build-mobile', ['styles-mobile'], function(){
 				src: ['css/main-mobile.css']
 			}
 		}))
-	.pipe(gulp.dest('build/'));
+	.pipe(gulp.dest('build-mobile/'));
 });
 
 
@@ -168,8 +172,8 @@ gulp.task('serve-desktop', ['styles'], function () {
     'src/**/*.txt',
     'src/*.html',
     'src/**/*.html',
-    'src/lib-mobile/**/*.js',
-    'src/lib-mobile/**/*.jsx',
+    'src/lib/**/*.js',
+    'src/lib/**/*.jsx',
     'src/images/**/*',
     '.tmp/scripts/**/*.js',
   ]).on('change', reload);

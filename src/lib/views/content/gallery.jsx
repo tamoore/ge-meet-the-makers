@@ -4,7 +4,7 @@ import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { DataEvents, Data } from '../../data/data';
 import { Preload, PreloadEvents, PreloadConst } from '../../emitters/staticAssets';
-
+import { MainEvents } from '../../main.jsx!';
 import React from 'react';
 import marked from 'marked';
 
@@ -51,6 +51,7 @@ export class GalleryContentComponent extends React.Component {
         key('left', ()=>{
             this.prevImage();
         });
+
     }
 
     assignEvents(){
@@ -159,6 +160,7 @@ export class GalleryContentComponent extends React.Component {
             "apply": "deactivate"
         });
         Application.pipe.emit(TimelineEvents.PAUSECYCLE);
+        Application.pipe.emit(MainEvents.MAKERTITLE, 0);
     }
 
     actionBlur(){
@@ -186,6 +188,7 @@ export class GalleryContentComponent extends React.Component {
         this.setState({
             standfirst: standfirst
         });
+        Application.pipe.emit(MainEvents.MAKERTITLE, data[0].maker);
 
     }
 

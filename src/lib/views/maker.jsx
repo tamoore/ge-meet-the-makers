@@ -44,6 +44,9 @@ export class MakerComponent extends React.Component {
     }
 
     handleMakerTitle(maker){
+        if((window.location.hash.split("/")[1] == "content") && (this.state.makerTitle != null)){
+            return;
+        }
         if(maker){
             this.setState({
                 makerTitle: this._data[maker].role,
