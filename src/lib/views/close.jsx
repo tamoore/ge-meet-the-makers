@@ -27,9 +27,8 @@ export class CloseButtonComponent extends React.Component {
     }
 
     handleCloseClick(event){
-        let target = Application.history[Application.history.length-1];
-        if(target === undefined) return window.location.hash = "#/timeline";
-        window.location.hash = "#" + target.oldURL.split("#")[1];
+        return window.location.hash = "#/timeline";
+
     }
 
     render(){

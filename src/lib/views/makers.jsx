@@ -6,21 +6,137 @@ import { Application } from '../index';
 
 import React from 'react';
 import { MainEvents } from '../main.jsx!';
+import { DataEvents, Data } from '../data/data';
+import key from 'keymaster';
+
+export class MakerPanel extends React.Component {
+    constructor(){
+        super();
+        this.handlePanelClick = this.handlePanelClick.bind(this);
+        this.handleMouseOut = this.handleMouseOut.bind(this);
+        this.state = {
+            active: "off"
+        }
+    }
+    componentDidMount(){
+
+    }
+    componentWillUnMount(){
+    }
+
+    handlePanelClick(event){
+        let active = this.state.active == "off" ? "on" : "off";
+        this.setState({
+            active: active
+        });
+    }
+
+    handleMouseOut(event){
+        this.setState({
+            active: "off"
+        });
+    }
+
+    render(){
+        var styles = {
+            backgroundImage: `url(${this.props.backgroundImage})`
+        };
+
+        return (
+            <section className="maker-panel" data-state={this.state.active} onClick={this.handlePanelClick} onMouseLeave={this.handleMouseOut}>
+                <div className="maker-panel-background" style={styles}></div>
+                <div className="maker-content">
+                    <header>
+                        <h3 className="maker-title">{this.props.title}</h3>
+                        <h2 className="maker-name">{this.props.name}</h2>
+                        <img src={this.props.icon} alt="Maker Industry Icon" className="maker-industry" />
+                    </header>
+
+                    <div className="maker-bio-excerpt">
+                        <p>{this.props.excerpt}</p>
+                        <p><a href={this.props.href}>Read More</a></p>
+                    </div>
+                </div>
+
+            </section>
+        )
+    }
+}
+
+MakerPanel.propTypes = {
+    id: React.PropTypes.number,
+    backgroundImage: React.PropTypes.string,
+    title: React.PropTypes.string,
+    name: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    excerpt: React.PropTypes.string,
+    href: React.PropTypes.string
+}
+
 
 export class MeetTheMakersComponent extends React.Component {
     constructor(){
         super();
+        let data = this._data = Data.result;
+
         this.state = {
-            klass: ""
+            data: data,
+            makers: []
         }
+
         this.hideMakers = _.bind(this.hideMakers, this);
         Application.pipe.on(MainEvents.SHOWMAKERS, _.bind(this.handleShowMakers, this));
     }
+    get data(){
+        return this._data;
+    }
+    set data(obj){
+        this._data = obj;
+        if(!this._data) this.attachDataEventHandler();
+    }
+
+    attachDataEventHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleData, this));
+    }
+
+    handleData(data){
+        this.setState({
+            data: data
+        });
+    }
+
     componentWillMount(){
 
     }
 
     componentDidMount(){
+        if(this.data){
+            this.makers = this.data.makers;
+            this.generateMakers()
+        }
+        key('esc', ()=>{
+            if(this.state.active == "active"){
+                this.hideMakers()
+            }
+
+        })
+    }
+
+    generateMakers(){
+        var makers = [];
+        for(var i=0;i<6;i++){
+            let maker = this.makers[i+1];
+            makers.push(<MakerPanel id={i+1} backgroundImage={maker.furniture.makerImg}
+                title={maker.role}
+                name={maker.name}
+                icon={maker.furniture.iconFile}
+                excerpt={maker.excerpt}
+                href={maker.href}
+                />)
+        }
+        this.setState({
+            makers: makers
+        });
     }
 
     componentWillUnmount(){
@@ -61,109 +177,7 @@ export class MeetTheMakersComponent extends React.Component {
                     </nav>
                 </footer>
                 <div id="makerPanels" className="makers meet-the-makers-component">
-
-                    <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-01"></div>
-
-                        <header>
-                            <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
-                            <h3 className="maker-title">Engineer</h3>
-                            <h2 className="maker-name">Adam Fletcher</h2>
-                            <img src="images/icon.space.svg" alt="Maker Industry Icon" className="maker-industry" />
-                        </header>
-
-                        <div className="maker-bio-excerpt">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.</p>
-                            <p><a href="makers-bio.html">Read More</a></p>
-                        </div>
-
-                    </section>
-
-                    <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-02"></div>
-
-                        <header>
-                            <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
-                            <h3 className="maker-title">Astronaut</h3>
-                            <h2 className="maker-name">Leo Spaceman</h2>
-                            <img src="images/icon.plane-virgin.svg" alt="Maker Industry Icon" className="maker-industry" />
-                        </header>
-
-                        <div className="maker-bio-excerpt">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.</p>
-                            <p><a href="makers-bio.html">Read More</a></p>
-                        </div>
-
-                    </section>
-
-                    <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-03"></div>
-
-                        <header>
-                            <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
-                            <h3 className="maker-title">Technician</h3>
-                            <h2 className="maker-name">Doris Deigh</h2>
-                            <img src="images/boat-csiro.svg" alt="Maker Industry Icon" className="maker-industry" />
-                        </header>
-
-                        <div className="maker-bio-excerpt">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.</p>
-                            <p><a href="makers-bio.html">Read More</a></p>
-                        </div>
-
-                    </section>
-
-                    <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-04"></div>
-
-                        <header>
-                            <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
-                            <h3 className="maker-title">Engineer</h3>
-                            <h2 className="maker-name">Adam Fletcher</h2>
-                            <img src="images/icon.microscope-calimmune.svg" alt="Maker Industry Icon" className="maker-industry" />
-                        </header>
-
-                        <div className="maker-bio-excerpt">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.</p>
-                            <p><a href="makers-bio.html">Read More</a></p>
-                        </div>
-
-                    </section>
-
-                    <section className="maker-panel" data-state="init">
-                        <div className="maker-panel-background maker-05"></div>
-
-                        <header>
-                            <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
-                            <h3 className="maker-title">Astronaut</h3>
-                            <h2 className="maker-name">Leo Spaceman</h2>
-                            <img src="images/icon.train.svg" alt="Maker Industry Icon" className="maker-industry" />
-                        </header>
-
-                        <div className="maker-bio-excerpt">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.</p>
-                            <p><a href="makers-bio.html">Read More</a></p>
-                        </div>
-
-                    </section>
-
-                    <section className="maker-panel" data-state="init">
-                            <div className="maker-panel-background maker-06"></div>
-
-                            <header>
-                                <img src="images/makers/profile.png" alt="Maker Name" className="maker-portrait" />
-                                <h3 className="maker-title">Celebrity Chef</h3>
-                                <h2 className="maker-name">Uncle Muscles</h2>
-                                <img src="images/icon.solar.svg" alt="Maker Industry Icon" className="maker-industry" />
-                            </header>
-
-                            <div className="maker-bio-excerpt">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium massa id ante laoreet congue. Donec justo nulla, volutpat quis dapibus quis, pharetra id quam. In hendrerit, dolor vehicula pulvinar finibus, dolor sapien elementum dui, et sagittis nisl quam vel orci. Aliquam fringilla mattis mauris, id eleifend nulla tempus at. Sed pretium tellus ac mauris placerat faucibus. Nunc eu congue augue.</p>
-                                <p><a href="makers-bio.html">Read More</a></p>
-                            </div>
-
-                    </section>
-
+                    {this.state.makers}
                 </div>
             </div>
         )

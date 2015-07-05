@@ -141,23 +141,39 @@
   //position: relative;
 }
 @at-root .circle-preview-image {
-
   background-size: cover;
   overflow: visible;
   pointer-events: none;
   position: absolute;
   z-index: -1;
-  min-width: 13rem;
-  max-width: 13rem;
-  min-height: 13rem;
-  max-height: 13rem;
+  min-width: 8rem;
+  max-width: 8rem;
+  min-height: 8rem;
+  max-height: 8rem;
   border-radius: 50%;
   text-align: center;
   top: 0px;
   left: 0px;
   margin-left: -6.5rem;
   margin-top: -6.5rem;
+  margin-top: -3rem;
+  margin-left: -3rem;
+  &:after {
+    content: "";
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    height: 2.4rem;
 
+    padding: 1em;
+    width: 2.4rem;
+
+    @include transform(scale(.5));
+    margin-top: 2.8rem;
+
+    //margin-left: -1.2rem;
+  }
 
 
 }

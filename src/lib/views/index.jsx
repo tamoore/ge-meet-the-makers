@@ -77,7 +77,7 @@ export class IndexComponent extends React.Component {
 
     handlePreviewEvent(left,top,data){
         if(!data) return;
-        
+
         this.setState({
             currentMaker: data,
             instructions: data.type.charAt(0).toUpperCase() + data.type.slice(1),

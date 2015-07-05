@@ -30,9 +30,13 @@
 }
 
 .maker-panel {
+  	* {
+	  -webkit-font-smoothing: antialiased;
+	}
 	height: 100%;
 	min-height: 100vh;
 	overflow: hidden;
+  	cursor: pointer;
 	position: relative;
 	width: 16.66666666666667%;
 	transition: all 500ms ease-in-out;
@@ -83,6 +87,16 @@
 		}
 	}
 
+  	.maker-content {
+	  height: 100vh;
+	  width: 100%;
+	  @include display(flex);
+	  @include flex-direction(column);
+	  @include align-items(center);
+	  @include justify-content(center);
+
+	}
+
 	.maker-portrait,
 	.maker-title,
 	.maker-name,
@@ -91,9 +105,11 @@
 		display: none;
 	}
 
+
+
 	header {
-		height: 100vh;
-		padding-top: calc(50vh - 1.6rem);
+		//height: 100vh;
+		//padding-top: calc(50vh - 1.6rem);
 		overflow: hidden;
 		position: relative;
 		text-align: center;
@@ -129,7 +145,30 @@
 			margin: 0 auto 1.25rem;
 			width: 7.5rem;
 		}
+	  
+
 	}
+  .maker-bio-excerpt {
+	padding: 0 6rem;
+	font-size: 1.8rem;
+	line-height: 1.25;
+	text-align: center;
+	z-index: 1;
+	a {
+	  color: #ffffff;
+	  margin-top: 2rem;
+	  display: inline-block;
+	}
+
+  }
+  &[data-state="on"]{
+	.maker-bio-excerpt {
+	  display: block;
+	}
+	.maker-panel-background {
+	  @include filter(blur(12px));
+	}
+  }
 
 	// HIDE
 	&.maker-panel-hide {
@@ -139,16 +178,19 @@
 	// HOVER STATE - NAME & TITLE
 	&.maker-panel-preview,
 	&:hover {
+
 		width: 50em;
 
 		header {
-			padding-top: calc(50vh - 6rem);
+			//padding-top: calc(50vh - 6rem);
 		}
 
 		.maker-title,
 		.maker-name {
 			display: block;
 		}
+
+
 	}
 
 	// CLICK STATE - BIO EXCERPT

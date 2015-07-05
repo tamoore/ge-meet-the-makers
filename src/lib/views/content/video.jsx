@@ -19,11 +19,13 @@ export class VideoContentComponent extends React.Component {
         this._data = Data.result;
         this.state = {
             yturl: "",
-            standfirst: ""
+            standfirst: "",
+            canvasHeight: (window.innerHeight*.6),
+            canvasWidth: (window.innerHeight*.6)*1.7777778
         }
         this.typing = [];
         this.typingIndex = 0;
-
+        window.addEventListener('resize', _.bind(this.handleWindowResize, this));
     }
 
     get data(){
@@ -40,6 +42,13 @@ export class VideoContentComponent extends React.Component {
             return window.location.hash = "#/timeline"
         })
 
+    }
+
+    handleWindowResize() {
+        this.setState({
+            canvasHeight: (window.innerHeight * .6),
+            canvasWidth: (window.innerHeight * .6) * 1.7777778
+        });
     }
 
     componentDidMount(){
@@ -59,7 +68,6 @@ export class VideoContentComponent extends React.Component {
         this.setState({
             "yturl" : ytembed,
             "standfirst": standfirst,
-            "body": marked(data[0].body),
             "title": data[0].title
         });
 
@@ -81,13 +89,15 @@ export class VideoContentComponent extends React.Component {
     render(){
         return (
             <div className="video-content">
-                <aside>
+                <aside className="aside">
                     <h3>
                         {this.state.title}
                     </h3>
-                    <div dangerouslySetInnerHTML={{__html: this.state.body}} />
+                    <div>
+                        <p>{this.state.standfirst}</p>
+                    </div>
                 </aside>
-                <iframe width="560" height="315" src={this.state.yturl} frameborder="0" allowfullscreen></iframe>
+                <iframe width={this.state.canvasWidth} height={this.state.canvasHeight} src={this.state.yturl} frameborder="0" allowfullscreen></iframe>
             </div>
         )
     }

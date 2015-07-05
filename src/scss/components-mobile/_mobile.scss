@@ -495,7 +495,7 @@ a.link-wide {
 
 // MOBILE CONTENT PAGE
 
-.mobile-maker, .mobile-maker-content {
+.mobile-maker, .mobile-maker-content, .mobile-about {
 	background: url(../images/bg.blur.jpg) 0 0 no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
@@ -528,6 +528,15 @@ a.link-wide {
 				margin:0 0 0 10px;
 				font-size:270%;
 			}
+
+			a {
+				-ms-display: flex;
+				-webkit-display: flex;
+				display: flex;
+				-ms-flex: 2 1 auto;
+				-webkit-flex: 2 1 auto;
+				flex: 2 1 auto;
+			}
 		}
 
 		article {
@@ -542,6 +551,16 @@ a.link-wide {
 			ul, ol {
 				margin: 0 1.6rem 1.6rem;
 				padding: 0 0 0 30px;
+			}
+
+			ul.gallery {
+				margin: 0 0 0 0;
+				padding: 0 0 0 0;
+				list-style: none;
+
+				li.gallery-image {
+					margin: 0 0 2rem;
+				}
 			}
 
 			blockquote {
@@ -733,7 +752,7 @@ a.link-wide {
 		padding-bottom: 2.4rem;
 
 		.preview-media {
-			background: black;
+			background: #fff;
 			border: 2px solid #fff;
 			box-shadow: 0 3px 0 0 rgba(34,63,82,0.2);
 			margin: .75rem 0 0 -.8rem;
@@ -758,12 +777,12 @@ a.link-wide {
 					width: 105%;
 					opacity: 1;
 					height: auto;
+					-webkit-transition: opacity .3s linear, height .3s linear;
+					transition: opacity .3s linear, height .3s linear;
 
 					&.loading {
 						opacity: 0;
-						height: 200px;
-						-webkit-transition: opacity .3s linear, height .3s linear;
-						transition: opacity .3s linear, height .3s linear;
+						max-height: 269px;
 					}
 				}
 			}
@@ -795,15 +814,6 @@ a.link-wide {
 			margin: 0 0 0 1rem;
 		}
 	}
-
-	a {
-		color: #fff;
-		text-decoration: none;
-
-		&:hover {
-			text-decoration: underline;
-		}
-	}
 }
 
 .texture-overlay {
@@ -814,4 +824,37 @@ a.link-wide {
 	bottom: 0;
 	right: 0;
 	z-index: 0;
+}
+
+a, a:visited {
+	color: #fff;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&:active {
+		text-decoration: underline;
+	}
+}
+
+.lazyload {
+	background: center no-repeat url(../images/loader.gif) black;
+	overflow: hidden;
+
+	img {
+		display: block;
+		width: 100%;
+		opacity: 1;
+		height: auto;
+		-webkit-backface-visibility: hidden;
+		-webkit-transition: opacity .3s linear;
+		transition: opacity .3s linear;
+
+		&.loading {
+			opacity: 0;
+			max-height: 50vw;
+		}
+	}
 }

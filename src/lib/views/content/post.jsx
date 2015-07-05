@@ -72,7 +72,7 @@ export class PostsContentComponent extends React.Component {
             "body": marked(data[0].body),
             "title": data[0].title,
             "image": `http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${data[0].furniture ? data[0].furniture.mainImage : null}.jpg`,
-            "imageCaption" : "test"
+            "imageCaption" : data[0].furniture ? data[0].furniture.mainImageCaption : null
         });
 
     }
