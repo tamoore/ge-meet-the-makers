@@ -77,16 +77,16 @@ export class TimelineItemComponent extends React.Component {
 					</a>
 				</header>
 				<div className="timeline-content-preview">
-					<a href={"#/content/"+maker.slug+"/"+data.guid}>
+					<a href={"#/content/"+maker.slug+"/"+data.slug}>
 						<div className="preview-media mask-skew">
-							<LazyLoadImageComponent src={maker.furniture.makerImg} alt={data.title} classes="" />
+							<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.furniture.mainImage+".jpg"} alt={data.title} classes="" />
 						</div>
 					</a>
-						<div className="timeline-content-meta">
-							<i className={"icon-content-type icon-content-"+data.type}></i>
-							<span className="label-content-type">{data.type}</span>
-						</div>
-					<a href={"#/content/"+maker.slug+"/"+data.guid}>
+					<div className="timeline-content-meta">
+						<i className={"icon-content-type icon-content-"+data.type}></i>
+						<span className="label-content-type">{data.type}</span>
+					</div>
+					<a href={"#/content/"+maker.slug+"/"+data.slug}>
 						<h2 className="title">{data.title}</h2>
 					</a>
 				</div>

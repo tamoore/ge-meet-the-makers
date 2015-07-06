@@ -35,7 +35,7 @@ export class Main {
                 <Route name="timeline" path="/timeline" handler={IndexComponent}/>
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
                 <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
-                <Route name="content/:maker/:guid" path="content/:maker/:guid" handler={ContentComponent}/>
+                <Route name="content/:maker/:slug" path="content/:maker/:slug" handler={ContentComponent}/>
                 <Route name="about" path="/about" handler={AboutComponent}/>
                 <DefaultRoute handler={IndexComponent} />
             </Route>

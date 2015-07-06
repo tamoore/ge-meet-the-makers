@@ -1,7 +1,6 @@
 import { Application } from '../../index';
 
 import React from 'react';
-import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../../main.jsx!';
 import { LazyLoadImageComponent } from '../elements/image.jsx!';
@@ -32,9 +31,7 @@ export class GalleryContentComponent extends React.Component {
     render(){
     	var { content } = this.props;
     	var galleryImages = [];
-
-    	// Convert bio Markdown to HTML for render
-    	var body = marked(content.body.toString(), {sanitize: true});
+    	var body = content.body;
 
     	// Build gallery items
     	for ( var i = 0; i < content.images.length; i++ )

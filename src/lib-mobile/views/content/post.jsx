@@ -14,9 +14,7 @@ export class PostContentComponent extends React.Component {
 
     render(){
     	var { content } = this.props;
-
-    	// Convert bio Markdown to HTML for render
-    	var body = marked(content.body.toString(), {sanitize: true});
+    	var body = content.body;
 
         return (
 			<article className="type-post">

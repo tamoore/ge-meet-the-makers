@@ -30,6 +30,7 @@ export class Application {
 		// Preload default assets
 		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 			this.assetsLoaded = true;
+			document.body.setAttribute("class", "assets-loaded");
 			console.log('assets');
 			if ( this.introComplete ){
 				this.showIntro = false;
