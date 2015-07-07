@@ -56,6 +56,7 @@ export class GalleryContentComponent extends React.Component {
 
     assignEvents(){
         Application.pipe.on(PreloadEvents.COMPLETE, _.bind(this.handlePreloadComplete, this));
+        Application.pipe.on(PreloadEvents.PROGRESS, _.bind(this.handlePreloadProgress, this));
     }
 
     attachDataEventHandler(){
@@ -98,7 +99,12 @@ export class GalleryContentComponent extends React.Component {
         });
         this.addBitMapToStage(this.state.imagesRaw[this.currentIndex]);
     }
+    handlePreloadProgress(progress){
+        this.setState({
+            progress: progress
+        })
 
+    }
     handlePreloadComplete(event){
         if(!this.images) return;
         let imagesArray = [];
@@ -131,8 +137,8 @@ export class GalleryContentComponent extends React.Component {
     addBitMapToStage(image){
         if(!image)return
         var img = new createjs.Bitmap(image);
-        img.alpha = 1;
-        createjs.Tween.get(img).to({alpha:1}, 0);
+        //img.alpha = 1;
+        //createjs.Tween.get(img).to({alpha:1}, 0);
         img.scaleX = this.state.canvasWidth / image.width;
         img.scaleY = this.state.canvasHeight / image.height;
 
@@ -208,6 +214,9 @@ export class GalleryContentComponent extends React.Component {
 
     render(){
         var dots = [];
+        var style = {
+            width: this.state.progress + "%"
+        }
         this.state.imagesRaw.forEach((image, index)=>{
             var _clsName = (index == this.state.currentIndex ? 'active': null);
           dots.push(<a onClick={this.handleDotClick} key={index} className={_clsName} data-index={index}><span className="assistive-text">image {index}</span></a>)
@@ -221,6 +230,7 @@ export class GalleryContentComponent extends React.Component {
         }
         return (
             <div className="gallery-content-component" data-content={this.state.apply} data-transition={this.state.state} key={this.context.router.name}>
+                <div id="progress" style={style}></div>
                 <CloseButtonComponent />
                 <aside className="aside">
                     <h3>

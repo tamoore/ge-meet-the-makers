@@ -39,7 +39,7 @@ export class Preload {
 
     handleProgress(event){
         this.progress = Math.ceil(event.progress*100);
-        console.log(this.progress);
+        Application.pipe.emit(PreloadEvents.PROGRESS, this.progress);
     }
 
     handleCompleteProgress(event){
