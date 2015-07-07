@@ -145,6 +145,7 @@ export class PostsContentComponent extends React.Component {
     componentDidMount(){
         Application.pipe.emit(TimelineEvents.PAUSECYCLE);
         TimelineBackgroundComponent.blur = true;
+        let data;
 
         this.setState({
             "state": "off",
@@ -160,18 +161,29 @@ export class PostsContentComponent extends React.Component {
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
         },1000);
 
-        let data = this._data.content.filter((item)=>{
-            return item.maker.toString() == this.props.params.maker;
-        }).filter((item)=>{
-            return item.guid == this.props.params.id;
-        });
+        if(!this.props.params.makerName){
+            data = this._data.content.filter((item)=>{
+                return item.maker.toString() == this.props.params.maker;
+            }).filter((item)=>{
+                return item.guid == this.props.params.id;
+            });
+        }else{
+            Application.pipe.emit(MainEvents.SHOWMAKERBIO);
+            _.forIn(this._data.makers, (value,key)=>{
+                if(value.slug == this.props.params.makerName){
+                    data = [value];
+                }
+            })
+        }
+
+
 
         if(data.length == 1) this.setState(data[0]);
         var standfirst =  data[0].furniture ? data[0].furniture.standfirst : null;
         this.setState({
             "standfirst": standfirst,
             "data": data[0],
-            "body": marked(data[0].body),
+            "body": data[0].body,
             "title": data[0].title,
             "image": `http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${data[0].furniture ? data[0].furniture.mainImage : null}.jpg`,
             "imageCaption" : data[0].furniture ? data[0].furniture.mainImageCaption : null

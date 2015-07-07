@@ -52,7 +52,7 @@ gulp.task('deploy-staging-mobile', ['build-mobile'], function() {
 	]));
 });
 
-gulp.task('deploy-staging', ['build-mobile'], function() {
+gulp.task('deploy-staging', ['build'], function() {
 	return gulp.src(['./'])
 		.on('end', shell.task([
 			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/development/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'

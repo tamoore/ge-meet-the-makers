@@ -126,12 +126,13 @@ export class MeetTheMakersComponent extends React.Component {
         var makers = [];
         for(var i=0;i<6;i++){
             let maker = this.makers[i+1];
-            makers.push(<MakerPanel id={i+1} backgroundImage={maker.furniture.makerImg}
+            let href = "#/maker/"+maker.slug
+            makers.push(<MakerPanel id={i+1} backgroundImage={maker.makerImg}
                 title={maker.role}
                 name={maker.name}
-                icon={maker.furniture.iconFile}
-                excerpt={maker.excerpt}
-                href={maker.href}
+                icon={maker.iconFile}
+                excerpt={maker.furniture.standfirst}
+                href={href}
                 />)
         }
         this.setState({

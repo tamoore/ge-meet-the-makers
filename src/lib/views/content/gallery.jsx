@@ -131,7 +131,7 @@ export class GalleryContentComponent extends React.Component {
     addBitMapToStage(image){
         if(!image)return
         var img = new createjs.Bitmap(image);
-        img.alpha = 0;
+        img.alpha = 1;
         createjs.Tween.get(img).to({alpha:1}, 0);
         img.scaleX = this.state.canvasWidth / image.width;
         img.scaleY = this.state.canvasHeight / image.height;
@@ -147,8 +147,8 @@ export class GalleryContentComponent extends React.Component {
             "apply": "activate"
         })
         this.stage = new createjs.Stage(React.findDOMNode(this.refs.gallery));
-        createjs.Ticker.setFPS(30);
-        createjs.Ticker.addEventListener("tick", this.stage);
+        //createjs.Ticker.setFPS(1);
+        //createjs.Ticker.addEventListener("tick", this.stage);
 
         this.actionBlur();
         this.filterData();
@@ -161,6 +161,8 @@ export class GalleryContentComponent extends React.Component {
         });
         Application.pipe.emit(TimelineEvents.PAUSECYCLE);
         Application.pipe.emit(MainEvents.MAKERTITLE, 0);
+        //createjs.Ticker.removeEventListener("tick", this.stage);
+        this.stage = null;
     }
 
     actionBlur(){

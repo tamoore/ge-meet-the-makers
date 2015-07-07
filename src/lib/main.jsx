@@ -37,6 +37,7 @@ export class Main {
                 <Route name="timeline" handler={TimelineComponent}/>
                 <Route name="content/video/:maker/:id" handler={VideosContentComponent}/>
                 <Route name="content/post/:maker/:id" handler={PostsContentComponent}/>
+                <Route name="maker/:makerName" handler={PostsContentComponent}/>
                 <Route name="content/gallery/:maker/:id" handler={GalleryContentComponent}/>
                 <DefaultRoute handler={TimelineComponent} />
             </Route>
@@ -51,7 +52,8 @@ export const MainEvents = {
     SHOWMAKERS: "mainevents:showmakers",
     HIDEMAKERS: "mainevents:hidemakers",
     FILTERMAKERS: "mainevents:filtermakers",
-    MAKERTITLE: "mainevents:makertitle"
+    MAKERTITLE: "mainevents:makertitle",
+    SHOWMAKERBIO: "mainevents:showmakerbio"
 };
 
 export class MainView extends React.Component {
@@ -63,6 +65,7 @@ export class MainView extends React.Component {
         }
         Application.pipe.on(MainEvents.SHOWMAKERS, _.bind(this.handleShowMakers, this))
         Application.pipe.on(MainEvents.HIDEMAKERS, _.bind(this.handleHideMakers, this));
+        Application.pipe.on(MainEvents.SHOWMAKERBIO, _.bind(this.handleShowMakersBio, this));
     }
 
     handleShowMakers(){
@@ -73,6 +76,11 @@ export class MainView extends React.Component {
     }
 
     handleHideMakers(){
+        this.setState({
+            mainPanelKlass: "makers-leave"
+        });
+    }
+    handleShowMakersBio(){
         this.setState({
             mainPanelKlass: "makers-leave"
         });

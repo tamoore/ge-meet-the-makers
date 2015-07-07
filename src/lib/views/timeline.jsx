@@ -251,6 +251,7 @@ export class TimelineBackgroundComponent extends React.Component {
      */
     handleTimeLinePan(offset, imageid){
         if(!ClockView.hour) return;
+        createjs.Ticker.setFPS(60);
         this.currentImageId = ClockView.hour;
         return this.getImageFromStaticStore();
     }
@@ -262,6 +263,7 @@ export class TimelineBackgroundComponent extends React.Component {
      */
     handleTimeLinePanEnd(imageid) {
         if(!ClockView.hour) return;
+        createjs.Ticker.setFPS(32);
         this.getImageFromStaticStore();
         console.log(ClockView.hour);
         Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '0'+this.state.currentMaker, ClockView.hour);
@@ -331,6 +333,7 @@ export class TLNode extends React.Component {
         let bbox = event.target.getBoundingClientRect();
         if(this.over) return
         Application.pipe.emit(TimelineEvents.ADDPREVIEW, bbox.left, bbox.top, this.props.data);
+        Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
         this.over = true;
         if(this.props.circle){
             let style = {
@@ -353,6 +356,7 @@ export class TLNode extends React.Component {
             Application.pipe.emit(TimelineEvents.REMOVEPREVIEW);
             this.over = false;
         }
+        Application.pipe.emit(MainEvents.MAKERTITLE, 0);
 
     }
 

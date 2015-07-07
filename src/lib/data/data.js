@@ -1,5 +1,6 @@
 import { Application } from '../index';
 import reqwest from 'reqwest';
+let dataUrl = 'http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/testing/data.json';
 
 export const DataEvents = {
     UPDATE: "dataevents:update",
@@ -36,7 +37,7 @@ export class Data  {
         Application.pipe.emit(DataEvents.CONFIG, this._data);
         if(config.dataUrl){
             reqwest({
-                url: config.dataUrl,
+                url: dataUrl,
                 method: 'GET',
                 crossOrigin: true
             }).then(_.bind(this.handleDataResponse,this))

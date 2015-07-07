@@ -25,7 +25,7 @@ export class HeaderComponent extends React.Component {
                 opacity: 0
             },
             routesToIgnore: [
-                'content', 'index'
+                'content', 'index','maker'
             ]
         };
         this.showMakers = _.bind(this.showMakers, this);
