@@ -20,9 +20,9 @@ export class MakersItemComponent extends React.Component {
     	var { maker, key } = this.props;
 
         return (
-			<li key={key} className={"maker-mobile maker-"+maker.slug} style={{backgroundImage: "url("+maker.furniture.makerImg+")"}}>
+			<li key={key} className={"maker-mobile maker-"+maker.slug} style={{backgroundImage: "url("+maker.makerImg+")"}}>
 				<a href={"#/makers/"+maker.slug}>
-					<i className={"maker-industry-icon icon-industry-"+maker.furniture.icon}></i>
+					<i className={"maker-industry-icon icon-"+maker.icon}></i>
 					<h3 className="maker-industry">{maker.role}</h3>
 					<h2>{maker.name}</h2>
 				</a>

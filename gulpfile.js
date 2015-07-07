@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	shell = require('gulp-shell'),
 	watch = require('gulp-watch'),
+	del = require('del'),
 	sass = require('gulp-ruby-sass'),
 	postcss = require('gulp-postcss'),
 	$ = require('gulp-load-plugins')(),
@@ -32,7 +33,7 @@ gulp.task('deploy-scratch', function() {
 		]));
 });
 
-gulp.task('deploy-staging-mobile', ['build-mobile'], function() {
+gulp.task('deploy-staging-mobile', ['clean-build','build-mobile'], function() {
 	return gulp.src(['./'])
 		.on('end', shell.task([
 			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/development/mobile/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
@@ -57,6 +58,13 @@ gulp.task('build-mobile', ['styles-mobile'], function(){
 			}
 		}))
 	.pipe(gulp.dest('build/'));
+});
+
+gulp.task('clean-build', function(cb){
+	del([
+    'build/build.js',
+    'build/build.js.map',
+  ], cb);
 });
 
 // Run development server environmnet

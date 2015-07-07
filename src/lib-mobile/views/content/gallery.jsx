@@ -31,7 +31,6 @@ export class GalleryContentComponent extends React.Component {
     render(){
     	var { content } = this.props;
     	var galleryImages = [];
-    	var body = content.body;
 
     	// Build gallery items
     	for ( var i = 0; i < content.images.length; i++ )
@@ -42,7 +41,7 @@ export class GalleryContentComponent extends React.Component {
         return (
 			<article className="type-gallery">
 				<h1 className="title">{content.title}</h1>
-				<div dangerouslySetInnerHTML={{__html: body}}></div>
+				<div dangerouslySetInnerHTML={{__html: content.body}}></div>
 				<ul className="gallery">
 					{galleryImages}
 				</ul>

@@ -45,7 +45,7 @@ export class IntroVideoComponent extends React.Component {
         var volume = 0.5;
         var loop = false;
         var width = window.innerWidth;
-        var poster = "https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/intro.poster.jpg";
+        var poster = "images/intro.poster.jpg";
         var styles = {
 			marginTop: this.props.top
         }
@@ -97,9 +97,9 @@ export class IntroComponent extends React.Component {
 		var height = window.innerHeight;
 		var width = window.innerWidth;
 
-		if ( height > width ){
+		//if ( height > width ){
 			videoTop = (height / 2) - (el.clientHeight / 2);
-		}
+		//}
 
 		this.setState({
 			videoTop: videoTop

@@ -4,7 +4,6 @@
 import { Application } from '../index';
 
 import React from 'react';
-import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../main.jsx!';
 import { LazyLoadImageComponent } from './elements/image.jsx!';
@@ -23,12 +22,12 @@ export class ProfileHeaderComponent extends React.Component {
 
         return (
 			<header className="maker-details">
-				<i className={"industry-icon icon-industry-"+maker.furniture.icon}></i>
+				<i className={"industry-icon icon-"+maker.icon}></i>
 				<div className="profile">
 					<h3>{maker.role}</h3>
 					<h2>{maker.name}</h2>
 				</div>
-				<img src={maker.furniture.portraitImg} alt={maker.name+" - "+maker.role} />
+				<img src={maker.portraitImg} alt={maker.name+" - "+maker.role} />
 			</header>
         )
     }
@@ -46,9 +45,6 @@ export class ProfileArticleComponent extends React.Component {
     render(){
     	var { maker } = this.props;
 
-    	// Convert bio Markdown to HTML for render
-    	var bio = marked(maker.bio.toString(), {sanitize: true});
-
         return (
 			<article>
 				<h1 className="title">{maker.title}</h1>
@@ -58,7 +54,7 @@ export class ProfileArticleComponent extends React.Component {
 						<p>{maker.figure.caption}</p>
 					</figcaption>
 				</figure>
-				<div dangerouslySetInnerHTML={{__html: bio}}></div>
+				<div dangerouslySetInnerHTML={{__html: maker.body}}></div>
 			</article>
         )
     }
@@ -151,7 +147,7 @@ export class MakerComponent extends React.Component {
 		});
 
 		// Find Maker data for render
-		bgImg = makerData[key].furniture.bgImg;
+		bgImg = makerData[key].bgImg;
 		var maker = makerData[key];
 
 		return (

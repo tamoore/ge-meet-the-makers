@@ -14,7 +14,6 @@ export class PostContentComponent extends React.Component {
 
     render(){
     	var { content } = this.props;
-    	var body = content.body;
 
         return (
 			<article className="type-post">
@@ -25,7 +24,7 @@ export class PostContentComponent extends React.Component {
 						<p>{content.furniture.standfirst}</p>
 					</figcaption>
 				</figure>
-				<div dangerouslySetInnerHTML={{__html: body}}></div>
+				<div dangerouslySetInnerHTML={{__html: content.body}}></div>
 			</article>
         )
     }

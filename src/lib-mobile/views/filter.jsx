@@ -56,7 +56,7 @@ export class FilterButtonComponent extends React.Component {
     	var className = maker ? "icon-industry icon-"+maker.icon+" filter-trigger" : "icon-industry icon-filter filter-trigger";
     	var classNameHidden = this.state.hidden ? " filter-trigger-hidden" : "";
 
-    	if ( viewportTop > 450 ){
+    	if ( viewportTop > 250 ){
     		className = className+" filter-trigger-show";
     	}
 

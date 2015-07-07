@@ -29,7 +29,6 @@ export class VideoContentComponent extends React.Component {
 
     render(){
     	var { content } = this.props;
-    	var body = content.body;
 
         return (
 			<article className="type-post">
@@ -38,7 +37,7 @@ export class VideoContentComponent extends React.Component {
 					<div className="video-overlay" onClick={this.playVideo}></div>
 					<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+content.furniture.mainImage+".jpg"} alt="" classes="video-placeholder" />
 				</figure>
-				<div dangerouslySetInnerHTML={{__html: body}}></div>
+				<div dangerouslySetInnerHTML={{__html: content.body}}></div>
 			</article>
         )
     }
