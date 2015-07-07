@@ -70,7 +70,7 @@ export class MainView extends React.Component {
         };
 
         this.updateViewport = _.bind(this.updateViewport, this);
-		this.updateV = _.debounce(this.updateViewport, 500);
+		this.updateV = _.debounce(this.updateViewport, 400);
     } 
 
     attachDataHandler(){

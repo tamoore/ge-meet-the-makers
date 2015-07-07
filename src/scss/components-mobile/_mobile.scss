@@ -100,7 +100,9 @@ a.link-wide {
 
 	i {
 		height: 2.4rem;
-		width: 2.4rem;
+		width: 2.9rem;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 
 	.profile {
@@ -176,6 +178,10 @@ a.link-wide {
 	background-size: 60% 60% !important;
 	background-repeat: no-repeat !important;
 	background-position: center !important;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: opacity .3s linear, visibility .3s linear;
+	transition: opacity .3s linear, visibility .3s linear;
 
 	path {
 		fill: #fff;
@@ -184,6 +190,11 @@ a.link-wide {
 
 	&.filter-trigger-hidden {
 		display:none !important;
+	}
+
+	&.filter-trigger-show {
+		opacity: 1;
+		visibility: visible;
 	}
 }
 
@@ -240,10 +251,6 @@ a.link-wide {
 		background-size: 60% 60%;
 		background-repeat: no-repeat;
 		background-position: center;
-
-		&:hover {
-			background-color: rgba(0,0,0,.9);
-		}
 
 		&.selected {
 			background-color: rgba(0,0,0,.9);
@@ -670,11 +677,13 @@ a.link-wide {
 
 		.icon-industry {
 			margin-top:30px;
-			height: 3.5rem;
-			width: 3.5rem;
+			height: 4.8rem;
+			width: 5.5rem;
 			position: static;
 			display: block;
 			background-color: transparent;
+			background-position: top left;
+			background-repeat: no-repeat;
 		}
 	}
 }
@@ -702,14 +711,16 @@ a.link-wide {
 		padding: 0 0 0 1rem;
 
 		.icon-industry {
-			height: 1.8rem;
-			width: 2.0rem;
+			height: 2.0rem;
+			width: 2.2rem;
+			background-repeat: no-repeat;
+			background-position: center;
 		}
 
 		time {
-			font-famiy: Abel, sans-serif;
-			font-size: 1.2rem;
-			margin: 0 0 0 1rem;
+			font-family: Abel, sans-serif;
+			font-size: 1.9rem;
+			margin: 0 0 0 0.7rem;
 		}
 
 		a {
@@ -886,7 +897,7 @@ a, a:visited {
 	border: 0px;
 	text-transform: uppercase;
 	width: 100%;
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
 	z-index: 20;
 	font-family: Abel, sans-serif;

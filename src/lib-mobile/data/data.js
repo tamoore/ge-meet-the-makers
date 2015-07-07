@@ -36,7 +36,7 @@ export class Data  {
         Application.pipe.emit(DataEvents.CONFIG, this._data);
         if(config.dataUrl){
             reqwest({
-                url: config.dataUrl,
+                url: "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/testing/data.json",
                 method: 'GET',
                 crossOrigin: true
             }).then(_.bind(this.handleDataResponse,this))

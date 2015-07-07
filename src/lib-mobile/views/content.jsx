@@ -29,7 +29,7 @@ export class ContentHeaderComponent extends React.Component {
 
         return (
 			<header className="maker-details">
-				<i className={"industry-icon icon-industry-"+maker.furniture.icon}></i>
+				<i className={"industry-icon icon-"+maker.icon}></i>
 				<div className="time">
 					{hour}:{minute}
 				</div>
@@ -38,7 +38,7 @@ export class ContentHeaderComponent extends React.Component {
 						<h3>{maker.role}</h3>
 						<h2>{maker.name}</h2>
 					</div>
-					<img src={maker.furniture.portraitImg} alt={maker.name+" - "+maker.role} />
+					<img src={maker.portraitImg} alt={maker.name+" - "+maker.role} />
 				</a>
 			</header>
         )
@@ -138,18 +138,19 @@ export class ContentComponent extends React.Component {
     render(){
     	var { makerId, data, makerData, params } = this.props;
     	var filteredData = data;
-    	var bgImg, maker;
+    	var bgImg, maker, makerKey;
 
 		if ( !makerId ){
 			// Find requested Maker
-			var makerKey = _.findKey(makerData, function(m) {
+			makerKey = _.findKey(makerData, function(m) {
 	    		return m.slug == params.maker;
 			});
 
-			var bgImg = makerData[makerKey].furniture.bgImg;
+			var bgImg = makerData[makerKey].bgImg;
 			var maker = makerData[makerKey];
 		} else {
-			var bgImg = makerData[makerId].furniture.bgImg;
+			makerKey = makerId;
+			var bgImg = makerData[makerId].bgImg;
 			var maker = makerData[makerId];
 
 			filteredData = _.filter(data, { 'maker': makerId });
@@ -158,7 +159,7 @@ export class ContentComponent extends React.Component {
 		// Find requested Content
 		var pathSlug = params.slug;
 		var contentIndex = _.findIndex(filteredData, function(c) {
-    		return c.slug == pathSlug;
+    		return c.slug == pathSlug && c.maker == makerKey;
 		});
 		var content = filteredData[contentIndex];
 

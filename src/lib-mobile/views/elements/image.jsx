@@ -14,7 +14,7 @@ export class LazyLoadImageComponent extends React.Component {
 				height: MainEvents.VIEWPORT.height
 			},
 			showImage: false,
-			loader: '/images/loading.png'
+			loader: 'images/loading.png'
         }
         this.active = false;
     }
@@ -28,6 +28,8 @@ export class LazyLoadImageComponent extends React.Component {
 	        	});
 	       	}
         });
+
+        this.updatePosition();
     }
 
     componentDidUpdate(){

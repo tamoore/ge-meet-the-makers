@@ -32,7 +32,7 @@ export class IndexComponent extends React.Component {
 
     	// Update if Maker chosen
     	if ( makerId ){
-    		bgImg = makerData[makerId].furniture.bgImg;
+    		bgImg = makerData[makerId].bgImg;
     		maker = makerData[makerId];
     	}
 

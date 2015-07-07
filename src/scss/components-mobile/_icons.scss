@@ -4,28 +4,46 @@
 	background-size: contain;
 }
 
-.icon-industry-space {
+.icon-space {
 	background-image: url(../images/space-sabre-reversed.svg);
 }
+.icon-space-reversed {
+	background-image: url(../images/space-sabre.svg);
+}
 
-.icon-industry-factory {
+.icon-transport {
 	background-image: url(../images/plane-virgin-reversed.svg);
 }
+.icon-transport-reversed {
+	background-image: url(../images/plane-virgin.svg);
+}
 
-.icon-industry-fuel {
+.icon-solar {
 	background-image: url(../images/solar-infratech-reversed.svg);
 }
+.icon-solar-reversed {
+	background-image: url(../images/solar-infratech.svg);
+}
 
-.icon-industry-medical {
+.icon-medicine {
 	background-image: url(../images/microscope-calimmune-reversed.svg);
 }
-
-.icon-industry-transport {
-	background-image: url(../images/train-royhill-reversed.svg);
+.icon-medicine-reversed {
+	background-image: url(../images/microscope-calimmune.svg);
 }
 
-.icon-industry-energy {
+.icon-train {
+	background-image: url(../images/train-royhill-reversed.svg);
+}
+.icon-train-reversed {
+	background-image: url(../images/train-royhill.svg);
+}
+
+.icon-boat {
 	background-image: url(../images/boat-csiro-reversed.svg);
+}
+.icon-boat-reversed {
+	background-image: url(../images/boat-csiro.svg);
 }
 
 .icon-content-video {
@@ -46,4 +64,11 @@
 
 .icon-close {
 	background-image: url(../images/close-icon-reversed.svg);
+}
+.icon-close-reversed {
+	background-image: url(../images/close-icon.svg);
+}
+
+.icon-filter {
+	background-image: url(../images/filter-icon-reversed.svg);
 }

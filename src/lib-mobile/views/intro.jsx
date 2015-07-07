@@ -32,10 +32,10 @@ export class IntroVideoComponent extends React.Component {
 
     playVideo(event){
     	var el = React.findDOMNode(this.refs.introvideo);
-    	var classes = event.target.parentNode.getAttribute("class");
-
-    	event.target.parentNode.setAttribute("class", classes+" video-active");
     	el.play();
+    	
+    	var classes = event.target.parentNode.getAttribute("class");
+    	event.target.parentNode.setAttribute("class", classes+" video-active");
     }
 
     render(){
@@ -53,7 +53,7 @@ export class IntroVideoComponent extends React.Component {
         return (
             <div className="video intro-video" style={styles}>
             	<div className="video-overlay" onClick={this.playVideo}></div>
-            	<video src={src} className={classes} controls={controls} volume={volume} loop={loop} width={width} ref="introvideo"></video>
+            	<video poster={poster} src={src} className={classes} controls={controls} volume={volume} loop={loop} width={width} ref="introvideo"></video>
             </div>
         )
     }

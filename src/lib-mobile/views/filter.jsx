@@ -18,8 +18,12 @@ export class FilterButtonComponent extends React.Component {
     constructor(){
         super();
         this.state = {
-        	hidden: false
+        	hidden: false,
+        	viewportTop: 0
         }
+
+        this.filterVisibility = _.bind(this.filterVisibility, this);
+		this.filterV = _.debounce(this.filterVisibility, 100);
     }
 
     componentDidMount() {
@@ -28,12 +32,34 @@ export class FilterButtonComponent extends React.Component {
         		hidden: state
         	});
         });
+
+        window.addEventListener('scroll', this.filterV, false);
+		window.addEventListener('resize', this.filterV, false);
+		this.filterVisibility();
     }
+
+    componentWillUnmount() {
+		window.removeEventListener('scroll', this.filterV, false);
+		window.removeEventListener('resize', this.filterV, false);
+	}
+
+	filterVisibility(){
+		this.setState({
+			viewportTop: window.pageYOffset
+		});
+	}
 
     render(){
     	var { maker } = this.props;
-    	var className = maker ? "icon-industry icon-industry-"+maker.furniture.icon+" filter-trigger" : "icon-industry icon-filter filter-trigger";
+    	var { viewportTop } = this.state;
+
+    	var className = maker ? "icon-industry icon-"+maker.icon+" filter-trigger" : "icon-industry icon-filter filter-trigger";
     	var classNameHidden = this.state.hidden ? " filter-trigger-hidden" : "";
+
+    	if ( viewportTop > 450 ){
+    		className = className+" filter-trigger-show";
+    	}
+
         return (
 			<button id="filterTrigger" className={className+classNameHidden} data-maker={maker ? maker.id : "null"}></button>
         )
@@ -61,15 +87,15 @@ export class FilterNavItemComponent extends React.Component {
     	var m = this.props.data;
     	var icon;
     	if ( m.id ){
-    		icon = this.props.makerId == m.id ? "selected icon-industry-"+m.furniture.icon : "icon-industry-"+m.furniture.icon
+    		icon = this.props.makerId == m.id ? "selected icon-"+m.icon : "icon-"+m.icon+"-reversed"
     	} else {
-    		icon = this.props.makerId == m.id ? "selected icon-"+m.furniture.icon : "icon-"+m.furniture.icon
+    		icon = this.props.makerId == m.id ? "selected icon-"+m.icon : "icon-"+m.icon+"-reversed"
     	}
     	
         return (
 		    <li key={this.props.key}>
-		        <button data-industry={m.furniture.icon} onClick={this.handleClick} rel={m.id} className={icon}>
-		        	<span className="assistive-text">{m.furniture.icon}</span>
+		        <button data-industry={m.icon} onClick={this.handleClick} rel={m.id} className={icon}>
+		        	<span className="assistive-text">{"Filter "+m.name}</span>
 		        </button>
 		    </li>
         )
@@ -107,7 +133,9 @@ export class FilterNavComponent extends React.Component {
     		filterItems.push(<FilterNavItemComponent key={item.id} data={item} makerId={makerId} />);
 		});
 
-		filterItems.push(<FilterNavItemComponent key="0" data={{ id: null, furniture: { icon: "close" } }} makerId={makerId} />);
+		if ( makerId ){
+			filterItems.push(<FilterNavItemComponent key="0" data={{ id: null, icon: "close" }} makerId={makerId} />);
+		}
 
         return (
 			<ul className={className}>
