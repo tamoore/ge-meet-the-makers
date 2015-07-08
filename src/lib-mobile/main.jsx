@@ -1,7 +1,6 @@
 import { Application } from './index';
 
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import Router from 'react-router';
 
@@ -124,9 +123,7 @@ export class MainView extends React.Component {
                 <NavComponent page={name} />
                 <FilterButtonComponent maker={maker} />
                 <FilterNavComponent makerId={currentMaker} makerData={makerData} />
-                <TransitionGroup component="div" transitionName="section">
-                	<RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
-                </TransitionGroup>
+                <RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
                 <FooterComponent />
             </div>
         )

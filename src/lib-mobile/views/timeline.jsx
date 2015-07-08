@@ -4,7 +4,6 @@
 import { Application } from '../index';
 
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import { MainEvents } from '../main.jsx!';
 import { LazyLoadImageComponent } from './elements/image.jsx!';

@@ -23,7 +23,6 @@ export class FilterButtonComponent extends React.Component {
         }
 
         this.filterVisibility = _.bind(this.filterVisibility, this);
-		this.filterV = _.debounce(this.filterVisibility, 100);
     }
 
     componentDidMount() {
@@ -33,14 +32,14 @@ export class FilterButtonComponent extends React.Component {
         	});
         });
 
-        window.addEventListener('scroll', this.filterV, false);
-		window.addEventListener('resize', this.filterV, false);
+        window.addEventListener('scroll', this.filterVisibility, false);
+		window.addEventListener('resize', this.filterVisibility, false);
 		this.filterVisibility();
     }
 
     componentWillUnmount() {
-		window.removeEventListener('scroll', this.filterV, false);
-		window.removeEventListener('resize', this.filterV, false);
+		window.removeEventListener('scroll', this.filterVisibility, false);
+		window.removeEventListener('resize', this.filterVisibility, false);
 	}
 
 	filterVisibility(){
@@ -53,15 +52,17 @@ export class FilterButtonComponent extends React.Component {
     	var { maker } = this.props;
     	var { viewportTop } = this.state;
 
-    	var className = maker ? "icon-industry icon-"+maker.icon+" filter-trigger" : "icon-industry icon-filter filter-trigger";
+    	var className = maker ? "icon-industry icon-"+maker.icon : "icon-industry icon-filter";
     	var classNameHidden = this.state.hidden ? " filter-trigger-hidden" : "";
 
-    	if ( viewportTop > 250 ){
-    		className = className+" filter-trigger-show";
+    	if ( viewportTop > 350 ){
+    		classNameHidden = classNameHidden+" filter-trigger-show";
     	}
 
         return (
-			<button id="filterTrigger" className={className+classNameHidden} data-maker={maker ? maker.id : "null"}></button>
+			<button id="filterTrigger" className={"filter-trigger "+classNameHidden} data-maker={maker ? maker.id : "null"}>
+				<div className={className}></div>
+			</button>
         )
     }
 }
@@ -78,24 +79,22 @@ export class FilterNavItemComponent extends React.Component {
     }
 
     handleClick(event){
-        let makerId = event.target.getAttribute("rel");
-        this.props.makerId == makerId ? makerId = null : false;
+        let makerId = event.target.parentElement.getAttribute("rel");
         Application.pipe.emit(MainEvents.FILTERMAKERS, makerId);
     }
 
     render(){
     	var m = this.props.data;
-    	var icon;
-    	if ( m.id ){
-    		icon = this.props.makerId == m.id ? "selected icon-"+m.icon : "icon-"+m.icon+"-reversed"
-    	} else {
-    		icon = this.props.makerId == m.id ? "selected icon-"+m.icon : "icon-"+m.icon+"-reversed"
-    	}
+
+    	var active = this.props.makerId == m.id ? "active" : "";
+    	var icon = this.props.makerId == m.id ? "icon-"+m.icon : "icon-"+m.icon+"-reversed";
     	
         return (
 		    <li key={this.props.key}>
-		        <button data-industry={m.icon} onClick={this.handleClick} rel={m.id} className={icon}>
-		        	<span className="assistive-text">{"Filter "+m.name}</span>
+		        <button data-industry={m.icon} onClick={this.handleClick} rel={m.id} className={active}>
+		        	<div className={icon}>
+		        		<span className="assistive-text">{"Filter "+m.name}</span>
+		        	</div>
 		        </button>
 		    </li>
         )

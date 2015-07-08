@@ -42,6 +42,7 @@ body {
 	// Delete when LinkedIn icon provided
 	i {
 		border: 1px solid #fff;
+		-webkit-border-radius: 50%;
 		border-radius: 50%;
 		color: #fff;
 		font-size: 2.5rem;
@@ -89,12 +90,7 @@ a.link-wide {
 .maker-details {
 	align-items: center;
 	border-bottom: 1px solid #b2b2b2;
-	-ms-display: flex;
-	-webkit-display: flex;
-	display: flex;
-	-ms-justify-content: flex-start;
-	-webkit-justify-content: flex-start;
-	justify-content: flex-start;
+	display: block;
 	margin: 1.5rem;
 	padding: .8rem 0;
 
@@ -103,10 +99,13 @@ a.link-wide {
 		width: 2.9rem;
 		background-position: center;
 		background-repeat: no-repeat;
+		float: left;
+		display: block;
+		margin-top: 0.3rem;
 	}
 
 	.profile {
-		flex: 2 1 auto;
+		float:left;
 	}
 
 	h2, h3 {
@@ -121,23 +120,23 @@ a.link-wide {
 	}
 	img {
 		border: 1px solid #fff;
+		-webkit-border-radius: 50%;
 		border-radius: 50%;
 		box-shadow: 0 1px 1px rgba(0,0,0,.5);
 		height: 3.25rem;
 		margin-left: .8rem;
 		width: 3.25rem;
+		float:left;
 	}
 }
 
 // Page Navigation
 .page-nav {
 	align-items: center;
-	-ms-display: flex;
-	-webkit-display: flex;
-	display: flex;
+	display: block;
 	font-size: 1.8rem;
 	margin: 0 1.6rem;
-	justify-content: center;
+	overflow: hidden;
 
 	a {
 		color: #fff;
@@ -147,17 +146,21 @@ a.link-wide {
 
 	.page-nav-previous {
 		text-align: left;
+		float: left;
+		width: 25%;
 	}
 
 	.page-nav-next {
 		text-align: right;
+		float: left;
+		width: 25%;
 	}
 
 	.page-nav-counter {
-		-ms-flex: 2 0 auto;
-		-webkit-flex: 2 0 auto;
-		flex: 2 0 auto;
 		text-align: center;
+		float: left;
+		width: 50%;
+		padding: 3rem 0;
 	}
 }
 
@@ -165,6 +168,7 @@ a.link-wide {
 .filter-trigger {
 	background-color: rgba(6,6,6,.9);
 	border: 0;
+	-webkit-border-radius: 50%;
 	border-radius: 50%;
 	box-shadow: 0 1px 1px rgba(158,161,161,.2);
 	display: block;
@@ -175,13 +179,19 @@ a.link-wide {
 	top: 10rem;
 	width: 4.5rem;
 	z-index: 5;
-	background-size: 60% 60% !important;
-	background-repeat: no-repeat !important;
-	background-position: center !important;
+	padding: 0px;
 	opacity: 0;
 	visibility: hidden;
-	-webkit-transition: opacity .3s linear, visibility .3s linear;
-	transition: opacity .3s linear, visibility .3s linear;
+	-webkit-transition: opacity .1s linear, visibility .1s linear;
+	transition: opacity .1s linear, visibility .1s linear;
+
+	div {
+		background-repeat: no-repeat;
+		background-position: center;
+		height: 2.6rem;
+		width: 3.5rem;
+		margin: 0.95rem 0.5rem;
+	}
 
 	path {
 		fill: #fff;
@@ -240,6 +250,7 @@ a.link-wide {
 	button {
 		background-color: rgba(238,238,238,.9);
 		border: 0;
+		-webkit-border-radius: 50%;
 		border-radius: 50%;
 		box-shadow: 0 1px 0 rgba(71,73,73,.2);
 		color: #000;
@@ -248,11 +259,17 @@ a.link-wide {
 		height: 4.5rem;
 		outline: 0;
 		width: 4.5rem;
-		background-size: 60% 60%;
-		background-repeat: no-repeat;
-		background-position: center;
+		padding: 0px;
 
-		&.selected {
+		div {
+			background-repeat: no-repeat;
+			background-position: center;
+			height: 2.6rem;
+			width: 3.5rem;
+			margin: 0.95rem 0.5rem;
+		}
+
+		&.active {
 			background-color: rgba(0,0,0,.9);
 		}
 	}
@@ -351,38 +368,23 @@ a.link-wide {
 
 	.row {
 		align-items: center;
-		-ms-display: flex;
-		-webkit-display: flex;
-		display: flex;
-		-ms-justify-content: flex-start;
-		-webkit-justify-content: flex-start;
-		justify-content: flex-start;
+		display: block;
 		background: rgba(0,0,0,.5);
 	}
 
 	.sponsor {
-		background: rgba(0,0,0,.5);
-		-ms-display: flex;
-		-webkit-display: flex;
-		display: flex;
-		-ms-flex: 2 1 auto;
-		-webkit-flex: 2 1 auto;
-		flex: 2 1 auto;
-		padding: 1.6rem 1.6rem 1.6rem 2.6rem;
+		background: top right no-repeat url(../images/masthead.bg.png);
+		display: block;
 		position: relative;
-		-webkit-transform: skew(-5deg) translateX(-1rem);
-		transform: skew(-5deg) translateX(-1rem);
+		overflow: hidden;
 
 		p {
 			float: left;
-			margin: 0;
 			padding: 0;
 			height: 2.5rem;
 			display: block;
-			-webkit-transform: skew(5deg);
-			transform: skew(5deg);
 			position: relative;
-			margin-right:20px;
+			margin: 1.6rem 2rem 1.6rem 1.6rem;
 		}
 
 		p:after {
@@ -400,29 +402,27 @@ a.link-wide {
 			width: 0px;
 		}
 
-		img {
+		.logo-ge {
 			float: left;
-			height: 2.5rem;
-			margin-left: 1em;
-			-webkit-transform: skew(5deg);
-			transform: skew(5deg);
-			width: 2.5rem;
+			height: 25px;
+			width: 25px;
+			margin: 1.6rem 0 1.6rem 1rem;
+			background: center no-repeat url(../images/logo.ge.svg);
 		}
 	}
 
 	.menu-trigger {
 		float: right;
-		padding: 1.6rem;
+		padding: 0 1.6rem;
 		text-align: center;
-		background: center no-repeat url(../images/nav.hamburger.svg);
-  		background-size: 60%;
   		width: 6.7rem;
   		height: 5.7rem;
 
-		i {
-			font-style: normal;
-			visibility:hidden;
-		}
+  		div {
+  			width: 3.5rem;
+  			height: 5.7rem;
+  			background: center no-repeat url(../images/nav.hamburger.svg);
+  		}
 	}
 
 	.meta-links {
@@ -452,8 +452,9 @@ a.link-wide {
 
 		.logo-guardian {
 			display: block;
-			height: 1.3rem;
-			width: auto;
+			height: 15px;
+			width: 75px;
+			background: center no-repeat url(../images/logo.guardian.svg);
 		}
 	}
 }
@@ -492,8 +493,10 @@ a.link-wide {
 
 			i {
 				display: inline-block;
-				height: 3.3rem;
-				width: 3.3rem;
+				height: 4.3rem;
+				width: 4.6rem;
+				background-repeat: no-repeat;
+				background-position: center;
 			}
 		}
 	}
@@ -530,19 +533,20 @@ a.link-wide {
 		}
 
 		header {
+			overflow: hidden;
+
 			.time {
 				font-family: Abel, sans-serif;
-				margin:0 0 0 10px;
+				margin: 0 0 0 0.7rem;
 				font-size:270%;
+				float: left;
+				display: block;
 			}
 
-			a {
-				-ms-display: flex;
-				-webkit-display: flex;
-				display: flex;
-				-ms-flex: 2 1 auto;
-				-webkit-flex: 2 1 auto;
-				flex: 2 1 auto;
+			a, div.profile-outer {
+				display: block;
+				float: right;
+				overflow: hidden;
 			}
 		}
 
@@ -709,27 +713,30 @@ a.link-wide {
 		border: 0;
 		margin: 0;
 		padding: 0 0 0 1rem;
+		overflow: hidden;
 
 		.icon-industry {
 			height: 2.0rem;
 			width: 2.2rem;
 			background-repeat: no-repeat;
 			background-position: center;
+			float: left;
+			display: block;
+			margin-top: 0.7rem;
 		}
 
 		time {
 			font-family: Abel, sans-serif;
 			font-size: 1.9rem;
-			margin: 0 0 0 0.7rem;
+			margin: 0.7rem 0 0 0.7rem;
+			float: left;
+			display: block;
 		}
 
 		a {
-			-ms-display: flex;
-			-webkit-display: flex;
-			display: flex;
-			-ms-flex: 2 1 auto;
-			-webkit-flex: 2 1 auto;
-			flex: 2 1 auto;
+			display: block;
+			float: right;
+			overflow: hidden;
 		}
 	}
 

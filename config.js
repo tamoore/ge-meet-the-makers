@@ -18,7 +18,9 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.6.15",
     "core-js": "npm:core-js@0.9.18",
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
+    "es5-shim": "npm:es5-shim@4.1.7",
     "es6-dispatcher": "npm:es6-dispatcher@2.1.0",
+    "es6-shim": "npm:es6-shim@0.32.2",
     "event-emitter": "npm:event-emitter@0.3.3",
     "hammerjs": "npm:hammerjs@2.0.4",
     "jquery": "github:components/jquery@2.1.4",
@@ -294,6 +296,9 @@ System.config({
       "d": "npm:d@0.1.1",
       "es5-ext": "npm:es5-ext@0.10.7",
       "es6-symbol": "npm:es6-symbol@2.0.1"
+    },
+    "npm:es6-shim@0.32.2": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:es6-symbol@2.0.1": {
       "d": "npm:d@0.1.1",

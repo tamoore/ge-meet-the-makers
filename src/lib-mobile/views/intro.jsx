@@ -4,7 +4,6 @@
 import { Application } from '../index';
 
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import { StaticAssetsStoreEvents } from '../emitters/staticAssets';
 
@@ -117,10 +116,8 @@ export class IntroComponent extends React.Component {
 
         return (
             <main className="mobile-intro">
-            	<TransitionGroup component="div" transitionName="section">
-	                <IntroVideoComponent key="1" ref="video" top={this.state.videoTop} />
-	                {skip}
-	            </TransitionGroup>
+                <IntroVideoComponent key="1" ref="video" top={this.state.videoTop} />
+                {skip}
             </main>
         )
     }

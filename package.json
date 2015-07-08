@@ -17,7 +17,9 @@
     "dependencies": {
       "core-js": "npm:core-js@^0.9.6",
       "easeljs": "github:CreateJS/EaselJS@^0.8.0",
+      "es5-shim": "npm:es5-shim@^4.1.7",
       "es6-dispatcher": "npm:es6-dispatcher@^2.1.0",
+      "es6-shim": "npm:es6-shim@^0.32.2",
       "event-emitter": "npm:event-emitter@^0.3.3",
       "hammerjs": "npm:hammerjs@^2.0.4",
       "jquery": "github:components/jquery@^2.1.3",
