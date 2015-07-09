@@ -8,22 +8,6 @@ export class SocialNavComponent extends React.Component {
 
 	constructor(){
         super();
-        this.state = {
-
-        }
-        this.active = false;
-    }
-
-    componentDidMount(){
-    	this.active = true;
-    }
-
-    componentDidUpdate(){
-
-    }
-
-    componentWillUnmount(){
-    	this.active = false;
     }
 
     render(){

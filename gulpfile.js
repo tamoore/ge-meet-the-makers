@@ -33,31 +33,46 @@ gulp.task('deploy-scratch', function() {
 		]));
 });
 
-gulp.task('deploy-staging-mobile', ['build-mobile'], function() {
-	return gulp.src(['./'])
-		.on('end', shell.task([
-			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/development/mobile/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
-	]));
-});
-
-gulp.task('build-mobile', ['styles-mobile'], function(){
+gulp.task('deploy-staging-mobile', function() {
+	gulp.src('./src/index-mobile.html')
+	.pipe(htmlreplace({
+		src: './src/index-mobile.html',
+		'js': {
+			src: ['build.js']
+		},
+		'css': {
+			src: ['css/main-mobile.css']
+		}
+	}))
+	.pipe(gulp.dest('build/'));
 	gulp.src('./')
 	.pipe(shell([
 		'jspm bundle-sfx --minify src/lib-mobile/index',
 		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
 		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/ && cp -rf ./src/static/static-scripts.js ./build/static/'
+	])).on('end', shell.task([
+			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/development/mobile/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
 	]));
+});
+
+gulp.task('build-mobile', ['styles-mobile'], function(){
 	gulp.src('./src/index-mobile.html')
 		.pipe(htmlreplace({
 			src: './src/index-mobile.html',
 			'js': {
-				src: ['build.js', 'static/static-scripts.js']
+				src: ['build.js']
 			},
 			'css': {
 				src: ['css/main-mobile.css']
 			}
 		}))
 	.pipe(gulp.dest('build/'));
+	gulp.src('./')
+	.pipe(shell([
+		'jspm bundle-sfx --minify src/lib-mobile/index',
+		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
+		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/ && cp -rf ./src/static/static-scripts.js ./build/static/'
+	]));
 });
 
 gulp.task('clean-build', function(cb){

@@ -14,6 +14,25 @@ export class HeaderComponent extends React.Component {
 	
     constructor(){
         super();
+        this.nav = null;
+
+        this.closeNav = _.bind(this.closeNav, this);
+        this.openNav = _.bind(this.openNav, this);
+    }
+
+    componentDidMount(){
+    	this.nav = document.getElementById('slide-nav');
+    	var el = document.getElementById('slide-nav');
+		el.addEventListener("click", this.closeNav, false);
+	}
+
+    openNav(event){
+    	this.nav.setAttribute("class", "menu menu-slide");
+    	event.preventDefault();
+    }
+
+    closeNav(){
+    	this.nav.setAttribute("class", "menu");
     }
 
     render(){
@@ -23,7 +42,7 @@ export class HeaderComponent extends React.Component {
 					<div className="sponsor">
 						<p>Brought<br />to you by</p>
 						<div className="logo-ge"><span className="assistive-text">GE</span></div>
-						<a id="menuTrigger" className="menu-trigger">
+						<a id="menuTrigger" className="menu-trigger" onClick={this.openNav} href="#">
 							<div><span className="assistive-text">Menu</span></div>
 						</a>
 					</div>
@@ -52,7 +71,7 @@ export class NavComponent extends React.Component {
     render(){
     	var page = this.props.page.split('/')[1];
         return (
-			<nav className="menu">
+			<nav className="menu" id="slide-nav">
 				<div className="navigation">
 					<ul className="nav-content">
 						<li><a href="#/timeline" className={page == "timeline" || page == "content" ? "selected" : ""}><span>Timeline</span></a></li>

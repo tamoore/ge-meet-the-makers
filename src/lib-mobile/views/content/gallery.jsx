@@ -4,6 +4,7 @@ import React from 'react';
 
 import { MainEvents, MainDefaults } from '../../main.jsx!';
 import { LazyLoadImageComponent } from '../elements/image.jsx!';
+import { BodyComponent } from '../elements/body.jsx!';
 
 export class GalleryImageComponent extends React.Component {
 
@@ -38,10 +39,13 @@ export class GalleryContentComponent extends React.Component {
     		galleryImages.push(<GalleryImageComponent key={i} data={content.images[i]} />);
     	}
 
+    	var standfirst = content.furniture.standfirst ? <p className="standfirst">{content.furniture.standfirst}</p> : "";
+
         return (
 			<article className="type-gallery">
 				<h1 className="title">{content.title}</h1>
-				<div dangerouslySetInnerHTML={{__html: content.body}}></div>
+				{standfirst}
+				<BodyComponent body={content.body} images={content.images} pq={content.pq} pqCredit={content.pqCredit} type="gallery" />
 				<ul className="gallery">
 					{galleryImages}
 				</ul>

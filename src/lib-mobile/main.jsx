@@ -49,6 +49,7 @@ export class Main {
 export const MainEvents = {
 	FILTERMAKERS: null,
 	HIDEFILTER: false,
+	TOGGLEFILTER: true,
 	VIEWPORT: {
 		top: window.pageYOffset,
 		height: window.innerHeight
@@ -69,7 +70,7 @@ export class MainView extends React.Component {
         };
 
         this.updateViewport = _.bind(this.updateViewport, this);
-		this.updateV = _.debounce(this.updateViewport, 400);
+		this.updateV = _.debounce(this.updateViewport, 300);
     } 
 
     attachDataHandler(){

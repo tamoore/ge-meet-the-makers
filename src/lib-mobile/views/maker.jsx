@@ -8,6 +8,7 @@ import React from 'react';
 import { MainEvents, MainDefaults } from '../main.jsx!';
 import { SocialNavComponent } from './elements/social.jsx!';
 import { LazyLoadImageComponent } from './elements/image.jsx!';
+import { BodyComponent } from './elements/body.jsx!';
 
 /**
  * Component for Maker profile header
@@ -57,7 +58,7 @@ export class ProfileArticleComponent extends React.Component {
 						<p>{maker.figure.caption}</p>
 					</figcaption>
 				</figure>
-				<div dangerouslySetInnerHTML={{__html: maker.body}}></div>
+				<BodyComponent body={maker.body} images={maker.images} pq={maker.pq} pqCredit={maker.pqCredit} type="maker" />
 			</article>
         )
     }
