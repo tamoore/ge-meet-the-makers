@@ -1,10 +1,10 @@
 import { Application } from '../../index';
 
 import React from 'react';
-import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../../main.jsx!';
 import { LazyLoadImageComponent } from '../elements/image.jsx!';
+import { BodyComponent } from '../elements/body.jsx!';
 
 export class PostContentComponent extends React.Component {
     
@@ -15,8 +15,11 @@ export class PostContentComponent extends React.Component {
     render(){
     	var { content } = this.props;
 
-    	// Convert bio Markdown to HTML for render
-    	var body = marked(content.body.toString(), {sanitize: true});
+    	var figure = content.furniture.mainImageCaption ? content.furniture.mainImageCaption : "";
+    	figure = figure != "" ? figure+" / " : figure;
+    	figure = content.furniture.mainImageCredit ? figure+content.furniture.mainImageCredit : "";
+
+    	var standfirst = content.furniture.standfirst ? <p className="standfirst">{content.furniture.standfirst}</p> : "";
 
         return (
 			<article className="type-post">
@@ -24,10 +27,11 @@ export class PostContentComponent extends React.Component {
 				<figure>
 					<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+content.furniture.mainImage+".jpg"} alt={content.furniture.standfirst} classes="" />
 					<figcaption>
-						<p>{content.furniture.standfirst}</p>
+						<p>{figure}</p>
 					</figcaption>
 				</figure>
-				<div dangerouslySetInnerHTML={{__html: body}}></div>
+				{standfirst}
+				<BodyComponent body={content.body} images={content.images} pq={content.pq} pqCredit={content.pqCredit} type="post" />
 			</article>
         )
     }

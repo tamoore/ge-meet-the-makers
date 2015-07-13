@@ -14,17 +14,14 @@ export class PreloadComponent extends React.Component {
             progress: 0
         }
         Application.pipe.on(StaticAssetsStoreEvents.PROGRESS, _.bind(this.handleProgress, this))
-
     }
+
     handleProgress(progress){
         this.setState({
             progress: progress
         })
     }
-    componentDidMount(){
 
-
-    }
     render(){
         var style = {
             width: this.state.progress + "%"

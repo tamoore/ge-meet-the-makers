@@ -1,7 +1,6 @@
 import { Application } from './index';
 
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import Router from 'react-router';
 
@@ -35,7 +34,7 @@ export class Main {
                 <Route name="timeline" path="/timeline" handler={IndexComponent}/>
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
                 <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
-                <Route name="content/:maker/:guid" path="content/:maker/:guid" handler={ContentComponent}/>
+                <Route name="content/:maker/:slug" path="content/:maker/:slug" handler={ContentComponent}/>
                 <Route name="about" path="/about" handler={AboutComponent}/>
                 <DefaultRoute handler={IndexComponent} />
             </Route>
@@ -50,6 +49,7 @@ export class Main {
 export const MainEvents = {
 	FILTERMAKERS: null,
 	HIDEFILTER: false,
+	TOGGLEFILTER: true,
 	VIEWPORT: {
 		top: window.pageYOffset,
 		height: window.innerHeight
@@ -70,7 +70,7 @@ export class MainView extends React.Component {
         };
 
         this.updateViewport = _.bind(this.updateViewport, this);
-		this.updateV = _.debounce(this.updateViewport, 500);
+		this.updateV = _.debounce(this.updateViewport, 300);
     } 
 
     attachDataHandler(){
@@ -124,9 +124,7 @@ export class MainView extends React.Component {
                 <NavComponent page={name} />
                 <FilterButtonComponent maker={maker} />
                 <FilterNavComponent makerId={currentMaker} makerData={makerData} />
-                <TransitionGroup component="div" transitionName="section">
-                	<RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
-                </TransitionGroup>
+                <RouteHandler key={name} page={name} makerId={currentMaker} makerData={makerData} data={data} />
                 <FooterComponent />
             </div>
         )

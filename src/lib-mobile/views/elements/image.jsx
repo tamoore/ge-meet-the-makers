@@ -13,10 +13,12 @@ export class LazyLoadImageComponent extends React.Component {
         		top: MainEvents.VIEWPORT.top,
 				height: MainEvents.VIEWPORT.height
 			},
+			height: 0,
 			showImage: false,
-			loader: '/images/loading.png'
+			loader: 'images/loading.png'
         }
         this.active = false;
+        this.el = null;
     }
 
     componentDidMount(){
@@ -28,6 +30,11 @@ export class LazyLoadImageComponent extends React.Component {
 	        	});
 	       	}
         });
+
+        this.el = React.findDOMNode(this.refs.image);
+        this.setState({
+        	height: this.el.offsetHeight
+        }, this.updatePosition());
     }
 
     componentDidUpdate(){
@@ -39,19 +46,17 @@ export class LazyLoadImageComponent extends React.Component {
     }
 
     updatePosition() {
-    	var { showImage, viewport } = this.state;
+    	var { showImage, viewport, height } = this.state;
 
-		if (showImage) {
+    	if ( showImage ){
 			return;
 		}
 
-		var el = React.findDOMNode(this.refs.image);
-
 		// update showImage state if component element is in the viewport
-		var min = viewport.top - viewport.height;
-		var max = viewport.top + ( 1.5 * viewport.height );
+		var min = viewport.top - ( 1.5 * viewport.height );
+		var max = viewport.top + ( 3 * viewport.height );
 
-		if (min <= (el.offsetTop + el.offsetHeight) && el.offsetTop <= max) {
+		if (this.el.offsetTop+height <= max && this.el.offsetTop >= min) {
 			this.setState({
 				showImage: true
 			});
@@ -66,8 +71,8 @@ export class LazyLoadImageComponent extends React.Component {
     	var className = showImage ? "" : " loading";
 
         return (
-			<div className="lazyload">
-				<img src={path} alt={alt} ref="image" data-visible={showImage} className={classes+className} />
+			<div className="lazyload" data-visible={showImage}>
+				<img src={path} alt={alt} ref="image" className={classes+className} />
 			</div>
         )
     }

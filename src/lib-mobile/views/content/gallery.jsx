@@ -1,10 +1,10 @@
 import { Application } from '../../index';
 
 import React from 'react';
-import marked from 'marked';
 
 import { MainEvents, MainDefaults } from '../../main.jsx!';
 import { LazyLoadImageComponent } from '../elements/image.jsx!';
+import { BodyComponent } from '../elements/body.jsx!';
 
 export class GalleryImageComponent extends React.Component {
 
@@ -33,19 +33,19 @@ export class GalleryContentComponent extends React.Component {
     	var { content } = this.props;
     	var galleryImages = [];
 
-    	// Convert bio Markdown to HTML for render
-    	var body = marked(content.body.toString(), {sanitize: true});
-
     	// Build gallery items
     	for ( var i = 0; i < content.images.length; i++ )
     	{
     		galleryImages.push(<GalleryImageComponent key={i} data={content.images[i]} />);
     	}
 
+    	var standfirst = content.furniture.standfirst ? <p className="standfirst">{content.furniture.standfirst}</p> : "";
+
         return (
 			<article className="type-gallery">
 				<h1 className="title">{content.title}</h1>
-				<div dangerouslySetInnerHTML={{__html: body}}></div>
+				{standfirst}
+				<BodyComponent body={content.body} images={content.images} pq={content.pq} pqCredit={content.pqCredit} type="gallery" />
 				<ul className="gallery">
 					{galleryImages}
 				</ul>

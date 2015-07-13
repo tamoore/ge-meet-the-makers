@@ -33,6 +33,7 @@ export class Data  {
 
     getData(config){
         this.config = config;
+        config.dataUrl = "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/testing/data.json";
         Application.pipe.emit(DataEvents.CONFIG, this._data);
         if(config.dataUrl){
             reqwest({

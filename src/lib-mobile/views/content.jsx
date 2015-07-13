@@ -29,7 +29,7 @@ export class ContentHeaderComponent extends React.Component {
 
         return (
 			<header className="maker-details">
-				<i className={"industry-icon icon-industry-"+maker.furniture.icon}></i>
+				<i className={"industry-icon icon-"+maker.icon}></i>
 				<div className="time">
 					{hour}:{minute}
 				</div>
@@ -38,7 +38,7 @@ export class ContentHeaderComponent extends React.Component {
 						<h3>{maker.role}</h3>
 						<h2>{maker.name}</h2>
 					</div>
-					<img src={maker.furniture.portraitImg} alt={maker.name+" - "+maker.role} />
+					<img src={maker.portraitImg} alt={maker.name+" - "+maker.role} />
 				</a>
 			</header>
         )
@@ -60,7 +60,7 @@ export class ContentArticleComponent extends React.Component {
     	switch ( content.type ){
 			case "post":
 				return (
-					<VideoContentComponent content={content} />
+					<PostContentComponent content={content} />
 		        );
 		        break;
 			case "gallery":
@@ -99,10 +99,12 @@ export class ContentFooterComponent extends React.Component {
     	var prev = contentIndex > 0 ? contentIndex-1 : contentCount-1;
     	var nextContent = data[next];
     	var prevContent = data[prev];
+		var nextMakerSlug = makerData[nextContent.maker].slug;
+    	var prevMakerSlug = makerData[prevContent.maker].slug;
 
     	var makersName = "";
-    	if ( makerId && makerId == makerData.id ){
-    		makersName = makerData.name+"'s ";
+    	if ( makerId ){
+    		makersName = makerData[makerId].name+"'s ";
     	}
 
         return (
@@ -112,9 +114,9 @@ export class ContentFooterComponent extends React.Component {
 					<li><a><svg viewBox="0 0 514 514"><defs><rect x="93.9" y="135.5" width="326.2" height="265.1"/></defs><clipPath><use overflow="visible"/></clipPath><path clip-path="url(#SVGID_2_)" d="M196.4 400.6c-37.8 0-73-11.1-102.6-30.1 5.2 0.6 10.6 0.9 16 0.9 31.4 0 60.2-10.7 83.1-28.7 -29.3-0.5-54-19.9-62.5-46.5 4.1 0.8 8.3 1.2 12.6 1.2 6.1 0 12-0.8 17.6-2.3 -30.6-6.1-53.7-33.2-53.7-65.6 0-0.3 0-0.6 0-0.8 9 5 19.3 8 30.3 8.4 -18-12-29.8-32.5-29.8-55.7 0-12.3 3.3-23.8 9.1-33.6 33 40.5 82.3 67.1 138 69.9 -1.1-4.9-1.7-10-1.7-15.3 0-37 30-66.9 66.9-66.9 19.3 0 36.6 8.1 48.9 21.1 15.2-3 29.6-8.6 42.5-16.2 -5 15.6-15.6 28.7-29.4 37 13.5-1.6 26.4-5.2 38.4-10.5 -9 13.4-20.3 25.2-33.4 34.6 0.1 2.9 0.2 5.8 0.2 8.7C386.9 298.6 319.5 400.6 196.4 400.6"/><circle fill="none" stroke="#000000" stroke-width="16" stroke-miterlimit="10" cx="257" cy="257" r="249"/></svg><span className="assistive-text">Twitter</span></a></li>
 				</ul>
 				<div className="page-nav border-bottom">
-					<a className="page-nav-previous" href={"#/content/"+makerData.slug+"/"+prevContent.guid}>Previous</a>
+					<a className="page-nav-previous" href={"#/content/"+prevMakerSlug+"/"+prevContent.slug}>Previous</a>
 					<div className="page-nav-counter">{contentIndex+1} of {contentCount}</div>
-					<a className="page-nav-next" href={"#/content/"+makerData.slug+"/"+nextContent.guid}>Next</a>
+					<a className="page-nav-next" href={"#/content/"+nextMakerSlug+"/"+nextContent.slug}>Next</a>
 				</div>
 				<a className="link-wide border-bottom" href="#/timeline"><i className="arrow-back"></i>Back to {makersName}timeline</a>
 			</footer>
@@ -138,27 +140,28 @@ export class ContentComponent extends React.Component {
     render(){
     	var { makerId, data, makerData, params } = this.props;
     	var filteredData = data;
-    	var bgImg, maker;
+    	var bgImg, maker, makerKey;
 
 		if ( !makerId ){
 			// Find requested Maker
-			var makerKey = _.findKey(makerData, function(m) {
+			makerKey = _.findKey(makerData, function(m) {
 	    		return m.slug == params.maker;
 			});
 
-			var bgImg = makerData[makerKey].furniture.bgImg;
+			var bgImg = makerData[makerKey].bgImg;
 			var maker = makerData[makerKey];
 		} else {
-			var bgImg = makerData[makerId].furniture.bgImg;
+			makerKey = makerId;
+			var bgImg = makerData[makerId].bgImg;
 			var maker = makerData[makerId];
 
 			filteredData = _.filter(data, { 'maker': makerId });
 		}
 
 		// Find requested Content
-		var pathGuid = params.guid;
+		var pathSlug = params.slug;
 		var contentIndex = _.findIndex(filteredData, function(c) {
-    		return c.guid == pathGuid;
+    		return c.slug == pathSlug && c.maker == makerKey;
 		});
 		var content = filteredData[contentIndex];
 
@@ -168,7 +171,7 @@ export class ContentComponent extends React.Component {
             	<div className="content-container">
 					<ContentHeaderComponent makerId={makerId} maker={maker} content={content} />
 					<ContentArticleComponent content={content} />
-					<ContentFooterComponent makerId={makerId} makerData={maker} data={filteredData} contentIndex={contentIndex} />
+					<ContentFooterComponent makerId={makerId} makerData={makerData} data={filteredData} contentIndex={contentIndex} />
 				</div>
 			</main>
         )

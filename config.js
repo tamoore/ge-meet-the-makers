@@ -14,11 +14,13 @@ System.config({
 
 System.config({
   "map": {
-    "babel": "npm:babel-core@5.5.6",
-    "babel-runtime": "npm:babel-runtime@5.5.6",
-    "core-js": "npm:core-js@0.9.15",
+    "babel": "npm:babel-core@5.6.15",
+    "babel-runtime": "npm:babel-runtime@5.6.15",
+    "core-js": "npm:core-js@0.9.18",
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
+    "es5-shim": "npm:es5-shim@4.1.7",
     "es6-dispatcher": "npm:es6-dispatcher@2.1.0",
+    "es6-shim": "npm:es6-shim@0.32.2",
     "event-emitter": "npm:event-emitter@0.3.3",
     "gemini-scrollbar": "npm:gemini-scrollbar@1.2.5",
     "hammerjs": "npm:hammerjs@2.0.4",
@@ -130,6 +132,9 @@ System.config({
     "npm:babel-runtime@5.5.6": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
+    "npm:babel-runtime@5.6.15": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
     "npm:browserify-aes@1.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.1",
@@ -207,6 +212,11 @@ System.config({
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:core-js@0.9.15": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:core-js@0.9.18": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
@@ -294,6 +304,9 @@ System.config({
       "d": "npm:d@0.1.1",
       "es5-ext": "npm:es5-ext@0.10.7",
       "es6-symbol": "npm:es6-symbol@2.0.1"
+    },
+    "npm:es6-shim@0.32.2": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:es6-symbol@2.0.1": {
       "d": "npm:d@0.1.1",

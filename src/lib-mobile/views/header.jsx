@@ -14,6 +14,25 @@ export class HeaderComponent extends React.Component {
 	
     constructor(){
         super();
+        this.nav = null;
+
+        this.closeNav = _.bind(this.closeNav, this);
+        this.openNav = _.bind(this.openNav, this);
+    }
+
+    componentDidMount(){
+    	this.nav = document.getElementById('slide-nav');
+    	var el = document.getElementById('slide-nav');
+		el.addEventListener("click", this.closeNav, false);
+	}
+
+    openNav(event){
+    	this.nav.setAttribute("class", "menu menu-slide");
+    	event.preventDefault();
+    }
+
+    closeNav(){
+    	this.nav.setAttribute("class", "menu");
     }
 
     render(){
@@ -22,15 +41,17 @@ export class HeaderComponent extends React.Component {
 				<div className="row">
 					<div className="sponsor">
 						<p>Brought<br />to you by</p>
-						<img className="logo-ge" src="images/logo.ge.svg" alt="GE" />
+						<div className="logo-ge"><span className="assistive-text">GE</span></div>
+						<a id="menuTrigger" className="menu-trigger" onClick={this.openNav} href="#">
+							<div><span className="assistive-text">Menu</span></div>
+						</a>
 					</div>
-					<a id="menuTrigger" className="menu-trigger"><i>Menu</i></a>
 				</div>
 				<ul className="meta-links">
 
 					<li><a href="#/about">About this content</a></li>
-					<li><a href="http://www.theguardian.com/" target="_blank"><img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" /></a></li>
 
+					<li><a href="http://www.theguardian.com/" target="_blank"><img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" /></a></li>
 				</ul>
 			</header>
         )
@@ -50,10 +71,10 @@ export class NavComponent extends React.Component {
     render(){
     	var page = this.props.page.split('/')[1];
         return (
-			<nav className="menu">
+			<nav className="menu" id="slide-nav">
 				<div className="navigation">
 					<ul className="nav-content">
-						<li><a href="#/timeline" className={page == "" || page == "content" ? "selected" : ""}><span>Timeline</span></a></li>
+						<li><a href="#/timeline" className={page == "timeline" || page == "content" ? "selected" : ""}><span>Timeline</span></a></li>
 						<li><a href="#/makers" className={page == "makers" ? "selected" : ""}><span>Meet The Makers</span></a></li>
 						<li><a href="#/about" className={page == "about" ? "selected" : ""}><span>About</span></a></li>
 					</ul>
