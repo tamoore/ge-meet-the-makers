@@ -18,7 +18,6 @@ export class MakerComponent extends React.Component {
             makerName: null,
             makerLocation: null
         }
-
     }
 
     get data(){
@@ -51,17 +50,18 @@ export class MakerComponent extends React.Component {
             return;
         }
         if(maker){
+            console.info(maker);
             this.setState({
-                makerTitle: this._data[maker].role,
-                makerName: this._data[maker].name,
-                makerLocation: this._data[maker].location
+                makerTitle: this._data[maker]? this._data[maker].role :null,
+                makerName: this._data[maker]?   this._data[maker].name :null,
+                makerLocation: this._data[maker]? this._data[maker].location :null
             });
         }else{
             this.setState({
                 makerTitle: null,
                 makerName: null,
                 makerLocation: null
-            })
+            });
         }
 
     }

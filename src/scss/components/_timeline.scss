@@ -202,6 +202,9 @@
 @for $i from 1 through 6 {
   #stateContainer.maker-#{$i} {
     li {
+      .pullQuote {
+        opacity: 0;
+      }
       a {
         color:rgba(255,255,255,.1);
 
@@ -213,6 +216,60 @@
 
       }
 
+    }
+  }
+}
+
+@at-root {
+  #stateContainer {
+    &.showing-preview {
+      .pullQuote {
+        opacity: 0;
+
+      }
+    }
+
+  }
+}
+
+@at-root {
+  .pullQuote {
+    margin-left: -5px;
+    pointer-events: none;
+    @include transition(opacity .75s ease);
+    @include transform(translateY(-11px));
+    #previewElement {
+      width: 0px;
+
+      h2 {
+        text-transform: none;
+        font-size: 2rem;
+        line-height: 1.25;
+        margin-left: 1.5rem;
+        top: -20px;
+        &:before {
+          display: none;
+        }
+        &:after {
+          content: attr(data-credit);
+          width: 1.7rem;
+          height: 1.7rem;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-image: none;
+          float: right;
+          clear: both;
+          display: block;
+          width: 100%;
+          text-align: left;
+          position: static;
+          font-family: "Open Sans";
+          font-weight: 600;
+          margin-top: 1.25rem;
+          font-size: 1.25rem;
+
+        }
+      }
     }
   }
 }

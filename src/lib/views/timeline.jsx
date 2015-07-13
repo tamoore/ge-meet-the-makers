@@ -49,7 +49,8 @@ export const TimelineEvents = {
     BLUR: "timelinebackground:blur",
     ADDPREVIEW: "timelineevents:addPreview",
     REMOVEPREVIEW: "timelineevents:removePreview",
-    PAUSECYCLE: "timelineevents:pauseCycling"
+    PAUSECYCLE: "timelineevents:pauseCycling",
+    ADDPULLQUOTE: "timelineevents:AddPullquote"
 
 }
 
@@ -265,7 +266,6 @@ export class TimelineBackgroundComponent extends React.Component {
         if(!ClockView.hour) return;
         createjs.Ticker.setFPS(32);
         this.getImageFromStaticStore();
-        console.log(ClockView.hour);
         Application.pipe.emit(AmbientVideoEmitterEvent.VIDEO_SRC, '0'+this.state.currentMaker, ClockView.hour);
         return false;
     }
@@ -312,32 +312,51 @@ export class TimelineBackgroundComponent extends React.Component {
 }
 TimelineBackgroundComponent.blur = false;
 
+var pullQuotes = {
+    "2" : true,
+    "10" : true,
+    "21" : true
+};
 export class TLNode extends React.Component {
     constructor(){
         super();
-
+        this.setCurrentMakerId = this.setCurrentMakerId.bind(this);
         this.state = {
-            imageEl: null
+            imageEl: null,
+            bbxL: "",
+            bbxT: ""
         };
 
+        Application.pipe.on(MainEvents.FILTERMAKERS, this.setCurrentMakerId);
         this.handleOnOver = _.bind(this.handleOnOver, this);
         this.handleOnLeave = _.bind(this.handleOnLeave, this);
-
     }
 
     componentDidMount(){
         this.el = React.findDOMNode(this.refs.item);
+        if(!this.props.circle){
+            let bbox = this.el.getBoundingClientRect();
+            this.setState({
+                bbxL: bbox.left,
+                bbxT: bbox.top
+            });
+        }
     }
 
     handleOnOver(event){
         let bbox = event.target.getBoundingClientRect();
         if(this.over) return
+        if(this.makerId){
+            if(this.props.data.maker != this.makerId){
+                return;
+            }
+        }
         Application.pipe.emit(TimelineEvents.ADDPREVIEW, bbox.left, bbox.top, this.props.data);
         Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
         this.over = true;
         if(this.props.circle){
             let style = {
-                backgroundImage: 'url(' +(this.props.data.furniture ? Application.assetLocation+this.props.data.furniture.mainImage+".jpg" : null)+");"
+                backgroundImage: 'url(' +(this.props.data.furniture ? Application.assetLocation+this.props.data.furniture.mainImage+"_small.jpg" : null)+");"
             }
             this.setState({
                 imageEl: <div style={style} className="circle-preview-image"></div>
@@ -361,23 +380,38 @@ export class TLNode extends React.Component {
     }
 
     render(){
+
         let type = this.props.data.type;
         let maker = this.props.data.maker;
         let guid = this.props.data.guid;
         let url = "#/content/"+type+"/"+maker+"/"+guid;
-        return (
-            <li key={this.props.index} ref="item" data-maker={maker}>
+        var pullQuote = null;
 
+        if(type === "post"){
+            pullQuote = <PreviewComponent pullquote={true} clientX={this.state.bbxL} clientY={this.state.bbxT} data={this.props.data}  />;
+        }
+
+        if(pullQuotes[this.props.data.metadata.timeline.hour] != true || this.props.circle){
+                pullQuote = null;
+        }
+
+        return (
+            <li key={this.props.index} ref="item" data-maker={maker} data-pullquote={this.props.data.pq} onMouseLeave={this.handleOnLeave}>
+                {pullQuote}
                 <a href={url} onMouseOver={this.handleOnOver} onMouseLeave={this.handleOnLeave}>
                     {this.state.imageEl}
                     <span className="assistive-text">{this.props.data.title}</span></a>
             </li>
         )
     }
+    setCurrentMakerId(makerId){
+        this.makerId = makerId;
+    }
 }
 TLNode.propTypes = {
     data: React.PropTypes.object
 };
+
 
 
 
@@ -411,9 +445,6 @@ export class TimeLineItem extends React.Component {
 
     }
 
-    handleDataUpdate(data){
-        console.log(data);
-    }
 
     /**
      * ReactJS method
@@ -421,7 +452,6 @@ export class TimeLineItem extends React.Component {
      */
     render(){
         if(this.props.hourLabel){
-
             var hourMarker = this.props.circle ? false : <span className="marker-label">{this.props.hourLabel}:00</span>;
         }
 
@@ -583,8 +613,11 @@ export class TimelineComponent extends React.Component {
             currentMaker: null,
             styles:{
                 "opacity": 0
-            }
+            },
+            pullquotes: []
         };
+
+        this.pullquotes = [];
 
         /**
          * Reference to Config object
@@ -706,10 +739,14 @@ export class TimelineComponent extends React.Component {
     }
 
 
+
+
     handleAddingPreview(clientX, clientY, data){
         this.setState({
-            preview: data && !this.pressed ? <PreviewComponent clientX={clientX} clientY={clientY} data={data} /> : null
+            preview: data && !this.pressed ? <PreviewComponent clientX={clientX} clientY={clientY} data={data} /> : null,
+            showPreview: data ? true : false
         });
+
     }
 
     /**
@@ -777,8 +814,8 @@ export class TimelineComponent extends React.Component {
      * @returns {XML}
      */
     render(){
+        var className = this.state.currentMaker ? "maker-"+this.state.currentMaker+(this.state.showPreview ? " showing-preview" : "") : this.state.showPreview ? "showing-preview":  "removing-preview";
 
-        var className = this.state.currentMaker ? "maker-"+this.state.currentMaker : "";
         return (
                 <div>
                     <div id="stateContainer" key='timelineParentWRapper' className={className} style={this.state.styles}>

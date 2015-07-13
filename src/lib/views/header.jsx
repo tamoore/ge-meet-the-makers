@@ -30,7 +30,6 @@ export class HeaderComponent extends React.Component {
         };
         this.showMakers = _.bind(this.showMakers, this);
         this.handleClick = _.bind(this.handleClick, this);
-
         Application.pipe.on(IndexEvents.ACTIVE, _.bind(this.handleIndexActive, this));
     }
 
@@ -102,11 +101,7 @@ export class HeaderComponent extends React.Component {
                                     <span className="assistive-text">Transportation</span>
                                 </button>
                             </li>
-                            <li>
-                                <button onClick={this.handleClick} className="filter-button filter-button--medical" rel="6">
-                                    <span className="assistive-text">Medical</span>
-                                </button>
-                            </li>
+
                         </ol>
                     </nav>
                     <RouterLink to={indexLocation} className="btn-index" onClick={this.handleClick}>

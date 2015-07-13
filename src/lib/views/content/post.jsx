@@ -21,7 +21,7 @@ export class SupportingImage extends React.Component {
 
         let img = this.props.data[this.props.type] ? this.props.data[this.props.type][this.props.index == 0 ? 0 : 1] : null;
         if(!img) return ( null );
-        let src = this.state.host + img.src + '.jpg';
+        let src = this.state.host + img.src + '_small.jpg';
         let caption = img.imageCaption;
         let credit = img.imageCredit;
         return (

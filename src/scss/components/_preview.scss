@@ -50,6 +50,9 @@
     &[data-type="quote"]:after {
       background-image: url(../images/content-type-icons/quote-icon.svg);
     }
+    &[data-type="video"]:after {
+      background-image: url(../images/content-type-icons/video-icon.svg);
+    }
 
     position: absolute;
     font-family: Abel, sans-serif;
@@ -61,6 +64,7 @@
     font-weight: 100;
     -webkit-font-smoothing: antialiased;
     text-transform: uppercase;
+    text-align: left;
   }
 }
 
@@ -87,6 +91,12 @@
   }
   &.maker-6 {
     background-image: url(../images/framed/solar-infratech-framed.svg);
+  }
+}
+
+.pullQuote {
+  .PreviewIconComponent {
+    background-image: url(../images/framed/quote-framed.svg) !important;
   }
 }
 

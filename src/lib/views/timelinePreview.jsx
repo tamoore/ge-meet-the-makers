@@ -5,6 +5,7 @@ import { Application } from '../index';
 import marked from 'marked';
 import React from 'react';
 import { MainEvents } from '../main.jsx!';
+import { TimelineEvents } from './timeline.jsx!';
 
 export const PreviewEvents = {
     TOP: "preview-top",
@@ -32,13 +33,27 @@ export class PreviewIconComponent extends React.Component {
     }
 }
 
+export class PreviewImageWrapper extends React.Component {
+    constructor(){
+        super();
+    }
+    render(){
+        return (
+            <div className="timelinePreview-image--wrapper">
+                <img src={this.props.previewImage} className="timelinePreview-image" />
+            </div>
+        )
+    }
+}
+
 export class PreviewComponent extends React.Component {
     constructor(){
         super();
         this.state = {
             x: null,
             y: null,
-            styles: null
+            styles: null,
+            maker: ""
         }
         this.positions = [
             PreviewEvents.TOP,
@@ -87,6 +102,8 @@ export class PreviewComponent extends React.Component {
         }
 
         var oldPos = new String(PreviewComponent.position);
+        var maker = this.props.pullquote ? "pullquote":null;
+
         this.stateTimer = setTimeout(()=>{
             this.setState({
                 x: x,
@@ -95,7 +112,9 @@ export class PreviewComponent extends React.Component {
                     left: x.toString()+"px",
                     top:  y.toString()+"px"
                 },
-                klass: oldPos
+                klass: oldPos,
+                maker: maker
+
             });
         }, 1);
             
@@ -123,11 +142,16 @@ export class PreviewComponent extends React.Component {
 
         var index = 0;
         var textLength = this.props.data.title.length;
+
         this.setState({
-            title: this.props.data.title
+            title: this.props.pullquote ? this.props.data.pq : this.props.data.title
         });
 
-        Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
+
+        if(!this.props.pullquote){
+            Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
+        }
+
 
 
     }
@@ -158,12 +182,28 @@ export class PreviewComponent extends React.Component {
         y2[PreviewEvents.TOP] = 325;
         y2[PreviewEvents.LEFT] = 325;
         y2[PreviewEvents.RIGHT] = 335;
+        var pImage = null;
+        var pClass = null;
+        let previewImage = `http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}_small.jpg`
+        var type = null;
+        if(!this.props.pullquote){
+            pImage = <PreviewImageWrapper previewImage={previewImage} />
 
-        let previewImage = `http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}.jpg`
-
+        }else{
+            pClass = "pullQuote";
+        }
+        if(this.props.data.type == "gallery"){
+            if(this.props.data.images.length > 1){
+                type = "gallery";
+            }else{
+                type = "image";
+            }
+        }else{
+            type = this.props.data.type;
+        }
 
         return (
-            <div rel="previewWrapper" style={this.state.styles}>
+            <div rel="previewWrapper" style={this.state.styles} className={pClass}>
                 <svg height="470" width="500" id="previewLine" className={this.state.klass}>
                     <g id="line" fill="none" stroke="white" strokeWidth="1" rotate="auto-reverse">
                         <line ref="line" x1={x1[this.state.klass]} y1={y1[this.state.klass]} x2={x2[this.state.klass]} y2={y2[this.state.klass]} className="previewLineEl">
@@ -172,17 +212,18 @@ export class PreviewComponent extends React.Component {
                     </g>
                 </svg>
                 <div id="previewElement" className={this.state.activeStateClass}>
-                    <PreviewIconComponent maker={this.props.data.maker} />
-                    <div className="timelinePreview-image--wrapper">
-                        <img src={previewImage} className="timelinePreview-image" />
-                    </div>
-                    <h2 data-type={this.props.data.type}>{this.state.title}</h2>
+                    <PreviewIconComponent maker={this.state.maker ? this.state.maker : this.props.data.maker} />
+                    {pImage}
+                    <h2 data-type={type} data-credit={this.props.data.pqCredit}>{this.state.title}</h2>
                 </div>
 
             </div>
         )
     }
 }
+
+
+
 PreviewComponent.propTypes = {
     clientX: React.PropTypes.number,
     clientY: React.PropTypes.number,

@@ -124,7 +124,7 @@ export class MeetTheMakersComponent extends React.Component {
 
     generateMakers(){
         var makers = [];
-        for(var i=0;i<6;i++){
+        for(var i=0;i<5;i++){
             let maker = this.makers[i+1];
             let href = "#/maker/"+maker.slug
             makers.push(<MakerPanel id={i+1} backgroundImage={maker.makerImg}
