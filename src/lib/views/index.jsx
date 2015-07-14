@@ -106,6 +106,11 @@ export class IndexComponent extends React.Component {
 
     render(){
         var className = this.state.currentMaker ? "maker-"+this.state.currentMaker : "";
+        var heading = null;
+        if(this.state.currentMaker.title){
+            heading = <h3 className={this.state.makerClass}>{this.state.currentMaker.title}</h3>;
+        }
+
         return (
             <div>
                 <CloseButtonComponent />
@@ -119,7 +124,7 @@ export class IndexComponent extends React.Component {
                     <div id="stateContainer" key='timelineParentWRapper' className={className}>
                         <div id="timelineInstructions" className="timeline-instructions">
                             <p>{this.state.instructions}</p>
-                            <h3 className={this.state.makerClass}>{this.state.currentMaker.title}</h3>
+                            {heading}
                         </div>
                     </div>
 

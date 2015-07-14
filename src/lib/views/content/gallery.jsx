@@ -5,6 +5,7 @@ import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { DataEvents, Data } from '../../data/data';
 import { Preload, PreloadEvents, PreloadConst } from '../../emitters/staticAssets';
 import { MainEvents } from '../../main.jsx!';
+
 import React from 'react';
 import marked from 'marked';
 
@@ -157,7 +158,8 @@ export class GalleryContentComponent extends React.Component {
         //createjs.Ticker.addEventListener("tick", this.stage);
 
         this.actionBlur();
-        this.filterData();
+        this.load(this.props.data.images);
+        Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
 
     }
     componentWillUnmount(){
@@ -183,22 +185,6 @@ export class GalleryContentComponent extends React.Component {
         },1000);
     }
 
-    filterData(){
-        let data = this._data.content.filter((item)=>{
-            return item.maker.toString() == this.props.params.maker;
-        }).filter((item)=>{
-            return item.guid == this.props.params.id;
-        });
-
-        if(data.length == 1) this.setState(data[0]);
-        var standfirst =  data[0].furniture ? data[0].furniture.standfirst : null;
-        this.load(data[0].images);
-        this.setState({
-            standfirst: standfirst
-        });
-        Application.pipe.emit(MainEvents.MAKERTITLE, data[0].maker);
-
-    }
 
     stageUpdate(image){
         if(!this.stage) return;
@@ -217,6 +203,7 @@ export class GalleryContentComponent extends React.Component {
         var style = {
             width: this.state.progress + "%"
         }
+
         this.state.imagesRaw.forEach((image, index)=>{
             var _clsName = (index == this.state.currentIndex ? 'active': null);
           dots.push(<a onClick={this.handleDotClick} key={index} className={_clsName} data-index={index}><span className="assistive-text">image {index}</span></a>)
@@ -229,14 +216,14 @@ export class GalleryContentComponent extends React.Component {
             maxWidth: this.state.canvasWidth
         }
         return (
-            <div className="gallery-content-component" data-content={this.state.apply} data-transition={this.state.state} key={this.context.router.name}>
+            <div className="gallery-content-component">
                 <div id="progress" style={style}></div>
                 <CloseButtonComponent />
                 <aside className="aside">
                     <h3>
-                        {this.state.title}
+                        {this.props.data.title}
                     </h3>
-                    <p>{this.state.standfirst}</p>
+                    <p>{this.props.data.furniture.standfirst}</p>
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>

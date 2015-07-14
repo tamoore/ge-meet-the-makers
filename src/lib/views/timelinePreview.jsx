@@ -184,7 +184,7 @@ export class PreviewComponent extends React.Component {
         y2[PreviewEvents.RIGHT] = 335;
         var pImage = null;
         var pClass = null;
-        let previewImage = `http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}_small.jpg`
+        let previewImage = `http://cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}_small.jpg`
         var type = null;
         if(!this.props.pullquote){
             pImage = <PreviewImageWrapper previewImage={previewImage} />

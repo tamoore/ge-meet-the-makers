@@ -27,6 +27,7 @@ import { MeetTheMakersComponent } from './views/makers.jsx!';
 import { VideosContentComponent } from './views/content/video.jsx!'
 import { PostsContentComponent } from './views/content/post.jsx!';
 import { GalleryContentComponent } from './views/content/gallery.jsx!';
+import { ContentHandler } from './views/content/content.jsx!';
 
 
 export class Main {
@@ -35,10 +36,12 @@ export class Main {
             <Route name="app" path="/" handler={MainView}>
                 <Route name="index" handler={IndexComponent}/>
                 <Route name="timeline" handler={TimelineComponent}/>
+                <Route name="content/:maker/:id" handler={ContentHandler}/>
                 <Route name="content/video/:maker/:id" handler={VideosContentComponent}/>
                 <Route name="content/post/:maker/:id" handler={PostsContentComponent}/>
                 <Route name="maker/:makerName" handler={PostsContentComponent}/>
                 <Route name="content/gallery/:maker/:id" handler={GalleryContentComponent}/>
+
                 <DefaultRoute handler={TimelineComponent} />
             </Route>
         )

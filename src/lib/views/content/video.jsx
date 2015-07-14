@@ -26,7 +26,7 @@ export class VideoContentComponent extends React.Component {
         }
         this.typing = [];
         this.typingIndex = 0;
-        window.addEventListener('resize', _.bind(this.handleWindowResize, this));
+
     }
 
     get data(){
@@ -38,10 +38,12 @@ export class VideoContentComponent extends React.Component {
     }
 
     componentWillMount(){
+        window.addEventListener('resize', _.bind(this.handleWindowResize, this));
         key('esc', ()=>{
             this.isActive = false;
             return window.location.hash = "#/timeline"
-        })
+        });
+        Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
 
     }
 
@@ -52,30 +54,9 @@ export class VideoContentComponent extends React.Component {
         });
     }
 
-    componentDidMount(){
-        this.processData();
-
-    }
-
-    processData(){
-        let data = this._data.content.filter((item)=>{
-            return item.maker.toString() == this.props.params.maker;
-        }).filter((item)=>{
-            return item.guid == this.props.params.id;
-        });
-        if(data.length == 1) this.setState(data[0]);
-        var ytembed = "https://www.youtube.com/embed/"+data[0].ytid+"?autoplay=1";
-        var standfirst =  data[0].furniture ? data[0].furniture.standfirst : null;
-        this.setState({
-            "yturl" : ytembed,
-            "standfirst": standfirst,
-            "title": data[0].title
-        });
-        Application.pipe.emit(MainEvents.MAKERTITLE, data[0].maker);
-
-    }
 
     componentWillUnmount(){
+        window.removeEventListener('resize', _.bind(this.handleWindowResize, this));
         Application.pipe.emit(MainEvents.MAKERTITLE, 0);
     }
 
@@ -90,19 +71,20 @@ export class VideoContentComponent extends React.Component {
     }
 
     render(){
+        var ytembed = "https://www.youtube.com/embed/"+this.props.data.ytid+"?autoplay=1";
         return (
             <div className="video-content">
                 <aside className="aside">
                     <h3>
-                        {this.state.title}
+                        {this.props.data.title}
                     </h3>
                     <div>
-                        <p>{this.state.standfirst}</p>
+                        <p>{this.props.data.furniture.standfirst}</p>
                     </div>
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
-                <iframe width={this.state.canvasWidth} height={this.state.canvasHeight} src={this.state.yturl} frameborder="0" allowfullscreen></iframe>
+                <iframe width={this.state.canvasWidth} height={this.state.canvasHeight} src={ytembed} frameborder="0" allowfullscreen></iframe>
             </div>
         )
     }
@@ -152,9 +134,9 @@ export class VideosContentComponent extends React.Component {
 
     render(){
         return (
-            <div className="video-content-component" data-content={this.state.apply} data-transition={this.state.state} key={this.context.router.name}>
+            <div className="video-content-component">
                 <CloseButtonComponent />
-                <VideoContentComponent params={this.context.router.getCurrentParams()} />
+                <VideoContentComponent data={this.props.data} />
             </div>
         )
     }

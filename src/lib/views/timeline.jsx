@@ -380,11 +380,11 @@ export class TLNode extends React.Component {
     }
 
     render(){
-
         let type = this.props.data.type;
         let maker = this.props.data.maker;
-        let guid = this.props.data.guid;
-        let url = "#/content/"+type+"/"+maker+"/"+guid;
+        let slug = this.props.data.slug;
+        console.info(maker);
+        let url = "#/content/"+Application.makers[parseInt(maker)-1]+"/"+slug;
         var pullQuote = null;
 
         if(type === "post"){
