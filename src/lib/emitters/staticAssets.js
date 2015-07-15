@@ -2,11 +2,11 @@
  * Application Routing
  */
 import { Application } from '../index';
-
+import uuid from 'node-uuid';
 /**
  * Vendor Dependencies
  */
-import { Data } from '../data/data';
+import { Data, DataEvents } from '../data/data';
 import preloadjs from 'preload';
 
 export const StaticAssetsStoreEvents = {
@@ -43,7 +43,6 @@ export class Preload {
     }
 
     handleCompleteProgress(event){
-        console.log('complete');
         Application.pipe.emit(PreloadEvents.COMPLETE);
     }
 
@@ -66,13 +65,14 @@ export class StaticAssetsStore  {
 
         // Preload the static assets
         this.preload = new createjs.LoadQueue();
+        StaticAssetsStore.preload = this.preload;
         this.preload.setMaxConnections(10);
         this.preload.on("progress", this.handleProgress, this);
         this.preload.on("fileload", this.handleFileLoad, this);
         this.preload.on("complete", this.handleCompleteProgress, this);
 
         Application.pipe.on(StaticAssetsStoreEvents.GET_RESULT, _.bind(this.getResult, this))
-
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataLoaded, this));
         this.generateAssetsTokens();
         this.fetchMakerAssets();
     }
@@ -89,6 +89,18 @@ export class StaticAssetsStore  {
     handleCompleteProgress(event){
         Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
         this.initialAssets = false;
+    }
+
+    handleDataLoaded(data){
+        data.content.forEach((item)=>{
+            this.loadFile(
+                Application.assetLocation + item.furniture.mainImage + "_small.jpg"
+            )
+            this.loadFile(
+                Application.assetLocation + item.furniture.mainImage + "_medium.jpg"
+            )
+
+        });
     }
 
     processType(makerprefix, assetprefix, makercount, assetcount){
@@ -127,7 +139,10 @@ export class StaticAssetsStore  {
         jpgs.forEach((item)=>{
             this.preload.loadFile({id: item.id, src: item.filename, crossOrigin: true });
         });
+    }
 
+    loadFile(url){
+        this.preload.loadFile({id: url, src: url, crossOrigin: true});
     }
 
 }

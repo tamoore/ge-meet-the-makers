@@ -39,7 +39,7 @@ export class Main {
                 <Route name="content/:maker/:id" handler={ContentHandler}/>
                 <Route name="content/video/:maker/:id" handler={VideosContentComponent}/>
                 <Route name="content/post/:maker/:id" handler={PostsContentComponent}/>
-                <Route name="maker/:makerName" handler={PostsContentComponent}/>
+                <Route name="maker/:makerName" handler={ContentHandler}/>
                 <Route name="content/gallery/:maker/:id" handler={GalleryContentComponent}/>
 
                 <DefaultRoute handler={TimelineComponent} />

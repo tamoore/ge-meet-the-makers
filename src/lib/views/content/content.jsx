@@ -4,6 +4,7 @@ import { VideosContentComponent } from './video.jsx!';
 import { PostsContentComponent } from './post.jsx!';
 import { DataEvents, Data } from '../../data/data';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
+import { MainEvents } from '../../main.jsx!';
 import React from 'react';
 
 export class ContentHandler extends React.Component {
@@ -44,25 +45,43 @@ export class ContentHandler extends React.Component {
         }, 1000);
     }
 
-    componentDidMount(){
-        var makerId = Application.makers.indexOf(this.props.params.maker)+1;
-        let data = this._data.content.filter((item)=>{
-            return parseInt(item.maker) == makerId;
-        }).filter((item)=>{
-            return item.slug == this.props.params.id;
+    componentWillUnmount(){
+        this.setState({
+            "state": "show",
+            "apply": "deactivate"
         });
+    }
 
-        this.data = data[0];
-        var el;
+    componentDidMount(){
+        var data, el;
+        if(this.props.params.id){
+            var makerId = Application.makers.indexOf(this.props.params.maker)+1;
+            this.data = this._data.content.filter((item)=>{
+                return parseInt(item.maker) == makerId;
+            }).filter((item)=>{
+                return item.slug == this.props.params.id;
+            })[0];
+
+        }else{
+            var makerId = Application.makers.indexOf(this.props.params.makerName)+1;
+            this.data = this._data.makers[makerId];
+
+
+        }
+
         switch(this.data.type){
             case "video":
-                el = <VideosContentComponent data={this.data} />
+                el = <VideosContentComponent data={this.data} key={this.context.router.name} />;
                 break;
             case "gallery":
-                el = <GalleryContentComponent data={this.data} />
+                el = <GalleryContentComponent data={this.data} key={this.context.router.name} />;
                 break;
             case "post":
-                el = <PostsContentComponent data={this.data} />
+                el = <PostsContentComponent data={this.data} key={this.context.router.name} />;
+                break;
+            case "maker-bio":
+                el = <PostsContentComponent data={this.data} key={this.context.router.name} />;
+                Application.pipe.emit(MainEvents.HIDEMAKERS);
                 break;
         }
         this.setState({

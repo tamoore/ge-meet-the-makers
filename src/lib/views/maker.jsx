@@ -50,7 +50,6 @@ export class MakerComponent extends React.Component {
             return;
         }
         if(maker){
-            console.info(maker);
             this.setState({
                 makerTitle: this._data[maker]? this._data[maker].role :null,
                 makerName: this._data[maker]?   this._data[maker].name :null,

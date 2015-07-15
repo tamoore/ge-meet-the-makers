@@ -113,7 +113,8 @@ export class GalleryContentComponent extends React.Component {
             imagesArray.push(this.preload.preload.getResult(image.src));
         })
         this.setState({
-            imagesRaw: imagesArray
+            imagesRaw: imagesArray,
+            ready: "ready"
         });
         this.totalLength = imagesArray.length;
         this.addBitMapToStage(imagesArray[this.currentIndex]);
@@ -140,6 +141,7 @@ export class GalleryContentComponent extends React.Component {
         var img = new createjs.Bitmap(image);
         //img.alpha = 1;
         //createjs.Tween.get(img).to({alpha:1}, 0);
+
         img.scaleX = this.state.canvasWidth / image.width;
         img.scaleY = this.state.canvasHeight / image.height;
 
@@ -184,7 +186,11 @@ export class GalleryContentComponent extends React.Component {
             Application.pipe.emit(TimelineEvents.GET_IMAGE);
         },1000);
     }
-
+    applyFade(image /* CreateJS Bitmap */){
+        image.alpha = 0;
+        createjs.Tween.get(image).to({alpha:1}, 500);
+        return image;
+    }
 
     stageUpdate(image){
         if(!this.stage) return;
@@ -227,7 +233,7 @@ export class GalleryContentComponent extends React.Component {
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
-                <canvas ref="gallery" id="photoGallery" width={this.state.canvasWidth} height={this.state.canvasHeight} className="gallery"></canvas>
+                <canvas ref="gallery" id="photoGallery" width={this.state.canvasWidth} height={this.state.canvasHeight} className="gallery" data-state={this.state.ready}></canvas>
                 <div className="dotsContainer" style={dotsStyles}>{dots}</div>
             </div>
         )

@@ -151,8 +151,21 @@ export class PostsContentComponent extends React.Component {
             // Set up for triggers to get hit
             setTimeout(()=>{
                 let triggers = []
-                let increment = el.scrollHeight / 5;
-                for(var i = 0; i<4;i++){
+                var count = 0;
+                if(this.props.data.pq){
+                    count = count+1;
+                }
+                if(this.props.data.funFact){
+                    count = count+1;
+                }
+                if(this.props.data.images){
+                    console.log(this.props.data.images.length);
+                    count = count + this.props.data.images.length;
+                }
+                this.count = count;
+                console.log(this.count);
+                let increment = el.scrollHeight / count+1;
+                for(var i = 0; i<count;i++){
                     triggers.push(Math.floor(increment*i));
                 }
                 triggers.push(el.scrollHeight);
@@ -169,6 +182,7 @@ export class PostsContentComponent extends React.Component {
     handleScroll(event){
         var direction;
         var index;
+
         if(this.state.lastScrollTop){
             direction = event.target.scrollTop > this.state.lastScrollTop ? 'up':'down';
         }else{
@@ -177,7 +191,8 @@ export class PostsContentComponent extends React.Component {
         this.setState({
             lastScrollTop: event.target.scrollTop
         });
-        for(var i = 0; i<5;i++){
+
+        for(var i = 0; i<this.count;i++){
             var next;
             if(direction == 'up'){
                 next = i+1 < this.state.triggers.length ? i+1 : null;
@@ -190,12 +205,13 @@ export class PostsContentComponent extends React.Component {
             if(next != null){
                 if(_.inRange(event.target.scrollTop, this.state.triggers[i], this.state.triggers[next])){
                     index = i;
+                    console.log(index);
                 }
             }
         }
         this.setState({
-            supportingType: this.state.supportingMap[index],
-            supportingIndex: index
+            supportingType: this.state.supportingMap[index ? index : this.count-1],
+            supportingIndex: index ? index : this.count-1
         });
     }
 
@@ -211,12 +227,12 @@ export class PostsContentComponent extends React.Component {
 
 
     render(){
-        var image = `http://cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture.mainImage}_medium.jpg`;
+        var image = `${Application.assetLocation}${this.props.data.furniture.mainImage}_medium.jpg`;
         return (
             <div className="post-content-component">
                 <CloseButtonComponent />
                 <aside className="aside">
-                    <SupportingComponent type={this.props.type} index={0} data={this.props.data} />
+                    <SupportingComponent type={this.state.supportingType} index={this.state.supportingIndex} data={this.props.data} />
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>

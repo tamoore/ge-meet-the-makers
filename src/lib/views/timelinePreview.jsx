@@ -6,6 +6,7 @@ import marked from 'marked';
 import React from 'react';
 import { MainEvents } from '../main.jsx!';
 import { TimelineEvents } from './timeline.jsx!';
+import { StaticAssetsStore } from '../emitters/staticAssets';
 
 export const PreviewEvents = {
     TOP: "preview-top",
@@ -38,6 +39,8 @@ export class PreviewImageWrapper extends React.Component {
         super();
     }
     render(){
+        //var reader = new FileReader();
+        //console.log(StaticAssetsStore.preload.getLoadedItems());
         return (
             <div className="timelinePreview-image--wrapper">
                 <img src={this.props.previewImage} className="timelinePreview-image" />
@@ -184,7 +187,7 @@ export class PreviewComponent extends React.Component {
         y2[PreviewEvents.RIGHT] = 335;
         var pImage = null;
         var pClass = null;
-        let previewImage = `http://cdn.labs.theguardian.com/2015/meet-the-makers/images/${this.props.data.furniture ? this.props.data.furniture.mainImage : null}_small.jpg`
+        let previewImage = `${Application.assetLocation}${this.props.data.furniture ? this.props.data.furniture.mainImage : null}_small.jpg`
         var type = null;
         if(!this.props.pullquote){
             pImage = <PreviewImageWrapper previewImage={previewImage} />

@@ -3,7 +3,7 @@
  *
  */
 import { Application } from '../index';
-
+import { MainEvents } from '../main.jsx!';
 import React from 'react';
 import key from 'keymaster';
 
@@ -27,6 +27,7 @@ export class CloseButtonComponent extends React.Component {
     }
 
     handleCloseClick(event){
+        Application.pipe.emit(MainEvents.MAKERTITLE, 0);
         return window.location.hash = "#/timeline";
 
     }

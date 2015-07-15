@@ -134,7 +134,7 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {*}
      */
     applyBlurFilter(bitmap /* CreateJS Bitmap */) {
-        var blurFilter = new createjs.BlurFilter(20,30,1);
+        var blurFilter = new createjs.BlurFilter(10,10,1);
         bitmap.filters = [blurFilter];
         bitmap.cache(0,0, bitmap.image.width, bitmap.image.height, 1);
         return bitmap;
@@ -170,12 +170,20 @@ export class TimelineBackgroundComponent extends React.Component {
 
         if(TimelineBackgroundComponent.blur){
             img = this.applyBlurFilter(img);
-        }
-        img = this.applyFade(img);
-        img.scaleX = 2.666666;
-        img.scaleY = 2.666666;
+            img = this.applyFade(img);
+            img.scaleX = 2.666666;
+            img.scaleY = 2.666666;
+            setTimeout(()=>{
+                this.stageUpdate( img );
+            }, 1);
 
-        this.stageUpdate( img );
+        }else{
+            img = this.applyFade(img);
+            img.scaleX = 2.666666;
+            img.scaleY = 2.666666;
+            this.stageUpdate( img );
+        }
+
 
     }
 
@@ -313,8 +321,10 @@ export class TimelineBackgroundComponent extends React.Component {
 TimelineBackgroundComponent.blur = false;
 
 var pullQuotes = {
-    "2" : true,
+    "1" : true,
+    "6": true,
     "10" : true,
+    "18" : true,
     "21" : true
 };
 export class TLNode extends React.Component {
@@ -383,7 +393,6 @@ export class TLNode extends React.Component {
         let type = this.props.data.type;
         let maker = this.props.data.maker;
         let slug = this.props.data.slug;
-        console.info(maker);
         let url = "#/content/"+Application.makers[parseInt(maker)-1]+"/"+slug;
         var pullQuote = null;
 
@@ -698,6 +707,12 @@ export class TimelineComponent extends React.Component {
                 scrollx = this.target // Math.round(this.target / this.snap) * this.snap;
                 this.scroll(scrollx);
                 Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.getImageId(scrollx));
+                if(this.state.preview) return;
+                this.setState({
+                    showPreview: false
+                });
+
+
             }
         }
         return false;
@@ -718,14 +733,15 @@ export class TimelineComponent extends React.Component {
         Application.pipe.emit(TimelineEvents.PANEND);
         Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{ this.setState({ currentMaker: makerId }) });
         Application.pipe.on(TimelineEvents.ADDPREVIEW, _.bind(this.handleAddingPreview, this));
-        Application.pipe.on(TimelineEvents.REMOVEPREVIEW, _.bind(this.handleAddingPreview, this));
+        Application.pipe.on(TimelineEvents.REMOVEPREVIEW, _.bind(this.handleRemovingPreview, this));
         setTimeout(()=>{
             this.setState({
                 styles: {
-                    opacity: 1
+                    opacity: 1,
+                    visibility: 'shown'
                 }
             })
-        }, MainEvents.timeLinetimeout || 0);
+        }, MainEvents.timeLinetimeout || 1000);
         MainEvents.timeLinetimeout = 0;
         this.applyEvents();
     }
@@ -733,15 +749,27 @@ export class TimelineComponent extends React.Component {
     componentWillUnmount(){
         this.setState({
             styles: {
-                opacity: 0
+                opacity: 0,
+                visibility: 'hidden'
             }
         })
+        clearTimeout(this.previewTimeout);
     }
 
 
 
-
+    handleRemovingPreview(){
+        this.setState({
+            preview: null
+        });
+        this.previewTimeout = setTimeout(()=>{
+            this.setState({
+                showPreview: false
+            });
+        }, 650);
+    }
     handleAddingPreview(clientX, clientY, data){
+        clearTimeout(this.previewTimeout);
         this.setState({
             preview: data && !this.pressed ? <PreviewComponent clientX={clientX} clientY={clientY} data={data} /> : null,
             showPreview: data ? true : false
@@ -765,6 +793,8 @@ export class TimelineComponent extends React.Component {
                 this.scroll(scrollx);
             }
         }
+
+
         return false;
     }
 
@@ -803,6 +833,7 @@ export class TimelineComponent extends React.Component {
             requestAnimationFrame(_.bind(this.autoScroll, this));
         }
         Application.pipe.emit(TimelineEvents.PANEND, TimelineComponent.currentImage);
+
         return false;
     }
 
@@ -859,7 +890,9 @@ export class TimelineComponent extends React.Component {
         clearInterval(this.ticker);
         this.ticker = setInterval(_.bind(this.track, this), 100);
 
-
+        this.setState({
+          showPreview: true
+        });
         return false;
     }
 

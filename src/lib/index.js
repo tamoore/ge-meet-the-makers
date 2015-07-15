@@ -70,7 +70,7 @@ export class Application {
 }
 Application.pipe = events(this);
 Application.maker = Math.ceil(Math.random() * (5 - 1) + 1);
-Application.assetLocation  = "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/";
+Application.assetLocation  = "http://cdn.labs.theguardian.com/2015/meet-the-makers/images/";
 Application.SKIPVIDEO = "skipvideo";
 Application.makers = ['dr-jason-held','andrew-lillyman','dr-tara-martin','dr-geoff-symonds','bruce-brymer'];
 $(()=>{
