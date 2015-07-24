@@ -47,19 +47,19 @@
 }
 
 .icon-content-video {
-	background-image: url(../images/icon.video.svg);
+	background-image: url(../images/video-icon-reversed.svg);
 }
 
-.icon-content-infographic {
-	background-image: url(../images/icon.infographic.svg);
+.icon-content-gallery {
+	background-image: url(../images/gallery-icon-reversed.svg);
 }
 
-.icon-content-map {
-	background-image: url(../images/icon.map.svg);
+.icon-content-datavis {
+	background-image: url(../images/datavis-icon-reversed.svg);
 }
 
 .icon-content-post {
-	background-image: url(../images/icon.longform.svg);
+	background-image: url(../images/post-icon-reversed.svg);
 }
 
 .icon-close {
@@ -68,7 +68,19 @@
 .icon-close-reversed {
 	background-image: url(../images/close-icon.svg);
 }
-
+.icon-quote {
+	background-image: url(../images/quote-icon-reversed.svg);
+}
 .icon-filter {
 	background-image: url(../images/filter-icon-reversed.svg);
+}
+
+.icon-facebook {
+	background-image: url(../images/facebook-for-content-pieces-reversed.svg);
+}
+.icon-twitter {
+	background-image: url(../images/twitter-for-content-pieces-reversed.svg);
+}
+.icon-linkedin {
+	background-image: url(../images/linkedin-for-content-pieces-reversed.svg);
 }

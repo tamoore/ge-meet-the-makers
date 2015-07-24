@@ -43,7 +43,6 @@ export class Data  {
             }).then(_.bind(this.handleDataResponse,this))
             .fail(_.bind(this.handleDataFailure, this))
             .always(_.bind(this.handleRequest, this));
-
         }
     }
 

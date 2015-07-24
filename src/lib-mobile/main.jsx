@@ -12,6 +12,7 @@ let RouterLink = Router.Link;
 let Route = Router.Route;
 let Redirect = Router.Redirect;
 let RouteHandler = Router.RouteHandler;
+let NotFoundRoute = Router.NotFoundRoute;
 
 // Views
 import { DataEvents, Data } from './data/data';
@@ -24,6 +25,7 @@ import { MakerComponent } from './views/maker.jsx!';
 import { ContentComponent } from './views/content.jsx!';
 import { AboutComponent } from './views/about.jsx!';
 import { FooterComponent } from './views/footer.jsx!';
+import { NotFoundComponent } from './views/404.jsx!';
 
 export class Main {
 
@@ -35,7 +37,8 @@ export class Main {
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
                 <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
                 <Route name="content/:maker/:slug" path="content/:maker/:slug" handler={ContentComponent}/>
-                <Route name="about" path="/about" handler={AboutComponent}/>
+                <Route name="credits" path="/credits" handler={AboutComponent}/>
+                <NotFoundRoute handler={NotFoundComponent} />
                 <DefaultRoute handler={IndexComponent} />
             </Route>
         )
@@ -53,7 +56,8 @@ export const MainEvents = {
 	VIEWPORT: {
 		top: window.pageYOffset,
 		height: window.innerHeight
-	}
+	},
+	IMGSIZE: "small"
 };
 
 export const MainDefaults = {
@@ -71,6 +75,9 @@ export class MainView extends React.Component {
 
         this.updateViewport = _.bind(this.updateViewport, this);
 		this.updateV = _.debounce(this.updateViewport, 300);
+
+		this.prevWidth = window.innerWidth;
+		this.breakpoint = 767;
     } 
 
     attachDataHandler(){
@@ -94,6 +101,15 @@ export class MainView extends React.Component {
         window.addEventListener('scroll', this.updateV, false);
 		window.addEventListener('resize', this.updateV, false);
 		this.updateViewport();
+
+		var width = window.innerWidth;
+		if ( width <= this.breakpoint ){
+			Application.pipe.emit(MainEvents.IMGSIZE, "small");
+			console.log("small");
+		} else {
+			Application.pipe.emit(MainEvents.IMGSIZE, "medium");
+			console.log("medium");
+		}
 	}
 
 	componentWillUnmount() {
@@ -102,6 +118,20 @@ export class MainView extends React.Component {
 	}
 
 	updateViewport() {
+		var width = window.innerWidth;
+
+		if ( this.prevWidth !== width ){
+			this.prevWidth = width;
+    		
+    		if ( width <= this.breakpoint ){
+				Application.pipe.emit(MainEvents.IMGSIZE, "small");
+				console.log("small");
+			} else {
+				Application.pipe.emit(MainEvents.IMGSIZE, "medium");
+				console.log("medium");
+			}
+    	}
+		
 		Application.pipe.emit(MainEvents.VIEWPORT, {
 			top: window.pageYOffset,
 			height: window.innerHeight

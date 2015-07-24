@@ -22,9 +22,16 @@ export class NotFoundComponent extends React.Component {
 
     render(){
         return (
-            <main className="mobile-404">
-                <h1>Not Found</h1>
-            </main>
+            <main className="mobile-about">
+            	<div className="texture-overlay"></div>
+            	<div className="content-container">
+					<article className="type-post">
+						<h1 className="title bordered">Oops!</h1>
+						<p>Sorry, that page doesn't exist.</p>
+						<p><a href="#/timeline"><u>Back to the Timeline.</u></a></p>
+					</article>
+				</div>
+			</main>
         )
     }
 }
