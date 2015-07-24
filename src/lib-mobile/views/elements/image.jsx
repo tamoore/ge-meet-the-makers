@@ -15,7 +15,8 @@ export class LazyLoadImageComponent extends React.Component {
 			},
 			height: 0,
 			showImage: false,
-			loader: 'images/loading.png'
+			loader: 'images/loading.png',
+			imgSize: "small"
         }
         this.active = false;
         this.el = null;
@@ -29,6 +30,12 @@ export class LazyLoadImageComponent extends React.Component {
 	        		viewport: viewport
 	        	});
 	       	}
+        });
+
+        Application.pipe.on(MainEvents.IMGSIZE,(size)=>{
+        	this.setState({ 
+        		imgSize: size
+        	});
         });
 
         this.el = React.findDOMNode(this.refs.image);
@@ -65,9 +72,9 @@ export class LazyLoadImageComponent extends React.Component {
 
     render(){
     	var { src, alt, classes } = this.props;
-    	var { showImage, loader } = this.state;
+    	var { showImage, loader, imgSize } = this.state;
 
-    	var path = showImage ? src : loader;
+    	var path = showImage ? src+"_"+imgSize+".jpg" : loader;
     	var className = showImage ? "" : " loading";
 
         return (

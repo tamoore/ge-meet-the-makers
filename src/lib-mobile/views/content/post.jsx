@@ -16,8 +16,8 @@ export class PostContentComponent extends React.Component {
     	var { content } = this.props;
 
     	var figure = content.furniture.mainImageCaption ? content.furniture.mainImageCaption : "";
-    	figure = figure != "" ? figure+" / " : figure;
-    	figure = content.furniture.mainImageCredit ? figure+content.furniture.mainImageCredit : "";
+    	figure = figure != "" ? figure : figure;
+    	figure = content.furniture.mainImageCredit ? figure+" Credit: "+content.furniture.mainImageCredit : "";
 
     	var standfirst = content.furniture.standfirst ? <p className="standfirst">{content.furniture.standfirst}</p> : "";
 
@@ -25,7 +25,7 @@ export class PostContentComponent extends React.Component {
 			<article className="type-post">
 				<h1 className="title">{content.title}</h1>
 				<figure>
-					<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+content.furniture.mainImage+".jpg"} alt={content.furniture.standfirst} classes="" />
+					<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+content.furniture.mainImage} alt={content.furniture.standfirst} classes="" />
 					<figcaption>
 						<p>{figure}</p>
 					</figcaption>

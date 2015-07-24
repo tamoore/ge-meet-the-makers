@@ -15,9 +15,12 @@ export class GalleryImageComponent extends React.Component {
     render(){
     	var { key, data } = this.props;
 
+    	var caption = data.imageCaption ? data.imageCaption : null;
+	    caption = caption && data.imageCredit ? caption+" Credit: "+data.imageCredit : caption;
+
         return (
 			<li className="gallery-image" key={key}>
-				<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.src+".jpg"} alt={data.alt} classes="" />
+				<figure><LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.src} alt={data.imageCaption} classes="" /><figcaption><p>{caption}</p></figcaption></figure>
 			</li>
         )
     }

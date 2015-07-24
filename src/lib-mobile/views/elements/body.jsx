@@ -64,15 +64,17 @@ export class BodyComponent extends React.Component {
     		if ( featureCount && features < images.length ){
 	    		if ( i % freq == 0 ){
 	    			if ( features == -1 && hasPq && hasPqCredit ){
-	    				output.push(<blockquote key={i+"q"}>{pq}<p>{pqCredit}</p></blockquote>);
+	    				output.push(<blockquote key={i+"q"}><i className="icon-quote"></i>{pq}<p>{pqCredit}</p></blockquote>);
 	    				features++;
 	    			} else if ( features == -1 && hasPq && !hasPqCredit ){
-	    				output.push(<blockquote key={i+"q"}>{pq}</blockquote>);
+	    				output.push(<blockquote key={i+"q"}><i className="icon-quote"></i>{pq}</blockquote>);
 	    				features++;
 	    			} else if ( hasImages && type !== "gallery" ) {
 	    				features = features == -1 ? 0 : features;
 	    				var img = images[features];
-	    				output.push(<figure key={i+"i"}><LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+img.src+".jpg"} alt={img.imageCaption} classes="" /></figure>);
+	    				var caption = img.imageCaption ? img.imageCaption : null;
+	    				caption = caption && img.imageCredit ? caption+" Credit: "+img.imageCredit : caption;
+	    				output.push(<figure key={i+"i"}><LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+img.src} alt={img.imageCaption} classes="" /><figcaption><p>{caption}</p></figcaption></figure>);
 	    				features++;
 	    			}
 	    		}

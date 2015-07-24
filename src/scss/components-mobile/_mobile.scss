@@ -22,36 +22,17 @@ body {
 
 	li {
 		float: left;
-		margin-right: 1rem;
-	}
-
-	svg {
-		height: 4.5rem;
-		width: 4.5rem;
-
-		path,
-		circle {
-			stroke: #fff;
-		}
-
-		path {
-			fill: #fff;
-		}
+		margin-right: 1.5rem;
 	}
 
 	// Delete when LinkedIn icon provided
 	i {
-		border: 1px solid #fff;
-		-webkit-border-radius: 50%;
-		border-radius: 50%;
-		color: #fff;
-		font-size: 2.5rem;
-		font-style: normal;
-		display: block;
 		height: 4.5rem;
-		line-height: 4.5rem;
-		text-align: center;
 		width: 4.5rem;
+		display: block;
+		background-position: center;
+		background-repeat: no-repeat;
+		float: left;
 	}
 
 }
@@ -531,6 +512,11 @@ a.link-wide {
 
 		h1 {
 			margin: 3rem 1.6rem;
+
+			&.bordered {
+				border-bottom: 1px solid #b2b2b2;
+				padding-bottom: 1rem;
+			}
 		}
 
 		p {
@@ -588,6 +574,14 @@ a.link-wide {
 				line-height: 1.1em;
 				font-family: Abel, sans-serif;
 
+				i {
+					height: 1.6rem;
+					width: 1.6rem;
+					background-repeat: no-repeat;
+					background-position: top left;
+					display: block;
+					margin-bottom: 1rem;
+				}
 				p {
 					font-size: 1.6rem;
   					margin: 0.6em 0;
@@ -597,6 +591,22 @@ a.link-wide {
 			.article-body {
 				figure {
 					margin: 3.6em 0 3.6em;
+
+					img {
+						display: block;
+						height: auto;
+						width: 100%;
+					}
+
+					figcaption {
+						margin: 0;
+
+						p {
+							color: #b2b2b2;
+							font-size: 1.2rem;
+							margin: 1em 1.6em;
+						}
+					}
 				}
 			}
 		}
@@ -746,6 +756,28 @@ a.link-wide {
 			float: left;
 			display: block;
 			margin-top: 0.7rem;
+
+			&.icon-transport {
+				width: 2.0rem;
+			}
+			&.icon-space {
+				height: 2.2rem;
+  				width: 2.5rem;
+  				margin-top: 0.6rem;
+			}
+			&.icon-boat {
+				height: 2.2rem;
+  				margin-top: 0.5rem;
+			}
+			&.icon-medicine {
+				height: 2.2rem;
+  				margin-top: 0.6rem;
+			}
+			&.icon-train {
+				height: 2.3rem;
+  				width: 2.3rem;
+  				margin-top: 0.6rem;
+			}
 		}
 
 		time {
@@ -844,7 +876,7 @@ a.link-wide {
 			background-size: contain;
 			display: inline-block;
 			height: 2rem;
-			margin-right: 1rem;
+			margin-right: 0.7rem;
 			width: 2rem;
 		}
 

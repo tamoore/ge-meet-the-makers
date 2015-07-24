@@ -14,6 +14,17 @@ export class MakersItemComponent extends React.Component {
 
     constructor(){
         super();
+        this.state = {
+        	imgSize: "small"
+        }
+    }
+
+    componentDidMount(){
+    	Application.pipe.on(MainEvents.IMGSIZE,(size)=>{
+        	this.setState({ 
+        		imgSize: size
+        	});
+        });
     }
   
     render(){

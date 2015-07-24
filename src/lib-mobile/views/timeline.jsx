@@ -78,7 +78,7 @@ export class TimelineItemComponent extends React.Component {
 				<div className="timeline-content-preview">
 					<a href={"#/content/"+maker.slug+"/"+data.slug}>
 						<div className="preview-media mask-skew">
-							<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.furniture.mainImage+".jpg"} alt={data.furniture.mainImageCaption} classes="" />
+							<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.furniture.mainImage} alt={data.furniture.mainImageCaption} classes="" />
 						</div>
 					</a>
 					<div className="timeline-content-meta">
