@@ -37,7 +37,7 @@ export class FooterComponent extends React.Component {
                 <img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" />
                 <nav className="controls">
                     <ul>
-                        <li><a>About this content</a></li>
+                        <li><a href="http://www.theguardian.com/innovation-never-sleeps/2015/jul/23/innovation-never-sleeps-about-this-content" target="_blank">About this content</a></li>
                         <li><a id="footer-facebook"> <span className="assistive-text">Facebook</span> </a></li>
                         <li><a id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
                     </ul>
