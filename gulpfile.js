@@ -51,7 +51,7 @@ gulp.task('deploy-staging-mobile', function() {
 		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
 		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/ && cp -rf ./src/static/static-scripts.js ./build/static/'
 	])).on('end', shell.task([
-			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/development/mobile/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
+			'aws s3 sync ./build s3://labs.theguardian.com/meet-the-makers/staging/mobile/build --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
 	]));
 });
 
