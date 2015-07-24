@@ -4,7 +4,6 @@
 import { Application } from '../index';
 
 import React from 'react';
-import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 import { MainEvents, MainDefaults } from '../main.jsx!';
 import { TimelineHeadComponent, TimelineComponent } from './timeline.jsx!';
@@ -32,16 +31,16 @@ export class IndexComponent extends React.Component {
 
     	// Update if Maker chosen
     	if ( makerId ){
-    		bgImg = makerData[makerId].furniture.bgImg;
+    		bgImg = makerData[makerId].bgImg;
     		maker = makerData[makerId];
     	}
 
         return (
-            <TransitionGroup component="main" className="mobile-timeline" style={{backgroundImage: "url("+bgImg+")"}} transitionName="section">
+            <main className="mobile-timeline" style={{backgroundImage: "url("+bgImg+")"}}>
             	<div className="texture-overlay"></div>
 				<TimelineHeadComponent maker={maker} />
 				<TimelineComponent makerId={makerId} data={data} makerData={makerData} />
-			</TransitionGroup>
+			</main>
         )
     }
 }
