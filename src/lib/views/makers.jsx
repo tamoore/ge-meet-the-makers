@@ -103,6 +103,8 @@ export class MeetTheMakersComponent extends React.Component {
         this.setState({
             data: data
         });
+        this.makers = this.state.data.makers;
+        this.generateMakers();
     }
 
     componentWillMount(){
@@ -110,7 +112,7 @@ export class MeetTheMakersComponent extends React.Component {
     }
 
     componentDidMount(){
-        if(this.data){
+        if(this.state.data){
             this.makers = this.data.makers;
             this.generateMakers()
         }
@@ -121,6 +123,8 @@ export class MeetTheMakersComponent extends React.Component {
 
         })
     }
+
+
 
     generateMakers(){
         var makers = [];
@@ -160,6 +164,7 @@ export class MeetTheMakersComponent extends React.Component {
     }
 
     render(){
+
         return (
             <div>
                 <footer className="base" data-state={this.state.active}>

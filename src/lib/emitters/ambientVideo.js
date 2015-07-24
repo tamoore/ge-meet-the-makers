@@ -95,7 +95,7 @@ export class IntroVideo {
         this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
         this.el.style.visibility = "visible";
         this.el.controls = false;
-        this.el.volume = 0;
+        this.el.volume = 1;
         this.el.autoplay = true;
         this.el.loop = true;
         //this.el.width = (window.innerHeight)*1.7777778;

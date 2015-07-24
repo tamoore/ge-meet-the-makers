@@ -3,12 +3,72 @@ import { CloseButtonComponent } from '../close.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { DataEvents, Data } from '../../data/data';
 import { MainEvents } from '../../main.jsx!';
-import  GeminiScrollbar from 'react-gemini-scrollbar';
 import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 
 import key from 'keymaster';
 import React from 'react';
 import marked from 'marked';
+
+import GeminiScrollbar from 'gemini-scrollbar';
+
+export class ReactGeminiScrollbar extends React.Component {
+
+    constructor() {
+        super()
+        this.scrollbar = null;
+    }
+
+
+    getDefaultProps() {
+        return {
+            autoshow: false
+        }
+    }
+
+    componentDidMount() {
+        setTimeout(()=>{
+            this.scrollbar = new GeminiScrollbar({
+                element: React.findDOMNode(this.refs.scrollbar),
+                autoshow: this.props.autoshow,
+                createElements: false
+            }).create();
+        }, 1000);
+
+    }
+
+    componentDidUpdate() {
+       // this.scrollbar.update();
+    }
+
+    componentWillUnmount() {
+        this.scrollbar.destroy();
+        this.scrollbar = null;
+    }
+
+    render() {
+        var {className, children} = this.props,
+            classes = '';
+
+        if (className) {
+            classes += ' ' + className;
+        }
+
+        return (
+            <div className={classes} ref="scrollbar">
+                <div className='gm-scrollbar -vertical'>
+                    <div className='thumb'></div>
+                </div>
+                <div className='gm-scrollbar -horizontal'>
+                    <div className='thumb'></div>
+                </div>
+                <div className='gm-scroll-view' ref='scroll-view'>
+                    {children}
+                </div>
+            </div>
+        );
+    }
+}
+
 
 export class SupportingImage extends React.Component {
     constructor(){
@@ -59,6 +119,7 @@ export class SupportingFunFact extends React.Component {
         let credit = this.props.data['funFactCredit']
         return (
             <figure className="funFact">
+                <span>{this.props.data.funFactNumber}</span>
                 <blockquote>{this.props.data.funFact}</blockquote>
                 <span className="figureCredit">{credit}</span>
             </figure>
@@ -94,8 +155,6 @@ export class SupportingComponent extends React.Component {
     }
 
 }
-
-
 export class PostsContentComponent extends React.Component {
     constructor(){
         super();
@@ -205,13 +264,12 @@ export class PostsContentComponent extends React.Component {
             if(next != null){
                 if(_.inRange(event.target.scrollTop, this.state.triggers[i], this.state.triggers[next])){
                     index = i;
-                    console.log(index);
                 }
             }
         }
         this.setState({
-            supportingType: this.state.supportingMap[index ? index : this.count-1],
-            supportingIndex: index ? index : this.count-1
+            supportingType: this.state.supportingMap[index ? index : 0],
+            supportingIndex: index ? index : 0
         });
     }
 
@@ -236,20 +294,20 @@ export class PostsContentComponent extends React.Component {
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
-                <GeminiScrollbar className="article">
+                <ReactGeminiScrollbar className="article">
                     <article className="content" >
                         <h1>{this.props.data.title}</h1>
                         <figure>
-                            <img src={image} alt={this.props.data.imageCaption} aria-label={this.props.data.imageCaption} />
+                            <img src={image} alt={this.props.data.furniture.mainImageCaption} aria-label={this.props.data.furniture.mainImageCaption} />
                                 <figcaption>
-                                    <p>{this.props.data.imageCaption}</p>
+                                    <p>{this.props.data.furniture.mainImageCaption} Credit: {this.props.data.furniture.mainImageCredit}</p>
                                 </figcaption>
                         </figure>
                         <p><strong>{this.props.data.furniture.standfirst}</strong></p>
                         <div dangerouslySetInnerHTML={{__html: this.props.data.body}} >
                         </div>
                     </article>
-                </GeminiScrollbar>
+                </ReactGeminiScrollbar>
             </div>
         )
     }

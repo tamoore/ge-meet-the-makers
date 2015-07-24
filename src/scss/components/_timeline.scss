@@ -2,6 +2,98 @@
 #stateContainer {
   @include transition(opacity 1s ease-in);
 }
+@at-root {
+  .usabilitySplash {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,.75);
+    z-index: 2;
+    p {
+      position: absolute;
+      font-family: 'Abel';
+      width: 300px;
+      font-size: 2rem;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+      left: 50%;
+      margin-left: -150px;
+      top: 35%;
+      small {
+        display: inline-block;
+        margin-top: 8rem;
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 15px;
+          top: 0px;
+          margin-top: -40px;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+          background-image: url(../images/arrow-left.svg);
+          cursor: pointer;
+          z-index: 100009;
+
+
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          right: 15px;
+          top: 0px;
+          margin-top: -40px;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+          background-image: url(../images/arrow.svg);
+          cursor: pointer;
+          z-index: 100009;
+        }
+      }
+
+    }
+  }
+
+}
+@at-root {
+  .pulse-left {
+    &:before {
+      @include animation-name(scale);
+      @include animation-duration(1s);
+      @include animation-delay(0);
+
+      @include animation-iteration-count(8);
+    }
+  }
+  .pulse-right {
+    &:after {
+      @include animation-name(scale);
+      @include animation-duration(1s);
+      @include animation-delay(0s);
+
+      @include animation-iteration-count(8);
+    }
+  }
+}
+
+@include keyframes(scale) {
+  0% {
+    @include transform(scale3d(1, 1, 1));
+  }
+  50%{
+    @include transform(scale3d(1.25, 1.25, 1.25));
+  }
+  100%{
+    @include transform(scale3d(1, 1, 1));
+  }
+}
+
+
+
 
 .timeline {
 

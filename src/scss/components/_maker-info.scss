@@ -32,6 +32,8 @@
   margin-right: 10px;
   margin-right: 1rem;
   margin-top: 13px;
+  position: relative;
+  z-index: 11111;
   @include transition( opacity 1s ease-in);
 }
 

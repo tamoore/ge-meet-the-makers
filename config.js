@@ -16,6 +16,7 @@ System.config({
   "map": {
     "babel": "npm:babel-core@5.6.15",
     "babel-runtime": "npm:babel-runtime@5.6.15",
+    "cookie": "npm:cookie@0.1.3",
     "core-js": "npm:core-js@0.9.18",
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
     "es5-shim": "npm:es5-shim@4.1.7",
@@ -26,6 +27,7 @@ System.config({
     "hammerjs": "npm:hammerjs@2.0.4",
     "jquery": "github:components/jquery@2.1.4",
     "jquery-mousewheel": "npm:jquery-mousewheel@3.1.12",
+    "json": "github:systemjs/plugin-json@0.1.0",
     "jsx": "github:floatdrop/plugin-jsx@1.1.0",
     "keymaster": "github:madrobby/keymaster@1.6.3",
     "lodash": "npm:lodash@3.9.3",

@@ -48,7 +48,7 @@ export class Preload {
 
     loadAssets(array){
         array.forEach((item)=>{
-            this.preload.loadFile({id: item.src, src: PreloadConst.HOST + item.src + '.jpg', crossOrigin: true });
+            this.preload.loadFile({id: item.src, src: PreloadConst.HOST + item.src + '.png', crossOrigin: true });
         });
     }
 
@@ -142,7 +142,7 @@ export class StaticAssetsStore  {
     }
 
     loadFile(url){
-        this.preload.loadFile({id: url, src: url, crossOrigin: true});
+       // this.preload.loadFile({id: url, src: url, crossOrigin: true});
     }
 
 }

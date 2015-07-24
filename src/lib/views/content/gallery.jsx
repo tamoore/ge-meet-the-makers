@@ -22,6 +22,7 @@ export class GalleryContentComponent extends React.Component {
         this._data = Data.result;
         this.currentIndex = 0;
         this.handleDotClick = _.bind(this.handleDotClick, this);
+        this.handleOnClick = this.handleOnClick.bind(this);
         this.state = {
             state: "off",
             imageCaption: "",
@@ -52,7 +53,6 @@ export class GalleryContentComponent extends React.Component {
         key('left', ()=>{
             this.prevImage();
         });
-
     }
 
     assignEvents(){
@@ -204,6 +204,10 @@ export class GalleryContentComponent extends React.Component {
         this.preload.loadAssets(images);
     }
 
+    handleOnClick(event){
+        this.nextImage();
+    }
+
     render(){
         var dots = [];
         var style = {
@@ -233,7 +237,7 @@ export class GalleryContentComponent extends React.Component {
                     <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
                     <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
-                <canvas ref="gallery" id="photoGallery" width={this.state.canvasWidth} height={this.state.canvasHeight} className="gallery" data-state={this.state.ready}></canvas>
+                <canvas onClick={this.handleOnClick} ref="gallery" id="photoGallery" width={this.state.canvasWidth} height={this.state.canvasHeight} className="gallery" data-state={this.state.ready}></canvas>
                 <div className="dotsContainer" style={dotsStyles}>{dots}</div>
             </div>
         )

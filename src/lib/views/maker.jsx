@@ -12,7 +12,7 @@ import React from 'react';
 export class MakerComponent extends React.Component {
     constructor(){
         super();
-        this._data = Data.result ? Data.result.makers : this.attachDataHandler();
+        this._data = Data.result ? Data.result.makers : this.attachDataEventHandler();
         this.state = {
             makerTitle: null,
             makerName: null,
@@ -29,7 +29,7 @@ export class MakerComponent extends React.Component {
     }
 
     handleData(data){
-        this._data = Data.result.makers;
+        this._data = data.makers;
     }
 
     attachDataEventHandler(){

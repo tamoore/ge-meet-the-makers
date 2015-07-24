@@ -366,7 +366,7 @@ export class TLNode extends React.Component {
         this.over = true;
         if(this.props.circle){
             let style = {
-                backgroundImage: 'url(' +(this.props.data.furniture ? Application.assetLocation+this.props.data.furniture.mainImage+"_small.jpg" : null)+");"
+                backgroundImage: 'url(' +(this.props.data.furniture ? Application.assetLocation+this.props.data.furniture.mainImage+"_small.png" : null)+");"
             }
             this.setState({
                 imageEl: <div style={style} className="circle-preview-image"></div>
@@ -623,7 +623,13 @@ export class TimelineComponent extends React.Component {
             styles:{
                 "opacity": 0
             },
-            pullquotes: []
+            pullquotes: [],
+            pulse: "pulse-left ",
+            usabilityStyles: {
+                display: Application.shownSplash ? "none" : "block"
+            },
+            className: "showing-preview"
+
         };
 
         this.pullquotes = [];
@@ -672,7 +678,7 @@ export class TimelineComponent extends React.Component {
         Application.pipe.on(ClockViewEvents.POSITION, (x)=>{
             this.offset = x;
         });
-
+        this.handleUsabilityOnClick = this.handleUsabilityOnClick.bind(this);
 
     }
 
@@ -744,6 +750,12 @@ export class TimelineComponent extends React.Component {
         }, MainEvents.timeLinetimeout || 1000);
         MainEvents.timeLinetimeout = 0;
         this.applyEvents();
+        setTimeout(()=>{
+            this.setState({
+                pulse: "pulse-left pulse-right"
+            })
+        }, 500);
+
     }
 
     componentWillUnmount(){
@@ -838,6 +850,17 @@ export class TimelineComponent extends React.Component {
     }
 
 
+    handleUsabilityOnClick(e){
+        Application.setSplashSeen();
+        this.setState({
+            usabilityStyles: {
+                display: 'none'
+            }
+        });
+
+    }
+
+
 
     /**
      * React render function
@@ -850,6 +873,12 @@ export class TimelineComponent extends React.Component {
         return (
                 <div>
                     <div id="stateContainer" key='timelineParentWRapper' className={className} style={this.state.styles}>
+                        <div className="usabilitySplash" onClick={this.handleUsabilityOnClick} style={this.state.usabilityStyles}>
+                            <p> 24 hours in the lives <br/> of five extraordinary makers
+                                <br/>
+                                <small ref="small" className={this.state.pulse}>Drag left or right <br /> to explore the timeline</small>
+                            </p>
+                        </div>
                         <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>
                             {this.state.preview}
                             <TimelineListView offset={this.state.offset} data={this.state.data} key='timelineListView'  />

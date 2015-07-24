@@ -1,6 +1,7 @@
 import { Application } from '../index';
 import reqwest from 'reqwest';
-let dataUrl = 'http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/testing/data.json';
+
+let dataUrl = 'http://cdn.labs.theguardian.com/2015/meet-the-makers/scratch/data.json';
 
 export const DataEvents = {
     UPDATE: "dataevents:update",
@@ -41,10 +42,13 @@ export class Data  {
                 method: 'GET',
                 crossOrigin: true
             }).then(_.bind(this.handleDataResponse,this))
-            .fail(_.bind(this.handleDataFailure, this))
-            .always(_.bind(this.handleRequest, this));
+                .then(_.bind(this.handleRequest, this))
+            .fail(_.bind(this.handleDataFailure, this));
+
 
         }
+        //this.data = data;
+        //this.handleRequest();
     }
 
     handleDataResponse(resp){

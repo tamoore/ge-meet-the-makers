@@ -9,6 +9,7 @@ import { Main } from './main.jsx!';
 import { PreloadComponent } from './views/preload.jsx!';
 import { IntroVideoComponent } from './views/introVideo.jsx!';
 import { Data, DataEvents } from './data/data';
+import cookie from 'cookie';
 
 window._ = lodash; // TODO: What to do with this nasty girl
 
@@ -68,11 +69,18 @@ export class Application {
 
 	}
 }
+
+Application.setSplashSeen = function(){
+	localStorage.setItem("seenSplash", "true");
+	Application.shownSplash = true;
+}
+
 Application.pipe = events(this);
 Application.maker = Math.ceil(Math.random() * (5 - 1) + 1);
-Application.assetLocation  = "http://cdn.labs.theguardian.com/2015/meet-the-makers/images/";
+Application.assetLocation  = "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/";
 Application.SKIPVIDEO = "skipvideo";
 Application.makers = ['dr-jason-held','andrew-lillyman','dr-tara-martin','dr-geoff-symonds','bruce-brymer'];
+Application.shownSplash = localStorage.getItem("seenSplash") == "true" ? true : false;
 $(()=>{
 	new Application();
 });
