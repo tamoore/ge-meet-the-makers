@@ -1,4 +1,4 @@
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 import reqwest from 'reqwest';
 
 export const DataEvents = {
@@ -27,14 +27,14 @@ export class Data  {
     }
     set data(o){
         this._data = o;
-        Application.pipe.emit(DataEvents.UPDATE, this._data);
+        MobileApplication.pipe.emit(DataEvents.UPDATE, this._data);
         Data.result = this._data;
     }
 
     getData(config){
         this.config = config;
-        config.dataUrl = "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/testing/data.json";
-        Application.pipe.emit(DataEvents.CONFIG, this._data);
+        config.dataUrl = "http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/scratch/data.json";
+        MobileApplication.pipe.emit(DataEvents.CONFIG, this._data);
         if(config.dataUrl){
             reqwest({
                 url: config.dataUrl,
@@ -54,7 +54,7 @@ export class Data  {
         throw new Error(msg);
     }
     handleRequest(){
-        Application.pipe.emit(DataEvents.COMPLETE);
+        MobileApplication.pipe.emit(DataEvents.COMPLETE);
     }
 
 }

@@ -1,7 +1,7 @@
 /**
  * Individual Maker View
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 
@@ -76,7 +76,7 @@ export class FooterTimelineLinkComponent extends React.Component {
 
     // Click event for Timeline button that updates MainEvents.FILTERMAKERS to this maker's ID
     handleClick(){
-    	Application.pipe.emit(MainEvents.FILTERMAKERS, this.props.makerId.toString());
+    	MobileApplication.pipe.emit(MainEvents.FILTERMAKERS, this.props.makerId.toString());
     }
 
     render(){
@@ -132,7 +132,7 @@ export class MakerComponent extends React.Component {
     }
 
 	componentDidMount() {
-		Application.pipe.emit(MainEvents.HIDEFILTER, true);
+		MobileApplication.pipe.emit(MainEvents.HIDEFILTER, true);
 	}
     
     render(){

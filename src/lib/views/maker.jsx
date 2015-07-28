@@ -5,6 +5,7 @@ import { Application } from '../index';
 import { ClockView } from './clock.jsx!';
 import { MainEvents } from '../main.jsx!';
 import { DataEvents, Data } from '../data/data';
+import { TimelineEvents } from './timeline.jsx!';
 
 import React from 'react';
 
@@ -16,8 +17,31 @@ export class MakerComponent extends React.Component {
         this.state = {
             makerTitle: null,
             makerName: null,
-            makerLocation: null
+            makerLocation: null,
+            styles: {
+
+            }
         }
+        Application.pipe.on(TimelineEvents.ADDPREVIEW, ()=>{
+            this.setState({
+                styles: {
+                    opacity: 0.2
+                },
+                specialStyles: {
+                    opacity: 0
+                }
+            })
+        });
+        Application.pipe.on(TimelineEvents.REMOVEPREVIEW, ()=>{
+            this.setState({
+                styles: {
+                    opacity: 1
+                },
+                specialStyles: {
+                    opacity: 1
+                }
+            })
+        });
     }
 
     get data(){
@@ -67,10 +91,10 @@ export class MakerComponent extends React.Component {
 
     render(){
         return (
-            <section className="maker-info">
-                <div ref="title" className="maker-title"><strong>{this.state.makerTitle}</strong>  {this.state.makerName}</div>
+            <section className="maker-info" style={this.state.styles}>
+                <div ref="title" style={this.state.specialStyles} className="maker-title"><strong>{this.state.makerTitle}</strong>  {this.state.makerName}</div>
                 <ClockView />
-                <div className="maker-location">{this.state.makerLocation}</div>
+                <div className="maker-location" style={this.state.specialStyles}>{this.state.makerLocation}</div>
             </section>
         )
     }

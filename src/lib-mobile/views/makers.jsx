@@ -1,7 +1,7 @@
 /**
  * Makers View
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 
@@ -20,7 +20,7 @@ export class MakersItemComponent extends React.Component {
     }
 
     componentDidMount(){
-    	Application.pipe.on(MainEvents.IMGSIZE,(size)=>{
+    	MobileApplication.pipe.on(MainEvents.IMGSIZE,(size)=>{
         	this.setState({ 
         		imgSize: size
         	});
@@ -32,7 +32,7 @@ export class MakersItemComponent extends React.Component {
 
         return (
 			<li key={key} className={"maker-mobile maker-"+maker.slug} style={{backgroundImage: "url("+maker.makerImg+")"}}>
-				<a href={"#/makers/"+maker.slug}>
+				<a href={"#/maker/"+maker.slug}>
 					<i className={"maker-industry-icon icon-"+maker.icon}></i>
 					<h3 className="maker-industry">{maker.role}</h3>
 					<h2>{maker.name}</h2>
@@ -53,7 +53,7 @@ export class MakersComponent extends React.Component {
 
 	componentDidMount() {
 		// Hide the Timeline Filter
-		Application.pipe.emit(MainEvents.HIDEFILTER, true);
+		MobileApplication.pipe.emit(MainEvents.HIDEFILTER, true);
 	}
   
     render(){

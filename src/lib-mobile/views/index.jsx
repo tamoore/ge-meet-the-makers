@@ -1,7 +1,7 @@
 /**
  * Index View
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 
@@ -19,7 +19,7 @@ export class IndexComponent extends React.Component {
 
 	componentDidMount() {
 		// Show the Timeline Filter
-		Application.pipe.emit(MainEvents.HIDEFILTER, false);
+		MobileApplication.pipe.emit(MainEvents.HIDEFILTER, false);
 	}
     
     render(){

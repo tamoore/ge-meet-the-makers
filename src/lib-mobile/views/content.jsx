@@ -1,7 +1,7 @@
 /**
  * Individual Maker View
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 import marked from 'marked';
@@ -132,7 +132,7 @@ export class ContentComponent extends React.Component {
     }
 
 	componentDidMount() {
-		Application.pipe.emit(MainEvents.HIDEFILTER, true);
+		MobileApplication.pipe.emit(MainEvents.HIDEFILTER, true);
 	}
     
     render(){

@@ -1,4 +1,4 @@
-import { Application } from '../../index';
+import { MobileApplication } from '../../index';
 
 import React from 'react';
 
@@ -24,7 +24,7 @@ export class LazyLoadImageComponent extends React.Component {
 
     componentDidMount(){
     	this.active = true;
-    	Application.pipe.on(MainEvents.VIEWPORT,(viewport)=>{
+    	MobileApplication.pipe.on(MainEvents.VIEWPORT,(viewport)=>{
     		if ( this.active ){
 	        	this.setState({ 
 	        		viewport: viewport
@@ -32,7 +32,7 @@ export class LazyLoadImageComponent extends React.Component {
 	       	}
         });
 
-        Application.pipe.on(MainEvents.IMGSIZE,(size)=>{
+        MobileApplication.pipe.on(MainEvents.IMGSIZE,(size)=>{
         	this.setState({ 
         		imgSize: size
         	});
@@ -74,7 +74,7 @@ export class LazyLoadImageComponent extends React.Component {
     	var { src, alt, classes } = this.props;
     	var { showImage, loader, imgSize } = this.state;
 
-    	var path = showImage ? src+"_"+imgSize+".jpg" : loader;
+    	var path = showImage ? src+"_"+imgSize+".png" : loader;
     	var className = showImage ? "" : " loading";
 
         return (

@@ -5,7 +5,8 @@ import { TimelineProps, TimelineEvents, TimelineComponent } from './timeline.jsx
 
 export const ClockViewEvents = {
     POSITION: "clockview:position",
-    GETPOSITION: "clockview:getposition"
+    GETPOSITION: "clockview:getposition",
+    HOUR: "clockview:hour"
 }
 
 /**
@@ -194,6 +195,8 @@ export class ClockView extends ClockBase {
             hourRotation: roatedHours,
             minuteRotation: rotatedMinutes
         });
+        Application.pipe.emit(ClockViewEvents.HOUR, hour);
+
 
     }
 

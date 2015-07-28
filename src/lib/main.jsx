@@ -7,7 +7,7 @@ import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Router from 'react-router';
 
 /**
- * Default Rout for the Application
+ * Default Rout for the MobileApplication
  */
 let DefaultRoute = Router.DefaultRoute;
 let RouterLink = Router.Link;
@@ -28,7 +28,7 @@ import { VideosContentComponent } from './views/content/video.jsx!'
 import { PostsContentComponent } from './views/content/post.jsx!';
 import { GalleryContentComponent } from './views/content/gallery.jsx!';
 import { ContentHandler } from './views/content/content.jsx!';
-
+import { AboutContentComponent } from './views/content/about.jsx!';
 
 export class Main {
     constructor(){
@@ -41,7 +41,7 @@ export class Main {
                 <Route name="content/post/:maker/:id" handler={PostsContentComponent}/>
                 <Route name="maker/:makerName" handler={ContentHandler}/>
                 <Route name="content/gallery/:maker/:id" handler={GalleryContentComponent}/>
-
+                <Route name="credits" path="/credits" handler={AboutContentComponent}/>
                 <DefaultRoute handler={TimelineComponent} />
             </Route>
         )

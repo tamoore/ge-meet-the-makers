@@ -1,7 +1,7 @@
 /**
  * About View
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 
@@ -17,7 +17,7 @@ export class NotFoundComponent extends React.Component {
     }
 
     componentDidMount() {
-		Application.pipe.emit(MainEvents.HIDEFILTER, true);
+		MobileApplication.pipe.emit(MainEvents.HIDEFILTER, true);
 	}
 
     render(){

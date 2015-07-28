@@ -324,7 +324,7 @@ var pullQuotes = {
     "1" : true,
     "6": true,
     "10" : true,
-    "18" : true,
+    "16": true,
     "21" : true
 };
 export class TLNode extends React.Component {
@@ -334,7 +334,8 @@ export class TLNode extends React.Component {
         this.state = {
             imageEl: null,
             bbxL: "",
-            bbxT: ""
+            bbxT: "",
+
         };
 
         Application.pipe.on(MainEvents.FILTERMAKERS, this.setCurrentMakerId);
@@ -351,6 +352,7 @@ export class TLNode extends React.Component {
                 bbxT: bbox.top
             });
         }
+        this.makerId = Application.currentMaker;
     }
 
     handleOnOver(event){
@@ -414,7 +416,7 @@ export class TLNode extends React.Component {
         )
     }
     setCurrentMakerId(makerId){
-        this.makerId = makerId;
+        this.makerId = makerId ? makerId : Application.currentMaker;
     }
 }
 TLNode.propTypes = {
@@ -628,7 +630,8 @@ export class TimelineComponent extends React.Component {
             usabilityStyles: {
                 display: Application.shownSplash ? "none" : "block"
             },
-            className: "showing-preview"
+            className: "showing-preview",
+            currentHour: ""
 
         };
 
@@ -678,6 +681,27 @@ export class TimelineComponent extends React.Component {
         Application.pipe.on(ClockViewEvents.POSITION, (x)=>{
             this.offset = x;
         });
+        Application.pipe.on(ClockViewEvents.HOUR, (hour)=>{
+            console.info(hour);
+            if(_.includes([1,6,10,18,21], hour)){
+                this.setState({
+                    currentHour: hour
+                });
+            }else if(_.includes([1,6,10,18,21], hour+1)){
+                this.setState({
+                    currentHour: hour+1
+                });
+            }else if(_.includes([1,6,10,18,21], hour-1)) {
+                this.setState({
+                    currentHour: hour-1
+                });
+            }else{
+                this.setState({
+                    currentHour: null
+                });
+            }
+
+        })
         this.handleUsabilityOnClick = this.handleUsabilityOnClick.bind(this);
 
     }
@@ -745,7 +769,8 @@ export class TimelineComponent extends React.Component {
                 styles: {
                     opacity: 1,
                     visibility: 'shown'
-                }
+                },
+                currentMaker: Application.currentMaker
             })
         }, MainEvents.timeLinetimeout || 1000);
         MainEvents.timeLinetimeout = 0;
@@ -871,12 +896,12 @@ export class TimelineComponent extends React.Component {
         var className = this.state.currentMaker ? "maker-"+this.state.currentMaker+(this.state.showPreview ? " showing-preview" : "") : this.state.showPreview ? "showing-preview":  "removing-preview";
 
         return (
-                <div>
+                <div data-current-hour={this.state.currentHour}>
                     <div id="stateContainer" key='timelineParentWRapper' className={className} style={this.state.styles}>
                         <div className="usabilitySplash" onClick={this.handleUsabilityOnClick} style={this.state.usabilityStyles}>
                             <p> 24 hours in the lives <br/> of five extraordinary makers
                                 <br/>
-                                <small ref="small" className={this.state.pulse}>Drag left or right <br /> to explore the timeline</small>
+                                <small ref="small" className={this.state.pulse}>Drag left or right to explore the timeline <br/> Click top left to meet and filter makers </small>
                             </p>
                         </div>
                         <div ref="Timeline" id="timelineWrapper" className="timeline" key='timelineParent'>

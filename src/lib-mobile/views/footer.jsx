@@ -1,7 +1,7 @@
 /**
  * View for the footer
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 

@@ -2,7 +2,7 @@
  * View for the header Filters on the timeline primarily
  *
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
@@ -28,13 +28,13 @@ export class FilterButtonComponent extends React.Component {
     }
 
     componentDidMount() {
-    	Application.pipe.on(MainEvents.HIDEFILTER,(state)=>{
+    	MobileApplication.pipe.on(MainEvents.HIDEFILTER,(state)=>{
         	this.setState({ 
         		hidden: state
         	});
         });
 
-        Application.pipe.on(MainEvents.TOGGLEFILTER,(state)=>{
+        MobileApplication.pipe.on(MainEvents.TOGGLEFILTER,(state)=>{
         	this.setState({ 
         		toggle: state
         	});
@@ -57,7 +57,7 @@ export class FilterButtonComponent extends React.Component {
 	}
 
 	toggleFilter(){
-		Application.pipe.emit(MainEvents.TOGGLEFILTER, !this.state.toggle);
+		MobileApplication.pipe.emit(MainEvents.TOGGLEFILTER, !this.state.toggle);
 	}
 
     render(){
@@ -97,7 +97,7 @@ export class FilterNavItemComponent extends React.Component {
 
     componentDidMount() {
     	this.active = true;
-        Application.pipe.on(MainEvents.TOGGLEFILTER,(state)=>{
+        MobileApplication.pipe.on(MainEvents.TOGGLEFILTER,(state)=>{
         	if ( this.active ){
 	        	this.setState({ 
 	        		toggle: state
@@ -109,8 +109,8 @@ export class FilterNavItemComponent extends React.Component {
     handleClick(event){
     	var el = React.findDOMNode(this.refs.filterButton);
         let makerId = el.getAttribute("rel");
-        Application.pipe.emit(MainEvents.FILTERMAKERS, makerId);
-        Application.pipe.emit(MainEvents.TOGGLEFILTER, !this.state.toggle);
+        MobileApplication.pipe.emit(MainEvents.FILTERMAKERS, makerId);
+        MobileApplication.pipe.emit(MainEvents.TOGGLEFILTER, !this.state.toggle);
     }
 
     componentWillUnmount(){
@@ -152,13 +152,13 @@ export class FilterNavComponent extends React.Component {
     }
 
     componentDidMount() {
-    	Application.pipe.on(MainEvents.HIDEFILTER,(state)=>{
+    	MobileApplication.pipe.on(MainEvents.HIDEFILTER,(state)=>{
         	this.setState({ 
         		hidden: state
         	});
         });
 
-        Application.pipe.on(MainEvents.TOGGLEFILTER,(state)=>{
+        MobileApplication.pipe.on(MainEvents.TOGGLEFILTER,(state)=>{
         	this.setState({ 
         		toggle: state
         	});
@@ -166,7 +166,7 @@ export class FilterNavComponent extends React.Component {
     }
 
     handleClick(event){
-        Application.pipe.emit(MainEvents.TOGGLEFILTER, !this.state.toggle);
+        MobileApplication.pipe.emit(MainEvents.TOGGLEFILTER, !this.state.toggle);
     }
 
     render(){

@@ -1,7 +1,7 @@
 /**
  * About View
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 
@@ -25,7 +25,7 @@ export class IntroVideoComponent extends React.Component {
     	var el = React.findDOMNode(this.refs.introvideo);
     	el.addEventListener('ended', function(){
     		console.log('ended');
-    		Application.pipe.emit(IntroEvents.COMPLETE, "completed");
+    		MobileApplication.pipe.emit(IntroEvents.COMPLETE, "completed");
     	}, false);
     }
 
@@ -74,7 +74,7 @@ export class IntroComponent extends React.Component {
     }
 
     componentDidMount() {
-		Application.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
+		MobileApplication.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 			this.setState({
 				showSkip: true
 			})
@@ -107,7 +107,7 @@ export class IntroComponent extends React.Component {
 
 	introSkip(){
 		if ( !IntroEvents.SKIP ){
-			Application.pipe.emit(IntroEvents.SKIP, "skipped");
+			MobileApplication.pipe.emit(IntroEvents.SKIP, "skipped");
 		}
 	}
 

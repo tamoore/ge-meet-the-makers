@@ -77,7 +77,7 @@ MakerPanel.propTypes = {
 export class MeetTheMakersComponent extends React.Component {
     constructor(){
         super();
-        let data = this._data = Data.result;
+        let data = this._data = Data.result || this.attachDataEventHandler();
 
         this.state = {
             data: data,
@@ -139,9 +139,16 @@ export class MeetTheMakersComponent extends React.Component {
                 href={href}
                 />)
         }
-        this.setState({
-            makers: makers
-        });
+        setTimeout(()=>{
+            this.setState({
+                makers: makers
+            });
+        }, 500);
+
+        setTimeout(()=>{
+            console.info(this.state.makers);
+        }, 1000)
+
     }
 
     componentWillUnmount(){
@@ -174,9 +181,9 @@ export class MeetTheMakersComponent extends React.Component {
                     <img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" />
                     <nav className="controls">
                         <ul>
-                            <li><a>About this content</a></li>
-                            <li><a id="footer-audio"><span className="assistive-text">Audio</span></a></li>
-                            <li><a id="footer-facebook"> <span className="assistive-text">Facebook</span> </a></li>
+                            <li><a href="http://www.theguardian.com/innovation-never-sleeps/2015/jul/23/innovation-never-sleeps-about-this-content">About this content</a></li>
+                            <li><a href="#/credits">credits</a></li>
+                            <li><a href="http://www.facebook.com/sharer/sharer.php?u=http://labs.theguardian.com/innovation-never-sleeps" id="footer-facebook"> <span className="assistive-text">Facebook</span> </a></li>
                             <li><a id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
                             <li><a id="footer-linkedin"> <span className="assistive-text">LinkedIn</span> </a></li>
                         </ul>

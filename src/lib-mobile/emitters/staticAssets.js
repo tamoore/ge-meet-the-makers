@@ -1,7 +1,7 @@
 /**
  * Application Routing
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 /**
  * Vendor Dependencies
@@ -52,26 +52,26 @@ export class StaticAssetsStore  {
         this.preload.on("fileload", this.handleFileLoad, this);
         this.preload.on("complete", this.handleCompleteProgress, this);
 
-        Application.pipe.on(StaticAssetsStoreEvents.GET_RESULT, _.bind(this.getResult, this))
+        MobileApplication.pipe.on(StaticAssetsStoreEvents.GET_RESULT, _.bind(this.getResult, this))
 
         this.fetchAssets();
     }
 
     handleFileLoad(event){
-        Application.pipe.emit(StaticAssetsStoreEvents.FILELOADED, event);
+        MobileApplication.pipe.emit(StaticAssetsStoreEvents.FILELOADED, event);
     }
 
     handleProgress(event){
         this.progress = Math.ceil(event.progress*100);
-        Application.pipe.emit(StaticAssetsStoreEvents.PROGRESS, this.progress);
+        MobileApplication.pipe.emit(StaticAssetsStoreEvents.PROGRESS, this.progress);
     }
 
     handleCompleteProgress(event){
-        Application.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
+        MobileApplication.pipe.emit(StaticAssetsStoreEvents.COMPLETE);
     }
 
     getResult(id){
-        Application.pipe.emit(StaticAssetsStoreEvents.SEND_RESULT, this.preload.getResult(id));
+        MobileApplication.pipe.emit(StaticAssetsStoreEvents.SEND_RESULT, this.preload.getResult(id));
     }
 
     fetchAssets(){

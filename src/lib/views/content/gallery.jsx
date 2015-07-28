@@ -69,6 +69,7 @@ export class GalleryContentComponent extends React.Component {
     }
 
     nextImage(){
+        this.clear();
         if(this.currentIndex+1 < this.totalLength){
             this.currentIndex = this.currentIndex+1
         }else{
@@ -80,7 +81,17 @@ export class GalleryContentComponent extends React.Component {
         this.addBitMapToStage(this.state.imagesRaw[this.currentIndex]);
     }
 
+    clear(){
+        if(this.props.data.type === "factoid"){
+            if(this.stage){
+                this.stage.removeAllChildren();
+            }
+
+        }
+    }
+
     prevImage(){
+        this.clear();
         if(this.currentIndex-1 > -1){
             this.currentIndex = this.currentIndex-1
         }else{
@@ -93,6 +104,7 @@ export class GalleryContentComponent extends React.Component {
     }
 
     handleDotClick(event){
+        this.clear();
         var index = event.target.getAttribute('data-index');
         this.currentIndex = parseInt(index);
         this.setState({
@@ -140,7 +152,7 @@ export class GalleryContentComponent extends React.Component {
         if(!image)return
         var img = new createjs.Bitmap(image);
         //img.alpha = 1;
-        //createjs.Tween.get(img).to({alpha:1}, 0);
+        createjs.Tween.get(img).to({alpha:1}, 0);
 
         img.scaleX = this.state.canvasWidth / image.width;
         img.scaleY = this.state.canvasHeight / image.height;

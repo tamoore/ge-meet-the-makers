@@ -79,7 +79,7 @@ export class SupportingImage extends React.Component {
     }
     render(){
 
-        let img = this.props.data[this.props.type] ? this.props.data[this.props.type][this.props.index == 0 ? 0 : 1] : null;
+        let img = this.props.data[this.props.type] ? this.props.data[this.props.type][this.props.imageIndex-1] : null;
         if(!img) return ( null );
         let src = this.state.host + img.src + '_small.jpg';
         let caption = img.imageCaption;
@@ -87,8 +87,8 @@ export class SupportingImage extends React.Component {
         return (
             <figure>
                 <img src={src}  />
-                <figcaption>{caption}</figcaption>
-                <span className="figureCredit">{credit}</span>
+                <figcaption><span dangerouslySetInnerHTML={{ __html: caption }}></span></figcaption>
+                <span className="figureCredit"><span dangerouslySetInnerHTML={{ __html: credit }}></span></span>
             </figure>
         )
     }
@@ -103,8 +103,10 @@ export class SupportingPullQuote extends React.Component {
         let credit = this.props.data['pqCredit']
         return (
             <figure>
-                <blockquote>{this.props.data.pq}</blockquote>
-                <span className="figureCredit">{credit}</span>
+                <blockquote>
+                    <span dangerouslySetInnerHTML={{ __html: this.props.data.pq }}></span>
+                </blockquote>
+                <span className="figureCredit"><span dangerouslySetInnerHTML={{ __html: credit }}></span></span>
             </figure>
         )
     }
@@ -120,8 +122,12 @@ export class SupportingFunFact extends React.Component {
         return (
             <figure className="funFact">
                 <span>{this.props.data.funFactNumber}</span>
-                <blockquote>{this.props.data.funFact}</blockquote>
-                <span className="figureCredit">{credit}</span>
+                <blockquote>
+                    <span dangerouslySetInnerHTML={{ __html: this.props.data.funFact }}></span>
+                </blockquote>
+                <span className="figureCredit">
+                    <span dangerouslySetInnerHTML={{ __html: credit }}></span>
+                </span>
             </figure>
         )
     }
@@ -134,8 +140,8 @@ export class SupportingComponent extends React.Component {
     }
     render(){
         var element = null;
-        if(this.props.type == "images"){
-            element = <SupportingImage type="images" index={this.props.index} data={this.props.data} />
+        if(this.props.type.split("-")[0] == "images"){
+            element = <SupportingImage type="images" index={this.props.index} data={this.props.data} imageIndex={parseInt(this.props.type.split("-")[1])} />
         }
 
         if(this.props.type == "pq"){
@@ -165,10 +171,6 @@ export class PostsContentComponent extends React.Component {
             imageCaption: "",
             triggersIndex: 0,
             supportingMap: [
-                'images',
-                'pq',
-                'funFact',
-                'images'
             ],
             supportingType: 'images',
             supportingIndex: 0,
@@ -201,6 +203,16 @@ export class PostsContentComponent extends React.Component {
         this.setState(data);
     }
 
+    shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+
     componentDidMount(){
         Application.pipe.emit(MainEvents.MAKERTITLE, this.props.maker);
         if (ExecutionEnvironment.canUseDOM) {
@@ -209,23 +221,31 @@ export class PostsContentComponent extends React.Component {
 
             // Set up for triggers to get hit
             setTimeout(()=>{
-                let triggers = []
+                var triggers = []
                 var count = 0;
+                var newArray = this.state.supportingMap.slice();
                 if(this.props.data.pq){
                     count = count+1;
+                    newArray.push("pq");
                 }
                 if(this.props.data.funFact){
                     count = count+1;
+                    newArray.push("funFact");
                 }
                 if(this.props.data.images){
-                    console.log(this.props.data.images.length);
                     count = count + this.props.data.images.length;
+                    for(var i=0;i<this.props.data.images.length;i++){
+                        newArray.push("images-"+(i+1));
+                    }
                 }
+                this.setState({
+                    supportingMap: this.shuffleArray(newArray)
+                });
                 this.count = count;
-                console.log(this.count);
-                let increment = el.scrollHeight / count+1;
-                for(var i = 0; i<count;i++){
-                    triggers.push(Math.floor(increment*i));
+
+                var increment = el.scrollHeight / (count+1);
+                for(var j = 0; j<count;j++){
+                    triggers.push(Math.floor(increment*j));
                 }
                 triggers.push(el.scrollHeight);
                 this.setState({
@@ -242,6 +262,7 @@ export class PostsContentComponent extends React.Component {
         var direction;
         var index;
 
+
         if(this.state.lastScrollTop){
             direction = event.target.scrollTop > this.state.lastScrollTop ? 'up':'down';
         }else{
@@ -250,7 +271,6 @@ export class PostsContentComponent extends React.Component {
         this.setState({
             lastScrollTop: event.target.scrollTop
         });
-
         for(var i = 0; i<this.count;i++){
             var next;
             if(direction == 'up'){
@@ -262,14 +282,20 @@ export class PostsContentComponent extends React.Component {
 
             }
             if(next != null){
+                console.info(this.state.triggers[i],this.state.triggers[next], event.target.scrollTop);
                 if(_.inRange(event.target.scrollTop, this.state.triggers[i], this.state.triggers[next])){
                     index = i;
+                    console.info(index);
                 }
             }
         }
+
+
+
+
         this.setState({
             supportingType: this.state.supportingMap[index ? index : 0],
-            supportingIndex: index ? index : 0
+            supportingIndex: index ? index : 0,
         });
     }
 
@@ -286,6 +312,7 @@ export class PostsContentComponent extends React.Component {
 
     render(){
         var image = `${Application.assetLocation}${this.props.data.furniture.mainImage}_medium.jpg`;
+        var credit = this.props.data.furniture.mainImageCredit ? <span> Credit: <span dangerouslySetInnerHTML={{ __html: this.props.data.furniture.mainImageCredit }}></span> </span> : null;
         return (
             <div className="post-content-component">
                 <CloseButtonComponent />
@@ -300,7 +327,7 @@ export class PostsContentComponent extends React.Component {
                         <figure>
                             <img src={image} alt={this.props.data.furniture.mainImageCaption} aria-label={this.props.data.furniture.mainImageCaption} />
                                 <figcaption>
-                                    <p>{this.props.data.furniture.mainImageCaption} Credit: {this.props.data.furniture.mainImageCredit}</p>
+                                    <p><span dangerouslySetInnerHTML={{ __html: this.props.data.furniture.mainImageCaption }}></span> {credit} </p>
                                 </figcaption>
                         </figure>
                         <p><strong>{this.props.data.furniture.standfirst}</strong></p>

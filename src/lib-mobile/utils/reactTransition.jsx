@@ -1,7 +1,7 @@
 /**
  * Facade/dispatcher for piping
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 
 /**

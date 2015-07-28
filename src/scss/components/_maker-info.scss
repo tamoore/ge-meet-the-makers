@@ -1,5 +1,6 @@
 // Information about maker, local time and location
 .maker-info {
+  @include transition(opacity .5s ease-in);
   font-size: 13px;
   font-size: 1.3rem;
   margin: 0 0 0 2%;

@@ -31,6 +31,9 @@ export class ContentHandler extends React.Component {
     }
 
     componentWillMount(){
+
+        Application.pipe.emit(TimelineEvents.REMOVEPREVIEW)
+
         TimelineBackgroundComponent.blur = true;
 
         this.setState({
@@ -55,17 +58,19 @@ export class ContentHandler extends React.Component {
         });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.setState({
             "state": "show",
             "apply": "deactivate"
         });
-        this.nextPost = ()=>{
+        this.nextPost = ()=> {
 
         }
-        this.prevPost = ()=>{
+        this.prevPost = ()=> {
 
         }
+
+        Application.pipe.emit(TimelineEvents.REMOVEPREVIEW)
 
     }
 
@@ -73,6 +78,7 @@ export class ContentHandler extends React.Component {
         if(this._data){
             if(this._data.content){
                 this.processData();
+
             }
 
         }
@@ -110,6 +116,9 @@ export class ContentHandler extends React.Component {
             case "gallery":
                 el = <GalleryContentComponent data={this.contentData} key={this.context.router.name} />;
                 break;
+            case "factoid":
+                el = <GalleryContentComponent data={this.contentData} key={this.context.router.name} />;
+                break;
             case "post":
                 el = <PostsContentComponent data={this.contentData} key={this.context.router.name} />;
                 break;
@@ -118,6 +127,8 @@ export class ContentHandler extends React.Component {
                 Application.pipe.emit(MainEvents.HIDEMAKERS);
                 break;
         }
+        pageTagData.pageName = this.contentData.title;
+        _satellite.track('Page View');
         this.setState({
             el: el
         });
@@ -125,6 +136,7 @@ export class ContentHandler extends React.Component {
 
     handleData(data){
         this.data = data;
+
         if(this._data.content){
             this.processData()
         }

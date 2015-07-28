@@ -2,7 +2,7 @@
  * View for Makers Info
  *
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 import { StaticAssetsStore, StaticAssetsStoreEvents } from '../emitters/staticAssets';
 
 import React from 'react';
@@ -13,7 +13,7 @@ export class PreloadComponent extends React.Component {
         this.state = {
             progress: 0
         }
-        Application.pipe.on(StaticAssetsStoreEvents.PROGRESS, _.bind(this.handleProgress, this))
+        MobileApplication.pipe.on(StaticAssetsStoreEvents.PROGRESS, _.bind(this.handleProgress, this))
     }
 
     handleProgress(progress){

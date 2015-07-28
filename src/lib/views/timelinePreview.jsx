@@ -7,6 +7,7 @@ import React from 'react';
 import { MainEvents } from '../main.jsx!';
 import { TimelineEvents } from './timeline.jsx!';
 import { StaticAssetsStore } from '../emitters/staticAssets';
+import { DataEvents, Data } from '../data/data';
 
 export const PreviewEvents = {
     TOP: "preview-top",
@@ -52,6 +53,8 @@ export class PreviewImageWrapper extends React.Component {
 export class PreviewComponent extends React.Component {
     constructor(){
         super();
+        this._data = Data.result ? Data.result.makers : this.attachDataEventHandler();
+
         this.state = {
             x: null,
             y: null,
@@ -65,6 +68,23 @@ export class PreviewComponent extends React.Component {
         ];
 
     }
+
+    get data(){
+        return this._data;
+    }
+    set data(obj){
+        this._data = obj;
+        if(!this._data) this.attachDataEventHandler();
+    }
+
+    attachDataEventHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleData, this));
+    }
+
+    handleData(data) {
+        this.data = data;
+    }
+
     componentWillMount(){
         if(PreviewComponent.cycles == 0){
             PreviewComponent.cycles = PreviewComponent.cycles+1;
@@ -155,6 +175,11 @@ export class PreviewComponent extends React.Component {
             Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
         }
 
+        this.setState({
+            makerTitle: this._data[this.props.data.maker]? this._data[this.props.data.maker].role :null,
+            makerName: this._data[this.props.data.maker]?   this._data[this.props.data.maker].name :null,
+            makerLocation: this._data[this.props.data.maker]? this._data[this.props.data.maker].location :null
+        });
 
 
     }
@@ -205,8 +230,15 @@ export class PreviewComponent extends React.Component {
             type = this.props.data.type;
         }
 
+        if(this.props.data.type == "factoid"){
+            type = "infographic";
+        }
+
+
         return (
-            <div rel="previewWrapper" style={this.state.styles} className={pClass}>
+
+
+            <div rel="previewWrapper" style={this.state.styles} className={pClass} data-hour={this.props.data.metadata.timeline.hour}>
                 <svg height="470" width="500" id="previewLine" className={this.state.klass}>
                     <g id="line" fill="none" stroke="white" strokeWidth="1" rotate="auto-reverse">
                         <line ref="line" x1={x1[this.state.klass]} y1={y1[this.state.klass]} x2={x2[this.state.klass]} y2={y2[this.state.klass]} className="previewLineEl">
@@ -217,7 +249,9 @@ export class PreviewComponent extends React.Component {
                 <div id="previewElement" className={this.state.activeStateClass}>
                     <PreviewIconComponent maker={this.state.maker ? this.state.maker : this.props.data.maker} />
                     {pImage}
+                    <p><strong>{this.state.makerTitle}</strong> {this.state.makerName}</p>
                     <h2 data-type={type} data-credit={this.props.data.pqCredit}>{this.state.title}</h2>
+
                 </div>
 
             </div>

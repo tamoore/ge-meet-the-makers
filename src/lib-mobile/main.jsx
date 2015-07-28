@@ -1,11 +1,11 @@
-import { Application } from './index';
+import { MobileApplication } from './index';
 
 import React from 'react';
 
 import Router from 'react-router';
 
 /**
- * Default Rout for the Application
+ * Default Rout for the MobileApplication
  */
 let DefaultRoute = Router.DefaultRoute;
 let RouterLink = Router.Link;
@@ -35,7 +35,7 @@ export class Main {
             	<Redirect from="/" to="/timeline" />
                 <Route name="timeline" path="/timeline" handler={IndexComponent}/>
                 <Route name="makers" path="/makers" handler={MakersComponent}/>
-                <Route name="makers/:maker" path="makers/:maker" handler={MakerComponent}/>
+                <Route name="maker/:maker" path="maker/:maker" handler={MakerComponent}/>
                 <Route name="content/:maker/:slug" path="content/:maker/:slug" handler={ContentComponent}/>
                 <Route name="credits" path="/credits" handler={AboutComponent}/>
                 <NotFoundRoute handler={NotFoundComponent} />
@@ -81,7 +81,7 @@ export class MainView extends React.Component {
     } 
 
     attachDataHandler(){
-        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
+		MobileApplication.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
     }
 
     handleDataUpdate(resp){
@@ -92,7 +92,7 @@ export class MainView extends React.Component {
     }
 
     componentDidMount(){
-		Application.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
+		MobileApplication.pipe.on(MainEvents.FILTERMAKERS,(makerId)=>{
         	this.setState({ 
         		currentMaker: makerId
         	});
@@ -104,10 +104,10 @@ export class MainView extends React.Component {
 
 		var width = window.innerWidth;
 		if ( width <= this.breakpoint ){
-			Application.pipe.emit(MainEvents.IMGSIZE, "small");
+			MobileApplication.pipe.emit(MainEvents.IMGSIZE, "small");
 			console.log("small");
 		} else {
-			Application.pipe.emit(MainEvents.IMGSIZE, "medium");
+			MobileApplication.pipe.emit(MainEvents.IMGSIZE, "medium");
 			console.log("medium");
 		}
 	}
@@ -124,15 +124,15 @@ export class MainView extends React.Component {
 			this.prevWidth = width;
     		
     		if ( width <= this.breakpoint ){
-				Application.pipe.emit(MainEvents.IMGSIZE, "small");
+				MobileApplication.pipe.emit(MainEvents.IMGSIZE, "small");
 				console.log("small");
 			} else {
-				Application.pipe.emit(MainEvents.IMGSIZE, "medium");
+				MobileApplication.pipe.emit(MainEvents.IMGSIZE, "medium");
 				console.log("medium");
 			}
     	}
-		
-		Application.pipe.emit(MainEvents.VIEWPORT, {
+
+		MobileApplication.pipe.emit(MainEvents.VIEWPORT, {
 			top: window.pageYOffset,
 			height: window.innerHeight
 		});

@@ -2,7 +2,7 @@
  * View for the header Filters on the timeline primarily
  *
  */
-import { Application } from '../index';
+import { MobileApplication } from '../index';
 
 import React from 'react';
 

@@ -1,11 +1,17 @@
 // Page mast with heading and filter
+
+
+
+
 .masthead {
   display: block;
-  padding: 2rem 0 6.5rem 2rem;
+  padding: 2rem 0px 6.5rem 2rem;
   position: relative;
   width: 100%;
   z-index: 3;
   opacity: 1;
+  //margin-bottom: 6.5rem;
+  cursor: pointer;
   @include transition(opacity .5s ease-in);
   &[data-hide="hidden"]{
     opacity: 0.01 !important;
@@ -35,6 +41,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    height: 70px;
+    margin-bottom: -65px;
   }
 
   li {
