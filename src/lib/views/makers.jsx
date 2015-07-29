@@ -3,7 +3,7 @@
  *
  */
 import { Application } from '../index';
-
+import { CloseButtonComponent } from './close.jsx!';
 import React from 'react';
 import { MainEvents } from '../main.jsx!';
 import { DataEvents, Data } from '../data/data';
@@ -174,12 +174,19 @@ export class MeetTheMakersComponent extends React.Component {
 
         return (
             <div>
+                <div className="sponsor meet-the-makers">
+                    <CloseButtonComponent />
+                    <p>Brought to you by</p>
+                    <a href="http://gereports.com.au/" target="_blank" className="ge-logo-anchor"><img className="logo-ge" src="images/logo.ge.svg" alt="GE" /></a>
+                    <p className="tagline">Innovation Never Sleeps <span>Meet The Makers</span></p>
+                </div>
                 <footer className="base" data-state={this.state.active}>
                     <h1 onClick={this.hideMakers}>
                         Timeline
                     </h1>
-                    <img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" />
-                    <nav className="controls">
+                    <div className="controlsWrapper">
+                        <img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" />
+                        <nav className="controls">
                         <ul>
                             <li><a href="http://www.theguardian.com/innovation-never-sleeps/2015/jul/23/innovation-never-sleeps-about-this-content">About this content</a></li>
                             <li><a href="#/credits">credits</a></li>
@@ -187,7 +194,8 @@ export class MeetTheMakersComponent extends React.Component {
                             <li><a id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
                             <li><a id="footer-linkedin"> <span className="assistive-text">LinkedIn</span> </a></li>
                         </ul>
-                    </nav>
+                        </nav>
+                    </div>
                 </footer>
                 <div id="makerPanels" className="makers meet-the-makers-component">
                     {this.state.makers}

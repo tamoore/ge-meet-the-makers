@@ -127,8 +127,12 @@ export class ContentHandler extends React.Component {
                 Application.pipe.emit(MainEvents.HIDEMAKERS);
                 break;
         }
-        pageTagData.pageName = this.contentData.title;
+
+        pageTagData.pageName = window.location.hash;
+        pageTagData.secondaryEvent= Application.makers[Application.makers.indexOf(this.props.params.maker)];
         _satellite.track('Page View');
+        _satellite.track('Secondary Event');
+
         this.setState({
             el: el
         });

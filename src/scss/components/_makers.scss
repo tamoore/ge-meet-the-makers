@@ -164,6 +164,7 @@
   &[data-state="on"]{
 	.maker-bio-excerpt {
 	  display: block;
+	  max-width: calc(100% + 30px);
 	}
 	.maker-panel-background {
 	  @include filter(blur(12px));

@@ -134,7 +134,8 @@ export class TimelineBackgroundComponent extends React.Component {
      * @returns {*}
      */
     applyBlurFilter(bitmap /* CreateJS Bitmap */) {
-        var blurFilter = new createjs.BlurFilter(10,10,1);
+        var isIE11 = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)
+        var blurFilter = isIE11 ? new createjs.BlurFilter(3,3,1) : new createjs.BlurFilter(10,10,1);
         bitmap.filters = [blurFilter];
         bitmap.cache(0,0, bitmap.image.width, bitmap.image.height, 1);
         return bitmap;

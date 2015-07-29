@@ -74,7 +74,6 @@ export class TimelineItemComponent extends React.Component {
 							<h3>{maker.role}</h3>
 							<h2>{maker.name}</h2>
 						</div>
-
 					</a>
 				</header>
 				<div className="timeline-content-preview">

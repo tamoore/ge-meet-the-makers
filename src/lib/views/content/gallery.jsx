@@ -139,7 +139,10 @@ export class GalleryContentComponent extends React.Component {
             canvasHeight: (window.innerHeight*.6),
             canvasWidth: (window.innerHeight*.6)*1.7777778
         });
-        this.stage.update();
+        if(this.stage){
+            this.stage.update();
+        }
+
     }
 
 
@@ -176,6 +179,7 @@ export class GalleryContentComponent extends React.Component {
         Application.pipe.emit(MainEvents.MAKERTITLE, this.props.data.maker);
 
     }
+
     componentWillUnmount(){
         this.setState({
             "state": "show",

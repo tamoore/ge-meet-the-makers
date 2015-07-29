@@ -146,7 +146,7 @@ export class AboutContentComponent extends React.Component {
                         <p><strong>With thanks to:</strong></p>
 
                         <p><img src="images/logos/ge_logo.png" alt="GE" /><br />
-                            <img src="images/logos/ger_logo.png" alt="GE Reports" /><br />
+                            <a href="http://gereports.com.au/" target="_blank"><img src="images/logos/ger_logo.png" alt="GE Reports" /></a><br />
                             <img src="images/logos/CSIRO_logo.png" alt="CSIRO" /><br />
                             <img src="images/logos/mnf_logo.png" alt="Marine National Facility" /><br />
                             <img src="images/logos/saber_logo.png" alt="Saber Aeronautics" /><br />

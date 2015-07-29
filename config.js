@@ -17,7 +17,7 @@ System.config({
     "babel": "npm:babel-core@5.8.12",
     "babel-runtime": "npm:babel-runtime@5.8.12",
     "cookie": "npm:cookie@0.1.3",
-    "core-js": "npm:core-js@0.9.18",
+    "core-js": "npm:core-js@1.0.0",
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
     "es5-shim": "npm:es5-shim@4.1.7",
     "es6-dispatcher": "npm:es6-dispatcher@2.1.0",
@@ -222,6 +222,11 @@ System.config({
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:core-js@0.9.18": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:core-js@1.0.0": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"

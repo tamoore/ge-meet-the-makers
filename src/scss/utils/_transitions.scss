@@ -1,6 +1,7 @@
 .section-enter {
   opacity: 0.01;
-  transition: opacity 0.5s ease-in;
+  @include transition(opacity 0.5s ease-in);
+
 }
 
 .section-enter.section-enter-active {
@@ -9,7 +10,7 @@
 
 .section-leave {
   opacity: 1;
-  transition: opacity 0.5s ease-in;
+  @include transition(opacity 0.5s ease-in);
 }
 
 .section-leave.section-leave-active {
@@ -22,13 +23,13 @@
 
 [data-transition="off"] {
   opacity: 0.01;
-  transition: opacity 0.5s ease-in;
+  @include transition(opacity 0.5s ease-in);
 }
 [data-content="deactivate"] {
-  transition: opacity 0.5s ease-in;
+  @include transition(opacity 0.5s ease-in);
 }
 [data-content="activate"] {
-  transition: opacity 0.5s ease-in;
+  @include transition(opacity 0.5s ease-in);
 }
 [data-transition="animate"] {
   opacity: 1;

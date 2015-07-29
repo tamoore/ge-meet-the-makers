@@ -28,6 +28,7 @@ export class CloseButtonComponent extends React.Component {
 
     handleCloseClick(event){
         Application.pipe.emit(MainEvents.MAKERTITLE, 0);
+        Application.pipe.emit(MainEvents.HIDEMAKERS);
         return window.location.hash = "#/timeline";
 
     }

@@ -59,12 +59,13 @@ export class AmbientVideoEmitter {
 
     getAmbientVideoSrc(makerid, videoid){
         let config = Data.config;
+        var type = navigator.userAgent.indexOf("Firefox") > 0 ? "webm":"mp4";
         return config.cdnProtocol +
             "://" + config.cdnHost +
             "/" + config.cdnBucket +
             config.videosPrefix +
             config.makerAmbientPrefix
-            + makerid + '_' + videoid + '.mp4?uuid='+uuid.v1();
+            + makerid + '_' + videoid + '.'+type+'?uuid='+uuid.v1();
     }
 
     play(url){
@@ -117,7 +118,7 @@ export class IntroVideo {
     }
 
     kill(){
-        this.el.remove();
+        //this.el.remove();
         this.currentVideo = undefined;
         this.handlePlayingVideo = function(){ return false; }
     }

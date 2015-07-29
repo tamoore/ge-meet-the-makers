@@ -24,7 +24,7 @@ export class ContentHeaderComponent extends React.Component {
 
     render(){
 		var { maker, content } = this.props;
-
+		//<img src={maker.portraitImg} alt={maker.name+" - "+maker.role} />
 		// Ensure time fits 00:00 format
     	var hour = content.metadata.timeline.hour.toString().length > 1 ? content.metadata.timeline.hour : "0"+content.metadata.timeline.hour;
     	var minute = content.metadata.timeline.minute.toString().length > 1 ? content.metadata.timeline.minute : "0"+content.metadata.timeline.minute;
@@ -40,7 +40,6 @@ export class ContentHeaderComponent extends React.Component {
 						<h3>{maker.role}</h3>
 						<h2>{maker.name}</h2>
 					</div>
-					<img src={maker.portraitImg} alt={maker.name+" - "+maker.role} />
 				</a>
 			</header>
         )

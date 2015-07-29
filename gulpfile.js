@@ -62,7 +62,7 @@ gulp.task('deploy-staging', [], function() {
 gulp.task('deploy-production', ['build'], function() {
 	return gulp.src(['./'])
 		.on('end', shell.task([
-			'aws s3 sync build s3://labs.theguardian.com/meet-the-makers/ --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
+			'aws s3 sync build s3://labs.theguardian.com/innovation-never-sleeps/ --profile labs --acl public-read --region us-west-1 --cache-control="max-age=0, no-cache"'
 		]));
 });
 

@@ -134,10 +134,13 @@ export class VideosContentComponent extends React.Component {
 
     render(){
         return (
-            <div className="video-content-component">
+            <div>
                 <CloseButtonComponent />
-                <VideoContentComponent data={this.props.data} />
+                <div className="video-content-component">
+                    <VideoContentComponent data={this.props.data} />
+                </div>
             </div>
+
         )
     }
 }

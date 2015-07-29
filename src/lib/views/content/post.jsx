@@ -252,7 +252,7 @@ export class PostsContentComponent extends React.Component {
                     scrollHeight: el.scrollHeight,
                     triggers: triggers
                 });
-                el.dispatchEvent(new Event('scroll'));
+                el.dispatchEvent(new CustomEvent('scroll'));
             },10);
         }
 

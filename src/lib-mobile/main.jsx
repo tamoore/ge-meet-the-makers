@@ -140,6 +140,10 @@ export class MainView extends React.Component {
     	var name = this.context.router.getCurrentPath();
     	var maker = null;
 
+
+		pageTagData.pageName = "#"+name;
+		_satellite.track('Page View');
+
     	if ( currentMaker ){
     		maker = makerData[currentMaker];
     	}

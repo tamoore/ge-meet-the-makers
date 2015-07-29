@@ -1,5 +1,5 @@
-import  { Application }  from './lib/index';
-import  { MobileApplication } from './lib-mobile/index';
+//import  { Application }  from './lib/index';
+//import  { MobileApplication } from './lib-mobile/index';
 
 function addCSS(url) {
     var head = document.querySelector('head');
@@ -9,14 +9,18 @@ function addCSS(url) {
     link.setAttribute('href', url);
     head.appendChild(link);
 }
+
 var mobileCss ='css/main-mobile.css';
 var desktopCss= 'css/main.css';
-$(()=>{
+
+$(function(){
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        var MobileApplication = require('./lib-mobile/index');
         addCSS(mobileCss);
-        new MobileApplication();
+        new MobileApplication.MobileApplication();
     }else{
+        var Application = require('./lib/index');
         addCSS(desktopCss);
-        new Application();
+        new Application.Application();
     }
 });

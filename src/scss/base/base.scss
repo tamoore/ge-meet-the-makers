@@ -67,8 +67,12 @@ body {
 #closebutton {
   fill: #fff;
   width: 4.5rem;
+  height: 2rem;
+
   position: absolute;
-  right: 5rem;
+  left: 100vw;
+  margin-left: -80px;
+
   top: 4rem;
   cursor: pointer;
   z-index: 300;
