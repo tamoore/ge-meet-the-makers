@@ -56,6 +56,7 @@ export class TimelineItemComponent extends React.Component {
     }
 
     render(){
+		//<img src={maker.portraitImg} alt={maker.name} />
     	var { key, data, maker } = this.props;
 
     	// Ensure time fits 00:00 format
@@ -73,7 +74,7 @@ export class TimelineItemComponent extends React.Component {
 							<h3>{maker.role}</h3>
 							<h2>{maker.name}</h2>
 						</div>
-						<img src={maker.portraitImg} alt={maker.name} />
+
 					</a>
 				</header>
 				<div className="timeline-content-preview">
