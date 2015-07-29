@@ -71,14 +71,16 @@ export class LazyLoadImageComponent extends React.Component {
 	}
 
     render(){
-    	var { src, alt, classes } = this.props;
+    	var { src, alt, classes, sizeoverride, pclasses } = this.props;
     	var { showImage, loader, imgSize } = this.state;
 
-    	var path = showImage ? src+"_"+imgSize+".png" : loader;
+    	var size = sizeoverride ? sizeoverride : imgSize;
+    	var path = showImage ? src+"_"+size+".png" : loader;
     	var className = showImage ? "" : " loading";
+    	var parentClass = pclasses ? pclasses : "";
 
         return (
-			<div className="lazyload" data-visible={showImage}>
+			<div className={"lazyload "+parentClass} data-visible={showImage}>
 				<img src={path} alt={alt} ref="image" className={classes+className} />
 			</div>
         )

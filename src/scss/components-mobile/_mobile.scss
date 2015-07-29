@@ -298,6 +298,22 @@ a.link-wide {
 		height: 100%;
 		width: 100%;
 
+		.close-nav {
+			text-align: right;
+			border-bottom: 1px solid #b3b3b3;
+			padding-bottom: 14px;
+
+			.arrow-forward {
+				background: url(../images/arrow.right.svg) 50% 50% no-repeat;
+				background-size: 990%;
+				display: inline-block;
+				height: 2.6em;
+				vertical-align: middle;
+				width: 1.7em;
+				background-position: center;
+			}
+		}
+
 		ul {
 			list-style: none;
 			margin: 0;
@@ -738,7 +754,7 @@ a.link-wide {
 	max-width: 320px;
 
 	@media (min-width:767px){
-		max-width: 420px;		
+		max-width: 520px;		
 	}
 
 	.timeline-marker-meta {
@@ -863,11 +879,16 @@ a.link-wide {
 			-ms-display: flex;
 			-webkit-display: flex;
 			display: flex;
-			font-weight: 700;
+			font-weight: 600;
 			-ms-justify-content: flex-start;
 			-webkit-justify-content: flex-start;
 			justify-content: flex-start;
 			margin: .9rem 0 0.5rem 1rem;
+			font-size: 11px;
+
+			span {
+				text-transform: capitalize;
+			}
 		}
 
 		.icon-content-type {
@@ -935,6 +956,10 @@ a, a:visited {
 			width: 100%;
 		}
 	}
+
+	&.no-bg {
+		background: none;
+	}
 }
 
 // INTRO PAGE & PRELOADER
@@ -951,7 +976,7 @@ a, a:visited {
 	transition: opacity .3s linear;
 }
 
-.assets-loaded #progress {
+body[data-loading="false"] #progress {
 	opacity: 0;
 }
 

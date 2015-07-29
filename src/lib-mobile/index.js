@@ -30,8 +30,7 @@ export class MobileApplication {
 		// Preload default assets
 		MobileApplication.pipe.on(StaticAssetsStoreEvents.COMPLETE, (progress)=>{
 			this.assetsLoaded = true;
-			document.body.setAttribute("class", "assets-loaded");
-			console.log('assets');
+			document.body.setAttribute("data-loading", "false");
 			if ( this.introComplete ){
 				this.showIntro = false;
 				this.main = new Main();

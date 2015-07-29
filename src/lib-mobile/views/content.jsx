@@ -11,6 +11,7 @@ import { SocialNavComponent } from './elements/social.jsx!';
 import { PostContentComponent } from './content/post.jsx!';
 import { GalleryContentComponent } from './content/gallery.jsx!';
 import { VideoContentComponent } from './content/video.jsx!';
+import { InfographicContentComponent } from './content/infographic.jsx!';
 
 /**
  * Component for Maker profile header
@@ -34,7 +35,7 @@ export class ContentHeaderComponent extends React.Component {
 				<div className="time">
 					{hour}:{minute}
 				</div>
-				<a href={"#/makers/"+maker.slug}>
+				<a href={"#/maker/"+maker.slug}>
 					<div className="profile">
 						<h3>{maker.role}</h3>
 						<h2>{maker.name}</h2>
@@ -72,6 +73,11 @@ export class ContentArticleComponent extends React.Component {
 		    case "video":
 				return (
 					<VideoContentComponent content={content} />
+		        );
+		        break;
+		    case "factoid":
+				return (
+					<InfographicContentComponent content={content} />
 		        );
 		        break;
 		    default:
@@ -139,6 +145,7 @@ export class ContentComponent extends React.Component {
     	var { makerId, data, makerData, params } = this.props;
     	var filteredData = data;
     	var bgImg, maker, makerKey;
+    	var makerSlug = params.maker;
 
 		if ( !makerId ){
 			// Find requested Maker
@@ -146,10 +153,43 @@ export class ContentComponent extends React.Component {
 	    		return m.slug == params.maker;
 			});
 
+			// 404 Handling
+			if ( _.isUndefined(makerData[makerKey]) ){
+				return (
+		            <main className="mobile-about">
+		            	<div className="texture-overlay"></div>
+		            	<div className="content-container">
+							<article className="type-post">
+								<h1 className="title bordered">Oops!</h1>
+								<p>Sorry, that page doesn&rsquo;t exist.</p>
+								<p><a href="#/timeline"><u>Back to Timeline.</u></a></p>
+							</article>
+						</div>
+					</main>
+		        )
+			}
+
 			var bgImg = makerData[makerKey].bgImg;
 			var maker = makerData[makerKey];
 		} else {
 			makerKey = makerId;
+
+			// 404 Handling
+			if ( _.isUndefined(makerData[makerId]) || makerData[makerId].slug !== makerSlug ){
+				return (
+		            <main className="mobile-about">
+		            	<div className="texture-overlay"></div>
+		            	<div className="content-container">
+							<article className="type-post">
+								<h1 className="title bordered">Oops!</h1>
+								<p>Sorry, that page doesn&rsquo;t exist.</p>
+								<p><a href="#/timeline"><u>Back to Timeline.</u></a></p>
+							</article>
+						</div>
+					</main>
+		        )
+			}
+
 			var bgImg = makerData[makerId].bgImg;
 			var maker = makerData[makerId];
 
@@ -161,6 +201,23 @@ export class ContentComponent extends React.Component {
 		var contentIndex = _.findIndex(filteredData, function(c) {
     		return c.slug == pathSlug && c.maker == makerKey;
 		});
+
+		// 404 Handling
+		if ( _.isUndefined(contentIndex) || contentIndex === -1 ){
+			return (
+	            <main className="mobile-about">
+	            	<div className="texture-overlay"></div>
+	            	<div className="content-container">
+						<article className="type-post">
+							<h1 className="title bordered">Oops!</h1>
+							<p>Sorry, that page doesn&rsquo;t exist.</p>
+							<p><a href="#/timeline"><u>Back to Timeline.</u></a></p>
+						</article>
+					</div>
+				</main>
+	        )
+		}
+
 		var content = filteredData[contentIndex];
 
 		return (

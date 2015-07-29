@@ -49,13 +49,17 @@ export class ProfileArticleComponent extends React.Component {
     render(){
     	var { maker } = this.props;
 
+    	var figure = maker.furniture.mainImageCaption ? maker.furniture.mainImageCaption : "";
+    	figure = figure != "" ? figure : figure;
+    	figure = maker.furniture.mainImageCredit ? figure+" Credit: "+maker.furniture.mainImageCredit : "";
+
         return (
 			<article>
 				<h1 className="title">{maker.title}</h1>
 				<figure>
-					<LazyLoadImageComponent src={maker.figure.img} alt={maker.figure.caption} classes="" />
+					<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+maker.furniture.mainImage} alt={maker.furniture.mainImageCaption} classes="" />
 					<figcaption>
-						<p>{maker.figure.caption}</p>
+						<p>{figure}</p>
 					</figcaption>
 				</figure>
 				<BodyComponent body={maker.body} images={maker.images} pq={maker.pq} pqCredit={maker.pqCredit} type="maker" />
@@ -111,9 +115,9 @@ export class ProfileFooterComponent extends React.Component {
 				<SocialNavComponent twitter={maker.twitterMessage} />
 				<FooterTimelineLinkComponent makerId={makerId} />
 				<div className="page-nav border-bottom">
-					<a className="page-nav-previous" href={"#/makers/"+prevMaker}>Previous</a>
+					<a className="page-nav-previous" href={"#/maker/"+prevMaker}>Previous</a>
 					<div className="page-nav-counter">{makerId} of {makerCount}</div>
-					<a className="page-nav-next" href={"#/makers/"+nextMaker}>Next</a>
+					<a className="page-nav-next" href={"#/maker/"+nextMaker}>Next</a>
 				</div>
 				<a className="link-wide border-bottom" href="#/makers">Back to Meet the makers</a>
 				<a className="link-wide border-bottom" href="#/timeline"><i className="arrow-back"></i>Back to timeline</a>
@@ -146,6 +150,22 @@ export class MakerComponent extends React.Component {
 		var key = _.findKey(makerData, function(chr) {
     		return chr.slug == path;
 		});
+
+		// 404 Handling
+		if ( _.isUndefined(key) ){
+			return (
+	            <main className="mobile-about">
+	            	<div className="texture-overlay"></div>
+	            	<div className="content-container">
+						<article className="type-post">
+							<h1 className="title bordered">Oops!</h1>
+							<p>Sorry, that Maker doesn't exist.</p>
+							<p><a href="#/makers"><u>Back to Makers.</u></a></p>
+						</article>
+					</div>
+				</main>
+	        )
+		}
 
 		// Find Maker data for render
 		bgImg = makerData[key].bgImg;

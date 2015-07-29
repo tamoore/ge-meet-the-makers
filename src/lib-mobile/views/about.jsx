@@ -34,9 +34,6 @@ export class AboutComponent extends React.Component {
 						Jane Nicholls<br />
 						Natalie Filatoff</p>
 
-						<p><strong>Sub Editor</strong><br />
-						Will Temple</p>
-
 						<p><strong>Production</strong><br />
 						Tom Ross</p>
 
@@ -63,11 +60,13 @@ export class AboutComponent extends React.Component {
 
 						<p><img src="images/logos/ge_logo.png" alt="GE" /><br />
 						<img src="images/logos/ger_logo.png" alt="GE Reports" /><br />
+						<img src="images/logos/guardianlabs_logo.png" alt="Guardian Labs" /><br />
 						<img src="images/logos/CSIRO_logo.png" alt="CSIRO" /><br />
 						<img src="images/logos/mnf_logo.png" alt="Marine National Facility" /><br />
 						<img src="images/logos/saber_logo.png" alt="Saber Aeronautics" /><br />
 						<img src="images/logos/va_logo.png" alt="Virgin Australia" /><br />
-						<img src="images/logos/rh_logo.png" alt="Roy Hill" /></p>
+						<img src="images/logos/rh_logo.png" alt="Roy Hill" /><br />
+						<img src="images/logos/calimmune_logo.png" alt="Calimmune" /></p>
 					</article>
 				</div>
 			</main>

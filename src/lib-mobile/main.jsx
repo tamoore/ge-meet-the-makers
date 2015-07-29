@@ -105,10 +105,8 @@ export class MainView extends React.Component {
 		var width = window.innerWidth;
 		if ( width <= this.breakpoint ){
 			MobileApplication.pipe.emit(MainEvents.IMGSIZE, "small");
-			console.log("small");
 		} else {
 			MobileApplication.pipe.emit(MainEvents.IMGSIZE, "medium");
-			console.log("medium");
 		}
 	}
 
@@ -125,10 +123,8 @@ export class MainView extends React.Component {
     		
     		if ( width <= this.breakpoint ){
 				MobileApplication.pipe.emit(MainEvents.IMGSIZE, "small");
-				console.log("small");
 			} else {
 				MobileApplication.pipe.emit(MainEvents.IMGSIZE, "medium");
-				console.log("medium");
 			}
     	}
 

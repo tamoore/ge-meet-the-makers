@@ -14,8 +14,8 @@ System.config({
 
 System.config({
   "map": {
-    "babel": "npm:babel-core@5.6.15",
-    "babel-runtime": "npm:babel-runtime@5.6.15",
+    "babel": "npm:babel-core@5.8.12",
+    "babel-runtime": "npm:babel-runtime@5.8.12",
     "cookie": "npm:cookie@0.1.3",
     "core-js": "npm:core-js@0.9.18",
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
@@ -135,6 +135,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:babel-runtime@5.6.15": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:babel-runtime@5.8.12": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:browserify-aes@1.0.1": {

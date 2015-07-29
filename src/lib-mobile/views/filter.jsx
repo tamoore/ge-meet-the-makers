@@ -176,7 +176,7 @@ export class FilterNavComponent extends React.Component {
 		var className = this.state.hidden ? "timeline-filter timeline-filter-hidden" : "timeline-filter";
 
 		_.forEach(makerData, function(item) {
-    		filterItems.push(<FilterNavItemComponent key={item.id} data={item} makerId={makerId} />);
+    		filterItems.push(<FilterNavItemComponent key={item.maker+"-maker"} data={item} makerId={makerId} />);
 		});
 
 		if ( makerId ){

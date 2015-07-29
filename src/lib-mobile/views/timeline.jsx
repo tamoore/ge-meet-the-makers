@@ -61,13 +61,14 @@ export class TimelineItemComponent extends React.Component {
     	// Ensure time fits 00:00 format
     	var hour = data.metadata.timeline.hour.toString().length > 1 ? data.metadata.timeline.hour : "0"+data.metadata.timeline.hour;
     	var minute = data.metadata.timeline.minute.toString().length > 1 ? data.metadata.timeline.minute : "0"+data.metadata.timeline.minute;
+    	var type = data.type == "factoid" ? "infographic" : data.type;
 
         return (
         	<li key={key} className="timeline-list-marker" data-maker={maker.id}>
 				<header className="maker-details timeline-marker-meta">
 					<i className={"icon-industry icon-"+maker.icon}></i>
 					<time>{hour}:{minute}</time>
-					<a href={"#/makers/"+maker.slug}>
+					<a href={"#/maker/"+maker.slug}>
 						<div className="profile">
 							<h3>{maker.role}</h3>
 							<h2>{maker.name}</h2>
@@ -78,12 +79,12 @@ export class TimelineItemComponent extends React.Component {
 				<div className="timeline-content-preview">
 					<a href={"#/content/"+maker.slug+"/"+data.slug}>
 						<div className="preview-media mask-skew">
-							<LazyLoadImageComponent src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.furniture.mainImage} alt={data.furniture.mainImageCaption} classes="" />
+							<LazyLoadImageComponent key={key+"-image"} src={"http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/"+data.furniture.mainImage} alt={data.furniture.mainImageCaption} classes="" />
 						</div>
 					</a>
 					<div className="timeline-content-meta">
 						<i className={"icon-content-type icon-content-"+data.type}></i>
-						<span className="label-content-type">{data.type}</span>
+						<span className="label-content-type">{type}</span>
 					</div>
 					<a href={"#/content/"+maker.slug+"/"+data.slug}>
 						<h2 className="title">{data.title}</h2>
@@ -115,7 +116,7 @@ export class TimelineComponent extends React.Component {
     		// Check if Maker is set and filter, otherwise allow all
     		if ( !makerId || item.maker == makerId ){
     			var maker = makerData[item.maker];
-	    		timelineItems.push(<TimelineItemComponent key={item.guid} data={item} maker={maker} />);
+	    		timelineItems.push(<TimelineItemComponent key={item.maker+"-"+item.slug} data={item} maker={maker} />);
     		}
     	}
 
