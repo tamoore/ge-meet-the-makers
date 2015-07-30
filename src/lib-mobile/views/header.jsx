@@ -85,7 +85,10 @@ export class NavComponent extends React.Component {
 						<li><a href="#/makers" className={page == "makers" ? "selected" : ""}><span>Meet The Makers</span></a></li>
 						<li><a href="#/credits" className={page == "credits" ? "selected" : ""}><span>Credits</span></a></li>
 					</ul>
-					<SocialNavComponent twitter={null} facebook={null} linkedin={null} twitterMsg="Lorem ipsum" />
+					<SocialNavComponent
+						facebook="http://www.facebook.com/sharer/sharer.php?u=http://labs.theguardian.com/innovation-never-sleeps"
+						twitter="http://twitter.com/share?text=Over 24 hours they change our seas, skies and solar system. Meet the makers&url=http://labs.theguardian.com/innovation-never-sleeps&hashtags=InnovationNeverSleeps, interactive"
+						linkedin="https://www.linkedin.com/shareArticle?mini=true&url=http://labs.theguardian.com/innovation-never-sleeps&title=Innovation%20Never%20Sleeps&summary=Meet%20The%20Makers" twitterMsg="Lorem ipsum" />
 				</div>
 			</nav>
         )

@@ -66,13 +66,16 @@ export class MakerComponent extends React.Component {
         title.style.display = "inline-block";
     }
 
-    handleMakerTitle(maker){
-        if((window.location.hash.split("/")[1] == "content") && (this.state.makerTitle != null)){
-            return;
+    handleMakerTitle(maker, fromContent){
+        if(!fromContent){
+            if((window.location.hash.split("/")[1] == "content") && (this.state.makerTitle != null)){
+                return;
+            }
+            if((window.location.hash.split("/")[1] == "maker") && (this.state.makerTitle != null)){
+                return;
+            }
         }
-        if((window.location.hash.split("/")[1] == "maker") && (this.state.makerTitle != null)){
-            return;
-        }
+
         if(maker){
             this.setState({
                 makerTitle: this._data[maker]? this._data[maker].role :null,

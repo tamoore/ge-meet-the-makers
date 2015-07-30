@@ -30,7 +30,6 @@ export class ProfileHeaderComponent extends React.Component {
 						<h3>{maker.role}</h3>
 						<h2>{maker.name}</h2>
 					</div>
-					<img src={maker.portraitImg} alt={maker.name+" - "+maker.role} />
 				</div>
 			</header>
         )

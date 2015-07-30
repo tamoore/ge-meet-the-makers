@@ -113,9 +113,16 @@ export class ContentFooterComponent extends React.Component {
     		makersName = makerData[makerId].name+"'s ";
     	}
 
+
+		var fbShare = "http://www.facebook.com/sharer/sharer.php?u=http://labs.theguardian.com/innovation-never-sleeps/"+window.location.hash.replace("#", "%23");
+		var _url = "http://labs.theguardian.com/innovation-never-sleeps/"+window.location.hash.replace("#", "%23");
+		var fbShare = "http://www.facebook.com/sharer/sharer.php?u="+_url;
+		var twitterShare = `http://twitter.com/share?text=${content.twitterMessage ? content.twitterMessage : "Over 24 hours they change our seas, skies and solar system. Meet the makers"}&url=${_url}&hashtags=InnovationNeverSleeps, interactive`;
+		var linkedin = `https://www.linkedin.com/shareArticle?mini=true&url=${_url}&title=${encodeURI(content.title)}`;
+
         return (
 			<footer>
-				<SocialNavComponent twitter={null} facebook={null} linkedin={null} twitterMsg={content.twitterMessage} />
+				<SocialNavComponent twitter={twitterShare} facebook={fbShare} linkedin={linkedin} twitterMsg={content.twitterMessage} />
 				<div className="page-nav border-bottom">
 					<a className="page-nav-previous" href={"#/content/"+prevMakerSlug+"/"+prevContent.slug}>Previous</a>
 					<div className="page-nav-counter">{contentIndex+1} of {contentCount}</div>

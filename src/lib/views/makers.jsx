@@ -130,7 +130,10 @@ export class MeetTheMakersComponent extends React.Component {
         var makers = [];
         for(var i=0;i<5;i++){
             let maker = this.makers[i+1];
-            let href = "#/maker/"+maker.slug
+            let href = "#/maker/"+maker.slug;
+            if(maker.iconFile == "images/boat-csiro.svg"){
+                maker.iconFile = "images/boat-csiro-white.svg";
+            }
             makers.push(<MakerPanel id={i+1} backgroundImage={maker.makerImg}
                 title={maker.role}
                 name={maker.name}
@@ -185,14 +188,14 @@ export class MeetTheMakersComponent extends React.Component {
                         Timeline
                     </h1>
                     <div className="controlsWrapper">
-                        <img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" />
+                        <a href="http://theguardian.com/au"><img className="logo-guardian" src="images/logo.guardian.svg" alt="The Guardian" /></a>
                         <nav className="controls">
                         <ul>
                             <li><a href="http://www.theguardian.com/innovation-never-sleeps/2015/jul/23/innovation-never-sleeps-about-this-content">About this content</a></li>
                             <li><a href="#/credits">credits</a></li>
                             <li><a href="http://www.facebook.com/sharer/sharer.php?u=http://labs.theguardian.com/innovation-never-sleeps" id="footer-facebook"> <span className="assistive-text">Facebook</span> </a></li>
-                            <li><a id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
-                            <li><a id="footer-linkedin"> <span className="assistive-text">LinkedIn</span> </a></li>
+                            <li><a href="http://twitter.com/share?text=Over 24 hours they change our seas, skies and solar system. Meet the makers&url=http://labs.theguardian.com/innovation-never-sleeps&hashtags=InnovationNeverSleeps, interactive" id="footer-twitter">  <span className="assistive-text">Twitter</span>  </a></li>
+                            <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=http://labs.theguardian.com/innovation-never-sleeps&title=Innovation%20Never%20Sleeps&summary=Meet%20The%20Makers" id="footer-linkedin"> <span className="assistive-text">LinkedIn</span> </a></li>
                         </ul>
                         </nav>
                     </div>

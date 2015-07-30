@@ -20,6 +20,9 @@ $(function(){
         new MobileApplication.MobileApplication();
     }else{
         var Application = require('./lib/index');
+        if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+            document.querySelector('body').className ="safari";
+        }
         addCSS(desktopCss);
         new Application.Application();
     }

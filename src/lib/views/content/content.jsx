@@ -88,6 +88,9 @@ export class ContentHandler extends React.Component {
 
     processData(){
         var el;
+
+
+
         if(this.props.params.id){
             var makerId = Application.makers.indexOf(this.props.params.maker)+1;
             this.contentData = this._data.content.filter((item)=>{
@@ -108,7 +111,13 @@ export class ContentHandler extends React.Component {
             this.currentIndex = makerId;
         }
 
-
+        var _url = "http://labs.theguardian.com/innovation-never-sleeps/"+window.location.hash.replace("#", "%23");
+        var fbShare = "http://www.facebook.com/sharer/sharer.php?u="+_url;
+        var twitterShare = `http://twitter.com/share?text=${this.contentData.twitterMessage ? this.contentData.twitterMessage : "Over 24 hours they change our seas, skies and solar system. Meet the makers"}&url=${_url}&hashtags=InnovationNeverSleeps, interactive`;
+        var linkedin = `https://www.linkedin.com/shareArticle?mini=true&url=${_url}&title=${encodeURI(this.contentData.title)}`;
+        this.contentData.facebookShare = fbShare;
+        this.contentData.twitterShare = twitterShare;
+        this.contentData.linkedin = linkedin;
 
         switch(this.contentData.type){
             case "video":
@@ -128,6 +137,8 @@ export class ContentHandler extends React.Component {
                 Application.pipe.emit(MainEvents.HIDEMAKERS);
                 break;
         }
+
+        Application.pipe.emit(MainEvents.MAKERTITLE, this.contentData.maker.toString(), true);
         Application.pipe.emit(ClockViewEvents.SETTIME, this.contentData.metadata.timeline.hour, this.contentData.metadata.timeline.minute);
         pageTagData.pageName = window.location.hash;
         pageTagData.secondaryEvent= Application.makers[Application.makers.indexOf(this.props.params.maker)];
@@ -153,16 +164,17 @@ export class ContentHandler extends React.Component {
         let content = this.maker? this.data.makers[increment.toString()] : this.data.content[increment];
         let makerSlug = this.data.makers[content.maker].slug;
         window.location.hash = "#/"+(this.maker? "maker" : "content")+"/"+makerSlug+(this.maker ? "" : "/"+content.slug);
-        Application.pipe.emit(MainEvents.MAKERTITLE, content.maker);
+
     }
 
     prevPost(){
         let increment = this.currentIndex > (this.maker ? 1 : 0) ? this.currentIndex-1 : ( this.maker ? 5 : this.data.content.length-1 );
-        console.log(increment);
         let content = this.maker? this.data.makers[increment.toString()] : this.data.content[increment];
         let makerSlug = this.data.makers[content.maker].slug;
         window.location.hash = "#/"+(this.maker? "maker" : "content")+"/"+makerSlug+(this.maker ? "" : "/"+content.slug);
-        Application.pipe.emit(MainEvents.MAKERTITLE, content.maker);
+
+
+
     }
 
     render(){

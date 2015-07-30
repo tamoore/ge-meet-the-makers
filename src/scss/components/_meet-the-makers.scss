@@ -6,8 +6,15 @@
   z-index: 2;
   pointer-events: none;
   @include transition(margin-top 0.5s ease-in-out);
-  @include transform(translateY(-100%));
+  @include transform(translateY(-100vh));
   @include transition(transform 1s ease-in-out);
+  @at-root{
+    .safari {
+      .meet-the-makers-wrapper {
+        @include transform(translateY(-100%));
+      }
+    }
+  }
   &[data-hover="yes"]{
       margin-top: 1rem;
   }
@@ -23,3 +30,5 @@
     margin-left: -110px ;
   }
 }
+
+

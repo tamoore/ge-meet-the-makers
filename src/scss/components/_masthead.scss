@@ -107,6 +107,7 @@
     }
   }
 
+
   a.btn-index {
     color: #fff;
     display: block;
@@ -122,6 +123,14 @@
     background-size: 2.20rem;
     padding-top: 2.7rem;
 
+  }
+
+  @at-root{
+    .safari {
+      a.btn-index {
+        display: none;
+      }
+    }
   }
 
   @for $i from 1 through 6 {

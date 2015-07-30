@@ -155,12 +155,16 @@ export class GalleryContentComponent extends React.Component {
         if(!image)return
         var img = new createjs.Bitmap(image);
         //img.alpha = 1;
-        createjs.Tween.get(img).to({alpha:1}, 0);
-
+        //createjs.Tween.get(img).to({alpha:1}, 0);
         img.scaleX = this.state.canvasWidth / image.width;
         img.scaleY = this.state.canvasHeight / image.height;
+        this.stageUpdate( img );9
+        setTimeout(()=>{
+            img.scaleX = this.state.canvasWidth / image.width;
+            img.scaleY = this.state.canvasHeight / image.height;
+            this.stageUpdate( img );
+        }, 0);
 
-        this.stageUpdate( img );
 
     }
 
@@ -209,10 +213,20 @@ export class GalleryContentComponent extends React.Component {
     }
 
     stageUpdate(image){
-        if(!this.stage) return;
-        this.stage.addChild(image);
-        this.stage.update();
-        return false;
+        if(!this.stage){
+            clearTimeout(this.stageTimer);
+            this.stageTimer = setTimeout(()=>{
+                this.stageUpdate(image);
+            },10);
+        }else{
+            clearTimeout(this.stageTimer);
+            this.stage.addChild(image);
+            setTimeout(()=>{
+                this.stage.update();
+            }, 100);
+            return false;
+        }
+
     }
 
     load(images){
@@ -241,7 +255,9 @@ export class GalleryContentComponent extends React.Component {
             marginTop: this.state.canvasHeight+10 + "px",
             maxWidth: this.state.canvasWidth
         }
+
         return (
+
             <div className="gallery-content-component">
                 <div id="progress" style={style}></div>
                 <CloseButtonComponent />
@@ -250,8 +266,8 @@ export class GalleryContentComponent extends React.Component {
                         {this.props.data.title}
                     </h3>
                     <p>{this.props.data.furniture.standfirst}</p>
-                    <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
-                    <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+                    <a href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <canvas onClick={this.handleOnClick} ref="gallery" id="photoGallery" width={this.state.canvasWidth} height={this.state.canvasHeight} className="gallery" data-state={this.state.ready}></canvas>
                 <div className="dotsContainer" style={dotsStyles}>{dots}</div>

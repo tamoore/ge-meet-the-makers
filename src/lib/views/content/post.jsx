@@ -313,13 +313,15 @@ export class PostsContentComponent extends React.Component {
     render(){
         var image = `${Application.assetLocation}${this.props.data.furniture.mainImage}_medium.jpg`;
         var credit = this.props.data.furniture.mainImageCredit ? <span> Credit: <span dangerouslySetInnerHTML={{ __html: this.props.data.furniture.mainImageCredit }}></span> </span> : null;
+
+
         return (
             <div className="post-content-component">
                 <CloseButtonComponent />
                 <aside className="aside">
                     <SupportingComponent type={this.state.supportingType} index={this.state.supportingIndex} data={this.props.data} />
-                    <a href="#" className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
-                    <a href="#" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+                    <a href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <ReactGeminiScrollbar className="article">
                     <article className="content" >
