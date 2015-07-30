@@ -80,7 +80,7 @@ export class HeaderComponent extends React.Component {
             makerId: makerId
         });
         Application.pipe.emit(MainEvents.FILTERMAKERS, makerId);
-        Application.currentMaker = makerId;
+        Application.currentMaker = makerId ? makerId : 0;
         event.stopPropagation();
     }
 

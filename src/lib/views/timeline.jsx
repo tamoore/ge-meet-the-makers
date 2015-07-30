@@ -325,6 +325,7 @@ var pullQuotes = {
     "1" : true,
     "6": true,
     "10" : true,
+    "13": true,
     "16": true,
     "21" : true
 };
@@ -359,8 +360,8 @@ export class TLNode extends React.Component {
     handleOnOver(event){
         let bbox = event.target.getBoundingClientRect();
         if(this.over) return
-        if(this.makerId){
-            if(this.props.data.maker != this.makerId){
+        if(Application.currentMaker){
+            if(this.props.data.maker != Application.currentMaker){
                 return;
             }
         }
@@ -681,18 +682,19 @@ export class TimelineComponent extends React.Component {
         this.snap = TimelineProps.INTERVAL;
         Application.pipe.on(ClockViewEvents.POSITION, (x)=>{
             this.offset = x;
+            this.scroll(x);
         });
         Application.pipe.on(ClockViewEvents.HOUR, (hour)=>{
             console.info(hour);
-            if(_.includes([1,6,10,18,21], hour)){
+            if(_.includes([1,6,10,13,18,21], hour)){
                 this.setState({
                     currentHour: hour
                 });
-            }else if(_.includes([1,6,10,18,21], hour+1)){
+            }else if(_.includes([1,6,10,13,18,21], hour+1)){
                 this.setState({
                     currentHour: hour+1
                 });
-            }else if(_.includes([1,6,10,18,21], hour-1)) {
+            }else if(_.includes([1,6,10,13,18,21], hour-1)) {
                 this.setState({
                     currentHour: hour-1
                 });

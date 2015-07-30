@@ -6,7 +6,8 @@ import { TimelineProps, TimelineEvents, TimelineComponent } from './timeline.jsx
 export const ClockViewEvents = {
     POSITION: "clockview:position",
     GETPOSITION: "clockview:getposition",
-    HOUR: "clockview:hour"
+    HOUR: "clockview:hour",
+    SETTIME: "clockview:sethour"
 }
 
 /**
@@ -112,7 +113,7 @@ export class ClockView extends ClockBase {
         this.formatHour = ( hours < 10 ) ? "0" + hours : hours;
         this.formatMinute = ( minutes < 10 ) ? "0" + minutes : minutes;
 
-
+        this.setHour = this.setHour.bind(this);
         this.position = this.calculatePosition();
 
         Application.pipe.on(TimelineEvents.PAN, _.bind(this.handleTimelinePanning, this));
@@ -136,6 +137,7 @@ export class ClockView extends ClockBase {
         Application.pipe.emit(TimelineEvents.PANEND, ClockView.hour);
         Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
         Application.pipe.emit(TimelineEvents.GET_IMAGE);
+        Application.pipe.on(ClockViewEvents.SETTIME, this.setHour);
         setTimeout(()=>{
             this.setState({
                 styles: {
@@ -210,6 +212,24 @@ export class ClockView extends ClockBase {
                 <div className="chrono-time" id="localTime">{this.state.hour}:{this.state.minute}</div>
             </div>
         )
+    }
+
+    setHour(hour, minute){
+        this.h = hour;
+        this.m = minute;
+        let [roatedHours, rotatedMinutes] = this.generateRotation(hour,minute);
+        this.position = this.calculatePosition();
+        this.setState({
+            hour: (hour < 10 ? '0'+hour : hour ),
+            minute: (minute < 10 ? '0'+minute : minute ),
+            hourRotation: roatedHours,
+            minuteRotation: rotatedMinutes
+        });
+        ClockView.hour = (hour < 10 ? '0'+hour : hour );
+        Application.pipe.emit(ClockViewEvents.HOUR, hour);
+        Application.pipe.emit(TimelineEvents.PANEND, ClockView.hour);
+        Application.pipe.emit(ClockViewEvents.POSITION, Math.abs( this.position ));
+        console.log(this.position);
     }
 }
 ClockView.hour = null;

@@ -250,8 +250,8 @@ export class PreviewComponent extends React.Component {
                     <PreviewIconComponent maker={this.state.maker ? this.state.maker : this.props.data.maker} />
                     {pImage}
                     <p><strong>{this.state.makerTitle}</strong> {this.state.makerName}</p>
-                    <h2 data-type={type} data-credit={this.props.data.pqCredit}>{this.state.title}</h2>
-
+                    <h2 data-type={type}>{this.state.title}</h2>
+                    <p className="pullquoteCredit">{this.state.makerName} <br/> <strong>{this.state.makerTitle}</strong> </p>
                 </div>
 
             </div>

@@ -3,6 +3,7 @@ import { GalleryContentComponent } from './gallery.jsx!';
 import { VideosContentComponent } from './video.jsx!';
 import { PostsContentComponent } from './post.jsx!';
 import { DataEvents, Data } from '../../data/data';
+import { ClockViewEvents } from '../clock.jsx!';
 import { TimelineBackgroundComponent, TimelineEvents } from '../timeline.jsx!';
 import { MainEvents } from '../../main.jsx!';
 import React from 'react';
@@ -127,7 +128,7 @@ export class ContentHandler extends React.Component {
                 Application.pipe.emit(MainEvents.HIDEMAKERS);
                 break;
         }
-
+        Application.pipe.emit(ClockViewEvents.SETTIME, this.contentData.metadata.timeline.hour, this.contentData.metadata.timeline.minute);
         pageTagData.pageName = window.location.hash;
         pageTagData.secondaryEvent= Application.makers[Application.makers.indexOf(this.props.params.maker)];
         _satellite.track('Page View');

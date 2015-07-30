@@ -103,15 +103,31 @@
   }
 }
 
+.pullquoteCredit {
+  display: none;
+}
+
 .pullQuote {
   opacity: 0;
   p {
     display: none;
   }
+  h2 {
+    position: static;
+  }
   .PreviewIconComponent {
     background-image: url(../images/framed/quote-framed.svg) !important;
   }
+  .pullquoteCredit {
+    display: block;
+    position: static;
+    text-align: left;
+    padding-left: 1.5rem;
+    line-height: 1.5;
+  }
 }
+
+
 
 @at-root {
   [data-current-hour="10"]{
