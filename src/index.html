@@ -3,6 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta property="og:title"
+			  content="Innovation Never Sleeps" />
+		<meta property="og:site_name" content="Meet the makers"/>
+		<meta property="og:type" content="article" />
+		<meta property="og:description" content="" />
+
 		<link rel="shortcut icon" type="image/png" href="https://assets.guim.co.uk/images/favicons/79d7ab5a729562cebca9c6a13c324f0e/32x32.ico"/>
 		<link rel="apple-touch-icon" sizes="152x152" href="https://assets.guim.co.uk/images/favicons/451963ac2e23633472bf48e2856d3f04/152x152.png"/>
 		<link rel="apple-touch-icon" sizes="144x144" href="https://assets.guim.co.uk/images/favicons/1a3f98d8491f8cfdc224089b785da86b/144x144.png"/>
@@ -33,6 +39,16 @@
 		};
 		_satellite.track('Page View');
 	</script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-65835212-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
 	<!-- build:js -->
 	<script charset="utf-8" src="jspm_packages/system.js"></script>
 	<script  src="config.js"></script>
@@ -40,4 +56,5 @@
 		System.import('bootstrap');
 	</script>
 	<!-- endbuild -->
+
 </html>

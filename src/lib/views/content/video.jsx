@@ -71,7 +71,8 @@ export class VideoContentComponent extends React.Component {
     }
 
     render(){
-        var ytembed = "https://www.youtube.com/embed/"+this.props.data.ytid+"?autoplay=1";
+        var ytembedSrc = this.props.data.ytid.replace("v=", "");
+        var ytembed = "https://www.youtube.com/embed/"+ytembedSrc+"?autoplay=1";
 
         return (
             <div className="video-content">
