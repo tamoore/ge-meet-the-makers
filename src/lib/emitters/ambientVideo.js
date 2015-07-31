@@ -83,7 +83,7 @@ export class AmbientVideoEmitter {
 
 export class IntroVideo {
     constructor(){
-        this.srcURL = "https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/videos/introvideo.mp4";
+        this.srcURL = navigator.userAgent.indexOf("Firefox") > 0 ?  "https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/videos/introvideo.webm" : "https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/videos/introvideo.mp4";
         this._createVideoAndEvents();
         this.el.loop = false;
         this.currentVideo = this.play(this.srcURL);
@@ -91,25 +91,27 @@ export class IntroVideo {
 
     _createVideoAndEvents(){
         this.el = document.createElement('video');
-        this.el.className = "introVideo";
-        this.el.addEventListener("play", _.bind(this.handlePlayingVideo, this));
-        this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
         this.el.style.visibility = "visible";
         this.el.controls = false;
-        this.el.volume = 1;
+        this.el.width = "100vw";
+        this.el.volume = 1;;
         this.el.autoplay = true;
-        this.el.loop = true;
+        this.el.loop = false;
+        this.el.className = "introVideo";
+        this.el.addEventListener("loadstart", _.bind(this.handlePlayingVideo, this));
+        this.el.addEventListener("ended", _.bind(this.handleVideoEnd, this));
+
         //this.el.width = (window.innerHeight)*1.7777778;
         //this.el.height = (window.innerHeight);
     }
 
     play(url){
         this.el.src = url;
-        this.el.play();
         return this.el;
     }
 
     handlePlayingVideo(){
+        setTimeout(()=>{this.el.volume = 1; this.el.play();},3000);
         Application.pipe.emit(IntroVideoEvents.PLAYING, this.currentVideo);
     }
 
