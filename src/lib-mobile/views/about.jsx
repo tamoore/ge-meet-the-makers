@@ -14,6 +14,9 @@ export class AboutComponent extends React.Component {
    
     constructor(){
         super();
+        this.state = {
+        	height: MainEvents.VIEWPORT.height
+        }
     }
 
     componentDidMount() {
@@ -22,7 +25,7 @@ export class AboutComponent extends React.Component {
 
     render(){
         return (
-            <main className="mobile-about">
+            <main className="mobile-about" style={{minHeight: this.state.height}}>
             	<div className="texture-overlay"></div>
             	<div className="content-container">
 					<article className="type-post">
