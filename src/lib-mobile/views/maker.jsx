@@ -132,6 +132,9 @@ export class MakerComponent extends React.Component {
     
     constructor(){
         super();
+        this.state = {
+        	height: MainEvents.VIEWPORT.height
+        }
     }
 
 	componentDidMount() {
@@ -153,7 +156,7 @@ export class MakerComponent extends React.Component {
 		// 404 Handling
 		if ( _.isUndefined(key) ){
 			return (
-	            <main className="mobile-about">
+	            <main className="mobile-about" style={{minHeight: this.state.height}}>
 	            	<div className="texture-overlay"></div>
 	            	<div className="content-container">
 						<article className="type-post">
@@ -171,7 +174,7 @@ export class MakerComponent extends React.Component {
 		var maker = makerData[key];
 
 		return (
-            <main className="mobile-maker" style={{backgroundImage: "url("+bgImg+")"}}>
+            <main className="mobile-maker" style={{backgroundImage: "url("+bgImg+")", minHeight: this.state.height}}>
             	<div className="texture-overlay"></div>
             	<div className="profile-container">
 					<ProfileHeaderComponent maker={maker} />

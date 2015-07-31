@@ -141,6 +141,9 @@ export class ContentComponent extends React.Component {
     
     constructor(){
         super();
+        this.state = {
+        	height: MainEvents.VIEWPORT.height
+        }
     }
 
 	componentDidMount() {
@@ -162,7 +165,7 @@ export class ContentComponent extends React.Component {
 			// 404 Handling
 			if ( _.isUndefined(makerData[makerKey]) ){
 				return (
-		            <main className="mobile-about">
+		            <main className="mobile-about" style={{minHeight: this.state.height}}>
 		            	<div className="texture-overlay"></div>
 		            	<div className="content-container">
 							<article className="type-post">
@@ -183,7 +186,7 @@ export class ContentComponent extends React.Component {
 			// 404 Handling
 			if ( _.isUndefined(makerData[makerId]) || makerData[makerId].slug !== makerSlug ){
 				return (
-		            <main className="mobile-about">
+		            <main className="mobile-about" style={{minHeight: this.state.height}}>
 		            	<div className="texture-overlay"></div>
 		            	<div className="content-container">
 							<article className="type-post">
@@ -211,7 +214,7 @@ export class ContentComponent extends React.Component {
 		// 404 Handling
 		if ( _.isUndefined(contentIndex) || contentIndex === -1 ){
 			return (
-	            <main className="mobile-about">
+	            <main className="mobile-about" style={{minHeight: this.state.height}}>
 	            	<div className="texture-overlay"></div>
 	            	<div className="content-container">
 						<article className="type-post">
@@ -227,7 +230,7 @@ export class ContentComponent extends React.Component {
 		var content = filteredData[contentIndex];
 
 		return (
-            <main className="mobile-maker-content" style={{backgroundImage: "url("+bgImg+")"}}>
+            <main className="mobile-maker-content" style={{backgroundImage: "url("+bgImg+")", minHeight: this.state.height}}>
             	<div className="texture-overlay"></div>
             	<div className="content-container">
 					<ContentHeaderComponent makerId={makerId} maker={maker} content={content} />

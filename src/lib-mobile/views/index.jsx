@@ -15,6 +15,9 @@ export class IndexComponent extends React.Component {
 
     constructor(){
         super();
+        this.state = {
+        	height: MainEvents.VIEWPORT.height
+        }
     }
 
 	componentDidMount() {
@@ -36,7 +39,7 @@ export class IndexComponent extends React.Component {
     	}
 
         return (
-            <main className="mobile-timeline" style={{backgroundImage: "url("+bgImg+")"}}>
+            <main className="mobile-timeline" style={{backgroundImage: "url("+bgImg+")", minHeight: this.state.height}}>
             	<div className="texture-overlay"></div>
 				<TimelineHeadComponent maker={maker} />
 				<TimelineComponent makerId={makerId} data={data} makerData={makerData} />

@@ -15,6 +15,9 @@ export class TimelineHeadComponent extends React.Component {
 
     constructor(){
         super();
+        this.state = {
+        	height: MainEvents.VIEWPORT.height
+        }
     }
 
     render(){
@@ -26,7 +29,7 @@ export class TimelineHeadComponent extends React.Component {
     		var icon = '<i class="icon-industry icon-'+maker.icon+'"></i>';
 
 	    	return (
-				<header className="introduction maker-intro" data-maker={maker.id}>
+				<header className="introduction maker-intro" data-maker={maker.id} style={{height: this.state.height}}>
 					<span dangerouslySetInnerHTML={{__html: ha}}></span>
 					<h2><strong>24 hours</strong> in the lives of Australia’s top innovators</h2>
 					<div dangerouslySetInnerHTML={{__html: icon}}></div>
@@ -36,7 +39,7 @@ export class TimelineHeadComponent extends React.Component {
 	    // Else render the generic/default header
 	    } else {
 	    	return (
-	    		<header className="introduction" data-maker="null">
+	    		<header className="introduction" data-maker="null" style={{height: this.state.height}}>
 					<h1><strong>Innovation<br />never sleeps</strong> Meet the makers</h1>
 					<h2><strong>24 hours</strong> in the lives of Australia’s top innovators</h2>
 					<i className="icon-down-indicator"></i>

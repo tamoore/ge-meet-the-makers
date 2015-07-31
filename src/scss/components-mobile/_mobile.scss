@@ -711,7 +711,7 @@ a.link-wide {
 		}
 
 		i.icon-down-indicator {
-			bottom: 10rem;
+			bottom: 1.6rem;
 			display: block;
 			height: 3.5rem;
 			left: 1.6rem;
@@ -977,6 +977,16 @@ body[data-loading="false"] #progress {
 	opacity: 0;
 }
 
+#intro {
+	width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index:  0;
+}
+
 .skip-intro {
 	display: block;
 	background: rgba(0, 0, 0, 0.5);
@@ -1009,7 +1019,14 @@ body[data-loading="false"] #progress {
 	}
 
 	video {
+		position: absolute;
+		display: block;
 		width: 100%;
+		height: 100%;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 	}
 
 	iframe {
@@ -1034,4 +1051,19 @@ body[data-loading="false"] #progress {
 		z-index: 10;
 		cursor: pointer;
 	}
+}
+
+.mobile-intro {
+	-webkit-transition: opacity .3s linear;
+	transition: opacity .3s linear;
+	opacity: 1 !important;
+}
+
+.mobile-intro .video {
+	padding-top: 56.25%;
+}
+
+#introVideo,
+#preload {
+	display: none;
 }

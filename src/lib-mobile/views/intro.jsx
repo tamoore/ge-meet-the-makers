@@ -52,7 +52,7 @@ export class IntroVideoComponent extends React.Component {
         return (
             <div className="video intro-video" style={styles}>
             	<div className="video-overlay" onClick={this.playVideo}></div>
-            	<video poster={poster} src={src} className={classes} controls={controls} volume={volume} loop={loop} width={width} ref="introvideo"></video>
+            	<video poster={poster} src={src} className={classes} controls={controls} volume={volume} loop={loop} width={width} ref="introvideo" type="video/mp4"></video>
             </div>
         )
     }
@@ -94,7 +94,6 @@ export class IntroComponent extends React.Component {
 		var el = React.findDOMNode(this.refs.video);
 
 		var height = window.innerHeight;
-		var width = window.innerWidth;
 
 		//if ( height > width ){
 			videoTop = (height / 2) - (el.clientHeight / 2);
@@ -115,7 +114,7 @@ export class IntroComponent extends React.Component {
     	var skip = this.state.showSkip ? <button onClick={this.introSkip} key="2" className="skip-intro">Skip Video</button> : "";
 
         return (
-            <main className="mobile-intro">
+            <main className="mobile-intro" style={{opacity: 0}}>
                 <IntroVideoComponent key="1" ref="video" top={this.state.videoTop} />
                 {skip}
             </main>

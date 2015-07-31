@@ -16,7 +16,7 @@ export class VideoContentComponent extends React.Component {
     	var { content } = this.props;
 
     	// video
-    	var ytid = this.props.ytid ? this.props.ytid : "3xWPfkZ1ZjQ";
+    	var ytid = _.trimLeft(content.ytid, "v=");
     	var src = "https://www.youtube.com/embed/"+ytid+"?showinfo=0&autoplay=1";
         var className = "video";
         var allowfullscreen = true;
