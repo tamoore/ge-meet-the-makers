@@ -20,8 +20,18 @@ $(function(){
         new MobileApplication.MobileApplication();
     }else{
         var Application = require('./lib/index');
+        var browser = require('detect-browser');
+        if(browser.name == "ie"){
+            if(parseInt(browser.version) < 10){
+                window.location.href = "http://labs.theguardian.com/innovation-never-sleeps/not-supported.html";
+            }
+        }
+
         if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
-            document.querySelector('body').className ="safari";
+            if(browser.version.charAt(2) == "7"){
+                document.querySelector('body').className ="safari";
+            }
+
         }
         addCSS(desktopCss);
         new Application.Application();

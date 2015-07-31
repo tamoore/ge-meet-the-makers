@@ -18,6 +18,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.12",
     "cookie": "npm:cookie@0.1.3",
     "core-js": "npm:core-js@1.0.0",
+    "detect-browser": "npm:detect-browser@1.1.1",
     "easeljs": "github:CreateJS/EaselJS@0.8.1",
     "es5-shim": "npm:es5-shim@4.1.7",
     "es6-dispatcher": "npm:es6-dispatcher@2.1.0",
@@ -278,6 +279,9 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1",
       "tty": "github:jspm/nodelibs-tty@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:detect-browser@1.1.1": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:diffie-hellman@3.0.2": {
       "bn.js": "npm:bn.js@2.0.5",
