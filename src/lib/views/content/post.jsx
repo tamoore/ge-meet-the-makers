@@ -320,8 +320,8 @@ export class PostsContentComponent extends React.Component {
                 <CloseButtonComponent />
                 <aside className="aside">
                     <SupportingComponent type={this.state.supportingType} index={this.state.supportingIndex} data={this.props.data} />
-                    <a href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
-                    <a href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+                    <a target="_blank" href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a target="_blank" href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <ReactGeminiScrollbar className="article">
                     <article className="content" >

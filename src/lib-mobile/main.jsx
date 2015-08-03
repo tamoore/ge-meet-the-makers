@@ -143,6 +143,13 @@ export class MainView extends React.Component {
 
 		pageTagData.pageName = "#"+name;
 		_satellite.track('Page View');
+        ga('set', 
+            {
+              page: "#"+name,
+              title: data.title
+            }
+        );
+        ga('send', 'pageview');
 
     	if ( currentMaker ){
     		maker = makerData[currentMaker];

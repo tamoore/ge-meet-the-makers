@@ -20,10 +20,10 @@ export class IndexComponent extends React.Component {
         this.handlePreviewEvent = this.handlePreviewEvent.bind(this);
         this.handlePreviewEventEnd = this.handlePreviewEventEnd.bind(this);
         this.instructions = "Hover over a dot to jump to content";
-
+        var data = Data.result ? Data.result.content : this.attachDataHandler();
         this.state = {
             className: "timeline-circle",
-            data: Data.result.content.length ? Data.result.content : this.attachDataHandler(),
+            data: data ? data : null,
             currentMaker: {
                 title: null
             },
@@ -38,6 +38,17 @@ export class IndexComponent extends React.Component {
             return window.location.hash = "#/timeline"
         });
     }
+    get data(){
+        return this._data;
+    }
+    set data(obj){
+        this._data = obj;
+        if(!this._data) this.attachDataEventHandler();
+    }
+
+    attachDataEventHandler(){
+        Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleData, this));
+    }
 
     attachDataHandler(){
         Application.pipe.on(DataEvents.UPDATE, _.bind(this.handleDataUpdate, this));
@@ -46,6 +57,12 @@ export class IndexComponent extends React.Component {
     attachEvents(){
         Application.pipe.on(TimelineEvents.ADDPREVIEW, this.handlePreviewEvent);
         Application.pipe.on(TimelineEvents.REMOVEPREVIEW, this.handlePreviewEventEnd);
+    }
+
+    handleData(data){
+        this.setState({
+            data: data
+        });
     }
 
     componentWillMount(){
@@ -77,10 +94,10 @@ export class IndexComponent extends React.Component {
 
     handlePreviewEvent(left,top,data){
         if(!data) return;
-
+        var type = data.type == "factoid" ? "infographic" : data.type;
         this.setState({
             currentMaker: data,
-            instructions: data.type.charAt(0).toUpperCase() + data.type.slice(1),
+            instructions: type.charAt(0).toUpperCase() + type.slice(1),
             makerClass: "maker-"+ data.maker
         });
     }

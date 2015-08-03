@@ -89,13 +89,13 @@ export class HeaderComponent extends React.Component {
     }
 
     handleHover(){
-        if(!this.hover){
-            document.querySelector('.meet-the-makers-wrapper').setAttribute("data-hover", "yes");
-            this.hover = true;
-        }else{
-            document.querySelector('.meet-the-makers-wrapper').setAttribute("data-hover", "no");
-            this.hover = false;
-        }
+        //if(!this.hover){
+        //    document.querySelector('.meet-the-makers-wrapper').setAttribute("data-hover", "yes");
+        //    this.hover = true;
+        //}else{
+        //    document.querySelector('.meet-the-makers-wrapper').setAttribute("data-hover", "no");
+        //    this.hover = false;
+        //}
 
     }
 

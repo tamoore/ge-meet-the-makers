@@ -113,7 +113,7 @@ export class ContentHandler extends React.Component {
 
         var _url = "http://labs.theguardian.com/innovation-never-sleeps/"+window.location.hash.replace("#", "%23");
         var fbShare = "http://www.facebook.com/sharer/sharer.php?u="+_url;
-        var twitterShare = `http://twitter.com/share?text=${this.contentData.twitterMessage ? this.contentData.twitterMessage : "Over 24 hours they change our seas, skies and solar system. Meet the makers"}&url=${_url}&hashtags=InnovationNeverSleeps, interactive`;
+        var twitterShare = `http://twitter.com/share?text=${"Over 24 hours they change our seas, skies and solar system. Meet the makers"}&url=${_url}&hashtags=InnovationNeverSleeps, interactive`;
         var linkedin = `https://www.linkedin.com/shareArticle?mini=true&url=${_url}&title=${encodeURI(this.contentData.title)}`;
         this.contentData.facebookShare = fbShare;
         this.contentData.twitterShare = twitterShare;
@@ -144,6 +144,13 @@ export class ContentHandler extends React.Component {
         pageTagData.secondaryEvent= Application.makers[Application.makers.indexOf(this.props.params.maker)];
         _satellite.track('Page View');
         _satellite.track('Secondary Event');
+        ga('set', 
+            {
+              page: window.location.hash,
+              title: this.contentData.title
+            }
+        );
+        ga('send', 'pageview');
 
         this.setState({
             el: el

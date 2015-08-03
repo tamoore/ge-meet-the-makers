@@ -105,8 +105,8 @@ export class AboutContentComponent extends React.Component {
             <div className="post-content-component">
                 <CloseButtonComponent />
                 <aside className="aside">
-                    <a href={fbShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
-                    <a href="http://twitter.com/share?text=Over 24 hours they change our seas, skies and solar system. Meet the makers&url=http://labs.theguardian.com/innovation-never-sleeps&hashtags=InnovationNeverSleeps, interactive" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+                    <a target="_blank" href={fbShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a target="_blank" href="http://twitter.com/share?text=Over 24 hours they change our seas, skies and solar system. Meet the makers&url=http://labs.theguardian.com/innovation-never-sleeps&hashtags=InnovationNeverSleeps, interactive" className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <ReactGeminiScrollbar className="article">
                     <article className="content" >

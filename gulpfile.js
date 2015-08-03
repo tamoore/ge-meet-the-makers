@@ -76,7 +76,8 @@ gulp.task('build', function() {
 		'jspm bundle-sfx --minify src/bootstrap',
 		'mv ./build.js ./build/ && mv ./build.js.map ./build/',
 		'cp -rf ./src/css ./build && cp -rf ./src/images/ ./build/images/',
-		'cp ./src/manifest.mf ./build'
+		'cp ./src/manifest.mf ./build',
+		'cp ./src/not-supported.html ./build'
 	]));
 
 	gulp.src('./src/index.html')

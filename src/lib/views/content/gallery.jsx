@@ -266,8 +266,8 @@ export class GalleryContentComponent extends React.Component {
                         {this.props.data.title}
                     </h3>
                     <p>{this.props.data.furniture.standfirst}</p>
-                    <a href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
-                    <a href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+                    <a target="_blank" href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a target="_blank" href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <canvas onClick={this.handleOnClick} ref="gallery" id="photoGallery" width={this.state.canvasWidth} height={this.state.canvasHeight} className="gallery" data-state={this.state.ready}></canvas>
                 <div className="dotsContainer" style={dotsStyles}>{dots}</div>

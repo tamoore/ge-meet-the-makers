@@ -7,8 +7,49 @@
 			  content="Innovation Never Sleeps" />
 		<meta property="og:site_name" content="Meet the makers"/>
 		<meta property="og:type" content="article" />
-		<meta property="og:description" content="" />
+		<meta property="og:description" content="Over 24 hours they are changing our seas, our skies, our sun, our health, even our solar system. A new interactive documentary exploring 24 hours in the lives of these five extraordinary technological minds." />
+		<meta property="og:image" content="https://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/Meet+the+makers+composite_400x240.jpg" />
+		<script>
+			browser = {};
+			var browsers = [
+				[ 'chrome', /Chrom(?:e|ium)\/([0-9\.]+)(:?\s|$)/ ],
+				[ 'firefox', /Firefox\/([0-9\.]+)(?:\s|$)/ ],
+				[ 'opera', /Opera\/([0-9\.]+)(?:\s|$)/ ],
+				[ 'ie', /Trident\/7\.0.*rv\:([0-9\.]+)\).*Gecko$/ ],
+				[ 'ie', /MSIE\s([0-9\.]+);.*Trident\/[4-7].0/ ],
+				[ 'ie', /MSIE\s(7\.0)/ ],
+				[ 'bb10', /BB10;\sTouch.*Version\/([0-9\.]+)/ ],
+				[ 'android', /Android\s([0-9\.]+)/ ],
+				[ 'ios', /iPad\;\sCPU\sOS\s([0-9\._]+)/ ],
+				[ 'ios',  /iPhone\;\sCPU\siPhone\sOS\s([0-9\._]+)/ ],
+				[ 'safari', /Safari\/([0-9\._]+)/ ]
+			];
 
+			var match = browsers.map(match).filter(isMatch)[0];
+			var parts = match && match[3].split(/[._]/).slice(0,3);
+
+			while (parts && parts.length < 3) {
+				parts.push('0');
+			}
+
+			// set the name and version
+			browser.name = match && match[0];
+			browser.version = parts && parts.join('.');
+
+			function match(pair) {
+				return pair.concat(pair[1].exec(navigator.userAgent));
+			}
+
+			function isMatch(pair) {
+				return !!pair[2];
+			}
+			if(browser.name == "ie"){
+				if(parseInt(browser.version) < 10){
+					window.location.href = "http://labs.theguardian.com/innovation-never-sleeps/not-supported.html";
+				}
+			}
+
+		</script>
 		<link rel="shortcut icon" type="image/png" href="https://assets.guim.co.uk/images/favicons/79d7ab5a729562cebca9c6a13c324f0e/32x32.ico"/>
 		<link rel="apple-touch-icon" sizes="152x152" href="https://assets.guim.co.uk/images/favicons/451963ac2e23633472bf48e2856d3f04/152x152.png"/>
 		<link rel="apple-touch-icon" sizes="144x144" href="https://assets.guim.co.uk/images/favicons/1a3f98d8491f8cfdc224089b785da86b/144x144.png"/>

@@ -83,8 +83,8 @@ export class VideoContentComponent extends React.Component {
                     <div>
                         <p>{this.props.data.furniture.standfirst}</p>
                     </div>
-                    <a href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
-                    <a href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
+                    <a target="_blank" href={this.props.data.facebookShare} className="shareComponent facebookShare--button"><span className="assistive-text">Facebook</span></a>
+                    <a target="_blank" href={this.props.data.twitterShare} className="shareComponent twitterShare--button"><span className="assistive-text">Twitter</span></a>
                 </aside>
                 <iframe width={this.state.canvasWidth} height={this.state.canvasHeight} src={ytembed} frameborder="0" allowfullscreen></iframe>
             </div>
