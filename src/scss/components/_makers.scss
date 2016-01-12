@@ -1,0 +1,319 @@
+// Global
+.btn-close {
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	font-size: 1.4rem;
+	opacity: .2;
+	padding: 1rem;
+	position: fixed;
+	right: 1rem;
+	text-decoration: none;
+	top: 1rem;
+	transition: opacity .2s ease-out;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+// General panel styles
+
+.makers {
+  	@include display(flex);
+  	@include align-items(center);
+  	@include flex-direction(row);
+	@include flex-wrap(nowrap);
+
+	overflow: hidden;
+	position: relative;
+}
+
+.maker-panel {
+  	* {
+	  -webkit-font-smoothing: antialiased;
+	}
+	height: 100%;
+	min-height: 100vh;
+	overflow: hidden;
+  	cursor: pointer;
+	position: relative;
+	width: 20%;
+	transition: all 500ms ease-in-out;
+	&:before {
+	  pointer-events: none;
+	  content: "";
+	  position: absolute;
+	  z-index: 1;
+	  width: 100%;
+	  height: 100%;
+	  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQIW2NkYGCoZ2BgaITRjAxoACYAV4WhAgCV0AOEkNUCfgAAAABJRU5ErkJggg==), radial-gradient(transparent, black);;
+	}
+	.maker-panel-background {
+		background-image: url(../images/makers/bg.adam.fletcher.jpg);
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 0;
+
+		// PANEL BACKGROUNDS
+		&.maker-01 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-01.jpg);
+		}
+
+		&.maker-02 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-02.jpg);
+		}
+
+		&.maker-03 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-03.jpg);
+		}
+
+		&.maker-04 {
+			background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-04.jpg);
+		}
+
+		&.maker-05 {
+		  background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-05.jpg);
+		}
+
+		&.maker-06 {
+		  background-image: url(http://s3-ap-southeast-2.amazonaws.com/cdn.labs.theguardian.com/2015/meet-the-makers/images/maker-hero-06.jpg);
+		}
+	}
+
+  	.maker-content {
+	  height: 100vh;
+	  width: 100%;
+	  @include display(flex);
+	  @include flex-direction(column);
+	  @include align-items(center);
+	  @include justify-content(center);
+
+	}
+
+	.maker-portrait,
+	.maker-title,
+	.maker-name,
+	.maker-bio-excerpt,
+	.maker-bio {
+		display: none;
+	}
+
+
+
+	header {
+		//height: 100vh;
+		//padding-top: calc(50vh - 1.6rem);
+		overflow: hidden;
+		position: relative;
+		text-align: center;
+		z-index: 1;
+
+		.maker-industry {
+			display: block;
+			height: 3.2rem;
+			margin: 0 auto 2.1rem;
+			width: 3.2rem;
+		}
+
+		.maker-title {
+			font-family: Open Sans, sans-serif;
+			font-size: 1.6rem;
+			font-weight: 700;
+			line-height: 1;
+			margin: 0;
+
+		}
+
+		.maker-name {
+			font-family: Abel, sans-serif;
+			font-size: 3.2rem;
+			line-height: 1;
+			margin: 1.8rem 0 2rem;
+			text-transform: uppercase;
+			white-space: nowrap;
+		}
+
+		.maker-portrait {
+			height: 7.5rem;
+			margin: 0 auto 1.25rem;
+			width: 7.5rem;
+		}
+	  
+
+	}
+  .maker-bio-excerpt {
+	padding: 0 6rem;
+	font-size: 1.8rem;
+	line-height: 1.25;
+	text-align: center;
+	z-index: 1;
+	a {
+	  color: #ffffff;
+	  margin-top: 2rem;
+	  display: inline-block;
+	}
+
+  }
+  &[data-state="on"]{
+	.maker-bio-excerpt {
+	  display: block;
+	  max-width: calc(100% + 30px);
+	}
+	.maker-panel-background {
+	  @include filter(blur(12px));
+	}
+  }
+
+	// HIDE
+	&.maker-panel-hide {
+		display: none;
+	}
+
+	// HOVER STATE - NAME & TITLE
+	&.maker-panel-preview,
+	&:hover {
+
+		width: 50em;
+
+		header {
+			//padding-top: calc(50vh - 6rem);
+		}
+
+		.maker-title,
+		.maker-name {
+			display: block;
+		}
+
+
+	}
+
+	// CLICK STATE - BIO EXCERPT
+	&.maker-panel-excerpt {
+		width: 50em;
+
+		header {
+			height: auto;
+			padding-top: 9rem;
+
+			.maker-title,
+			.maker-name {
+				display: block;
+			}
+		}
+
+		.maker-portrait {
+			display: block;
+		}
+
+		.maker-bio-excerpt {
+			display: block;
+			margin: 0 auto;
+			position: relative;
+			width: 21.75rem;
+
+			p {
+				font-size: 1.4rem;
+				line-height: 1.35714;
+				margin: 0;
+				text-align: center;
+			}
+
+			a {
+				color: #fff;
+				cursor: pointer;
+				display: block;
+				padding: 3rem;
+				text-decoration: underline;
+			}
+		}
+
+		.maker-panel-background {
+			@include filter(blur(5px));
+		}
+
+	}
+
+	// OPEN STATE - BIO FULL
+	&.maker-panel-article {
+		left: 0;
+		overflow: scroll;
+		position: relative;
+		top: 0;
+		width: 100%;
+		z-index: 2;
+
+		header {
+			height: auto;
+			left: 10rem;
+			padding: 0;
+			position: fixed;
+			top: 8.5rem;
+			width: 23.5rem;
+			z-index: 3;
+
+			* {
+				display: block;
+				margin-left: 0;
+				text-align: left;
+			}
+		}
+
+		.content {
+			display: block;
+			left: 35rem;
+			position: absolute;
+			width: 58.6rem;
+
+			h1 {
+				font-family: Abel, sans-serif;
+				font-size: 5rem;
+				font-weight: 300;
+				line-height: 1.2;
+				text-transform: uppercase;
+			}
+
+			p {
+				font-size: 2.2rem;
+				line-height: 1.454545;
+			}
+
+			figure {
+				border: 1px solid #b2b2b2;
+				border-width: 1px 0;
+				display: block;
+				margin: 0;
+				padding: 2.1rem 0;
+				width: 100%;
+
+				img {
+					height: auto;
+					width: 100%;
+				}
+
+				figcaption {
+					padding-top: 1.4rem;
+
+					p {
+						color: #b2b2b2;
+						font-size: 1.4rem;
+						line-height: 1.285714;
+						margin: 0;
+						padding: 0;
+					}
+				}
+			}
+		}
+
+		//.maker-panel-background {
+		//	@include filter(blur(5px));
+		//	position: fixed;
+		//}
+	}
+}

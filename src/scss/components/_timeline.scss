@@ -1,0 +1,370 @@
+// Timeline
+#stateContainer {
+  @include transition(opacity 1s ease-in);
+}
+@at-root {
+  .usabilitySplash {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,.75);
+    z-index: 2;
+    p {
+      position: absolute;
+      font-family: 'Abel';
+      width: 300px;
+      font-size: 2rem;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+      left: 50%;
+      margin-left: -150px;
+      top: 35%;
+      small {
+        display: inline-block;
+        margin-top: 8rem;
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 15px;
+          top: 0px;
+          margin-top: -40px;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+          background-image: url(../images/arrow-left.svg);
+          cursor: pointer;
+          z-index: 100009;
+
+
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          right: 15px;
+          top: 0px;
+          margin-top: -40px;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+          background-image: url(../images/arrow.svg);
+          cursor: pointer;
+          z-index: 100009;
+        }
+      }
+
+    }
+  }
+
+}
+@at-root {
+  .pulse-left {
+    &:before {
+      @include animation-name(scale);
+      @include animation-duration(1s);
+      @include animation-delay(0);
+
+      @include animation-iteration-count(8);
+    }
+  }
+  .pulse-right {
+    &:after {
+      @include animation-name(scale);
+      @include animation-duration(1s);
+      @include animation-delay(0s);
+
+      @include animation-iteration-count(8);
+    }
+  }
+}
+
+@include keyframes(scale) {
+  0% {
+    @include transform(scale3d(1, 1, 1));
+  }
+  50%{
+    @include transform(scale3d(1.25, 1.25, 1.25));
+  }
+  100%{
+    @include transform(scale3d(1, 1, 1));
+  }
+}
+
+
+
+
+.timeline {
+
+  $markerLineBaseLine:  10px;
+  cursor: pointer;
+  clear: left;
+  padding-bottom: 2em;
+  width: 100%;
+  /* margin-top: 50vh; */
+  position: relative;
+  /* top: -160px; */
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 100vh;
+    left: 50vw;
+    margin-left: -.5px;
+    z-index: 100;
+    //background-color: rgba(0,0,0,.2);
+  }
+
+  .timeline-list {
+    //@include transition(all .1s cubic-bezier(0.250, 0.250, 0.750, 0.750));
+    font-size: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 4em;
+    position: relative;
+    width: 4900px; // ( 5em * 98 )
+    margin-top: 0px;
+    top: 50vh;
+    left: 50vw;
+    margin-left: -64px;
+
+    > li {
+      float: left;
+      margin: 0;
+      min-height: 6em;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      width: 5em;
+
+      // 5 data objects with fixed height to determine height
+      .marker-data {
+        height: 12em;
+        position: relative;
+
+        ul {
+          bottom: 0;
+          left: 0;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          width: 100%;
+        }
+
+        li {
+          margin: 0;
+          padding: 0;
+          &:last-child {
+            a {
+              margin-bottom: 0px;
+            }
+
+          }
+        }
+
+        a {
+          color: #fff;
+          display: block;
+          font-family: monospace;
+          font-size: 1.2rem;
+          height: 2.4rem;
+          line-height: 2.4rem;
+          margin: 0;
+          text-align: center;
+          text-decoration: none;
+          width: 2.4rem;
+          position: relative;
+          left: 1.4rem;
+          margin-bottom: 16px;
+
+          //border: 1px solid red;
+          @include transition(color 0.25s ease-in-out);
+
+          &:hover {
+            @include transform(scale(2.5));
+          }
+          &:focus {
+            @include transform(scale(1.5));
+            &:before {
+              @include transform(scale(1));
+            }
+          }
+          &::before {
+            content: "\2022";
+            font-size: 2.4rem;
+            @include transition(transform .05s ease-in);
+            @include transform(scale(1));
+            -webkit-font-smoothing: antialiased;
+          }
+        }
+
+      }
+
+      .marker-tick {
+        &:before {
+          position: absolute;
+          content: "";
+          background-color: rgba(255,255,255,.8);
+          bottom: $markerLineBaseLine;
+          width: 100%;
+          height: .3rem;
+
+          box-shadow: 2px 3px 0px 0px rgba(0, 0, 0, 0.3);
+        }
+        background-size: 0 0;
+        display: block;
+        height: 2.5em;
+
+        &.marker-tick-long {
+          &:before {
+            content: "";
+            bottom: $markerLineBaseLine;
+          }
+
+          background-size: 1px 1.5em;
+        }
+
+        &.marker-tick-short {
+          &:before {
+
+          }
+          background-size: 1px .75em;
+        }
+      }
+
+      .marker-line {
+        display: block;
+        height: .3rem;
+        width: 100%;
+
+        &.marker-line-start{
+          left: 50%;
+          position: relative;
+          width: 50%;
+        }
+
+        &.marker-line-end {
+          width: 50%;
+          width: calc(50% + 1px);
+        }
+      }
+
+      .marker-label {
+        &:before {
+          content: "";
+          width: 1px;
+          height: 24px;
+          top: -34px;
+          left: 50%;
+          position: absolute;
+          background-color: rgba(255,255,255,0.6);
+        }
+        display: block;
+        font-family: Abel, sans-serif;
+        font-size: 1.3rem;
+        line-height: 1;
+        margin: 0 auto;
+        padding: 0;
+        position: absolute;
+        bottom: -35px;
+        text-align: center;
+        width: 100%;
+        -webkit-font-smoothing: antialiased;
+      }
+
+    }
+  }
+  [data-minute="30"]{
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: -0px;
+      width: 1px;
+      height: 10px;
+      background-color: rgba(255,255,255,0.4);
+    }
+
+  }
+}
+
+@for $i from 1 through 6 {
+  #stateContainer.maker-#{$i} {
+    li {
+      .pullQuote {
+        opacity: 0;
+      }
+      a {
+        color:rgba(255,255,255,.1);
+
+      }
+    }
+    [data-maker="#{$i}"] {
+      a {
+        color: rgba(255,255,255,1);
+
+      }
+
+    }
+  }
+}
+
+@at-root {
+  #stateContainer {
+    &.showing-preview {
+      .pullQuote {
+        opacity: 0;
+
+      }
+    }
+
+  }
+}
+
+@at-root {
+  .pullQuote {
+    margin-left: -5px;
+    pointer-events: none;
+    @include transition(opacity .75s ease);
+    @include transform(translateY(-11px));
+    #previewElement {
+      width: 0px;
+
+      h2 {
+        text-transform: none;
+        font-size: 2rem;
+        line-height: 1.25;
+        margin-left: 1.5rem;
+        top: -20px;
+        &:before {
+          display: none;
+        }
+        &:after {
+          content: attr(data-credit);
+          width: 1.7rem;
+          height: 1.7rem;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-image: none;
+          float: right;
+          clear: both;
+          display: block;
+          width: 100%;
+          text-align: left;
+          position: static;
+          font-family: "Open Sans";
+          font-weight: 600;
+          margin-top: 1.25rem;
+          font-size: 1.25rem;
+
+        }
+      }
+    }
+  }
+}
+
+

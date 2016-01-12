@@ -1,0 +1,40 @@
+@at-root {
+  .gallery {
+    //width: 640px;
+    //height: 360px;
+    position: absolute;
+    top: 15rem;
+    left: 30%;
+    opacity: 0;
+    @include transition(opacity 1s ease);
+    &[data-state="ready"]{
+      opacity: 1;
+    }
+    cursor: pointer;
+  }
+}
+
+.dotsContainer {
+
+  height: 2rem;
+  position: fixed;
+  width: calc(100% - 30%);
+  left: 30%;
+  top: 15rem;
+  text-align: center;
+  > a {
+    display: inline-block;
+    margin-right: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin-top: .5rem;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    &.active {
+      background-color: #fff;
+    }
+  }
+
+}

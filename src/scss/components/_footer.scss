@@ -1,0 +1,226 @@
+.meet-the-makers-wrapper {
+  .base {
+    top: -57px !important;
+    opacity: 0.01;
+    &[data-state="active"] {
+      opacity: 1;
+    }
+    .logo-guardian {
+      top: 25px;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+    .controlsWrapper {
+      bottom: 10px;
+    }
+
+    @include transition(opacity .5s ease-in);
+    z-index: 2;
+    background-color: rgba(0,0,0,.4);
+    padding-top: 2rem;
+    box-shadow: inset 0px 0px 8px 3px rgba(0,0,0,.5);
+    h1 {
+      cursor: pointer;
+      float: left;
+      font-size: 12px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.08333333333;
+      margin: 0 2em 0 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      text-transform: uppercase;
+      padding-left: 2rem;
+      a {
+        color: #fff;
+        text-decoration: none;
+
+      }
+
+    }
+  }
+}
+
+.base {
+  z-index: 1000000000;
+  align-items: center;
+  clear: both;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 2rem;
+  position: absolute;
+  width: 100%;
+  margin-top: 100vh;
+  top: -95px;
+  @at-root {
+    .sponsor {
+      float: left;
+      margin-left: 2rem;
+      min-width: 45em;
+
+      &.meet-the-makers {
+        position: absolute;
+        z-index: 4;
+        top: 1rem;
+        left: 1rem;
+        .ge-logo-anchor:after {
+          left: 6rem;
+        }
+      }
+      p {
+        font-family: "Open Sans", sans-serif;
+        font-size: 10px;
+        font-size: 1rem;
+        font-weight: 300;
+        display: block;
+        margin: 0 0 1.5em;
+
+      }
+
+      .logo-ge {
+        background: url(../images/logo.ge.svg) 50% 50% no-repeat;
+        background-size: contain;
+        float: left;
+        height: 4em;
+        margin-right: 2rem;
+        width: 4em;
+      }
+
+      .tagline {
+        font-size: 12px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase;
+        position: relative;
+        left: 2rem;
+        span {
+          -webkit-font-smoothing: antialiased;
+          display: block;
+          font-weight: 500;
+          &:nth-child(1){
+            margin-bottom: .1rem;
+            padding-top: .5rem;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+
+  .controls {
+    display: block;
+    margin-right: 10rem;
+    //flex: 2 1 auto;
+    //float: right;
+    //justify-content: flex-end;
+    #footer-audio {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjI5OS4xIDAgOTgxLjcgODAwIj48ZyBmaWxsPSIjZmZmZmZmIj48cmVjdCB4PSIyOTkuMSIgeT0iMjQwLjIiIHdpZHRoPSIyODIuMiIgaGVpZ2h0PSI3MC41Ii8+PHJlY3QgeD0iMjk5LjEiIHk9IjM3Mi4yIiB3aWR0aD0iMjgyLjIiIGhlaWdodD0iNzAuNSIvPjxyZWN0IHg9IjI5OS4xIiB5PSI0OTYuOCIgd2lkdGg9IjI4Mi4yIiBoZWlnaHQ9IjcwLjUiLz48cmVjdCB4PSIyOTkuMSIgeT0iNjEwLjkiIHdpZHRoPSIyODIuMiIgaGVpZ2h0PSI3MC41Ii8+PHJlY3QgeD0iMjk5LjEiIHk9IjcyOS41IiB3aWR0aD0iMjgyLjIiIGhlaWdodD0iNzAuNSIvPjxyZWN0IHg9IjY1Ny45IiB5PSI0OTYuOCIgd2lkdGg9IjI4Mi4yIiBoZWlnaHQ9IjcwLjUiLz48cmVjdCB4PSI2NTcuOSIgeT0iNjEwLjkiIHdpZHRoPSIyODIuMiIgaGVpZ2h0PSI3MC41Ii8+PHJlY3QgeD0iNjU3LjkiIHk9IjcyOS41IiB3aWR0aD0iMjgyLjIiIGhlaWdodD0iNzAuNSIvPjxyZWN0IHg9Ijk5OC42IiB5PSIyNDAuMiIgd2lkdGg9IjI4Mi4yIiBoZWlnaHQ9IjcwLjUiLz48cmVjdCB4PSI5OTguNiIgeT0iMzcyLjIiIHdpZHRoPSIyODIuMiIgaGVpZ2h0PSI3MC41Ii8+PHJlY3QgeD0iOTk4LjYiIHk9IjQ5Ni44IiB3aWR0aD0iMjgyLjIiIGhlaWdodD0iNzAuNSIvPjxyZWN0IHg9Ijk5OC42IiB5PSI2MTAuOSIgd2lkdGg9IjI4Mi4yIiBoZWlnaHQ9IjcwLjUiLz48cmVjdCB4PSI5OTguNiIgeT0iNzI5LjUiIHdpZHRoPSIyODIuMiIgaGVpZ2h0PSI3MC41Ii8+PHJlY3QgeD0iOTk4LjYiIHdpZHRoPSIyODIuMiIgaGVpZ2h0PSI3MC41Ii8+PHJlY3QgeD0iOTk4LjYiIHk9IjExNC4xIiB3aWR0aD0iMjgyLjIiIGhlaWdodD0iNzAuNSIvPjwvZz48L3N2Zz4=);
+
+    }
+    #footer-facebook {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNjYuOSAyNjYuOSI+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTI1Mi4yIDBIMTQuN0M2LjYgMCAwIDYuNiAwIDE0Ljd2MjM3LjRjMCA4LjEgNi42IDE0LjcgMTQuNyAxNC43aDEyNy44VjE2My41aC0zNC44di00MC4zaDM0LjhWOTMuNmMwLTM0LjUgMjEuMS01My4yIDUxLjgtNTMuMiAxNC43IDAgMjcuNCAxLjEgMzEuMSAxLjZ2MzZsLTIxLjMgMGMtMTYuNyAwLTIwIDcuOS0yMCAxOS42djI1LjdIMjI0bC01LjIgNDAuM2gtMzQuN3YxMDMuNGg2OGM4LjEgMCAxNC43LTYuNiAxNC43LTE0LjdWMTQuN0MyNjYuOSA2LjYgMjYwLjMgMCAyNTIuMiAweiIvPjwvZz48L3N2Zz4=);
+    }
+    #footer-twitter {
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzMuNCAyMjIuMiI+PGcgZmlsbD0iI2ZmZmZmZiI+PGRlZnM+PHJlY3QgeD0iMC4xIiB5PSIwIiB3aWR0aD0iMjczLjMiIGhlaWdodD0iMjIyLjEiLz48L2RlZnM+PGNsaXBQYXRoPjx1c2Ugb3ZlcmZsb3c9InZpc2libGUiLz48L2NsaXBQYXRoPjxwYXRoIGNsaXAtcGF0aD0idXJsKCNTVkdJRF8yXykiIGQ9Ik04NiAyMjIuMmMtMzEuNyAwLTYxLjItOS4zLTg2LTI1LjIgNC40IDAuNSA4LjkgMC44IDEzLjQgMC44IDI2LjMgMCA1MC41LTkgNjkuNy0yNCAtMjQuNS0wLjUtNDUuMy0xNi43LTUyLjQtMzkgMy40IDAuNyA2LjkgMSAxMC42IDEgNS4xIDAgMTAuMS0wLjcgMTQuOC0yIC0yNS43LTUuMi00NS0yNy44LTQ1LTU1IDAtMC4yIDAtMC41IDAtMC43IDcuNiA0LjIgMTYuMiA2LjcgMjUuNCA3IC0xNS4xLTEwLjEtMjUtMjcuMi0yNS00Ni43IDAtMTAuMyAyLjgtMTkuOSA3LjYtMjguMiAyNy43IDMzLjkgNjkgNTYuMyAxMTUuNiA1OC42IC0xLTQuMS0xLjUtOC40LTEuNS0xMi44IDAtMzEgMjUuMS01Ni4xIDU2LjEtNTYuMSAxNi4xIDAgMzAuNyA2LjggNDAuOSAxNy43IDEyLjgtMi41IDI0LjgtNy4yIDM1LjYtMTMuNiAtNC4yIDEzLjEtMTMuMSAyNC4xLTI0LjcgMzEgMTEuMy0xLjQgMjIuMi00LjQgMzIuMi04LjggLTcuNSAxMS4yLTE3IDIxLjEtMjggMjkgMC4xIDIuNCAwLjIgNC44IDAuMiA3LjNDMjQ1LjYgMTM2LjcgMTg5LjEgMjIyLjIgODYgMjIyLjIiLz48L2c+PC9zdmc+);
+
+    }
+    #footer-linkedin {
+      background-image: url(../images/linkedin-main.svg);
+
+    }
+    ul {
+      align-items: baseline;
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      //top: 1em;
+    }
+
+    li {
+      float: left;
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      margin: 0;
+      outline: none;
+      padding: 0;
+    }
+
+    a,
+    button {
+      pointer: cursor;
+      color: #fff;
+      fill: #fff;
+      display: inline-block;
+      font-size: 10px;
+      font-size: 1rem;
+      background-repeat: no-repeat;
+      background-position: center center;
+      font-weight: 300;
+      margin: 0;
+      padding: .5em 1.5em;
+      text-decoration: none;
+    }
+
+    svg {
+      height: 1.8rem;
+      width: 1.8rem;
+
+      path,
+      rect {
+        fill: #fff;
+      }
+
+      path.icon-letters {
+        fill: #000000;
+      }
+    }
+  }
+
+  .logo-guardian {
+    float: right;
+    position: relative;
+    top: 3px;
+    height: 1.45em;
+    margin: 0 2% 0 1rem;
+    order: 99;
+    //position: relative;
+    //top: 1.5rem;
+    width: 8.4em;
+  }
+}
+.controlsWrapper {
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+}
+.about-this-content {
+
+  color: #fff;
+  display: inline-block;
+  position: absolute;
+  right:5px;
+  bottom: -15px;
+  text-decoration: none;
+}
+
+.ge-logo-anchor:after {
+    content: "";
+    position: absolute;
+    height: 4rem;
+    width: 1px;
+    left: 8rem;
+    background-color: white;
+    @include transform(rotate(6deg));
+}

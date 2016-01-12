@@ -17,6 +17,11 @@
     "bourbon": "*",
     "neat": "latest",
     "sass-mq": "latest",
+<<<<<<< HEAD
     "normalize-scss": "~3.0.3"
+=======
+    "normalize-scss": "~3.0.3",
+    "gemini-scrollbar": "~1.2.5"
+>>>>>>> 957e1911c6f61c0a16982467ca13029cb1c3e535
   }
 }
